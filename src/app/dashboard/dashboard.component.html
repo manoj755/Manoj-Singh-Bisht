@@ -1,3 +1,73 @@
-<p>
-  dashboard works!
-</p>
+<h1>Dashboard</h1>
+<div id="sum_box" class="row mbl" style="margin-top: 20px; ">
+  <div class="col-sm-6 col-md-3">
+    <mat-card   >
+      <a href="javascript:" (click)="openDialog()"  mat-button  >
+        <div class="panel income db mbm">
+          <div class="panel-body "  >
+            <p class="icon">
+                <mat-icon>accessibility</mat-icon>
+
+            </p>
+            <h4 class="value">
+              <span >Browse Candidates</span></h4>
+
+          </div>
+        </div>
+      </a>
+    </mat-card>
+  </div>
+  <div class="col-sm-6 col-md-3">
+    <mat-card color='accent'>
+
+      <a href="#/history"  mat-button  ng-if="mp.page_history">
+        <div class="panel-body">
+          <p class="icon">
+              <mat-icon>pie_chart</mat-icon>
+          </p>
+          <h4 class="value">
+            <span data-counter="" data-start="10" data-end="50" data-step="1" data-duration="0"
+               >History</span></h4>
+
+
+        </div>
+      </a>
+    </mat-card>
+
+  </div>
+
+  <div class="col-sm-6 col-md-3" ng-if="mp.page_job">
+    <mat-card>
+      <a href="#/myjob"  mat-button >
+        <div class="panel-body">
+          <p class="icon">
+              <mat-icon>card_travel</mat-icon>
+          </p>
+          <h4 class="value">
+            <span  >My Jobs</span></h4>
+
+
+        </div>
+      </a></mat-card>
+
+  </div>
+  <div class="col-sm-6 col-md-3">
+    <mat-card>
+      <a href="#/billing"  mat-button  ng-if="mp.page_billing">
+        <div class="panel role db mbm">
+          <div class="panel-body" style="hight:20px;">
+            <p class="icon">
+                <mat-icon>attach_money</mat-icon>
+            </p>
+            <h4 class="value">
+              <span >Billing</span></h4>
+
+
+          </div>
+        </div>
+      </a>
+    </mat-card>
+
+  </div>
+
+</div>

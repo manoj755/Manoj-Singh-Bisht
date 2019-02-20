@@ -1,3 +1,13 @@
-<p>
-  history works!
-</p>
+<h1>History</h1>
+<button (click)="getSelectedRows()">Get Selected Rows</button>
+<ag-grid-angular
+#agGrid
+    style=" height: 500px;"
+    class="ag-theme-balham"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    rowSelection="multiple"
+    [pagination]='true'
+    [paginationPageSize]='20'
+    >
+</ag-grid-angular>
