@@ -1,75 +1,64 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Component } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
+
+import { AppRoutingModule } from './app.routing';
+import { ComponentsModule } from './components/components.module';
+
+import { AppComponent } from './app.component';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { TableListComponent } from './table-list/table-list.component';
+import { TypographyComponent } from './typography/typography.component';
+import { IconsComponent } from './icons/icons.component';
+import { MapsComponent } from './maps/maps.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { UpgradeComponent } from './upgrade/upgrade.component';
+import {  LoginComponent } from "./login/login.component";
+ 
 import {
   MatButtonModule, MatCardModule, MatIconModule, MatSidenavModule, MatListModule,
   MatToolbarModule, MatMenuModule, MatSlideToggleModule, MatCheckboxModule,
   MatSliderModule, MatSelectModule, MatRadioModule, MatInputModule, MatDatepickerModule,
   MatFormFieldModule, MatNativeDateModule,
   MatDialogModule, MatProgressSpinnerModule,
-  MatSnackBarModule,
+  MatSnackBarModule 
 } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { DashboardComponent } from './dashboard/dashboard.component';
-
-import { InternalDatabaseComponent } from './internal-database/internal-database.component';
+import {
+  AgmCoreModule
+} from '@agm/core';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HistoryComponent } from './history/history.component';
-import { NewJobComponent } from './new-job/new-job.component';
 import { MyJobComponent } from './my-job/my-job.component';
-
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { SettingsComponent } from './settings/settings.component';
-import { LoginComponent } from './login/login.component';
-import { DBService } from './db.service';
-
-import { AgGridModule } from 'ag-grid-angular';
-const appRoutes: Routes = [
-  { path: 'myjob', component: MyJobComponent },
-  { path: 'newjob', component: NewJobComponent },
-  { path: 'history', component: HistoryComponent },
-  {
-    path: 'login', component: LoginComponent,
-    data: { islogin: true }
-  },
-  { path: 'internaldatabase', component: InternalDatabaseComponent },
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    data: { title: 'Dashborad' }
-  },
-  {
-    path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full'
-  },
-  { path: '**', component: PageNotFoundComponent }
-];
+import { BillingComponent } from './billing/billing.component';
+import { InternalDatabaseComponent } from './internal-database/internal-database.component';
+import { NewJobComponent } from './new-job/new-job.component';
+import { CallDetailComponent } from './call-detail/call-detail.component';
+import { MessageTemplateComponent } from './message-template/message-template.component';
+import { ClientComponent } from './client/client.component';
+import { AddNewTrackerComponent } from './add-new-tracker/add-new-tracker.component';
+import { TrackerFieldsComponent } from './tracker-fields/tracker-fields.component';
+import { UsersComponent } from './users/users.component';
+import { ChannelComponent } from './channel/channel.component';
+import { AddToJobComponent } from './control/add-to-job/add-to-job.component';
+import { MyTeamComponent } from './control/my-team/my-team.component';
+import { AddCandidateComponent } from './control/add-candidate/add-candidate.component'; 
+import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-reference.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    DashboardComponent,
-    HistoryComponent,
-    NewJobComponent,
-    MyJobComponent,
-    PageNotFoundComponent,
-    InternalDatabaseComponent,
-    SettingsComponent,
-    LoginComponent
-  ],
   imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    ),
-    BrowserModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    HttpModule,
+    ComponentsModule,
+    RouterModule,
+    AppRoutingModule,
     MatButtonModule,
     MatCheckboxModule,
     MatDatepickerModule,
@@ -82,7 +71,6 @@ const appRoutes: Routes = [
     MatSlideToggleModule,
     MatMenuModule,
     MatToolbarModule,
-    FlexLayoutModule,
     RouterModule,
     MatSidenavModule,
     FormsModule,
@@ -93,14 +81,17 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     HttpClientModule,
     MatSnackBarModule,
-
-    AgGridModule.withComponents([])
-
+    AgmCoreModule.forRoot({
+      apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
+    }), 
   ],
-  providers: [DBService],
+  declarations: [
+    AppComponent,
+    AdminLayoutComponent, 
+  
+  
+  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-
-
-}
+export class AppModule { }

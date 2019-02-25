@@ -13,12 +13,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private db: DBService) {
 
   }
-  username = '';
-  password = '';
-  remember = false;
+   loginData={username : '',
+   password : '',  remember : false};
   showSpinner = false;
   login(): void {
-    const data = { email: this.username, password: this.password, remember: this.remember };
+
+    const data = { email: this.loginData.username, password: this.loginData.password, remember: this.loginData.remember };
     this.showSpinner = true;
     this.db.post('authenticate/?employer=1', data, ((response): void => {
       this.db.setToken(response.token);

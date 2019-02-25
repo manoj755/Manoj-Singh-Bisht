@@ -1,0 +1,200 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Edit Profile</h4>
+                      <p class="card-category">Complete your profile</p>
+                  </div>
+                  <div class="card-body">
+                       
+                          <div class="row">
+                              
+                          
+                              <div class="col-md-12" >
+                                  <div class="box box-primary">
+                                      <div class="box-body">
+                                          <ul class="nav nav-tabs">
+                                              <li class="active" ><a href="" ng-click="ProfileTabs(0)" data-toggle="tab">Update Profile<i class="fa"></i></a></li>
+                                              <li><a href=""   ng-click="ProfileTabs(1)" data-toggle="tab">Password Change<i class="fa"></i></a></li>
+                                          </ul><br>
+                                          <div class="box-title">
+                    
+                    
+                                              <div class="tab-content">
+                                                  <div class="tab-pane active"  ng-show="tabindex == 0"  ng-hide="tabindex != 0" id="info-tab">
+                    
+                    
+                    
+                    
+                                                      <div class="form-horizontal">
+                    
+                                                          <div class="form-group">
+                                                              
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="text" class="form-control" id="inputName"   [(ngModel)]="db.profile.name" placeholder="Name">
+                                                              </div>
+                                                          </div>
+                                                         
+                                                          <div class="form-group">
+                                                              <label for="inputEmail" class="col-sm-2 control-label">Profile Image</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  
+                    
+                                                              </div>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label for="inputName" class="col-sm-2 control-label">Email:</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="email" disabled="" class="form-control" id="inputName" [(ngModel)]="db.profile.email" placeholder="Email">
+                                                              </div>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label for="inputExperience" class="col-sm-2 control-label">Mobile:</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="text" class="form-control" id="inputName" [(ngModel)]="db.profile.mobileNo" placeholder="Mobile">
+                                                              </div>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label for="inputExperience" class="col-sm-2 control-label">Phone:</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="text" class="form-control" id="inputName" [(ngModel)]="db.profile.phoneNo" placeholder="Mobile">
+                                                              </div>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label  class="col-sm-2 control-label">Address</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="text" class="form-control"  [(ngModel)]="db.profile.address" placeholder="Address">
+                                                              </div>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <label  class="col-sm-2 control-label">Email Password</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="password" class="form-control"  [(ngModel)]="db.profile.mailpassword" placeholder="Email Password">
+                                                              </div>
+                                                          </div>
+                                                          <div class="form-group hidden">
+                                                              <label  class="col-sm-2 control-label">Server Name</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="text" class="form-control"  [(ngModel)]="db.profile.outgoing_server" placeholder="Outgoing Server">
+                                                              </div>
+                                                          </div>
+                                                          <div class="form-group hidden">
+                                                              <label  class="col-sm-2 control-label">Port</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="text" class="form-control"  [(ngModel)]="db.profile.port" placeholder="port">
+                                                              </div>
+                                                          </div>
+                                                          <div class="form-group hidden">
+                                                              <label for="d" class="col-sm-2 control-label">Ssl</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="text" class="form-control"  [(ngModel)]="db.profile.ssl_details" placeholder="Ssl">
+                                                              </div>
+                                                          </div>
+                                                          <div class="form-group hidden" >
+                                                              <label for="d" class="col-sm-2 control-label">Mail Driver</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="text" class="form-control"  [(ngModel)]="db.profile.driver" placeholder="Mail Driver">
+                                                              </div>
+                                                          </div>
+                                                          <div class="form-group">
+                                                              <div class="col-sm-offset-2 col-sm-8">
+                                                                  <button type="submit" class="btn  btn-raised btn-danger"  ng-click="updateprofie()">Update</button>
+                                                              </div>
+                                                          </div>
+                                                        </div>	
+                    
+                    
+                    
+                    
+                                                  </div>
+                    
+                                                  <div ng-show="tabindex == 1" ng-hide="tabindex != 1" class="tab-pane active" id="address-tab">
+                    
+                    
+                    
+                    
+                    
+                    
+                                                      <div class="form-horizontal">
+                    
+                                                          <div class="form-group">
+                                                              <label for="inputName"  class="col-sm-2 control-label">Current Password</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="password" [(ngModel)]="changepassword.password" class="form-control" id="inputName_ss"  placeholder="Password">
+                                                              </div>
+                                                          </div>
+                    
+                                                          <div class="form-group">
+                                                              <label for="inputEmail" class="col-sm-2 control-label">New Password</label>
+                    
+                                                              <div class="col-sm-8">
+                                                                  <input type="password" [(ngModel)]="changepassword.newpassword" class="form-control" id="inputName_ssss"  placeholder="New Password">
+                    
+                                                                   
+                                                              </div>
+                                                          </div>
+                    
+                    
+                    
+                    
+                                                          <div class="form-group">
+                                                              <div class="col-sm-offset-2 col-sm-8">
+                                                                  <button type="submit" ng-click="changepasswordfun()" class="btn  btn-raised btn-info"  >Password Update</button>
+                                                              </div>
+                                                          </div>
+                                                        </div>	
+                    
+                    
+                    
+                    
+                                                  </div>
+                                              </div>
+                    
+                    
+                                            </div>
+                                          </div>
+                                      </div>
+                                  
+                              </div>
+                              
+                          </div>
+                          <button mat-raised-button type="submit" class="btn btn-danger pull-right">Update Profile</button>
+                          <div class="clearfix"></div>
+   
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="card card-profile">
+                  <div class="card-avatar">
+                      <a href="#pablo">
+                          <img class="img" [src]="db.profile.profilepic"  />
+                      </a>
+                  </div>
+                  <div class="card-body">
+                      <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                      <h4 class="card-title">{{db.profile.name}}</h4>
+                      <p class="card-description">
+                          Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                      </p>
+                      <a href="#pablo" class="btn btn-danger btn-round">Follow</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

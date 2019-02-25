@@ -7,6 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InternalDatabaseComponent implements OnInit {
 
+  clients:any=[];
+  addtojob:any={};
+  sendemailmodel:any={};
+  copycandidate:any={};
+  myjob:any={};
+  sms:any={};
+  addnewjob:any={};
+  profile:any={};
+  store:any={};  
+  emailselected:any={};   
+  smsselected:any={};
   constructor() { }
 
   ngOnInit() {
