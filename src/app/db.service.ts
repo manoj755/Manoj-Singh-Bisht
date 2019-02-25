@@ -1,7 +1,7 @@
 import { Injectable, OnInit, } from '@angular/core';
 // import { type } from 'os';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { isArray, isObject } from 'util';
 type ICallback = (response: any) => void;
@@ -10,28 +10,28 @@ type ICallback = (response: any) => void;
   providedIn: 'root'
 })
 export class DBService implements OnInit {
-  token: string;
   static islogin = true;
+  token: string;
   // rooturi = 'http://127.0.0.1:8000/';
   rooturi = 'https://api.passivereferral.com/';
-  // var rooturi = "http://localhost:8000/";
-  // var rooturi = "http://192.168.1.198:8080/laravel/public/";
+  // var rooturi = 'http://localhost:8000/';
+  // var rooturi = 'http://192.168.1.198:8080/laravel/public/';
   ServiceURL = this.rooturi + 'index.php/api/';
   CurrentURL: string;
   LoginURL = 'login';
   clientsdepartment = '';
   profile: any = {};
   PF: any = {};
-  mp:any={};
+  mp: any = {};
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
 
   }
-  setProfile():any {
+  setProfile(): any {
 
-    
-     this.list('profile/', null, ((response): void => {
 
-      if (response.is_ats == '0') {
+    this.list('profile/', null, ((response): void => {
+
+      if (response.is_ats === '0') {
         this.clientsdepartment = 'Department';
       }
 
@@ -45,25 +45,26 @@ export class DBService implements OnInit {
 
     this.list('mypermission/', null, ((response): void => {
 
-      var data = response.data;
+      const data = response;
       this.mp = {};
-      for (var i in data) {
+      if (data !== null) {
+        for (const i in data) {
           this.mp[data[i].slug] = true;
+        }
       }
-
     }));
   }
   ngOnInit() {
     this.setProfile();
-  //   if (this.profile.id == 53) {
-  //     this.db.list('smsemailreport/', null, ((response): void =>  {
-  //       this.smsemailreports = response;
-  //     }));
-  //     this.showemailmsgreports = true;
-  // } else
-  // {
-  //     this.showemailmsgreports = false;
-  // }
+    //   if (this.profile.id == 53) {
+    //     this.db.list('smsemailreport/', null, ((response): void =>  {
+    //       this.smsemailreports = response;
+    //     }));
+    //     this.showemailmsgreports = true;
+    // } else
+    // {
+    //     this.showemailmsgreports = false;
+    // }
     this.token = localStorage.token;
   }
   getToken(): string {
@@ -92,12 +93,13 @@ export class DBService implements OnInit {
   }
 
   showMessage(message: any, action?: string, durationMS?: number): void {
-    debugger;
+
 
     if (isObject(message) && message.status === 0) {
-      message = 'Please check your internet';
+      message = 'Please check your internet.';
+    } else if (isObject(message) && message.status === 401) {
+      message = 'Please authenticate to access secured resource.';
     }
-
     console.log(message);
     if (action === undefined) {
       action = 'Message';

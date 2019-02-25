@@ -22,11 +22,21 @@
             ],
             "styles": [
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/flatpickr/dist/flatpickr.css",
+              "node_modules/angular-slickgrid/lib/multiple-select/multiple-select.css",
               "src/assets/scss/material-dashboard.scss",
-              "src/assets/css/demo.css"
+              "src/assets/css/demo.css",
+              "node_modules/angular-slickgrid/styles/css/slickgrid-theme-bootstrap.css"
             ],
             "scripts": [
+
+
               "node_modules/jquery/dist/jquery.js",
+              "node_modules/jquery-ui-dist/jquery-ui.min.js",
+
+              "node_modules/slickgrid/lib/jquery.event.drag-2.3.0.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/angular-slickgrid/lib/multiple-select/multiple-select.js",
               "node_modules/popper.js/dist/umd/popper.js",
               "node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.min.js",
               "node_modules/arrive/src/arrive.js",
@@ -80,8 +90,23 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
+            "styles": [
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/flatpickr/dist/flatpickr.css",
+              "node_modules/angular-slickgrid/lib/multiple-select/multiple-select.css",
+              "src/assets/scss/material-dashboard.scss",
+              "src/assets/css/demo.css",
+              "node_modules/angular-slickgrid/styles/css/slickgrid-theme-bootstrap.css"
+            ],
             "scripts": [
+
+
               "node_modules/jquery/dist/jquery.js",
+              "node_modules/jquery-ui-dist/jquery-ui.min.js",
+
+              "node_modules/slickgrid/lib/jquery.event.drag-2.3.0.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/angular-slickgrid/lib/multiple-select/multiple-select.js",
               "node_modules/popper.js/dist/umd/popper.js",
               "node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.min.js",
               "node_modules/arrive/src/arrive.js",
@@ -89,11 +114,6 @@
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
               "node_modules/chartist/dist/chartist.js"
-            ],
-            "styles": [
-              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
-              "src/assets/scss/material-dashboard.scss",
-              "src/assets/css/demo.css"
             ],
             "assets": [
               "src/assets",

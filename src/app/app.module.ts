@@ -2,14 +2,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+// import { AngularSlickgridModule } from 'angular-slickgrid';
 
-import { HttpClientModule } from '@angular/common/http';
+
 import { RouterModule } from '@angular/router';
-
-
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -20,15 +21,15 @@ import { IconsComponent } from './icons/icons.component';
 import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
-import {  LoginComponent } from "./login/login.component";
- 
+import {  LoginComponent } from './login/login.component';
+
 import {
   MatButtonModule, MatCardModule, MatIconModule, MatSidenavModule, MatListModule,
   MatToolbarModule, MatMenuModule, MatSlideToggleModule, MatCheckboxModule,
   MatSliderModule, MatSelectModule, MatRadioModule, MatInputModule, MatDatepickerModule,
   MatFormFieldModule, MatNativeDateModule,
   MatDialogModule, MatProgressSpinnerModule,
-  MatSnackBarModule 
+  MatSnackBarModule
 } from '@angular/material';
 import {
   AgmCoreModule
@@ -48,9 +49,11 @@ import { UsersComponent } from './users/users.component';
 import { ChannelComponent } from './channel/channel.component';
 import { AddToJobComponent } from './control/add-to-job/add-to-job.component';
 import { MyTeamComponent } from './control/my-team/my-team.component';
-import { AddCandidateComponent } from './control/add-candidate/add-candidate.component'; 
+import { AddCandidateComponent } from './control/add-candidate/add-candidate.component';
 import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-reference.component';
-
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -83,13 +86,15 @@ import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-refer
     MatSnackBarModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }), 
+    }),
+
+
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent, 
-  
-  
+    AdminLayoutComponent,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]
