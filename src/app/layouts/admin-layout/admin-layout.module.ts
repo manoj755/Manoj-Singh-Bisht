@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
 import { AngularSlickgridModule } from 'angular-slickgrid';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
@@ -90,6 +91,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    AgGridModule.withComponents([]),
     // TranslateService,
     NgSelectModule,
   ],

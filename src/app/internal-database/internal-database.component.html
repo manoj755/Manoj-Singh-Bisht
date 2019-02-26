@@ -1,328 +1,300 @@
 <div class="main-content">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-    <!-- Small boxes (Stat box) -->
- 
-
+  <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4 col-sm-8 hidden">
+      <div class="col-12">
+        <!-- Small boxes (Stat box) -->
 
-            <button type="button"  class="btn btn-block btn-primary btn-md"  data-toggle="modal" data-target="#myModal-2">Email</button>
+
+        <div class="row">
+          <div class="col-md-4 col-sm-8 hidden">
+
+            <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal"
+              data-target="#myModal-2">Email</button>
 
             <!--<div ng-include="'views/partialviews/sendEmailForm.html'"></div>-->
-            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-2" class="modal fade">
-                <div class="modal-dialog" id="internalemail">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Email</h4>    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        
+            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-2"
+              class="modal fade">
+              <div class="modal-dialog" id="internalemail">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Email</h4> <button aria-hidden="true" data-dismiss="modal" class="close"
+                      type="button">×</button>
+
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="form-horizontal" role="form">
+                      <div class="form-group">
+
+                        <div class="col-lg-10">
+                          <input type="text" [(ngModel)]="sendemailmodel.prmTo" class="form-control m" n="To" validate
+                            id="inputEmail4" placeholder="TO:">
                         </div>
-                        <div class="modal-body">
+                      </div>
+                      <div class="form-group">
 
-                            <div class="form-horizontal" role="form">
-                                <div class="form-group">
+                        <div class="col-lg-10">
+                          <input type="text" [(ngModel)]="sendemailmodel.prmCC" class="form-control m" n="CC" validate
+                            id="inputEmail5" placeholder="CC:">
+                        </div>
 
-                                    <div class="col-lg-10">
-                                        <input type="text" [(ngModel)]="sendemailmodel.prmTo" class="form-control m" n="To" validate id="inputEmail4" placeholder="TO:">
-                                    </div>
-                                </div>
-                                <div class="form-group">
+                      </div>
+                      <div class="form-group">
 
-                                    <div class="col-lg-10">
-                                        <input type="text"  [(ngModel)]="sendemailmodel.prmCC" class="form-control m" n="CC" validate id="inputEmail5" placeholder="CC:">
-                                    </div>
+                        <div class="col-lg-10">
+                          <input type="text" class="form-control m" n="BCC" validate [(ngModel)]="sendemailmodel.prmBCC"
+                            id="inputEmail5" placeholder="BCC:">
+                        </div>
 
-                                </div>
-                                <div class="form-group">
+                      </div>
 
-                                    <div class="col-lg-10">
-                                        <input type="text" class="form-control m" n="BCC" validate  [(ngModel)]="sendemailmodel.prmBCC" id="inputEmail5" placeholder="BCC:">
-                                    </div>
+                      <div class="form-group">
 
-                                </div>
+                        <div class="col-lg-10">
+                          <input type="file" class="form-control" [(ngModel)]="sendemailmodel.prmAttachment" id="upload"
+                            placeholder="Attechment">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-10">
 
-                                <div class="form-group">
+                          <select class="form-control m-bot15" [(ngModel)]="sendmailselected"
+                            ng-options="x.title for x of emailmessagetemplates" name="emailmessagetemplate_id">
 
-                                    <div class="col-lg-10">
-                                        <input type="file" class="form-control"  [(ngModel)]="sendemailmodel.prmAttachment" id="upload" placeholder="Attechment">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-10">
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
 
-                                        <select class="form-control m-bot15" [(ngModel)]="sendmailselected"  ng-options="x.title for x of emailmessagetemplates" name="emailmessagetemplate_id">
+                        <div class="col-lg-10">
+                          <input type="text" class="form-control e" n="" [(ngModel)]="sendemailmodel.prmSubject"
+                            id="inputEmail5" placeholder="Subject:">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
 
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-
-                                    <div class="col-lg-10">
-                                        <input type="text" class="form-control e" n=""  [(ngModel)]="sendemailmodel.prmSubject"  id="inputEmail5" placeholder="Subject:">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-12 col-sm-12 col-xs-12">
-
-                                        <textarea class="form-control e" id="textareaemail" placeholder="message"  [(ngModel)]="sendemailmodel.prmMessagge" style="min-width: 100%; height: 87px;">
+                          <textarea class="form-control e" id="textareaemail" placeholder="message"
+                            [(ngModel)]="sendemailmodel.prmMessagge" style="min-width: 100%; height: 87px;">
 {{emailselected.message}}</textarea>
-                                    </div>
-                                </div>
-
-                                <button type="submit"  class="btn btn-primary btn-md" tar="#internalemail" ng-click="sendemailform()">send</button>
-                              </div>
-
                         </div>
+                      </div>
 
+                      <button type="submit" class="btn btn-primary btn-md" tar="#internalemail"
+                        ng-click="sendemailform()">send</button>
                     </div>
+
+                  </div>
+
                 </div>
+              </div>
             </div>
 
-        </div>
-        
-        <div class="col-md-4 " ng-show="mp.btn_take_internal_refeference">
-            <button type="button"  class="btn btn-block btn-primary btn-md"  data-toggle="modal" data-target="#myModal-3" help="Get referrence from selected candidates or send mail ">Get Reference/Send Mail</button>
-            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-3" class="modal fade">
-                <div class="modal-dialog" id="getrefer">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                 
-                            <h4 class="modal-title">Get References/Send Mail to Candidates</h4>           <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        </div>  
-                        <div class="modal-body">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="inputEmail" class="control-label col-xs-2">{{clientsdepartment}}:</label>
-                                    <div class="col-xs-10">
-                                        <select class="form-control m-bot15 e" n="Client" ng-change="getcandidatebyclient()" [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
-                                            <option value="{{x.id}}"  *ngFor="let  x of  clients">{{x.billingName}}</option>
+          </div>
 
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputPassword" class="control-label col-xs-2">Jobs:</label>
-                                    <div class="col-xs-10">
-                                        <select class="form-control m-bot15 e" n="Job" [(ngModel)]="myjob.add_new_job_id" name="add_new_job_id">
-                                            <option  value="{{x.id}}"  *ngFor="let  x of jobslistbyclients">{{x.job_title}}</option>
-                                               
-                                        </select>
-                                    </div>
-                                </div>
+          <div class="col-md-4 " ng-show="mp.btn_take_internal_refeference">
+            <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#myModal-3"
+              help="Get referrence from selected candidates or send mail ">Get Reference/Send Mail</button>
+            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-3"
+              class="modal fade">
+              <div class="modal-dialog" id="getrefer">
+                <div class="modal-content">
+                  <div class="modal-header">
 
-                                <ul class="nav nav-tabs">
-                                    <li class="active" ><a href="" ng-click="smsTabs(0)" data-toggle="tab">SMS<i class="fa"></i></a></li>
-                                    <li><a href=""   ng-click="smsTabs(1)" data-toggle="tab">Send Mail <i class="fa"></i></a></li>
-                                </ul>
+                    <h4 class="modal-title">Get References/Send Mail to Candidates</h4> <button aria-hidden="true"
+                      data-dismiss="modal" class="close" type="button">×</button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label for="inputEmail" class="control-label col-xs-2">{{clientsdepartment}}:</label>
+                        <div class="col-xs-10">
+                          <select class="form-control m-bot15 e" n="Client" ng-change="getcandidatebyclient()"
+                            [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
+                            <option value="{{x.id}}" *ngFor="let  x of  clients">{{x.billingName}}</option>
 
-                                <div class="tab-content">
-                                    <div class="tab-pane active"  ng-show="tabindex == 0"  ng-hide="tabindex != 0" id="info-tab">
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputPassword" class="control-label col-xs-2">Jobs:</label>
+                        <div class="col-xs-10">
+                          <select class="form-control m-bot15 e" n="Job" [(ngModel)]="myjob.add_new_job_id"
+                            name="add_new_job_id">
+                            <option value="{{x.id}}" *ngFor="let  x of jobslistbyclients">{{x.job_title}}</option>
 
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
+                          </select>
+                        </div>
+                      </div>
 
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" [(ngModel)]="sendsms" value="">
-                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                        Send Sms..
-                                                    </label>
-                                                </div>
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="" ng-click="smsTabs(0)" data-toggle="tab">SMS<i class="fa"></i></a>
+                        </li>
+                        <li><a href="" ng-click="smsTabs(1)" data-toggle="tab">Send Mail <i class="fa"></i></a></li>
+                      </ul>
 
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <select class="form-control m-bot15" [(ngModel)]="smsselected" ng-change='setsms()'  ng-options="x.templatename for xof smsmessagetemplates" name="smsmessagetemplate_id">
+                      <div class="tab-content">
+                        <div class="tab-pane active" ng-show="tabindex == 0" ng-hide="tabindex != 0" id="info-tab">
 
-                                                </select>
+                          <div class="form-group">
+                            <div class="col-sm-12">
 
-                                            </div>
-                                        </div>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" [(ngModel)]="sendsms" value="">
+                                  <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                  Send Sms..
+                                </label>
+                              </div>
 
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <textarea class="form-control" [(ngModel)]="sms.prmMessagge" style="width: 100%;">{{smsselected.message}}</textarea>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div ng-show="tabindex == 1" ng-hide="tabindex != 1" class="tab-pane active" id="address-tab">
-
-
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" [(ngModel)]="sendemail" value="">
-                                                        <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                                        Send Mail
-                                                    </label>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-
-                                                <select class="form-control m-bot15" [(ngModel)]="emailselected" ng-change='setemail()' ng-options="x.templatename for x of emailmessagetemplates" name="emailmessagetemplate_id">
-
-                                                </select>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <textarea class="form-control" style="width: 100%;" [(ngModel)]="myjob.prmSubject">{{emailselected.title}}</textarea>
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <textarea contenteditable  class="form-control" style="width: 100%;" [(ngModel)]="myjob.prmMessagge">{{emailselected.message}}</textarea>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-xs-offset-2 col-xs-10">
-                                        <button type="submit" tar="#getrefer" class="btn btn-primary"   ng-click="sendMessage()">Submit</button>
-                                    </div>
-                                </div>
                             </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <select class="form-control m-bot15" [(ngModel)]="smsselected" ng-change='setsms()'
+                                ng-options="x.templatename for xof smsmessagetemplates" name="smsmessagetemplate_id">
+
+                              </select>
+
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <textarea class="form-control" [(ngModel)]="sms.prmMessagge"
+                                style="width: 100%;">{{smsselected.message}}</textarea>
+
+                            </div>
+                          </div>
                         </div>
+                        <div ng-show="tabindex == 1" ng-hide="tabindex != 1" class="tab-pane active" id="address-tab">
 
-                    </div>
-                </div>
-            </div>
 
-        </div>
-        <div class="col-md-4"  ng-show="mp.add_to_job_store">
+                          <div class="form-group">
+                            <div class="col-sm-12">
 
-            <button type="button"  class="btn btn-block btn-primary btn-md"  data-toggle="modal" data-target="#myModal-4">Add to Job</button>
-
-            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-4" class="modal fade">
-                <div class="modal-dialog" id="client">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            
-                            <h4 class="modal-title">ADD To Job</h4><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="Client" class="control-label col-xs-2">{{clientsdepartment}}:</label>
-                                    <div class="col-xs-10">
-
-                                        <select class="form-control m-bot15 e"   validate ng-change="getcandidatebyclientaddtojob()" [(ngModel)]="addtojob.client_detail_id" name="client_detail_id">
-                                            <option  value="{{x.id}}"  *ngFor="let  xof clients">{{x.billingName}}</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Jobs" class="control-label col-xs-2">Jobs:</label>
-                                    <div class="col-xs-10">
-                                        <select class="form-control m-bot15 e"   [(ngModel)]="addnewjob.add_new_job_id" name="add_new_job_id">
-                                            <option value="{{x.id}}" *ngFor="let  xof jobslistbyclientsaddtojob">{{x.job_title}}</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Jobs" class="control-label col-xs-2">Owner</label>
-                                    <div class="col-xs-10">
-                                        <select class="form-control e" [(ngModel)]="addnewjob.manager"  >
-                                            <option value="{{profile.id}}">Self</option>
-                                            <option value="{{x.id}}" *ngFor="let  xof managers">
-                                                {{x.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- <div class="form-group">
-                                     <label for="Status" class="control-label col-xs-2">Status:</label>
-                                     <div class="col-xs-10">
-                                        <select class="form-control m-bot15">
-                                                                           <option>Status</option>
-                                                                           <option>Option 2</option>
-                                                                           <option>Option 3</option>
-                                                                       </select>
-                                     </div>
-                                 </div>-->
-                                <div class="form-group">
-                                    <div class="col-md-4 col-md-offset-4">
-                                        <button type="submit"  class="btn btn-primary btn-block"  tar="#client" ng-click="addtojobcandidates()">Add</button>
-                                    </div>
-                                </div>
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox" [(ngModel)]="sendemail" value="">
+                                  <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                  Send Mail
+                                </label>
                               </div>
-                        </div>
 
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-sm-12">
+
+                              <select class="form-control m-bot15" [(ngModel)]="emailselected" ng-change='setemail()'
+                                ng-options="x.templatename for x of emailmessagetemplates"
+                                name="emailmessagetemplate_id">
+
+                              </select>
+
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <textarea class="form-control" style="width: 100%;"
+                                [(ngModel)]="myjob.prmSubject">{{emailselected.title}}</textarea>
+
+                            </div>
+                          </div>
+
+
+                          <div class="form-group">
+                            <div class="col-sm-12">
+                              <textarea contenteditable class="form-control" style="width: 100%;"
+                                [(ngModel)]="myjob.prmMessagge">{{emailselected.message}}</textarea>
+
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="col-xs-offset-2 col-xs-10">
+                          <button type="submit" tar="#getrefer" class="btn btn-primary"
+                            ng-click="sendMessage()">Submit</button>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+
                 </div>
+              </div>
             </div>
 
-        </div>
-       
-    </div> <div class="row">
-        <div class=" col-md-6 validate">
-            <a class="btn btn-default"  href="" data-toggle="modal" help='Add Candidate' data-target="#addcandidate" ng-if="mp.candidate_detail_store">
-                Add Candidate
-            </a> 
-            <div id="addcandidate" class="modal fade " role="dialog">
-                <div class="modal-dialog modal-lg">
+          </div>
+          <div class="col-md-4" ng-show="mp.add_to_job_store">
 
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                          
-                            <h4 class="modal-title">Add Candidate</h4>  <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal"
+              data-target="#myModal-4">Add to Job</button>
+
+            <app-add-to-job></app-add-to-job>
+
+          </div>
+
+        </div>
+        <div class="row">
+          <div class=" col-md-6 validate">
+            <a class="btn btn-default" href="" data-toggle="modal" help='Add Candidate' data-target="#addcandidate"
+              ng-if="mp.candidate_detail_store">
+              Add Candidate
+            </a>
+            <div id="addcandidate" class="modal fade " role="dialog">
+              <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+
+                    <h4 class="modal-title">Add Candidate</h4> <button type="button" class="close"
+                      data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="col-md-12 ">
+                      <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                          <label for="name" class="control-label col-sm-4">Full Name</label>
+                          <div class="col-sm-6">
+                            <input type="text" [(ngModel)]="store.candidateName" class="form-control e" validate
+                              id="name" placeholder="Enter name">
+                          </div>
                         </div>
-                        <div class="modal-body">
-                          
-                              <div class="col-md-12 ">
-                                <div class="form-horizontal" role="form">
-                                    <div class="form-group">
-                                        <label for="name" class ="control-label col-sm-4">Full Name</label>
-                                        <div class="col-sm-6">                   
-                                            <input type="text" [(ngModel)]="store.candidateName" class="form-control e" validate  id="name" placeholder="Enter name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="address" class ="control-label col-sm-4">Gender</label>
-                                        <div class="col-sm-7">
-                                            <div >
-                                                <select [(ngModel)]="store.gender" class="form-control">
-                                                    <option *ngFor="let  xof genders" value="{{x.id}}">
-                                                        {{x.gender_name}}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="mobileNo" class="control-label col-sm-4">Mobile Number</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" class="form-control e no" validate n="Mobile" [(ngModel)]="store.mobileNo" id="mobileNo" placeholder="Mobile Number">
-                                        </div>
-                                    </div>
-                                     
-                                    <div class="form-group">
-                                        <label for="email" class="control-label col-sm-4">Email</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" class="form-control e m" validate n="Email" [(ngModel)]="store.email" id="email" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <!--                                            <div class="form-group">
+                        <div class="form-group">
+                          <label for="address" class="control-label col-sm-4">Gender</label>
+                          <div class="col-sm-7">
+                            <div>
+                              <select [(ngModel)]="store.gender" class="form-control">
+                                <option *ngFor="let  xof genders" value="{{x.id}}">
+                                  {{x.gender_name}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="mobileNo" class="control-label col-sm-4">Mobile Number</label>
+                          <div class="col-sm-7">
+                            <input type="text" class="form-control e no" validate n="Mobile"
+                              [(ngModel)]="store.mobileNo" id="mobileNo" placeholder="Mobile Number">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="email" class="control-label col-sm-4">Email</label>
+                          <div class="col-sm-7">
+                            <input type="text" class="form-control e m" validate n="Email" [(ngModel)]="store.email"
+                              id="email" placeholder="Email">
+                          </div>
+                        </div>
+                        <!--                                            <div class="form-group">
                                                                                     <label for="panNo" class="control-label col-sm-4">Pan No</label>
                                                                                     <div class="col-sm-7">
                                                                                         <input type="text" class="form-control e" n="Pan Number"  [(ngModel)]="store.panNo" id="panNo" placeholder="Pan No">
@@ -334,7 +306,7 @@
                                                                                         <input type="text" class="form-control e" n="Industry" [(ngModel)]="store.industryType" id="industryType" placeholder="Industry Type">
                                                                                     </div>
                                                                                 </div>
-                                    
+
                                                                                 <div class="form-group">
                                                                                     <label for="functionalArea" class="control-label col-sm-4">Functional Area</label>
                                                                                     <div class="col-sm-7">
@@ -347,126 +319,166 @@
                                                                                         <input type="date" [(ngModel)]="store.dob" name="contactDurationStart" md-placeholder="Date of Birth" class="form-control" />
                                                                                     </div>
                                                                                 </div>
-                                    
-                                    
+
+
                                                                                 <div class="form-group">
                                                                                     <label for="Key Skills" class="control-label col-sm-4">Key Skills</label>
                                                                                     <div class="col-sm-7">
                                                                                         <input type="text" class="form-control vn" n="Key Skills" [(ngModel)]="store.keySkills" id="Salary" placeholder="Key Skills">
                                                                                     </div>
                                                                                 </div>
-                                    
+
                                                                                 <div class="form-group">
                                                                                     <label for="function" class="control-label col-sm-4">Function</label>
                                                                                     <div class="col-sm-7">
                                                                                         <input type="text" class="form-control e" n="Function"  id="Function" placeholder="function">
                                                                                     </div>
                                                                                 </div>-->
-                                    <div class="form-group" ng-hide="true">
-                                        <label for="source" class="control-label col-sm-4">Source</label>
-                                        <div class="col-sm-7">
-                                            <input type="text" class="form-control " [(ngModel)]="store.source" value="0" id="source" placeholder="Source">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="resume" class="control-label col-sm-4">Resume</label>
-                                        <div class="col-sm-7">
-
-                                            </div>
-                                    </div>
-
-                                    <div class="form-group">
-
-                                        <div class="col-md-4 col-md-offset-4">
-                                            <button  class="btn btn-success btn-md btn-block validate" tar="#addCandidate" ng-click="candidatesave()" >Save</button>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
+                        <div class="form-group" ng-hide="true">
+                          <label for="source" class="control-label col-sm-4">Source</label>
+                          <div class="col-sm-7">
+                            <input type="text" class="form-control " [(ngModel)]="store.source" value="0" id="source"
+                              placeholder="Source">
+                          </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <div class="form-group">
+                          <label for="resume" class="control-label col-sm-4">Resume</label>
+                          <div class="col-sm-7">
+
+                          </div>
                         </div>
+
+                        <div class="form-group">
+
+                          <div class="col-md-4 col-md-offset-4">
+                            <button class="btn btn-success btn-md btn-block validate" tar="#addCandidate"
+                              ng-click="candidatesave()">Save</button>
+                          </div>
+                        </div>
+
+                      </div>
                     </div>
-
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
                 </div>
+
+              </div>
             </div>
-        </div>
-        <div class='col-md-6'>
-            <a class="quick-btn" href="javascript:" help='call'   data-target='#calldiv' style=' color:green !important; '  data-toggle='modal' ng-if="mp.btn_can_call" >
-                <i class="fa fa-phone fa-2x"></i>
+          </div>
+          <div class='col-md-6'>
+            <a class="quick-btn" href="javascript:" help='call' data-target='#calldiv' style=' color:green !important; '
+              data-toggle='modal' ng-if="mp.btn_can_call">
+              <i class="fa fa-phone fa-2x"></i>
 
-            </a> 
-        </div>
+            </a>
+          </div>
 
 
         </div>
-    <div id="calldiv" class="modal " role="dialog">
-        <div class="modal-dialog">
+        <div id="calldiv" class="modal " role="dialog">
+          <div class="modal-dialog">
 
             <!-- Modal content-->
             <div class="modal-content">
-                <div class="modal-header">
-                  
-                    <h4 class="modal-title">Call</h4>  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label for="Client" class="control-label col-xs-2">{{clientsdepartment}}:</label>
-                                    <div class="col-xs-8">
-                                        <select class="form-control e" n="Client"  ng-change="getcandidatebyclient(true)" [(ngModel)]="copycandidate.client_detail_id"  name="client_detail_id" required>
-                                            <option  value="{{x.id}}"  *ngFor="let  xof clients">{{x.billingName}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Jobs" class="control-label col-xs-2">Jobs:</label>
-                                    <div class="col-xs-8">
-                                        <select class="form-control e" n="Jobs" [(ngModel)]="copycandidate.job_id"  >
-                                            <option value="{{job.id}}" *ngFor="let  jobof jobslistbyclients">
-                                                {{job.job_title}} ({{job.id}})
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Jobs" class="control-label col-xs-2">Owner</label>
-                                    <div class="col-xs-8">
-                                        <select class="form-control e" n="Owner" [(ngModel)]="copycandidate.manager"  >
-                                            <option value="{{profile.id}}">Self</option>
-                                            <option value="{{x.id}}" *ngFor="let  xof managers">
-                                                {{x.name}}
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
+              <div class="modal-header">
 
-                                <div class="form-group">
-                                    <div class="col-md-4 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary btn-block" tar="#addjob"  ng-click="sendcalltocandidates()">Placeof Queue</button>
-                                    </div>
-                                </div>
-                            </div>
+                <h4 class="modal-title">Call</h4> <button type="button" class="close"
+                  data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label for="Client" class="control-label col-xs-2">{{clientsdepartment}}:</label>
+                        <div class="col-xs-8">
+                          <select class="form-control e" n="Client" ng-change="getcandidatebyclient(true)"
+                            [(ngModel)]="copycandidate.client_detail_id" name="client_detail_id" required>
+                            <option value="{{x.id}}" *ngFor="let  xof clients">{{x.billingName}}</option>
+                          </select>
                         </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="Jobs" class="control-label col-xs-2">Jobs:</label>
+                        <div class="col-xs-8">
+                          <select class="form-control e" n="Jobs" [(ngModel)]="copycandidate.job_id">
+                            <option value="{{job.id}}" *ngFor="let  jobof jobslistbyclients">
+                              {{job.job_title}} ({{job.id}})
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="Jobs" class="control-label col-xs-2">Owner</label>
+                        <div class="col-xs-8">
+                          <select class="form-control e" n="Owner" [(ngModel)]="copycandidate.manager">
+                            <option value="{{profile.id}}">Self</option>
+                            <option value="{{x.id}}" *ngFor="let  xof managers">
+                              {{x.name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
 
+                      <div class="form-group">
+                        <div class="col-md-4 col-md-offset-4">
+                          <button type="submit" class="btn btn-primary btn-block" tar="#addjob"
+                            ng-click="sendcalltocandidates()">Placeof Queue</button>
+                        </div>
+                      </div>
                     </div>
+                  </div>
+
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
             </div>
 
+          </div>
         </div>
-    </div>
-    <hr class="hrstye">
- 
-                
+        <hr class="hrstye">
+
+        <div class="row">
+          <div class="col-2">
+
+            <mat-form-field>
+              <mat-select placeholder="Page Size" [(ngModel)]="pageSize" (change)="loadInternalData()">
+                <mat-option *ngFor="let pagesize of pageSizes" [value]="pagesize">
+                  {{pagesize}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+          <div class="col-2">
+            <mat-form-field>
+              <mat-select placeholder="Page No" [(ngModel)]="page" (change)="loadInternalData(true)">
+                <mat-option *ngFor="let item of totalpage" [value]='item'>{{item}} </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+          <div class="col-8">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Search" type="text" [(ngModel)]="searchText"
+                (change)="loadInternalData()" />
+            </mat-form-field>
+          </div>
+
         </div>
+
+
+        <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
+          suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"
+          [groupSelectsChildren]="true" (selectionChanged)="onSelectionChanged($event)" [debug]="true"
+          [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+          [enableRangeSelection]="true" (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
       </div>
     </div>
   </div>
-  
+</div>

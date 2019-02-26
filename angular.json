@@ -26,7 +26,18 @@
               "node_modules/angular-slickgrid/lib/multiple-select/multiple-select.css",
               "src/assets/scss/material-dashboard.scss",
               "src/assets/css/demo.css",
-              "node_modules/angular-slickgrid/styles/css/slickgrid-theme-bootstrap.css"
+              "node_modules/angular-slickgrid/styles/css/slickgrid-theme-bootstrap.css",
+              "node_modules/ag-grid-community/src/styles/ag-grid.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-balham-dark/sass/ag-theme-balham-dark.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-base/sass/_ag-theme-base.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-blue/sass/ag-theme-blue.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-bootstrap/sass/ag-theme-bootstrap.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-classic/sass/_ag-theme-classic.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-dark/sass/ag-theme-dark.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-fresh/sass/ag-theme-fresh.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss"
+
             ],
             "scripts": [
 
@@ -96,7 +107,17 @@
               "node_modules/angular-slickgrid/lib/multiple-select/multiple-select.css",
               "src/assets/scss/material-dashboard.scss",
               "src/assets/css/demo.css",
-              "node_modules/angular-slickgrid/styles/css/slickgrid-theme-bootstrap.css"
+              "node_modules/angular-slickgrid/styles/css/slickgrid-theme-bootstrap.css",
+              "node_modules/ag-grid-community/src/styles/ag-grid.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-balham-dark/sass/ag-theme-balham-dark.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-base/sass/_ag-theme-base.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-blue/sass/ag-theme-blue.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-bootstrap/sass/ag-theme-bootstrap.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-classic/sass/_ag-theme-classic.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-dark/sass/ag-theme-dark.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-fresh/sass/ag-theme-fresh.scss",
+              "node_modules/ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss"
             ],
             "scripts": [
 
@@ -114,6 +135,7 @@
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
               "node_modules/chartist/dist/chartist.js"
+
             ],
             "assets": [
               "src/assets",
