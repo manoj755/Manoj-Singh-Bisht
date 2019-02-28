@@ -11,7 +11,14 @@ class="modal fade">
         <div class="form-group">
           <label for="Client" class="control-label col-xs-2">{{clientsdepartment}}:</label>
           <div class="col-xs-10">
-
+              <mat-form-field class="example-full-width">
+                  <input type="text" placeholder="Pick one" aria-label="Number" matInput   >
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
             <select class="form-control m-bot15 e" validate ng-change="getcandidatebyclientaddtojob()"
               [(ngModel)]="addtojob.client_detail_id" name="client_detail_id">
               <option value="{{x.id}}" *ngFor="let  xof clients">{{x.billingName}}</option>
