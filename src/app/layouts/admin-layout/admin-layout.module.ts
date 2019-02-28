@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
-import { AngularSlickgridModule } from 'angular-slickgrid';
-import { NgSelectModule } from '@ng-select/ng-select';
+// import { AngularSlickgridModule } from 'angular-slickgrid';
+// import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,12 +29,13 @@ import { AddNewTrackerComponent } from '../../add-new-tracker/add-new-tracker.co
 import { TrackerFieldsComponent } from '../../tracker-fields/tracker-fields.component';
 import { UsersComponent } from '../../users/users.component';
 import { ChannelComponent } from '../../channel/channel.component';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+// import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ManagerComponent } from '../../control/manager/manager.component';
 import { AddToJobComponent } from '../../control/add-to-job/add-to-job.component';
 import { AddCandidateComponent } from '../../control/add-candidate/add-candidate.component';
 import { MyTeamComponent } from '../../control/my-team/my-team.component';
 import { PvGetReferenceComponent } from '../../control/pv-get-reference/pv-get-reference.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import {
   MatButtonModule,
   MatInputModule,
@@ -45,14 +46,10 @@ import {
   MatCheckboxModule,
   MatProgressBarModule,
   MatCardModule,
-  MatRadioModule,
+  MatRadioModule, 
 
-} from '@angular/material';
-
-
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+} from '@angular/material'; 
+ 
 // @dynamic
 @NgModule({
   imports: [
@@ -69,31 +66,11 @@ export function createTranslateLoader(http: HttpClient) {
     MatProgressBarModule,
     MatCardModule,
     MatRadioModule,
-    AngularSlickgridModule.forRoot({
-      // add any Global Grid Options/Config you might want
-      // to avoid passing the same options over and over in each grids of your App
-      // enableAutoResize: true,
-      // autoResize: {
-      //   containerId: 'demo-container',
-      //   sidePadding: 15
-      // },
-      // enablePagination: true,
-      // pagination: {
-      //   pageSize: 10,
-      //   pageSizes: [10, 20, 100],
-      //   totalItems: 0,
-      // }
-    }),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
-    }),
+    CKEditorModule,
+  
     AgGridModule.withComponents([]),
     // TranslateService,
-    NgSelectModule,
+  //  NgSelectModule,
   ],
   declarations: [
     DashboardComponent,
@@ -121,7 +98,8 @@ export function createTranslateLoader(http: HttpClient) {
     AddToJobComponent,
     AddCandidateComponent,
     MyTeamComponent,
-    PvGetReferenceComponent
+    PvGetReferenceComponent, 
+    
   ]
 })
 export class AdminLayoutModule { }

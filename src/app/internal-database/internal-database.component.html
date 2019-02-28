@@ -446,7 +446,7 @@
           <div class="col-2">
 
             <mat-form-field>
-              <mat-select placeholder="Page Size" [(ngModel)]="pageSize" (change)="loadInternalData()">
+              <mat-select placeholder="Page Size" [(ngModel)]="pageSize" (selectionChange)="loadInternalData()">
                 <mat-option *ngFor="let pagesize of pageSizes" [value]="pagesize">
                   {{pagesize}}
                 </mat-option>
@@ -456,7 +456,7 @@
           </div>
           <div class="col-2">
             <mat-form-field>
-              <mat-select placeholder="Page No" [(ngModel)]="page" (change)="loadInternalData(true)">
+              <mat-select placeholder="Page No" [(ngModel)]="page" (selectionChange)="loadInternalData(true)">
                 <mat-option *ngFor="let item of totalpage" [value]='item'>{{item}} </mat-option>
               </mat-select>
             </mat-form-field>

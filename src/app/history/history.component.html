@@ -3,6 +3,27 @@
 
 
     <div class="row">
+        <button (click)="exportdat()">Export</button>
+        <ag-grid-angular
+        style="width: 1500px; height: 500px;"
+        class="ag-theme-material"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        suppressCsvExport=false
+        [autoGroupColumnDef]="autoGroupColumnDef"
+      [suppressRowClickSelection]="true"
+      [groupSelectsChildren]="true"
+      paginationAutoPageSize='true'
+      (selectionChanged)="onSelectionChanged($event)"
+      [debug]="true"
+      [rowSelection]="rowSelection"
+      [rowGroupPanelShow]="rowGroupPanelShow"
+      [pivotPanelShow]="pivotPanelShow"
+      [enableRangeSelection]="true"
+      [pagination]="true"
+      (gridReady)="onGridReady($event)"
+        >
+    </ag-grid-angular>
       <div class="row" style="margin-top:10px;">
         <div class="col-md-5 ">
           <div class="text-center">
@@ -210,7 +231,7 @@
           <label class="col-md-3">Recruiter</label>
           <div class="col-md-9">
             <select class="form-control e" ng-change="getCandidateDetails()" n="Owner" ng-model="recruiter">
-              <option value="{{profile.id}}">Self</option>
+              <option value="{{db.profile.id}}">Self</option>
               <option value="{{x.id}}"  *ngFor="let x of managers">
                 {{x.name}}
               </option>
@@ -692,7 +713,7 @@
                         <label for="Jobs" class="control-label col-xs-2">Owner</label>
                         <div class="col-xs-8">
                           <select class="form-control e" n="Owner" ng-model="copycandidate.manager">
-                            <option value="{{profile.id}}">Self</option>
+                            <option value="{{db.profile.id}}">Self</option>
                             <option value="{{x.id}}"  *ngFor="let x of managers">
                               {{x.name}}
                             </option>
@@ -763,7 +784,7 @@
                         <label for="Jobs" class="control-label col-xs-2">Owner</label>
                         <div class="col-xs-8">
                           <select class="form-control e" n="Owner" ng-model="copycandidate.manager">
-                            <option value="{{profile.id}}">Self</option>
+                            <option value="{{db.profile.id}}">Self</option>
                             <option value="{{x.id}}"  *ngFor="let x of managers">
                               {{x.name}}
                             </option>

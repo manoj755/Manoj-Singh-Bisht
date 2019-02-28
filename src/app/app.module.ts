@@ -10,7 +10,7 @@ import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-transla
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+// import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -51,9 +51,8 @@ import { AddToJobComponent } from './control/add-to-job/add-to-job.component';
 import { MyTeamComponent } from './control/my-team/my-team.component';
 import { AddCandidateComponent } from './control/add-candidate/add-candidate.component';
 import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-reference.component';
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -92,7 +91,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
+    AdminLayoutComponent, 
 
 
   ],

@@ -4,8 +4,9 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { isArray, isObject } from 'util';
+import { LargeTextCellEditor } from 'ag-grid-community';
 type ICallback = (response: any) => void;
-
+declare var $: any;
 @Injectable({
   providedIn: 'root'
 })
@@ -92,7 +93,40 @@ export class DBService implements OnInit {
     localStorage.setItem('token', this.token);
 
   }
+  showNotification(message,from?, align?) {
+    if(from==null ||from===undefined){
+      from='top';
+    }
+    if(align==null ||align===undefined){
+      align='right';
+    }
+    const type = ['', 'info', 'success', 'warning', 'danger'];
 
+    const color =4;// Math.floor((Math.random() * 4) + 1);
+
+    $.notify({
+      icon: 'notifications',
+      message: message
+
+    }, {
+        type: type[color],
+        timer: 3000,
+        placement: {
+          from: from,
+          align: align
+        },
+        template: '<div data-notify="container" class="col-xl-4 col-lg-4 col-11 col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
+          '<button mat-button  type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
+          '<i class="material-icons" data-notify="icon">notifications</i> ' +
+          '<span data-notify="title">{1}</span> ' +
+          '<span data-notify="message">{2}</span>' +
+          '<div class="progress" data-notify="progressbar">' +
+          '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+          '</div>' +
+          '<a href="{3}" target="{4}" data-notify="url"></a>' +
+          '</div>'
+      });
+  }
   showMessage(message: any, action?: string, durationMS?: number): void {
 
 
@@ -100,6 +134,17 @@ export class DBService implements OnInit {
       message = 'Please check your internet.';
     } else if (isObject(message) && message.status === 401) {
       message = 'Please authenticate to access secured resource.';
+    }else if (isObject(message) && message.status === 422) {
+    message=message.error;
+      var messages=[];
+      for (var k in message){
+        this.showNotification(message[k]);
+        //messages.push(message[k].toString());
+                 
+        }
+        message="Please Fill values";
+
+     
     }
     console.log(message);
     if (action === undefined) {
@@ -239,7 +284,7 @@ export class DBService implements OnInit {
         response => {
           this.hideLoaderfunction(loader);
           this.showMessage(response);
-          if (response.status === 401 || (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
+          if (response.status === 401 || response.status === 422 || (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
             this.goToLogin(response);
           } else {
             if (fail !== undefined) {
@@ -262,7 +307,7 @@ export class DBService implements OnInit {
     this.showloaderfunction(loader);
     let fullurl = url;
     if (url.indexOf('http') === - 1) {
-      fullurl = this.ServiceURL + url;
+      fullurl = this.ServiceURL + url+'?token='+this.getToken();
     }
     const req = {
       method: 'post',
@@ -275,8 +320,12 @@ export class DBService implements OnInit {
     const headersfull = new HttpHeaders();
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
+    let body = new FormData();
 
-    return this.http.post(req.url, { headers: headersfull, params: data })
+    for(let i in data){
+      body.append(i, data[i]);
+    }
+    return this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -358,7 +407,7 @@ export class DBService implements OnInit {
     this.showloaderfunction(loader);
     let fullurl = url;
     if (url.indexOf('http') === - 1) {
-      fullurl = this.ServiceURL + url + 'update/' + id;
+      fullurl = this.ServiceURL + url + 'update/' + id+'?token='+this.getToken();
     }
     const req = {
       method: 'post',
@@ -371,8 +420,13 @@ export class DBService implements OnInit {
     const headersfull = new HttpHeaders();
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
+    let body = new FormData();
 
-    return this.http.post(req.url, { headers: headersfull, params: data })
+    for(let i in data){
+      body.append(i, data[i]);
+    }
+    
+    return this.http.post(req.url,body, { headers: headersfull })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -404,7 +458,7 @@ export class DBService implements OnInit {
     this.showloaderfunction(loader);
     let fullurl = url;
     if (url.indexOf('http') === - 1) {
-      fullurl = this.ServiceURL + url + 'delete/' + id;
+      fullurl = this.ServiceURL + url + 'delete/' + id+'?token='+this.getToken();
     }
     const req = {
       method: 'post',
@@ -418,8 +472,13 @@ export class DBService implements OnInit {
     const headersfull = new HttpHeaders();
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
+    let body = new FormData();
 
-    return this.http.post(req.url, { headers: headersfull, params: data })
+    for(let i in data){
+      body.append(i, data[i]);
+    }
+    
+    return this.http.post(req.url,body, { headers: headersfull})
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -476,6 +535,26 @@ export class DBService implements OnInit {
     return ids;
 
   }
+  public customCellRendererFunc(params): string {
+    let cellContent: string = '';
+    debugger;
+    try {
+        
+            let id: string = params.value;
 
+             
+
+
+            cellContent = '<button (click)="edit('+id+')">Edit</button>';
+        
+    } catch (exception) {
+
+        console.error(exception);
+    }
+
+    return cellContent
+}
+
+   
 
 }

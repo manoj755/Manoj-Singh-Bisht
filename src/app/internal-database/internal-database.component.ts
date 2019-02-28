@@ -51,6 +51,7 @@ export class InternalDatabaseComponent implements OnInit {
   }
 
   loadInternalData(isPager?): void {
+    debugger;
     if (isPager) {
       this.isPager = true;
     } else {

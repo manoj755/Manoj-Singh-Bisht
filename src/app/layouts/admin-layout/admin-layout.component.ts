@@ -89,6 +89,7 @@ export class AdminLayoutComponent implements OnInit {
     } else {
       this.isLogin = false;
     }
+    this.db.selectedNodes=[];
   }
   runOnRouteChange(): void {
     this.setIsLogin();
