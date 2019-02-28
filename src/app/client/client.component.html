@@ -1,8 +1,259 @@
 <div class="main-content">
     <div class="container-fluid">
-      <div class="row">
 
+
+
+        <div class="row" id="clientform">
+          <div class="col-md-4" style="background:#fff;">
+              <div class="list-group">
+                  <!--                    <a href="" class="list-group-item active" ng-click="shows(client.id)" ng-repeat="client in clients">{{ client.billingName}}</a>-->
+
+                  <div ng-if="mp.client_detail_list" ui-grid="gridOptions"  ui-grid-pagination  ui-grid-cellnav ui-grid-exporter class="grid"></div>
+              </div>
+          </div>
+          <div class="col-md-8" >
+              <div class="box box-primary">
+                  <div class="box-body "  >
+                      <ul class="nav nav-tabs hidden">
+                          <li class="active" ><a href="" ng-click="clientTabs(0)" data-toggle="tab">{{clientsdepartment}} <i class="fa"></i></a></li>
+                          <li class="hidden"><a href=""   ng-click="clientTabs(1)" data-toggle="tab">Contract <i class="fa"></i></a></li>
+                      </ul>
+
+                      <div class="box-title">
+                          <h2>{{clientsdepartment}}</h2>
+                          <form id="addnewclient" method="post" class="form-horizontal" novalidate>
+                              <div class="tab-content">
+                                  <div class="tab-pane active"  ng-show="tabindex == 0"  ng-hide="tabindex != 0" id="info-tab">
+                                      <div class="form-group col-md-6">
+                                          <label class="col-xs-3 control-label">Name</label>
+                                          <div class="col-xs-9">
+                                              <input type="text" class="form-control e" id="clientname" ng-model="client.billingName" name="fullName" />
+                                          </div>
+                                      </div>
+
+
+                                      <div class="form-group col-md-6">
+                                          <label class="col-xs-3 control-label">About</label>
+                                          <div class="col-xs-9">
+                                              <textarea   class="form-control e" maxlength="150" id="clientabout"  ng-model="client.about" name="About"></textarea>
+                                          </div>
+                                      </div>
+
+
+
+                                      <div class="form-group col-md-6 {{profile.is_ats != '0'?'':'remove'}}" >
+                                          <label class="col-xs-3 control-label">Website</label>
+                                          <div class="col-xs-9">
+                                              <input type="text" class="form-control e web" id="clientWebsite"   ng-model="client.website"  name="Website" />
+                                          </div>
+                                      </div>
+                                      <div class="form-group col-md-6 {{profile.is_ats != '0'?'':'remove'}}">
+                                          <label class="col-xs-3 control-label">Address</label>
+                                          <div class="col-xs-9">
+                                              <input type="text" class="form-control e" id="clientAddress"  ng-model="client.address" name="addr" />
+                                          </div>
+                                      </div>
+                                      <div class="form-group col-md-6 {{profile.is_ats != '0'?'':'remove'}}">
+                                          <label class="col-xs-3 control-label">Billing Period </label>
+                                          <div class="col-xs-9">
+                                              <input type="number" class="form-control e " id="clientbp" placeholder="in Days"  ng-model="client.billing_period" name="billing_period" />
+                                          </div>
+                                      </div>
+                                      <div class="form-group col-md-6 {{profile.is_ats != '0'?'':'remove'}}">
+                                          <label class="col-xs-3 control-label">Invoice Currency</label>
+                                          <div class="col-xs-9">
+                                              <select class="form-control e" id="clientic"  ng-model="client.invoice_currency" name="invoice_currency" >
+                                                  <option>INR</option>
+                                                  <option>USD</option>
+                                                  <option>EUR</option>
+
+                                              </select>
+                                          </div>
+                                      </div>
+
+
+
+                                      <div class="form-group col-md-6 hidden  {{profile.is_ats != '0'?'':'remove'}}">
+                                          <label class="col-xs-3 control-label">Upload</label>
+                                          <div class="col-xs-9">
+                                              <iframe style="border:0; height: 45px; overflow: hidden;"  src="views/upload.php" class="form-group " d="" n="image"  id="upload" ></iframe>
+
+                                          </div>
+                                      </div>
+                                      <!--                                    </div>
+
+
+                                                                          <div ng-show="tabindex == 1" ng-hide="tabindex != 1" class="tab-pane active" id="address-tab">-->
+                                      <div ng-show="client.fee_slab.length > 0" class=" {{profile.is_ats != '0'?'':'remove'}}">
+                                          <div class="col-md-12">
+
+                                              <div class="row font-light bg-light-blue" > <div class="col-md-12"> <h5>Slabs</h5></div></div>
+                                              <div class="row font-light  "  style="background: #2b3b40;">
+
+                                                  <div class="col-md-3">
+                                                      From
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                      To
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                      Amount
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                      Remove
+                                                  </div>
+
+
+                                              </div>
+                                              <div class="row bg-blue" style="border-bottom: solid 1px #bdbdbd; padding: 5px 0;" ng-repeat="item in client.fee_slab | orderBy : 'fromSlab'">
+
+
+                                                  <div class="col-md-3">
+                                                      {{item.fromSlab}}
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                      {{item.toSlab}}
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                      {{item.AmountorPercentage}}   <span ng-if="item.isPercentage == 1">%</span>
+                                                      <span ng-if="item.isPercentage == 0">Fixed</span>
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                      <span ng-click="remove($index)" class="btn  btn-raised btn-default btn-xs">Remove</span>
+                                                  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                              </div></div>
+                                      </div>
+
+                                      <div class=" {{profile.is_ats != '0'?'':'remove'}}">
+                                          <div class="col-md-12 bg-light-blue " style="margin-top: 10px;"> <h5>Add Slab</h5></div>
+                                          <div class="col-md-12  " style="padding: 20px; padding-top: 10px; margin-bottom:10px; background:#2b3b40">;
+
+                                              <div class="row">
+
+                                                  <div class=" col-md-3">
+
+                                                      <label>Fees From (LPA)</label>
+                                                      <input type="number"  class="form-control" ng-model="fromfeesslab" name="feesslab" required/>
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                      <label>Fees To (LPA)</label>
+                                                      <input type="number" class="form-control"  ng-model="tofeesslab" name="feesslab" required/>
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                      <label>Amount/Percentage</label>
+                                                      <input type="text" ng-model="amt"  class="form-control" id="amount" name="feesslab3" />
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                      <div class="form-group"><label>Contract Type</label>
+                                                      </div>
+                                                      <div class="form-group" >
+
+                                                          <label class="radio-inline">
+                                                              <input name="radioGroup"  value="Percentage" ng-model="client.feeslabtype" type="radio"> %
+                                                          </label>
+                                                          <label class="radio-inline">
+                                                              <input name="radioGroup" value="Fixed" checked="" ng-model="client.feeslabtype" type="radio"> Fixed
+                                                          </label>
+
+                                                      </div>
+                                                  </div>
+
+
+                                                  <div class="row">
+
+                                                      <div class="col-md-12">
+                                                          <button type="button" class="btn  btn-raised btn-primary btn-xs pull-right" ng-click="addfeeslab(1)">Add Fee Slab</button>
+                                                      </div>
+
+
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+
+                                      <div class="row  {{profile.is_ats != '0'?'':'remove'}}" >
+                                          <div class="col-md-4">
+                                              <label style="margin-left:50px;">Contract Duration</label>
+                                          </div>
+                                          <div class="col-md-4">
+                                              <input type="date" class="form-control e " ng-model="client.contractDurationStart" name="contactDurationStart" md-placeholder="Start Date" required style="margin-right:50px;">
+                                          </div>
+                                          <div class="col-md-4">
+                                              <input type="date" class="form-control e " ng-model="client.contractDurationEnd" name="contactDurationStart" md-placeholder="End Date" required style="margin-right:50px;">
+                                          </div>
+                                      </div><br>
+
+
+
+
+
+
+                                      <div class="form-group col-md-6  {{profile.is_ats != '0'?'':'remove'}}">
+                                          <label class="col-xs-3 control-label">Email:</label>
+                                          <div class="col-xs-9">
+                                              <input type="text" id="clientemail"  class="form-control e m" ng-model="client.email" name="email">
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div class="form-group col-md-6  {{profile.is_ats != '0'?'':'remove'}}">
+                                      <label class="col-xs-3 control-label">Phone:</label>
+                                      <div class="col-xs-9">
+                                          <input type="text" id="clientmobile"  class="form-control e " ng-model="client.phone" name="number"/>
+                                      </div>
+                                  </div>
+                                  <div class="form-group col-md-6 hidden  {{profile.is_ats != '0'?'':'remove'}}">
+                                      <label class="col-xs-3 control-label">Contract:</label>
+                                      <div class="col-xs-9">
+                                          <iframe style="border:0;  height: 45px; overflow: hidden;" class="" id="image" n="please enter image" src="views/uploadcontract.php" id="uploadcontract"></iframe>
+
+                                      </div>
+                                  </div>
+                                  <div ng-show="client.uploadedImage && false" class="form-group col-md-6  {{profile.is_ats != '0'?'':'remove'}}">
+                                      <label class="col-xs-3 control-label">Logo</label>
+                                      <div class="col-xs-9">
+
+                                          <img src="http://api.passivereferral.com/clients/{{client.uploadedImage}}"  class="img-responsive  img-thumbnail"  alt=""/>
+      <!--                                      <img  src="{{client.uploadedImage}}" alt="imge">-->
+
+                                      </div>
+                                  </div>
+
+                              </div>
+                      </div>
+
+                      <div class="form-group" style="margin-top: 15px;">
+                          <div class="col-xs-10 col-xs-offset-2">
+                              <button type="submit" ng-show="isEdit" class="btn  btn-raised btn-primary"  ng-click="clientupdate()">Update </button>
+
+                              <button type="submit" ng-hide="isEdit" class="btn  btn-raised btn-primary validate"  target="#addnewclient" ng-click="clientsave()">Add {{clientsdepartment}}</button>
+                              <button type="submit" ng-show="isEdit" class="btn  btn-raised btn-primary validate"  target="#addnewclient" ng-click="isEdit = false; client = {fee_slab:[]}; ">Back</button>
+
+                              <button type="submit" ng-show="isEdit" class="btn  btn-raised btn-primary validate {{profile.is_ats != '0'?'':'remove'}}" clientform data-toggle="modal" data-target="#addbilling"  ng-click="getlist()">Add Billing Details</button>
+
+                              <!--<md-button class="md-raised"  ng-click="clientsave()" >Submit</md-button>-->
+                          </div>
+                      </div>
+                      </form>
+                  </div>
+              </div>
+
+          </div>
       </div>
+
+
     </div>
   </div>
-  

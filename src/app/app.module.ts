@@ -21,18 +21,21 @@ import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
 import {  LoginComponent } from "./login/login.component";
- 
+
 import {
   MatButtonModule, MatCardModule, MatIconModule, MatSidenavModule, MatListModule,
   MatToolbarModule, MatMenuModule, MatSlideToggleModule, MatCheckboxModule,
   MatSliderModule, MatSelectModule, MatRadioModule, MatInputModule, MatDatepickerModule,
   MatFormFieldModule, MatNativeDateModule,
   MatDialogModule, MatProgressSpinnerModule,
-  MatSnackBarModule 
+  MatSnackBarModule,
 } from '@angular/material';
 import {
   AgmCoreModule
 } from '@agm/core';
+//import { MaterialModule } from '@angular/material';
+//import { DatePickerModule } from 'angular-material-datepicker';
+
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HistoryComponent } from './history/history.component';
 import { MyJobComponent } from './my-job/my-job.component';
@@ -48,11 +51,13 @@ import { UsersComponent } from './users/users.component';
 import { ChannelComponent } from './channel/channel.component';
 import { AddToJobComponent } from './control/add-to-job/add-to-job.component';
 import { MyTeamComponent } from './control/my-team/my-team.component';
-import { AddCandidateComponent } from './control/add-candidate/add-candidate.component'; 
+import { AddCandidateComponent } from './control/add-candidate/add-candidate.component';
 import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-reference.component';
 
 @NgModule({
   imports: [
+    //MaterialModule.forRoot(),
+        //DatePickerModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
@@ -83,13 +88,13 @@ import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-refer
     MatSnackBarModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    }), 
+    }),
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent, 
-  
-  
+    AdminLayoutComponent,
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]
