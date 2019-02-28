@@ -1,6 +1,29 @@
 <div class="main-content">
-  <div class="container-fluid">
+  <div class="container-fluid" style="width:100%;">
+
+
     <div class="row">
+        <button (click)="exportdat()">Export</button>
+        <ag-grid-angular
+        style="width: 1500px; height: 500px;"
+        class="ag-theme-material"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        suppressCsvExport=false
+        [autoGroupColumnDef]="autoGroupColumnDef"
+      [suppressRowClickSelection]="true"
+      [groupSelectsChildren]="true"
+      paginationAutoPageSize='true'
+      (selectionChanged)="onSelectionChanged($event)"
+      [debug]="true"
+      [rowSelection]="rowSelection"
+      [rowGroupPanelShow]="rowGroupPanelShow"
+      [pivotPanelShow]="pivotPanelShow"
+      [enableRangeSelection]="true"
+      [pagination]="true"
+      (gridReady)="onGridReady($event)"
+        >
+    </ag-grid-angular>
       <div class="row" style="margin-top:10px;">
         <div class="col-md-5 ">
           <div class="text-center">
@@ -25,8 +48,8 @@
             <!--</a>-->
             <!--<a class="quick-btn hidden" href="#" >
                           <i class="fa fa-cloud-download fa-2x"></i>
-  
-                          <span class="label label-info">Bulk Import</span> 
+
+                          <span class="label label-info">Bulk Import</span>
                       </a> -->
             <!--<a class="quick-btn" href="javascript:"  help='Add to Job' data-target='#addToJobs' data-toggle='modal' ng-if="mp.add_to_job_store" >-->
             <!--<i class="fa fa-user-plus fa-2x"><h5>Add to Job</h5></i>-->
@@ -54,7 +77,7 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h4 class="modal-title">Get References</h4>    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                
+
                   </div>
                   <div class="modal-body">
                     <form class="form-horizontal">
@@ -193,7 +216,7 @@
                                                       <li><a href="" ng-click="filterdropdownfunction('my_candidates', 'My Candidates')">My Candidates</a></li>
                                                       <li><a href="" ng-click="filterdropdownfunction('my_referrals', 'My referrals')">My referrals</a></li>
                                                       <li><a href="" ng-click="filterdropdownfunction('jobs', 'Jobs')">Jobs</a></li>
-                          
+
                                                   </ul>-->
             </div>
 
@@ -208,7 +231,7 @@
           <label class="col-md-3">Recruiter</label>
           <div class="col-md-9">
             <select class="form-control e" ng-change="getCandidateDetails()" n="Owner" ng-model="recruiter">
-              <option value="{{profile.id}}">Self</option>
+              <option value="{{db.profile.id}}">Self</option>
               <option value="{{x.id}}"  *ngFor="let x of managers">
                 {{x.name}}
               </option>
@@ -259,19 +282,19 @@
                                   </nav>  -->
         </div>
         <!--  <div class="col-md-6" style="background:#d9e0e4;">
-    
+
                     <ul class="nav nav-tabs">
                         <li class="active"><a show-tab data-toggle="tab" href="#profile">Profile</a></li>
                         <li ><a show-tab  data-toggle="tab" href="#cv">CV</a></li>
-                        
-    
+
+
                     </ul>
-    
-    
+
+
                     <div class="tab-content">
                         <div id="profile" class=" tab-pane fade of active">
                             <div class="container" style="max-width:600px;padding:40px 20px;background:#ebeff2">
-    
+
                                 <form class="form-horizontal" role="form">
                                     <div class="form-group">
                                         <label for="name" class ="control-label col-sm-4">Full Name</label>
@@ -322,7 +345,7 @@
                                             <input type="text" class="form-control" id="mobile" placeholder="CurrentLocation">
                                         </div>
                                     </div>
-    
+
                                     <div class="form-group">
                                         <label for="preferedlocation" class="control-label col-sm-4">Prefered Location</label>
                                         <div class="col-sm-7">
@@ -365,10 +388,10 @@
                                             <input type="date" class="form-control" id="DOB" placeholder="DOB">
                                         </div>
                                     </div>
-    
+
                                 </form>
                             </div>
-    
+
                         </div>
                         <div id="cv" class="tab-pane fade ">
                             <div class="well" style="position: relative;">
@@ -376,9 +399,9 @@
     <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;">&nbsp;</div>
                             </div>
                         </div>
-    
-    
-    
+
+
+
                     </div>
                 </div>-->
       </div>
@@ -389,10 +412,10 @@
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Add Candidate</h4>   <button type="button" class="close" data-dismiss="modal">&times;</button>
-           
+
             </div>
             <div class="modal-body">
-               
+
                 <div class="col-md-12 ">
                   <form class="form-horizontal" role="form">
                     <div class="form-group">
@@ -628,8 +651,7 @@
                       <label for="resume" class="control-label col-sm-4">Resume</label>
                       <div class="col-sm-7">
 
-                        <iframe class="form-control" style="border:0; height: 45px; overflow: hidden;"
-                          src="views/uploadresume.php" id="uploadResume"></iframe>
+
                       </div>
                     </div>
 
@@ -643,7 +665,7 @@
 
                   </form>
                 </div>
-               
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -658,11 +680,11 @@
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
-             
+
               <h4 class="modal-title">Add To Jobs</h4> <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-               
+
                 <div class="row">
                   <div class="col-md-12">
                     <form class="form-horizontal">
@@ -691,7 +713,7 @@
                         <label for="Jobs" class="control-label col-xs-2">Owner</label>
                         <div class="col-xs-8">
                           <select class="form-control e" n="Owner" ng-model="copycandidate.manager">
-                            <option value="{{profile.id}}">Self</option>
+                            <option value="{{db.profile.id}}">Self</option>
                             <option value="{{x.id}}"  *ngFor="let x of managers">
                               {{x.name}}
                             </option>
@@ -713,7 +735,7 @@
                   </div>
 
                 </div>
-               
+
             </div>
 
             <div class="modal-footer">
@@ -729,11 +751,11 @@
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
-            
+
               <h4 class="modal-title">Call</h4>  <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-               
+
                 <div class="row">
                   <div class="col-md-12">
                     <form class="form-horizontal">
@@ -762,7 +784,7 @@
                         <label for="Jobs" class="control-label col-xs-2">Owner</label>
                         <div class="col-xs-8">
                           <select class="form-control e" n="Owner" ng-model="copycandidate.manager">
-                            <option value="{{profile.id}}">Self</option>
+                            <option value="{{db.profile.id}}">Self</option>
                             <option value="{{x.id}}"  *ngFor="let x of managers">
                               {{x.name}}
                             </option>
@@ -780,7 +802,7 @@
                   </div>
 
                 </div>
-               
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -1,3 +1,72 @@
-<p>
-  add-to-job works!
-</p>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-4"
+class="modal fade">
+<div class="modal-dialog" id="client">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">ADD To Job</h4><button aria-hidden="true" data-dismiss="modal" class="close"
+        type="button">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label for="Client" class="control-label col-xs-2">{{clientsdepartment}}:</label>
+          <div class="col-xs-10">
+              <mat-form-field class="example-full-width">
+                  <input type="text" placeholder="Pick one" aria-label="Number" matInput   >
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+            <select class="form-control m-bot15 e" validate ng-change="getcandidatebyclientaddtojob()"
+              [(ngModel)]="addtojob.client_detail_id" name="client_detail_id">
+              <option value="{{x.id}}" *ngFor="let  xof clients">{{x.billingName}}</option>
+
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Jobs" class="control-label col-xs-2">Jobs:</label>
+          <div class="col-xs-10">
+            <select class="form-control m-bot15 e" [(ngModel)]="addnewjob.add_new_job_id"
+              name="add_new_job_id">
+              <option value="{{x.id}}" *ngFor="let  xof jobslistbyclientsaddtojob">{{x.job_title}}
+              </option>
+
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Jobs" class="control-label col-xs-2">Owner</label>
+          <div class="col-xs-10">
+            <select class="form-control e" [(ngModel)]="addnewjob.manager">
+              <option value="{{profile.id}}">Self</option>
+              <option value="{{x.id}}" *ngFor="let  xof managers">
+                {{x.name}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+                       <label for="Status" class="control-label col-xs-2">Status:</label>
+                       <div class="col-xs-10">
+                          <select class="form-control m-bot15">
+                                                             <option>Status</option>
+                                                             <option>Option 2</option>
+                                                             <option>Option 3</option>
+                                                         </select>
+                       </div>
+                   </div>-->
+        <div class="form-group">
+          <div class="col-md-4 col-md-offset-4">
+            <button type="submit" class="btn btn-primary btn-block" tar="#client"
+              (click)="addtojobcandidates()">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>

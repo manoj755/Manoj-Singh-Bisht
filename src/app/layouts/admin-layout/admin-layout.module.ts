@@ -1,6 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
+// import { AngularSlickgridModule } from 'angular-slickgrid';
+// import { NgSelectModule } from '@ng-select/ng-select';
+import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
@@ -11,12 +16,12 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import { LoginComponent } from "../../login/login.component";
-import { MyJobComponent } from "../../my-job/my-job.component";
-import { BillingComponent } from "../../billing/billing.component";
-import { HistoryComponent } from "../../history/history.component";
-import { InternalDatabaseComponent } from "../../internal-database/internal-database.component";
-import { NewJobComponent } from "../../new-job/new-job.component";
+import { LoginComponent } from '../../login/login.component';
+import { MyJobComponent } from '../../my-job/my-job.component';
+import { BillingComponent } from '../../billing/billing.component';
+import { HistoryComponent } from '../../history/history.component';
+import { InternalDatabaseComponent } from '../../internal-database/internal-database.component';
+import { NewJobComponent } from '../../new-job/new-job.component';
 import { CallDetailComponent } from '../../call-detail/call-detail.component';
 import { MessageTemplateComponent } from '../../message-template/message-template.component';
 import { ClientComponent } from '../../client/client.component';
@@ -24,12 +29,13 @@ import { AddNewTrackerComponent } from '../../add-new-tracker/add-new-tracker.co
 import { TrackerFieldsComponent } from '../../tracker-fields/tracker-fields.component';
 import { UsersComponent } from '../../users/users.component';
 import { ChannelComponent } from '../../channel/channel.component';
-
-import { ManagerComponent } from "../../control/manager/manager.component";
-import { AddToJobComponent } from "../../control/add-to-job/add-to-job.component";
-import { AddCandidateComponent } from "../../control/add-candidate/add-candidate.component";
-import { MyTeamComponent } from "../../control/my-team/my-team.component";
-import { PvGetReferenceComponent } from "../../control/pv-get-reference/pv-get-reference.component";
+// import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ManagerComponent } from '../../control/manager/manager.component';
+import { AddToJobComponent } from '../../control/add-to-job/add-to-job.component';
+import { AddCandidateComponent } from '../../control/add-candidate/add-candidate.component';
+import { MyTeamComponent } from '../../control/my-team/my-team.component';
+import { PvGetReferenceComponent } from '../../control/pv-get-reference/pv-get-reference.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import {
   MatButtonModule,
   MatInputModule,
@@ -40,9 +46,11 @@ import {
   MatCheckboxModule,
   MatProgressBarModule,
   MatCardModule,
-  MatRadioModule,
-  
-} from '@angular/material';
+  MatRadioModule, 
+
+} from '@angular/material'; 
+ 
+// @dynamic
 @NgModule({
   imports: [
     CommonModule,
@@ -54,10 +62,15 @@ import {
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
-    MatCheckboxModule, 
+    MatCheckboxModule,
     MatProgressBarModule,
     MatCardModule,
     MatRadioModule,
+    CKEditorModule,
+  
+    AgGridModule.withComponents([]),
+    // TranslateService,
+  //  NgSelectModule,
   ],
   declarations: [
     DashboardComponent,
@@ -71,8 +84,8 @@ import {
     LoginComponent,
     HistoryComponent,
     MyJobComponent,
-    BillingComponent,   
-     InternalDatabaseComponent,
+    BillingComponent,
+    InternalDatabaseComponent,
     NewJobComponent,
     CallDetailComponent,
     MessageTemplateComponent,
@@ -85,8 +98,8 @@ import {
     AddToJobComponent,
     AddCandidateComponent,
     MyTeamComponent,
-    PvGetReferenceComponent
+    PvGetReferenceComponent, 
+    
   ]
 })
-
-export class AdminLayoutModule {}
+export class AdminLayoutModule { }
