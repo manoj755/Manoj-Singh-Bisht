@@ -12,8 +12,9 @@ export class HistoryComponent implements OnInit {
   private smsselected = {};
   private emailselected = {};
   private gridApi;
+  recruiter;
   private gridColumnApi;
-
+  managers = [];
   private autoGroupColumnDef;
   private defaultColDef;
   private rowSelection;
@@ -46,10 +47,16 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit() {
     this.LoadHistory();
+    this.loadmanagerid();
   }
 
   LoadHistory(): void {
-    this.db.list('history/', {}, ((response): void => {
+    let data = {};
+    if (this.recruiter) {
+      data = { recruiter: this.recruiter };
+
+    }
+    this.db.list('history/', data, ((response): void => {
       this.rowData = response;
 
 
@@ -68,4 +75,13 @@ export class HistoryComponent implements OnInit {
     this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
 
   }
+
+  loadmanagerid(): void {
+
+    this.db.list('manager/', null, ((response): void => {
+      this.managers = response;
+
+
+    }));
+  };
 }

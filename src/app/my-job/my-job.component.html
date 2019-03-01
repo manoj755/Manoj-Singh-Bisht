@@ -1,1167 +1,1192 @@
 <div class="main-content">
-    <div class="container-fluid">
-      <div class="row">
-          
-          
-           
-            
-              <!-- Assist content -->
-              <section class="content">
-                  <div style="margin-top:20px;" class="col-md-12">
-    
-    
-                      <ul class="nav nav-tabs showloader pull-left  ">
-                          <li class="active"><a href="#" data-toggle="tab" ng-click='changefilter("hascall","hascall")' class="btn  btn-raised btn-primary">Call>0</a></li>
-                          <li ><a data-toggle="tab" href="#"  ng-click='changefilter("Active","job_status")' class="btn  btn-raised btn-primary">Active</a></li>
-                          <li><a href="#" data-toggle="tab" ng-click='changefilter("Hold","job_status")' class="btn  btn-raised btn-primary">Hold</a></li>
-                          <li><a href="#" data-toggle="tab" ng-click='changefilter(1,"website")' class="btn  btn-raised btn-primary">Visible on Website</a></li>
-                          <li><a href="#" data-toggle="tab" ng-click='changefilter("Closed","job_status")' class="btn  btn-raised btn-primary">Closed</a></li>
-                          <li><a href="#" data-toggle="tab" style="background:#ddf295; color:#251e22;" ng-click='changefilter("Interview","interview")' class="btn  btn-raised btn-primary">Interview</a></li>
-      
-       <li><a href="#" data-toggle="tab" ng-click='changefilter("All","job_status")' class="btn  btn-raised btn-primary">All</a></li>
-                          <li><a href="#" data-toggle="tab" ng-click='changefilter("Tagged","tagged")' class="btn  btn-raised btn-primary">Tagged</a></li>
-                         
-                      </ul>
-                       
-      
-                      <div class="clearfix"></div>
-      
-                      <div class="box box-primary" id="#">
-                            <mat-progress-bar mode="indeterminate" *ngIf="isLoadingJobs"></mat-progress-bar>
+  <div class="container-fluid">
+    <div class="row">
 
-                          <div  class="box-body-{{item.selected?'info':'default'}}  bg-{{item.selected?'info':'default'}}" style="border-bottom: 1px solid rgb(0, 0, 0);border-top: solid 1px #d4d4d4;margin-bottom: 5px;"
-                               (click)="selectdeselect($event,item);" *ngFor="let item of jobslist; let i = index;">
-                               <div class="box-title" >
-    
-                                  <div class="row" style="margin: 0;">
-                                      <div class="col-md-12">
-                                          <div class="joblnk">
-                                              <div class='row'>
-                                                  <div class="jtitle col-md-6">
-      
-                                                      {{index+1}} ) .
-                                                      <a class="title_in"  target="_blank" href="/#/myjob/{{item.id}}" ___stopclick="showJob(item.id, $event)">
-      
-                                                          <span itemprop="title" class="title_in" style="margin-right:2px;">
-      
-                                                              <span class="hightlighted_keyword"> {{item.job_title}} </span>
-      
-                                                          </span>
-                                                      </a>
-                                                      <span>( Job ID : {{item.category_code}}{{item.id}} )</span>
-      
-                                                      <span itemtype="#" help='Client'>{{item.ClientName}} </span>
-      
-                                                      <span style='padding-left:10px; display:inline-block;'>
-                                                          <i class='fa fa-inr'></i> {{item.referralBonus}} </span>      <span  ng-hide='mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"' class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager"   
-                                                                                                                           >
-                                                          <i class="fa fa-check"></i>
-                                                      </span>
-                                                  </div>
-                                                  <div class="member-social pull-right col-md-6 shareparent" style="text-align: right;">
-                                              
-      
-                                                      <a   mat-mini-fab   class="" help="Assign to recruiter" href="javascript:"  
-                                                            ng-click="assignjobClick()">
-                                                          <i class="fa fa-share-square-o"></i>
-                                                      </a>    
-                                                      <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->  
-      
-                                                      <a   mat-mini-fab  ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" title="Approve by Manager" href="javascript:"  
-                                                           ng-click="is_approved_by_manager(item)">
-                                                          <i class="fa fa-check"></i>
-                                                      </a>
-      
-                                                      <a   mat-mini-fab   class="select{{item.tagged}}" title="Tag" href="javascript:"  
-                                                            ng-click="tag(item)">
-                                                          <i class="fa fa-tags"></i>
-                                                      </a>
-                                                      <a  mat-mini-fab   class="" help="Show JD" href="javascript:"  
-                                                           style='color:black; background:#ffffbe;'  ng-click="item.responsibilityshow=!item.responsibilityshow;">
-                                                          <i class="fa fa-bolt "></i>
-                                                      </a>
-                                                      <a  mat-mini-fab  ng-show='item.visibleonwebsite==1'  class="" href="{{$url}}/{{item.slug}}/{{item.id}}/{{profile.id}}" target="_blank"
-                                                         style='color:red; background:white;' help='Visible on Website'>
-                                                          <i class="fa fa-eye "></i>
-                                                      </a>
-      
-                                                      <a  mat-mini-fab class="facebook"  ng-hide="profile.isvendor=='1'"  href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
-                                                         target="_blank">
-                                                          <i class="fa fa-facebook "></i>
-                                                      </a>
-      
-                                                      <a  mat-mini-fab class="twitter"  ng-hide="profile.isvendor=='1'"  href="https://twitter.com/share?url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
-                                                         target="_blank">
-                                                          <i class="fa fa-twitter  "></i>
-                                                      </a>
-      
-                                                      <a  mat-mini-fab class="linkedin"  ng-hide="profile.isvendor=='1'"  href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
-                                                         target="_blank">
-                                                          <i class="fa fa-linkedin "></i>
-                                                      </a>
-                                                      <a  mat-mini-fab data-toggle="modal" ng-show="mp.btn_take_internal_refeference" data-target="#internalreference" href="javascript:" ng-click="GetInHourseReference(item.id, $event)"
-                                                         class="text-danger" help='get reference internal' title='get reference internal'>
-                                                          <i class="fa fa-bullhorn  "></i>
-                                                      </a>
-                                                      <a  mat-mini-fab href="#"   class="pull-right text-aqua" ng-show="mp.btn_upload_cv_myjobs">
-                                                          <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)" help="Upload CVs(Excel)" class="fa fa-upload"></i>
-                                                      </a>
-      
-                                                      <div class="sharediv"> 
-                                                          Share for Apply :  <a  mat-mini-fab  class="facebook"  ng-hide="profile.isvendor=='1'"  href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
-                                                                                                   target="_blank">
-                                                              <i class="fa fa-facebook "></i>
-                                                          </a>
-      
-                                                          <a class="twitter"  mat-mini-fab  ng-hide="profile.isvendor=='1'"  href="https://twitter.com/share?url={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
-                                                             target="_blank">
-                                                              <i class="fa fa-twitter  "></i>
-                                                          </a>
-      
-                                                          <a class="linkedin"  mat-mini-fab  ng-hide="profile.isvendor=='1'"  href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
-                                                             target="_blank">
-                                                              <i class="fa fa-linkedin "></i>
-                                                          </a></div>
-      
-                                                  </div>
-                                              </div>
-      
-      
-                                              <div class="jtxt">
-      
-      
-                                                  <span itemprop="skills">
-      
-                                                      <span style="color: blue;font-size: 17px;">Location:</span>{{item.location}}  
-                                                  </span>
-      <!--                                            <span itemprop="skills">
-      
-                                                      <span style="color: blue;font-size: 17px;">Salary:</span>{{myjob.maximumSalary}}  
-                                                  </span>-->
-                                              </div>
-      
-      
-                                          </div>
-      
-                                      </div>
-                                      <div class="col-md-12">
-                                          <div class='row'>
-                                              <button  mat-raised-button color="primary"
-                                              matBadge="2" matBadgePosition="before" matBadgeColor="accent"  class=" btnnew col-md-2 btn-sm" ng-click="filterdrbytab('My Candidates', 'all', item)" data-toggle="modal"
-                                                      data-target="#candidatesall">All 
-                                              </button>
-                                              
-                                              <button type="button" class="btn  btn-raised btnnew1 col-md-2 btn-sm" ng-click="filterdrbytab('My Candidates', 'Under Review', item)" data-toggle="modal"
-                                                      data-target="#candidatesall">In Review/Referrals
-                                                  <span class="badge ng-binding">{{item.underreview}}</span>
-                                              </button>
-                                              <button type="button" class="btn  btn-raised btnnew2 col-md-2 btn-sm" ng-click="filterdrbytab('My Candidates', 'In Process', item)" data-toggle="modal"
-                                                      data-target="#candidatesall">In process
-                                                  <span class="badge ng-binding">{{item.inprocess}}</span>
-                                              </button>
-                                              <button type="button" class="btn  btn-raised btnnew5 col-md-2  btn-sm" ng-click="filterdrbytab('My Candidates', 'isinterview', item)" data-toggle="modal"
-                                                      data-target="#candidatesall">Interview
-                                                  <span class="badge ng-binding">{{item.candidates_interview_count}}</span>
-                                              </button>
-                                              <button type="button" class="btn  btn-raised btnnew3 col-md-2  btn-sm" ng-click="filterdrbytab('My Candidates', 'Selected', item)" data-toggle="modal"
-                                                      data-target="#candidatesall"> Selected
-                                                  <span class="badge ng-binding">{{item.selectedcandidate}}</span>
-                                              </button>
-                                              <button type="button" class="btn  btn-raised btnnew4 col-mdd-2  btn-sm" ng-click="filterdrbytab('My Candidates', 'Rejected', item)" data-toggle="modal"
-                                                      data-target="#candidatesall">Rejected
-                                                  <span class="badge ng-binding">{{item.rejected}}</span>
-                                              </button>
-                                          </div>
-      
-                                      </div>
-                                      <div class="col-md-12" [hidden]="!item.responsibilityshow">
-                                          <p class="htmlele">{{item.jobDescription}}</p>
-                                      </div>
-                                  </div>
-      
-                              </div>
-      
-                          </div>
-      
-                          <mat-card [hidden]='jobslist.length>0||isLoadingJobs' >
-                              No Data Found
-                          </mat-card>
-      
-                      </div>
-                      <div class="clearfix"></div>
-                       
+      <nav class="navbar" ng-show="showmyjoblist">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="input-group" style="margin-top: 9px;">
+                  <div class="input-group-btn  btn-raised search-panel">
+                    <button type="button" class="btn  btn-raised btn-default dropdown-toggle" data-toggle="dropdown">
+                      <span id="search_concept">Search by {{displaydd}}</span>
+                      <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <button class="btn  btn-raised btn-info btn-block btn-sm"
+                          (click)="filterdropdownfunction('my_candidates', 'My Candidates')">My Candidates</button>
+                      </li>
+
+                      <li>
+                        <button class="btn  btn-raised btn-success btn-block btn-sm"
+                          (click)="filterdropdownfunction('jobs', 'Jobs')">Jobs</button>
+                      </li>
+
+                    </ul>
                   </div>
-          
-                  <div class="row">
-                      <div class="col-md-4">
-                          <div class="row">
-                              <div class="col-md-4">
-                                  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="vendor" class="modal fade">
-                                      <div class="modal-dialog modal-lg">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-          
-                                              </div>
-                                              <div class="box box-primary">
-                                                  <div class="box-header">
-                                                      <i class="ion ion-clipboard"></i>
-          
-                                                      <h3 class="box-title text-center">Assign Job to Vendor</h3>
-          
-          
-                                                  </div> 
-          
-                                                  <div class="box-body">
-                                                      <input type="text" [(ngModel)]="vendorSearch"  class="form-control" placeholder="Search"/>
-          
-          
-          
-                                                      <ul class="todo-list">
-                                                        
-                                                          <li *ngFor="let vendor of vendors">
-          
-          
-                                                              <!-- drag handle -->
-                                                              <span class="handle">
-                                                                  <i class="fa fa-ellipsis-v"></i>
-                                                                  <i class="fa fa-ellipsis-v"></i>
-                                                              </span>
-                                                              <!-- checkbox <input type="checkbox" ng-checked="selectedmanagerlist.indexOf(manager.id)>-1" [(ngModel)]="selectedmanager" ng-change="selectedmanagerlistset(manager.id)" value="{{manager.id}}"> -->
-          
-                                                              <input type="checkbox" [(ngModel)]="vendor.selected">
-          
-          
-                                                              <!-- todo text -->
-                                                              <span class="text"> {{vendor.name}}</span>
-                                                              <!-- Emphasis label -->
-          
-                                                              <!-- General tools such as edit or delete-->
-                                                              <div class="tools hidden">
-                                                                  <i class="fa fa-edit"></i>
-                                                                  <i class="fa fa-trash-o"></i>
-                                                              </div>
-                                                          </li>
-          
-          
-          
-          
-                                                      </ul>
-                                                  </div>
-                                                  <!-- /.box-body -->
-                                                  <div class="box-footer clearfix no-border">
-                                                      <button type="button" class="btn  btn-raised btn-default pull-right" ng-click="assignjobtovendor()"> Assign Job</button>
-                                                      <button type="button" class="btn  btn-raised btn-default pull-right" ng-click="unassignjobtovendor()" title="selected vendor will be removed from job">Un-Assign Job</button>
-                                                  </div>
-                                              </div>
-          
-                                          </div>
-                                      </div>
-                                  </div>
-          
-          
-                                  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-4" class="modal fade">
-                                      <div class="modal-dialog modal-lg">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-          
-                                              </div>
-                                              <div class="box box-primary">
-                                                  <div class="box-header">
-                                                      <i class="ion ion-clipboard"></i>
-          
-                                                      <h3 class="box-title text-center">Assign Job</h3>
-          
-                                                      <div class="box-tools pull-right hidden">
-                                                          <ul class="pagination pagination-sm inline">
-                                                              <li>
-                                                                  <a href="#">&laquo;</a>
-                                                              </li>
-                                                              <li>
-                                                                  <a href="#">1</a>
-                                                              </li>
-                                                              <li>
-                                                                  <a href="#">2</a>
-                                                              </li>
-                                                              <li>
-                                                                  <a href="#">3</a>
-                                                              </li>
-                                                              <li>
-                                                                  <a href="#">&raquo;</a>
-                                                              </li>
-                                                          </ul>
-                                                      </div>
-                                                  </div>
-                                                  <!-- /.box-header -->
-          
-                                                  <div class="box-body">
-                                                      <input type="text" [(ngModel)]="managerSearch"  class="form-control" placeholder="Search"/>
-          
-                                                      <ul class="todo-list">
-          
-                                                          {{selectedmanager}}
-                                                          <li *ngFor="let manager of managers">
-          
-          
-                                                              <!-- drag handle -->
-          
-          <!-- checkbox <input type="checkbox" ng-checked="selectedmanagerlist.indexOf(manager.id)>-1" [(ngModel)]="selectedmanager" ng-change="selectedmanagerlistset(manager.id)" value="{{manager.id}}"> -->
-          
-                                                              <input type="checkbox" [(ngModel)]="manager.selected">
-          
-          
-                                                              <!-- todo text -->
-                                                              <span class="text"> {{manager.name}}</span>
-                                                              <!-- Emphasis label -->
-          
-                                                              <!-- General tools such as edit or delete-->
-                                                              <div class="tools hidden">
-                                                                  <i class="fa fa-edit"></i>
-                                                                  <i class="fa fa-trash-o"></i>
-                                                              </div>
-                                                          </li>
-          
-          
-          
-          
-                                                      </ul>
-                                                  </div>
-                                                  <!-- /.box-body -->
-                                                  <div class="box-footer clearfix no-border">
-                                                      <button type="button" class="btn  btn-raised btn-default pull-right" ng-click="assignjob()"> Assign Job</button>
-                                                      <button type="button" class="btn  btn-raised btn-default pull-right" ng-click="unassignjob()" title="Selected recruiter will be removed from selected job !!">
-                                                          Unassigned Job</button>
-                                                  </div>
-                                              </div>
-          
-                                          </div>
-                                      </div>
-                                  </div>
-          
-          
-                             
-                                  <!--unassigned pop up for vendors or recruiters-->
-                                  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-5" class="modal fade">
-                                      <div class="modal-dialog modal-lg">
-                                          <div class="modal-content">
-                                              <div class="modal-header">
-                                                  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-          
-                                              </div>
-                                              <div class="box box-primary">
-                                                  <div class="box-header">
-                                                      <i class="ion ion-clipboard"></i>
-          
-                                                      <h3 class="box-title text-center">Assign Job</h3>
-          
-                                                      <div class="box-tools pull-right">
-                                                          <ul class="pagination pagination-sm inline">
-                                                              <li>
-                                                                  <a href="#">&laquo;</a>
-                                                              </li>
-                                                              <li>
-                                                                  <a href="#">1</a>
-                                                              </li>
-                                                              <li>
-                                                                  <a href="#">2</a>
-                                                              </li>
-                                                              <li>
-                                                                  <a href="#">3</a>
-                                                              </li>
-                                                              <li>
-                                                                  <a href="#">&raquo;</a>
-                                                              </li>
-                                                          </ul>
-                                                      </div>
-                                                  </div>
-                                                  <!-- /.box-header -->
-          
-                                                  <div class="box-body">
-          
-                                                      <ul class="todo-list">
-                                                          {{selectedmanager}}
-                                                          <li *ngFor="let manager of managers">
-          
-          
-                                                              <!-- drag handle -->
-          
-             <!-- checkbox <input type="checkbox" ng-checked="selectedmanagerlist.indexOf(manager.id)>-1" [(ngModel)]="selectedmanager" ng-change="selectedmanagerlistset(manager.id)" value="{{manager.id}}"> -->
-          
-                                                              <input type="checkbox" [(ngModel)]="manager.selected">
-          
-          
-                                                              <!-- todo text -->
-                                                              <span class="text"> {{manager.name}}</span>
-                                                              <!-- Emphasis label -->
-          
-                                                              <!-- General tools such as edit or delete-->
-                                                              <div class="tools hidden">
-                                                                  <i class="fa fa-edit"></i>
-                                                                  <i class="fa fa-trash-o"></i>
-                                                              </div>
-                                                          </li>
-          
-          
-          
-          
-                                                      </ul>
-                                                  </div>
-                                                  <!-- /.box-body -->
-                                                  <div class="box-footer clearfix no-border">
-                                                      <button type="button" class="btn  btn-raised btn-default pull-right" ng-click="assignjob()"> Assign Job</button>
-                                                      <button type="button" class="btn  btn-raised btn-default pull-right" ng-click="unassignjob()"> Unassigned Job</button>
-                                                  </div>
-                                              </div>
-          
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!--end unassigned job-->
-                              </div>
-                          </div>
-                          <hr class="hrstye">
-          
-          
-          
-          
-          
-          
-                      </div>
-                  </div>
-          
-              </section>
-              <!-- End Assist Content -->
-              
-              
-              <!-- job Update -->
-           
-          
-              <!-- End Job Update-->
-        
-              <!-- All Candidate -->
-              <div class="modal fade" id="candidatesall" role="dialog">
-                  <div class="modal-dialog modal-lg">
-          
-          
-          
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-          
-                              <h4 class="modal-title">{{gridheader}} <i class='h5'>( {{jobitemselected.ClientName}} > {{jobitemselected.location}} > {{jobitemselected.job_title}})</i></h4>
-                             <ul class="social-network social-circle" style="margin-left:40%;">                   
-                                      <li><a href="javascript:" title='call'   data-target='#calldiv'  data-toggle='modal' ng-if="mp.btn_can_call"  class="icocall"><i class="fa fa-phone"></i></a></li>
-                                      </ul>
-                              <ul class="nav navbar-nav navbar-right">
-          
-          
-                                  
-                                    <!--<div class='col-md-2'>-->
-                                       
-                          <!--</div>-->
-                      
-            
-          
-                  <div id="calldiv" class="modal " role="dialog">
-                          <div class="modal-dialog">
-          
-                              <!-- Modal content-->
-                              <div class="modal-content">
-                                  <div class="modal-header">
-                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                      <h4 class="modal-title">Call</h4>
-                                  </div>
-                                  <div class="modal-body">
-                                     <div class="row">
-                                          <div class="col-md-12">
-                                              <div class="form-horizontal">
-                                                  <div class="form-group">
-                                                      <label for="Client" class="control-label col-xs-2">{{clientsdepartment}}:</label>
-                                                      <div class="col-xs-8">
-                                                          <select class="form-control e" n="Client"  ng-change="getcandidatebyclientbyjob(true)" [(ngModel)]="copycandidate.client_detail_id"  name="client_detail_id" required>
-                                                              <option  value="{{x.id}}"  *ngFor="let x of clients">{{x.billingName}}</option>
-                                                          </select>
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="Jobs" class="control-label col-xs-2">Jobs:</label>
-                                                      <div class="col-xs-8">
-                                                          <select class="form-control e" n="Jobs" [(ngModel)]="copycandidate.job_id"  >
-                                                              <option value="{{job.id}}" *ngFor="let job of jobslistbyclients">
-                                                                  {{job.job_title}} ({{job.id}})
-                                                              </option>
-                                                          </select>
-                                                      </div>
-                                                  </div>
-                                                  <div class="form-group">
-                                                      <label for="Jobs" class="control-label col-xs-2">Owner</label>
-                                                      <div class="col-xs-8">
-                                                          <select class="form-control e" n="Owner" [(ngModel)]="copycandidate.manager"  >
-                                                              <option value="{{profile.id}}">Self</option>
-                                                              <option value="{{x.id}}" *ngFor="let x of managers">
-                                                                  {{x.name}}
-                                                              </option>
-                                                          </select>
-                                                      </div>
-                                                  </div>
-          
-                                                  <div class="form-group">
-                                                      <div class="col-md-4 col-md-offset-4">
-                                                          <button type="submit" class="btn  btn-raised btn-primary btn-block" tar="#addjob"  ng-click="sendcalltocandidates()">Place of Queue</button>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-          
-                                      </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                      <button type="button" class="btn  btn-raised btn-default" data-dismiss="modal">Close</button>
-                                  </div>
-                              </div>
-          
-                          </div>
-                      </div>
-                                  
-                                  
-                                   
-                                  <li>
-                                      <a ng-if="mp.candidates_under_job_copyjob" class="btn btn-raised btn-sm" href="javascript:" data-toggle="modal" data-target="#assignCandidate">
-                                          <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Assign Candidate</a>
-                                  </li>
-                                  <li>
-                                      <a ng-if="mp.btn_submit_cv_to_panel"  class="btn btn-raised btn-sm"  href="javascript:" ng-click="submit_cv_to_panel_status()">
-                                          <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Submit to Panel</a>
-                                  </li>
-                                  <li>
-                                      <a href="javascript:" ng-click="submitcv()" class="btn btn-raised btn-sm" >
-                                          <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Submit Cv</a>
-                                  </li>
-          
-                              </ul>
-                          </div>
-                          
-                          <div class="modal-body">
-                              <div>
-                                  <div style="text-align: right;">
-                                      <button type="button" class="btn  btn-raised btnnew btn-xs  "  style="width:10%;" ng-click="filterdrbytab('My Candidates', 'allcalled')" 
-                                                          data-target="#candidatesall">All
-                                                      <span class="badge ng-binding">{{allcalledcandidate}}</span>
-                                                  </button>
-                                                  <button type="button" class="btn  btn-raised btnnew1 btn-xs " ng-click="filterdrbytab('My Candidates', 'calledinterested')" 
-                                                          data-target="#candidatesall">Interested
-                                                      <span class="badge ng-binding">{{calledinterested}}</span>
-                                                  </button>
-                                                  <button type="button" class="btn  btn-raised btnnew2 btn-xs " ng-click="filterdrbytab('My Candidates', 'callednotinterested')" 
-                                                          data-target="#candidatesall">Not interested
-                                                      <span class="badge ng-binding">{{callednotinterested}}</span>
-                                                  </button>
-                                                  <button type="button" class="btn  btn-raised btnnew6 btn-xs  " ng-click="filterdrbytab('My Candidates', 'callbackrequest')" 
-                                                          data-target="#candidatesall">Call back request
-                                                      <span class="badge ng-binding">{{callbackrequest}}</span>
-                                                  </button>
-                                                  <button type="button" class="btn  btn-raised btnnew3  btn-xs" style="width:22%;" ng-click="filterdrbytab('My Candidates', 'incompletecall','tocall')" 
-                                                          data-target="#candidatesall">To call/No Status
-                                                      <span class="badge ng-binding">{{tocall}}/{{incompletecall}}</span>
-                                                  </button>
-                                                  <button type="button" class="btn  btn-raised btnnew4   btn-xs" ng-click="filterdrbytab('My Candidates', 'couldnotconnect')"
-                                                          data-target="#candidatesall">Could not connect
-                                                      <span class="badge ng-binding">{{couldnotconnect}}</span>
-                                                  </button>
-                          </div>
-                                   <div class="text-right">
-                                          <input type="button" ng-click="toggleexport()" class="btn  btn-raised btn-sm btn-default " value="Change format to export" />
-                                      </div>
-                                  <div class="col-md-12">
-                                      <input type="text" placeholder="Search" class="form-control " [(ngModel)]="filterpopup" ng-keyup="filterpopupfunction()"/>
-                                  </div>
-                                 
-                                  <div class="col-md-12">
-                                      <div ui-grid="gridOptionsloadcandidatesInPopUp" ui-grid-selection ui-grid-pagination ui-grid-cellnav ui-grid-exporter ui-grid-resize-columns
-                                           ui-grid-move-columns ui-grid-exporter ui-grid-selection ui-grid-pinning class="grid">
-                                      </div>
-                                      <div class="clearfix clear"></div>
-                                  </div>   <div class="clearfix clear"></div>
-                                  
-                                   
-                              </div>
-                          </div>
-          
-                      </div>
-          
-                  </div>
+
+                  <input type="text" class="form-control" ng-auto-complete callback-fn='jobnamesuggest()'
+                    id='jobssearch' [(ngModel)]="searchcandidatetext" (change)="filteragain()"
+                    placeholder="Search Jobs">
+                  <input type="text" style="display: none;" class="form-control" id='candidatessearch'
+                    [(ngModel)]="searchcandidate" (change)="filterbycandidate()" placeholder="Search Candidates">
+
+                  <span class="input-group-btn">
+                    <button class="btn  btn-raised btn-default" (click)="filterbyJob()" type="button">
+                      Go
+                    </button>
+                  </span>
+                </div>
+
               </div>
-              <!-- All End Candidate-->
-              <!-- All Candidate -->
-              <div class="modal fade" id="internalreference" role="dialog">
-                  <div class="modal-dialog modal-md">
-          
-          
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                              <h4 class="modal-title">Get Reference</h4>
-          
-                              <div class="modal-body">
-          
-                                  <div ng-click="changechecked(department)" *ngFor="let department of  departments">
-                                      <label>
-                                          <i ng-show="department.selected" class="fa fa-check-square-o text-green"></i>
-                                          <i ng-hide="department.selected" class="text-green fa fa-square-o"></i> {{department.department}}</label>
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="prmSubject">Subject:</label>
-                                      <input type="text" [(ngModel)]='prmSubject' class="form-control" id="prmSubject">
-                                  </div>
-                                  <div class="form-group">
-                                      <label for="prmMessagge">Message:</label>
-                                      <textarea [(ngModel)]='prmMessagge' contenteditable class="form-control" id="prmMessagge"></textarea>
-                                  </div>
-          
-          
-          
-                              </div>
-                              <input type="button" ng-click="getinternalreferrence()" value="submit" class="btn  btn-raised btn-success">
-                          </div>
-          
-                      </div>
-          
-                  </div>
+              <div class="col-md-6">
+                <button type="button" class="btn  btn-raised  btn-primary" (click)='assignjobClick()'
+                  style="margin-top: 9px;" ng-if='mp.btn_assign_job_to_recruiter'>Assign Job</button>
+                <!--                        <button type="button" class="btn  btn-raised  btn-primary" data-toggle="modal" data-target="#myModal-5" style="margin-top: 9px;">Un-Assigned Job</button    >-->
+
+                <button type="button" class="btn  btn-raised  btn-success" (click)="loadvendor()"
+                  style="margin-top: 9px;" ng-if='mp.btn_assign_job_to_vendor'>Assign Job to Vendor</button>
+                <button type="button" class="btn  btn-raised  btn-success" data-toggle="modal" (click)="openaddvendor()"
+                  data-target="#addvendor" style="margin-top: 9px;" d='mp.btn_add_vendor'>Add Vendor</button>
+
+
               </div>
-          
-              <!-- All End Candidate-->
-          
-          
-          
-          
-          
-          
-          
-              <!-- Assign Job -->
-              <div id="showcvs" class="modal fade " role="dialog">
-                  <div class="modal-dialog modal-lg" style="width:100%;">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button aria-hidden="true" data-dismiss="modal" ng-click="cancel()" class="close" type="button">×</button>
-                              <h4 class="modal-title">CVS</h4>
-                          </div>
-                          <div class="modal-body">
-                              <div class="row">
-                                  
-                                  <div class="col-md-3 col-md-offset-9">
-                                      <div class="form-group ">
-                                          <input type="submit" class="form-control btn  btn-raised btn-info " ng-click="cvformdatapost()" id="submitcvs" value="Submit Cvs" />
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="modal fade" role="dialog" id="assignCandidate">
-          
-          
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button aria-hidden="true" data-dismiss="modal" ng-click="cancel()" class="close" type="button">×</button>
-                              <h4 class="modal-title">Assign Candidate</h4>
-                          </div>
-                          <div class="modal-body">
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <div class="form-horizontal" role="form">
-                                          <div class="form-group">
-                                              <label class="col-md-3 col-sm-offset-2">{{clientsdepartment}}:</label>
-                                              <div class="col-md-4">
-                                                  <select class="form-control e" n="Client" ng-change="getcandidatebyclient()" [(ngModel)]="copycandidate.client_detail_id" name="client_detail_id"
-                                                          required>
-                                                      <option value="{{client.id}}" *ngFor="let client of clientdetails">
-                                                          {{client.billingName}}
-                                                      </option>
-                                                  </select>
-          
-                                              </div>
-                                          </div>
-          
-                                          <div class="form-group">
-                                              <label class="col-md-3 col-sm-offset-2">Job:</label>
-                                              <div class="col-md-4">
-                                                  <select class="form-control e" n="Job" [(ngModel)]="copycandidate.job_id">
-                                                      <option value="{{job.id}}" *ngFor="let job of jobslistbyclients">
-                                                          {{job.job_title}}
-                                                      </option>
-                                                  </select>
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <label class="col-md-3 col-sm-offset-2">Owner</label>
-                                              <div class="col-md-4">
-                                                  <select class="form-control e" n="Owner" [(ngModel)]="copycandidate.manager">
-                                                      <option value="{{profile.id}}">Self</option>
-                                                      <option value="{{x.id}}" *ngFor="let x of managers">
-                                                          {{x.name}}
-                                                      </option>
-                                                  </select>
-                                              </div>
-                                          </div>
-                                          <div class="col-lg-offset-2 col-md-3">
-                                              <button type="submit" class="btn  btn-raised btn-block btn-primary" tar="#assignCandidate" ng-click="addtojobcandidates()">send</button>
-                                              <div class='alert alert-success' ng-show='addtojobmessage.length>0'>
-                                                  {{addtojobmessage}}
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-          
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-          
-          
-              </div>
-          
-          
-              <div class="modal fade" role="dialog" id="submit_cv_to_panel_status">
-          
-          
-                  <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button aria-hidden="true" data-dismiss="modal" ng-click="cancel()" class="close" type="button">×</button>
-                              <h4 class="modal-title">Submit cv to panel</h4>
-                          </div>
-                          <div class="modal-body">
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <div class="form-horizontal" role="form">
-          
-          
-                                          <div class="form-group">
-                                              <label class="col-md-3 ">Email:</label>
-                                              <div class="col-md-9">
-                                                  <input type="text" class="form-control e m" n="Email" [(ngModel)]="cv_to_panel.email"/>
-          
-          
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <label class="col-md-3 ">Subject:</label>
-                                              <div class="col-md-9">
-                                                  <input type="text" class="form-control e" n="Subject" [(ngModel)]="cv_to_panel.subject"/>
-          
-          
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <label class="col-md-3 ">Comment:</label>
-                                              <div class="col-md-9">
-                                                  <textarea  class="form-control e" n="Comment" [(ngModel)]="cv_to_panel.comment">
-                                                  </textarea>
-          
-          
-                                              </div>
-                                          </div>
-                                          <div class="col-md-3">
-                                              <button type="submit" class="btn  btn-raised btn-block btn-primary validatebutton" validate tar="#submit_cv_to_panel_status" ng-click="sendCvToPanel()">send</button>
-          
-                                          </div>
-                                        </div>
-                                  </div>
-          
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-          
-          
-              </div>
-          
-              <div class="modal" id="addvendor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                          <div class="modal-header">
-          
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                              </button>
-                              <h3 class="center">Add Vendor</h3>
-                          </div>
-                          <div class="modal-body">
-                              <div layout-gt-xs="row">
-          
-          
-                                  <div class="col-md-6"> Name
-          
-                                      <input type="text" [(ngModel)]="vendornew.name" class="form-control e" n="Name" />
-          
-          
-                                  </div>
-          
-                                  <div class="col-md-6">Email
-          
-                                      <input type="text" autocomplete="off" [(ngModel)]="vendornew.email" class="form-control m" n="Email" />
-                                  </div>
-          
-                                  <!--                <md-input-container flex> <label>Name</label>     <input type="text" [(ngModel)]="vendornew.name" class="form-control e" n="Name"  />  </md-input-container>
-                          <md-input-container flex>       <input type="file" fileread="vendornew.profilepic" />  </md-input-container>-->
-          
-          
-                              </div>
-                              <br>
-                              <!--            <div layout-gt-xs="row">
-                                          
-                                          <md-input-container flex> <label>Date of Birth</label>     
-                                              <md-datepicker type="text" [(ngModel)]="vendornew.dob" required=""> </md-datepicker> 
-                                          </md-input-container>
-                                          <div  class="errorinline" style="" ng-show="true"><div>please enter Date of Birth !</div></div>
-                                      </div>-->
-          
-                              <div layout-gt-xs="row">
-                                  <!--                <md-input-container flex>-->
-          
-                                  <div class="col-md-6"> Mobile Number
-                                      <input type="text" [(ngModel)]="vendornew.mobileNo" class="form-control n e" n="Mobile Number" />
-                                  </div>
-                                  <div class="col-md-6">Address
-                                      <input type="text" [(ngModel)]="vendornew.address" class="form-control n e" n="Address" />
-                                  </div>
-                                  <!--                <md-input-container flex> <label>Mobile No</label>     <input type="text" [(ngModel)]="vendornew.mobileNo" class="form-control n e" n="Mobile Number" />  </md-input-container>-->
-          
-          
-          
-                              </div>
-                              <br>
-          
-          
-                              <div class="row">
-                                  <div class="form-group">
-                                      <div class=" col-xs-offset-2 col-xs-10">
-                                          <button type="submit" class="btn  btn-raised btn-primary" tar="#addUser" ng-click="vendorsave()">Save</button>
-                                      </div>
-                                  </div>
-          
-          
-          
-          
-                              </div>
-                          </div>
-          
-                      </div>
-                  </div>
-          
-              </div>
-              <!-- Assign End Job-->
-              <div class="modal bs-example-modal-md" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                          <div class="modal-header">
-          
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                              </button>
-                              <h3 class="center">Send Mail
-                                  <span ng-class='countRowsinMyJob > 10 ? "text-danger" : "text - success"'> (CV Selected : {{countRowsinMyJob}})</span>
-                              </h3>
-                          </div>
-                          <div class="modal-body">
-                              <div class="form-horizontal" role="form">
-          
-                                  <div class="form-group">
-          
-                                      <div class="col-lg-10">
-                                          <select class="form-control m" [(ngModel)]="sendtracker.trackerno" n="Tracker NO" validate>
-                                              <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}</option>
-                                          </select>
-          
-          
-                                      </div>
-                                      <div class="col-lg-2 "><button ng-show="sendtracker.trackerno" type="button" ng-click="sendtrackermsg(true)" class="btn  btn-raised btn-primary btn-sm">Download</button></div>
-                                  </div>
-                                  <div class="form-group">
-          
-                                      <div class="col-lg-10">
-                                          <input type="email" class="form-control m" [(ngModel)]="sendtracker.to" n="To" validate id="inputEmail4" placeholder="TO:">
-                                      </div>
-                                  </div>
-                                  <div class="form-group">
-          
-                                      <div class="col-lg-10">
-                                          <input type="email" class="form-control m" [(ngModel)]="sendtracker.cc" n="CC" validate id="inputEmail5" placeholder="CC:">
-                                      </div>
-          
-                                  </div>
-                                  <div class="form-group">
-          
-                                      <div class="col-lg-10">
-                                          <input type="email" class="form-control m" n="BCC" validate [(ngModel)]="sendtracker.bcc" id="inputEmail5" placeholder="BCC:">
-                                      </div>
-          
-                                  </div>
-          
-          
-                                  <div class="form-group">
-          
-                                      <div class="col-lg-10">
-                                          <input type="file" class="form-control">
-                                          <!--                                <input type="text" class="form-control e" n=""  id="inputEmail5" placeholder="Subject:">-->
-                                      </div>
-                                  </div>
-          
-                                  <div class="form-group">
-          
-                                      <div class="col-lg-10">
-                                          <input type="text" class="form-control e" n="" [(ngModel)]="sendtracker.subject" id="inputEmail5" placeholder="Subject:">
-                                      </div>
-                                  </div>
-          
-                                  <div class="form-group">
-                                      <div class="col-md-12 col-sm-12 col-xs-12">
-          
-                                          <textarea class="form-control e" n="message" contenteditable [(ngModel)]="sendtracker.message" placeholder="message" style="min-width: 100%; height: 87px;">
-                                          </textarea>
-                                      </div>
-                                  </div>
-          
-                                  <button type="submit" ng-click="sendtrackermsg()" class="btn  btn-raised btn-primary btn-md">send</button>
-                                </div>
-                          </div>
-          
-                      </div>
-                  </div>
-          
-              </div>
-          
-              <div class="modal bs-example-modal-md" id="downloadtracker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                          <div class="modal-header">
-          
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                              </button>
-                              <h3 class="center">Download Tracker
-                                  <span ng-class='countRowsinMyJob > 10 ? "text-danger" : "text - success"'> (CV Selected : {{countRowsinMyJob}})</span>
-                              </h3>
-                          </div>
-                          <div class="modal-body">
-                              <div class="form-horizontal" role="form">
-          
-                                  <div class="form-group">
-          
-                                      <div class="col-lg-10">
-                                          <select class="form-control m" [(ngModel)]="trackerno" n="Tracker NO" validate>
-                                              <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}</option>
-                                          </select>
-          
-          
-                                      </div>
-          
-                                  </div>
-                                  <button type="button" ng-click="downloadtracker()" class="btn  btn-raised btn-primary btn-md">Download <i class="fa fa-download"></i></button>
-          
-                              </div>
-                          </div>
-          
-                      </div>
-                  </div>
-          
-              </div>
-          
-              <div class="modal fade" role="dialog" id="commentstatus">
-          
-          
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button aria-hidden="true" data-dismiss="modal" ng-click="cancel()" class="close" type="button">×</button>
-                              <h4 class="modal-title text-danger ">Comment/Status </h4>
-                          </div>
-                          <div class="modal-body">
-                              <div class="col-md-12">
-                                  <div class="form-horizontal" role="form" name="userForm">
-                                      <div class="form-group" ng-show="showowner">
-                                          <label for="inputEmail" class="col-md-3  col-sm-offset-2">Owner</label>
-                                          <div class="col-md-4">
-                                              <select class="form-control e" n="Owner" [(ngModel)]="commentstatus.recruiterid">
-                                                  <option value="{{profile.id}}">Self</option>
-                                                  <option value="{{manager.id}}" *ngFor="let manager of managers">
-                                                      {{manager.name}}
-                                                  </option>
-                                              </select> 
-                                          </div>
-                                      </div>
-                                      <div class="form-group">
-                                          <label class="col-md-3 col-sm-offset-2" select="">Status:</label>
-                                          <div class="col-md-6">
-                                              <select class="form-control" style="width: 80%;" id="purpose" ng-change="purposechange()" [(ngModel)]="commentstatus.status" name="client_detail_id">
-                                                  <option selected="" value="{{currentstatusid}}">{{currentstatusname}}</option>
-                                                  <option value="{{x.id}}" title="{{x.isinterview}}" *ngFor="let x of statuses">
-                                                      {{x.DisplayName}}
-                                                  </option>
-          
-                                              </select>
-                                              <label ng-show="mp.btn_show_all_status" ><input type="checkbox" ng-change="comment()" [(ngModel)]="allstatus" />Override Status</label> 
-                                          <label><input type="checkbox" [(ngModel)]="commentstatus.noemail" ng-true-value="1" ng-false-value="0">No email/sms to candidate</label>
-                                          </div>
-                                      </div>
-          
-                                      
-                                      <div class="form-group">
-                                          <label class="col-md-3 col-sm-offset-2" referral="">Comment :</label>
-                                          <div class="col-md-5">
-                                              <textarea class="form-control" [(ngModel)]="commentstatus.comment" placeholder="Comment" required=""></textarea>
-                                          </div>
-                                      </div>
-                                      <div class="col-lg-offset-2 col-md-3">
-                                          <button type="submit" class="btn  btn-raised btn-block btn-primary" ng-click="updatestatuscommentmyjob()">Update</button>
-                                      </div>
-                                  </div>
-          
-          
-                              </div>
-          
-                              <div class="clearfix"></div>
-                          </div>
-          
-          
-                      </div>
-                  </div>
-                  <!--End  Start Submit CV-->
-              </div>
-              <div class="modal fade" role="dialog" id="activity">
-          
-          
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button aria-hidden="true" data-dismiss="modal" ng-click="cancel()" class="close" type="button">×</button>
-                              <h4 class="modal-title text-danger">Activity</h4>
-                          </div>
-          
-          
-                          <div class="modal-body">
-                              <div class="col-md-12" style="padding-top: 10px;" *ngFor="let x of activities">
-          
-          
-                                  <div class="media-left media-middle">
-                                      <a href="#">
-                                          <img style="width:50px; height: 50px" on-error-src="img/profilepic.png" src="{{x.profilepic}}" class="media-object img-circle img-bordered" alt="User Image">
-                                      </a>
-                                  </div>
-                                  <div class="media-body">
-                                      <h4 class="media-heading">
-                                          <b>{{x.recruiter}}</b> changed status of
-                                          <i>
-                                              <span class="text-red ">{{x.candidateName}} </span>
-                                          </i> for
-                                          <span class="text-aqua">({{x.job_title}})</span>
-                                      </h4>
-                                      <div class="row">
-                                          <div class="col-md-8">Status :
-                                              <b class="text-black">{{x.RootDisplayName}}/{{x.DisplayName}}</b>
-                                          </div>
-                                          <div class="col-md-4">Date :
-                                              <b class="text-black ">{{x.created_at}}</b>
-                                          </div>
-          
-                                      </div>
-                                      <div class="col-md-12">
-                                          <b>Comment : </b> {{x.comment==''?'-':x.comment}}
-          
-                                      </div>
-                                      <div class="clearfix"></div>
-          
-                                  </div>
-                                  <hr>
-                              </div>
-          
-                              <div class="alert alert-danger" ng-show="activities.length == 0">
-                                  No Activity!
-                              </div>
-                              <div class="clearfix"></div>
-          
-                          </div>
-                      </div>
-                  </div>
-                  <!--End  Start Submit CV-->
-              </div>
-              <div class="modal fade" role="dialog" id="trackerDetailExtra">
-          
-          
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button aria-hidden="true" data-dismiss="modal" ng-click="cancel()" class="close" type="button">×</button>
-                              <h4 class="modal-title text-danger">Tracker Data</h4>
-                          </div>
-          
-          
-                          <div class="modal-body">
-                              <div class="col-md-12" style="padding-top: 10px;"  >
-          
-                                  <div class="form-group">
-                                      <label>Resume Source:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.resume_source" class="form-control"  >
-                                  </div>
-                                  <div class="form-group">
-                                      <label>Resume Source Name:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.resume_source_name" class="form-control"  >
-                                  </div> <div class="form-group">
-                                      <label>Panel Shared Date(first):</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.panel_shared_date_first" class="form-control"  >
-                                  </div> <div class="form-group">
-                                      <label>Joining Date:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.joining_date" class="form-control"  >
-                                  </div> <div class="form-group">
-                                      <label>Offered Release Date:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.offered_release_date" class="form-control"  >
-                                  </div> <div class="form-group">
-                                      <label>Offered Fixed:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.offered_fixed" class="form-control"  >
-                                  </div> <div class="form-group">
-                                      <label>Offered Retiral:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.offered_retiral" class="form-control"  >
-                                  </div> <div class="form-group">
-                                      <label>Variable/Hotskills incentive:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.variable_hotskills_incentive" class="form-control"  >
-                                  </div>
-                                  <div class="form-group">
-                                      <label>Actual Date of Joining:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.actual_date_of_joining" class="form-control"  >
-                                  </div>
-                                  <div class="form-group">
-                                      <label>Recruitment Expense Po Type:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.recruitment_expense_po_type" class="form-control"  >
-                                  </div>
-                                  <div class="form-group">
-                                      <label>Amount:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.amount" class="form-control"  >
-                                  </div>
-                                  <div class="form-group">
-                                      <label>Relocation Expense:</label>
-                                      <input type="text" [(ngModel)]="trackerdatamyjob.relocation_expense" class="form-control"  >
-                                  </div>
-          
-                                  <div class="form-group">
-                                      <input type="submit" value="Save" ng-click="setatjidentitysave(trackerdatamyjob)" />
-                                  </div>
-          
-                              </div>
-          
-          
-                              <div class="clearfix"></div>
-          
-                          </div>
-                      </div>
-                  </div>
-                  <!--End  Start Submit CV-->
-              </div>
-                 
+            </div>
+
+
           </div>
-     
+        </div>
+      </nav>
+
+
+
+      <!-- Assist content -->
+      <section class="content">
+
+        <div *ngIf='jobslist.length==0 && isfilter==false' class="col-md-12">
+
+          <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <i class="fa fa-exclamation-triangle"></i> <strong>Hi there !</strong> You neither created nor assigned any
+            job yet, to start working.
+
+            <span ng-show="mp.add_new_job_store"> Please <a href="#/newjob" class="btn  btn-raised btn-default">click
+                here</a> to add job .</span>
+            <span ng-hide="mp.add_new_job_store">Please contact your manager.</span>
+          </div>
+        </div>
+        <div style="margin-top:20px;" class="col-md-12">
+
+
+          <ul class="nav nav-tabs showloader pull-left  ">
+            <li class="active"><a data-toggle="tab" href="#" (click)='changefilter("Active","job_status")'
+                class="btn  btn-raised btn-primary">Active</a></li>
+            <li><a href="#" data-toggle="tab" (click)='changefilter("Hold","job_status")'
+                class="btn  btn-raised btn-primary">Hold</a></li>
+            <li><a href="#" data-toggle="tab" (click)='changefilter(1,"website")'
+                class="btn  btn-raised btn-primary">Visible on Website</a></li>
+            <li><a href="#" data-toggle="tab" (click)='changefilter("Closed","job_status")'
+                class="btn  btn-raised btn-primary">Closed</a></li>
+            <li><a href="#" data-toggle="tab" style="background:#ddf295; color:#251e22;"
+                (click)='changefilter("Interview","interview")' class="btn  btn-raised btn-primary">Interview</a></li>
+
+            <li><a href="#" data-toggle="tab" (click)='changefilter("All","job_status")'
+                class="btn  btn-raised btn-primary">All</a></li>
+            <li><a href="#" data-toggle="tab" (click)='changefilter("Tagged","tagged")'
+                class="btn  btn-raised btn-primary">Tagged</a></li>
+
+          </ul>
+          <div *ngIf="jobslist.length>pageSize  " class="float-right">
+            <button class="btn  btn-raised btn-info btn-sm" [disabled]="currentPage == 0"
+              (click)="currentPage=currentPage-1" style="background-color: rgb(70, 81, 99);">
+              Previous
+            </button>
+            {{currentPage+1}}/{{numberOfPages(jobslist)}}
+            <button class="btn  btn-raised btn-info btn-sm" [disabled]="currentPage >= jobslist.length/pageSize - 1"
+              (click)="currentPage=currentPage+1" style="background-color: rgb(70, 81, 99);">
+              Next
+            </button>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="box box-primary" id="#">
+            <mat-progress-bar mode="indeterminate" *ngIf="isLoadingJobs"></mat-progress-bar>
+
+            <div class="box-body-{{item.selected?'info':'default'}}  bg-{{item.selected?'info':'default'}}"
+              style="border-bottom: 1px solid rgb(0, 0, 0);border-top: solid 1px #d4d4d4;margin-bottom: 5px;"
+              (click)="selectdeselect($event,item);" *ngFor="let item of jobslist | orderBy:'visibleonwebsite'">
+              <div class="box-title">
+
+                <div class="row" style="margin: 0;">
+                  <div class="col-md-12">
+                    <div class="joblnk">
+                      <div class='row'>
+                        <div class="jtitle col-md-6">
+
+                          {{index+1}} ) .
+                          <a class="title_in" target="_blank" href="/#/myjob/{{item.id}}"
+                            ___stopclick="showJob(item.id, $event)">
+
+                            <span itemprop="title" class="title_in" style="margin-right:2px;">
+
+                              <span class="hightlighted_keyword"> {{item.job_title}} </span>
+
+                            </span>
+                          </a>
+                          <span>( Job ID : {{item.category_code}}{{item.id}} )</span>
+
+                          <span itemtype="#" help='Client'>{{item.ClientName}} </span>
+
+                          <span style='padding-left:10px; display:inline-block;'>
+                            <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
+                            ng-hide='mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
+                            class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
+                            <i class="fa fa-check"></i>
+                          </span>
+                        </div>
+                        <div class="member-social pull-right col-md-6 shareparent" style="text-align: right;">
+
+
+                          <a mat-mini-fab class="" help="Assign to recruiter" href="javascript:"
+                            (click)="assignjobClick()">
+                            <i class="fa fa-share-square-o"></i>
+                          </a>
+                          <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
+
+                          <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager'
+                            class="select{{item.is_approved_by_manager}}" title="Approve by Manager" href="javascript:"
+                            (click)="is_approved_by_manager(item)">
+                            <i class="fa fa-check"></i>
+                          </a>
+
+                          <a mat-mini-fab class="select{{item.tagged}}" title="Tag" href="javascript:"
+                            (click)="tag(item)">
+                            <i class="fa fa-tags"></i>
+                          </a>
+                          <a mat-mini-fab class="" help="Show JD" href="javascript:"
+                            style='color:black; background:#ffffbe;'
+                            (click)="item.responsibilityshow=!item.responsibilityshow;">
+                            <i class="fa fa-bolt "></i>
+                          </a>
+                          <a mat-mini-fab ng-show='item.visibleonwebsite==1' class=""
+                            href="{{$url}}/{{item.slug}}/{{item.id}}/{{profile.id}}" target="_blank"
+                            style='color:red; background:white;' help='Visible on Website'>
+                            <i class="fa fa-eye "></i>
+                          </a>
+
+                          <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                            href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
+                            target="_blank">
+                            <i class="fa fa-facebook "></i>
+                          </a>
+
+                          <a mat-mini-fab class="twitter" ng-hide="profile.isvendor=='1'"
+                            href="https://twitter.com/share?url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
+                            target="_blank">
+                            <i class="fa fa-twitter  "></i>
+                          </a>
+
+                          <a mat-mini-fab class="linkedin" ng-hide="profile.isvendor=='1'"
+                            href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
+                            target="_blank">
+                            <i class="fa fa-linkedin "></i>
+                          </a>
+                          <a mat-mini-fab data-toggle="modal" ng-show="mp.btn_take_internal_refeference"
+                            data-target="#internalreference" href="javascript:"
+                            (click)="GetInHourseReference(item.id, $event)" class="text-danger"
+                            help='get reference internal' title='get reference internal'>
+                            <i class="fa fa-bullhorn  "></i>
+                          </a>
+                          <a mat-mini-fab href="#" class="pull-right text-aqua" ng-show="mp.btn_upload_cv_myjobs">
+                            <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)" help="Upload CVs(Excel)"
+                              class="fa fa-upload"></i>
+                          </a>
+
+                          <div class="sharediv">
+                            Share for Apply : <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                              href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
+                              target="_blank">
+                              <i class="fa fa-facebook "></i>
+                            </a>
+
+                            <a class="twitter" mat-mini-fab ng-hide="profile.isvendor=='1'"
+                              href="https://twitter.com/share?url={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
+                              target="_blank">
+                              <i class="fa fa-twitter  "></i>
+                            </a>
+
+                            <a class="linkedin" mat-mini-fab ng-hide="profile.isvendor=='1'"
+                              href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
+                              target="_blank">
+                              <i class="fa fa-linkedin "></i>
+                            </a></div>
+
+                        </div>
+                      </div>
+
+
+                      <div class="jtxt">
+
+
+                        <span itemprop="skills">
+
+                          <span style="color: blue;font-size: 17px;">Location:</span>{{item.location}}
+                        </span>
+                        <!--                                            <span itemprop="skills">
+
+                                                      <span style="color: blue;font-size: 17px;">Salary:</span>{{myjob.maximumSalary}}
+                                                  </span>-->
+                      </div>
+
+
+                    </div>
+
+                  </div>
+                  <div class="col-md-12">
+                    <div class='row'>
+
+                      <button mat-raised-button color="primary" matBadge="{{item.allcandidate}}"
+                        matBadgePosition="after" matBadgeColor="accent" class=" col-md-2"
+                        (click)="filterdrbytab('My Candidates', 'all', item)" data-toggle="modal"
+                        data-target="#candidatesall">All
+                      </button>
+
+                      <button type="button" mat-raised-button color="primary" matBadge="{{item.underreview}}"
+                        matBadgePosition="after" matBadgeColor="accent" class="col-md-2 "
+                        (click)="filterdrbytab('My Candidates', 'Under Review', item)" data-toggle="modal"
+                        data-target="#candidatesall">In Review/Referrals
+
+                      </button>
+                      <button mat-raised-button color="primary" matBadge="{{item.inprocess}}" matBadgePosition="after"
+                        matBadgeColor="accent" type="button" class="btnnew2 col-md-2 "
+                        (click)="filterdrbytab('My Candidates', 'In Process', item)" data-toggle="modal"
+                        data-target="#candidatesall">In process
+
+                      </button>
+                      <button mat-raised-button color="primary" matBadge="{{item.candidates_interview_count}}"
+                        matBadgePosition="after" matBadgeColor="accent" type="button"
+                        class="btnnew5 col-md-2 "
+                        (click)="filterdrbytab('My Candidates', 'isinterview', item)" data-toggle="modal"
+                        data-target="#candidatesall">Interview
+
+                      </button>
+                      <button mat-raised-button color="primary" matBadge="{{item.selectedcandidate}}"
+                        matBadgePosition="after" matBadgeColor="accent" type="button"
+                        class=" btnnew3 col-md-2"
+                        (click)="filterdrbytab('My Candidates', 'Selected', item)" data-toggle="modal"
+                        data-target="#candidatesall"> Selected
+
+                      </button>
+                      <button mat-raised-button color="primary" matBadge="{{item.rejected}}" matBadgePosition="after"
+                        matBadgeColor="accent" type="button" class=" btnnew4 "
+                        (click)="filterdrbytab('My Candidates', 'Rejected', item)" data-toggle="modal"
+                        data-target="#candidatesall">Rejected
+
+                      </button>
+                    </div>
+
+                  </div>
+                  <div class="col-md-12" [hidden]="!item.responsibilityshow">
+                    <p class="htmlele">{{item.jobDescription}}</p>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <mat-card [hidden]='jobslist.length>0||isLoadingJobs'>
+              No Data Found
+            </mat-card>
+
+          </div>
+          <div class="clearfix"></div>
+
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-4">
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="vendor"
+                  class="modal fade">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+
+                      </div>
+                      <div class="box box-primary">
+                        <div class="box-header">
+                          <i class="ion ion-clipboard"></i>
+
+                          <h3 class="box-title text-center">Assign Job to Vendor</h3>
+
+
+                        </div>
+
+                        <div class="box-body">
+                          <input type="text" [(ngModel)]="vendorSearch" class="form-control" placeholder="Search" />
+
+
+
+                          <ul class="todo-list">
+
+                            <li *ngFor="let vendor of vendors">
+
+
+                              <!-- drag handle -->
+                              <span class="handle">
+                                <i class="fa fa-ellipsis-v"></i>
+                                <i class="fa fa-ellipsis-v"></i>
+                              </span>
+                              <!-- checkbox <input type="checkbox" ng-checked="selectedmanagerlist.indexOf(manager.id)>-1" [(ngModel)]="selectedmanager" ng-change="selectedmanagerlistset(manager.id)" value="{{manager.id}}"> -->
+
+                              <input type="checkbox" [(ngModel)]="vendor.selected">
+
+
+                              <!-- todo text -->
+                              <span class="text"> {{vendor.name}}</span>
+                              <!-- Emphasis label -->
+
+                              <!-- General tools such as edit or delete-->
+                              <div class="tools hidden">
+                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-trash-o"></i>
+                              </div>
+                            </li>
+
+
+
+
+                          </ul>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer clearfix no-border">
+                          <button type="button" class="btn  btn-raised btn-default pull-right"
+                            (click)="assignjobtovendor()"> Assign Job</button>
+                          <button type="button" class="btn  btn-raised btn-default pull-right"
+                            (click)="unassignjobtovendor()" title="selected vendor will be removed from job">Un-Assign
+                            Job</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-4"
+                  class="modal fade">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+
+                      </div>
+                      <div class="box box-primary">
+                        <div class="box-header">
+                          <i class="ion ion-clipboard"></i>
+
+                          <h3 class="box-title text-center">Assign Job</h3>
+
+                          <div class="box-tools pull-right hidden">
+                            <ul class="pagination pagination-sm inline">
+                              <li>
+                                <a href="#">&laquo;</a>
+                              </li>
+                              <li>
+                                <a href="#">1</a>
+                              </li>
+                              <li>
+                                <a href="#">2</a>
+                              </li>
+                              <li>
+                                <a href="#">3</a>
+                              </li>
+                              <li>
+                                <a href="#">&raquo;</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <!-- /.box-header -->
+
+                        <div class="box-body">
+                          <input type="text" [(ngModel)]="managerSearch" class="form-control" placeholder="Search" />
+
+                          <ul class="todo-list">
+
+                            {{selectedmanager}}
+                            <li *ngFor="let manager of managers">
+
+
+                              <!-- drag handle -->
+
+                              <!-- checkbox <input type="checkbox" ng-checked="selectedmanagerlist.indexOf(manager.id)>-1" [(ngModel)]="selectedmanager" ng-change="selectedmanagerlistset(manager.id)" value="{{manager.id}}"> -->
+
+                              <input type="checkbox" [(ngModel)]="manager.selected">
+
+
+                              <!-- todo text -->
+                              <span class="text"> {{manager.name}}</span>
+                              <!-- Emphasis label -->
+
+                              <!-- General tools such as edit or delete-->
+                              <div class="tools hidden">
+                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-trash-o"></i>
+                              </div>
+                            </li>
+
+
+
+
+                          </ul>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer clearfix no-border">
+                          <button type="button" class="btn  btn-raised btn-default pull-right" (click)="assignjob()">
+                            Assign Job</button>
+                          <button type="button" class="btn  btn-raised btn-default pull-right" (click)="unassignjob()"
+                            title="Selected recruiter will be removed from selected job !!">
+                            Unassigned Job</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+
+
+                <!--unassigned pop up for vendors or recruiters-->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-5"
+                  class="modal fade">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+
+                      </div>
+                      <div class="box box-primary">
+                        <div class="box-header">
+                          <i class="ion ion-clipboard"></i>
+
+                          <h3 class="box-title text-center">Assign Job</h3>
+
+                          <div class="box-tools pull-right">
+                            <ul class="pagination pagination-sm inline">
+                              <li>
+                                <a href="#">&laquo;</a>
+                              </li>
+                              <li>
+                                <a href="#">1</a>
+                              </li>
+                              <li>
+                                <a href="#">2</a>
+                              </li>
+                              <li>
+                                <a href="#">3</a>
+                              </li>
+                              <li>
+                                <a href="#">&raquo;</a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <!-- /.box-header -->
+
+                        <div class="box-body">
+
+                          <ul class="todo-list">
+                            {{selectedmanager}}
+                            <li *ngFor="let manager of managers">
+
+
+                              <!-- drag handle -->
+
+                              <!-- checkbox <input type="checkbox" ng-checked="selectedmanagerlist.indexOf(manager.id)>-1" [(ngModel)]="selectedmanager" ng-change="selectedmanagerlistset(manager.id)" value="{{manager.id}}"> -->
+
+                              <input type="checkbox" [(ngModel)]="manager.selected">
+
+
+                              <!-- todo text -->
+                              <span class="text"> {{manager.name}}</span>
+                              <!-- Emphasis label -->
+
+                              <!-- General tools such as edit or delete-->
+                              <div class="tools hidden">
+                                <i class="fa fa-edit"></i>
+                                <i class="fa fa-trash-o"></i>
+                              </div>
+                            </li>
+
+
+
+
+                          </ul>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer clearfix no-border">
+                          <button type="button" class="btn  btn-raised btn-default pull-right" (click)="assignjob()">
+                            Assign Job</button>
+                          <button type="button" class="btn  btn-raised btn-default pull-right" (click)="unassignjob()">
+                            Unassigned Job</button>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <!--end unassigned job-->
+              </div>
+            </div>
+            <hr class="hrstye">
+
+
+
+
+
+
+          </div>
+        </div>
+
+      </section>
+      <!-- End Assist Content -->
+
+
+      <!-- job Update -->
+
+
+      <!-- End Job Update-->
+
+      <!-- All Candidate -->
+      <div class="modal fade" id="candidatesall" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+
+
+          <div class="modal-content">
+            <div class="modal-header">
+
+
+              <h4 class="modal-title">{{gridheader}} <i class='h5'>( {{jobitemselected.ClientName}} >
+                  {{jobitemselected.location}} > {{jobitemselected.job_title}})</i></h4>
+
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+              <div class="col-md-12">
+                <a href="javascript:" title='call' data-target='#calldiv' data-toggle='modal' ng-if="mp.btn_can_call"
+                  mat-fab><i class="fa fa-phone"></i></a>
+
+
+
+                <a ng-if="mp.candidates_under_job_copyjob" class="btn btn-raised btn-sm" href="javascript:"
+                  data-toggle="modal" data-target="#addtojob">
+                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Assign Candidate</a>
+
+                <a ng-if="mp.btn_submit_cv_to_panel" class="btn btn-raised btn-sm" href="javascript:"
+                  (click)="submit_cv_to_panel_status()">
+                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Submit to Panel</a>
+
+                <a href="javascript:" (click)="submitcv()" class="btn btn-raised btn-sm">
+                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Submit Cv</a>
+              </div>
+              <div>
+                <div style="text-align: right;">
+                  <button type="button" class="btn  btn-raised btnnew btn-sm"
+                    (click)="filterdrbytab('My Candidates', 'all')" data-toggle="modal">All
+                    <span class="badge ng-binding">{{selectedjoball}}</span>
+                  </button>
+                  <button type="button" class="btn  btn-raised btnnew1 btn-sm"
+                    (click)="filterdrbytab('My Candidates', 'Under Review')" data-toggle="modal">In Review/Referrals
+                    <span class="badge ng-binding">{{selectedjobunderreview}}</span>
+                  </button>
+                  <button type="button" class="btn  btn-raised btnnew2 btn-sm"
+                    (click)="filterdrbytab('My Candidates', 'In Process')" data-toggle="modal">In process
+                    <span class="badge ng-binding">{{selectedjobinprocess}}</span>
+                  </button>
+                  <button type="button" class="btn  btn-raised btnnew5 btn-sm"
+                    (click)="filterdrbytab('My Candidates', 'isinterview')" data-toggle="modal">Interview
+                    <span class="badge ng-binding">{{selectedjobininterview}}</span>
+                  </button>
+                  <button type="button" class="btn  btn-raised btnnew3 btn-sm"
+                    (click)="filterdrbytab('My Candidates', 'Selected')" data-toggle="modal"> Selected
+                    <span class="badge ng-binding">{{selectedjobselectedcandidate}}</span>
+                  </button>
+                  <button type="button" class="btn  btn-raised btnnew4 btn-sm"
+                    (click)="filterdrbytab('My Candidates', 'Rejected')" data-toggle="modal">Rejected
+                    <span class="badge ng-binding">{{selectedjobrejected}}</span>
+                  </button>
+                </div>
+
+
+
+                <div class="col-md-12">
+
+
+                  <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-material" [rowData]="rowData"
+                    [columnDefs]="columnDefs" suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef"
+                    [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+                    (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+                    [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+                    [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)">
+                  </ag-grid-angular>
+                  <div class="clearfix clear"></div>
+                </div>
+                <div class="clearfix clear"></div>
+
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <!-- All End Candidate-->
+      <!-- All Candidate -->
+      <div class="modal fade" id="internalreference" role="dialog">
+        <div class="modal-dialog modal-md">
+
+
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Get Reference</h4>
+
+              <div class="modal-body">
+
+                <div (click)="changechecked(department)" *ngFor="let department of  departments">
+                  <label>
+                    <i ng-show="department.selected" class="fa fa-check-square-o text-green"></i>
+                    <i ng-hide="department.selected" class="text-green fa fa-square-o"></i>
+                    {{department.department}}</label>
+                </div>
+                <div class="form-group">
+                  <label for="prmSubject">Subject:</label>
+                  <input type="text" [(ngModel)]='prmSubject' class="form-control" id="prmSubject">
+                </div>
+                <div class="form-group">
+                  <label for="prmMessagge">Message:</label>
+                  <textarea [(ngModel)]='prmMessagge' contenteditable class="form-control" id="prmMessagge"></textarea>
+                </div>
+
+
+
+              </div>
+              <input type="button" (click)="getinternalreferrence()" value="submit" class="btn  btn-raised btn-success">
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- All End Candidate-->
+
+
+
+
+
+
+
+      <!-- Assign Job -->
+      <div id="showcvs" class="modal fade " role="dialog">
+        <div class="modal-dialog modal-lg" style="width:100%;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button aria-hidden="true" data-dismiss="modal" (click)="cancel()" class="close" type="button">×</button>
+              <h4 class="modal-title">CVS</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+
+                <div class="col-md-3 col-md-offset-9">
+                  <div class="form-group ">
+                    <input type="submit" class="form-control btn  btn-raised btn-info " (click)="cvformdatapost()"
+                      id="submitcvs" value="Submit Cvs" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="modal fade" role="dialog" id="submit_cv_to_panel_status">
+
+
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Submit cv to panel</h4>
+              <button aria-hidden="true" data-dismiss="modal" (click)="cancel()" class="close" type="button">×</button>
+
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-horizontal" role="form">
+
+
+                    <div class="form-group">
+                      <label class="col-md-3 ">Email:</label>
+                      <div class="col-md-9">
+                        <input type="text" class="form-control e m" n="Email" [(ngModel)]="cv_to_panel.email" />
+
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 ">Subject:</label>
+                      <div class="col-md-9">
+                        <input type="text" class="form-control e" n="Subject" [(ngModel)]="cv_to_panel.subject" />
+
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 ">Comment:</label>
+                      <div class="col-md-9">
+                        <textarea class="form-control e" n="Comment" [(ngModel)]="cv_to_panel.comment">
+                                                  </textarea>
+
+
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <button type="submit" class="btn  btn-raised btn-block btn-primary validatebutton" validate
+                        tar="#submit_cv_to_panel_status" (click)="sendCvToPanel()">send</button>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="modal" id="addvendor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="center">Add Vendor</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+
+            </div>
+            <div class="modal-body">
+              <div class="row">
+
+
+                <div class="col-md-6"> Name
+
+                  <input type="text" [(ngModel)]="vendornew.name" class="form-control e" n="Name" />
+
+
+                </div>
+
+                <div class="col-md-6">Email
+
+                  <input type="text" autocomplete="off" [(ngModel)]="vendornew.email" class="form-control m"
+                    n="Email" />
+                </div>
+
+
+
+
+              </div>
+              <br>
+
+
+              <div class="row">
+
+
+                <div class="col-md-6"> Mobile Number
+                  <input type="text" [(ngModel)]="vendornew.mobileNo" class="form-control n e" n="Mobile Number" />
+                </div>
+                <div class="col-md-6">Address
+                  <input type="text" [(ngModel)]="vendornew.address" class="form-control n e" n="Address" />
+                </div>
+
+
+
+
+              </div>
+              <br>
+
+
+              <div class="row">
+                <div class="form-group col-12">
+
+                  <button type="submit" class="btn  btn-raised btn-primary" tar="#addUser"
+                    (click)="vendorsave()">Save</button>
+
+                </div>
+
+
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- Assign End Job-->
+      <div class="modal bs-example-modal-md" id="myModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+
+              <h3 class="center">Send Mail
+                <span ng-class='countRowsinMyJob > 10 ? "text-danger" : "text - success"'> (CV Selected :
+                  {{countRowsinMyJob}})</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </h3>
+            </div>
+            <div class="modal-body">
+              <div class="form-horizontal" role="form">
+
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <select class="form-control m" [(ngModel)]="sendtracker.trackerno" n="Tracker NO" validate>
+                      <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
+                      </option>
+                    </select>
+
+
+                  </div>
+                  <div class="col-lg-2 "><button ng-show="sendtracker.trackerno" type="button"
+                      (click)="sendtrackermsg(true)" class="btn  btn-raised btn-primary btn-sm">Download</button></div>
+                </div>
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <input type="email" class="form-control m" [(ngModel)]="sendtracker.to" n="To" validate
+                      id="inputEmail4" placeholder="TO:">
+                  </div>
+                </div>
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <input type="email" class="form-control m" [(ngModel)]="sendtracker.cc" n="CC" validate
+                      id="inputEmail5" placeholder="CC:">
+                  </div>
+
+                </div>
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <input type="email" class="form-control m" n="BCC" validate [(ngModel)]="sendtracker.bcc"
+                      id="inputEmail5" placeholder="BCC:">
+                  </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <input type="file" class="form-control">
+                    <!--                                <input type="text" class="form-control e" n=""  id="inputEmail5" placeholder="Subject:">-->
+                  </div>
+                </div>
+
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <input type="text" class="form-control e" n="" [(ngModel)]="sendtracker.subject" id="inputEmail5"
+                      placeholder="Subject:">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+
+                    <textarea class="form-control e" n="message" contenteditable [(ngModel)]="sendtracker.message"
+                      placeholder="message" style="min-width: 100%; height: 87px;">
+                                          </textarea>
+                  </div>
+                </div>
+
+                <button type="submit" (click)="sendtrackermsg()"
+                  class="btn  btn-raised btn-primary btn-md">send</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal bs-example-modal-md" id="downloadtracker" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3 class="center">Download Tracker
+                <span ng-class='countRowsinMyJob > 10 ? "text-danger" : "text - success"'> (CV Selected :
+                  {{countRowsinMyJob}})</span>
+              </h3>
+            </div>
+            <div class="modal-body">
+              <div class="form-horizontal" role="form">
+
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <select class="form-control m" [(ngModel)]="trackerno" n="Tracker NO" validate>
+                      <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
+                      </option>
+                    </select>
+
+
+                  </div>
+
+                </div>
+                <button type="button" (click)="downloadtracker()" class="btn  btn-raised btn-primary btn-md">Download <i
+                    class="fa fa-download"></i></button>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal fade" role="dialog" id="commentstatus">
+
+
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button aria-hidden="true" data-dismiss="modal" (click)="cancel()" class="close" type="button">×</button>
+              <h4 class="modal-title text-danger ">Comment/Status </h4>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-12">
+                <div class="form-horizontal" role="form" name="userForm">
+                  <div class="form-group" ng-show="showowner">
+                    <label for="inputEmail" class="col-md-3  col-sm-offset-2">Owner</label>
+                    <div class="col-md-4">
+                      <select class="form-control e" n="Owner" [(ngModel)]="commentstatus.recruiterid">
+                        <option value="{{profile.id}}">Self</option>
+                        <option value="{{manager.id}}" *ngFor="let manager of managers">
+                          {{manager.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 col-sm-offset-2" select="">Status:</label>
+                    <div class="col-md-6">
+                      <select class="form-control" style="width: 80%;" id="purpose" ng-change="purposechange()"
+                        [(ngModel)]="commentstatus.status" name="client_detail_id">
+                        <option selected="" value="{{currentstatusid}}">{{currentstatusname}}</option>
+                        <option value="{{x.id}}" title="{{x.isinterview}}" *ngFor="let x of statuses">
+                          {{x.DisplayName}}
+                        </option>
+
+                      </select>
+                      <label ng-show="mp.btn_show_all_status"><input type="checkbox" ng-change="comment()"
+                          [(ngModel)]="allstatus" />Override Status</label>
+                      <label><input type="checkbox" [(ngModel)]="commentstatus.noemail" ng-true-value="1"
+                          ng-false-value="0">No email/sms to candidate</label>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="col-md-3 col-sm-offset-2" referral="">Comment :</label>
+                    <div class="col-md-5">
+                      <textarea class="form-control" [(ngModel)]="commentstatus.comment" placeholder="Comment"
+                        required=""></textarea>
+                    </div>
+                  </div>
+                  <div class="col-lg-offset-2 col-md-3">
+                    <button type="submit" class="btn  btn-raised btn-block btn-primary"
+                      (click)="updatestatuscommentmyjob()">Update</button>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="clearfix"></div>
+            </div>
+
+
+          </div>
+        </div>
+        <!--End  Start Submit CV-->
+      </div>
+      <div class="modal fade" role="dialog" id="activity">
+
+
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button aria-hidden="true" data-dismiss="modal" (click)="cancel()" class="close" type="button">×</button>
+              <h4 class="modal-title text-danger">Activity</h4>
+            </div>
+
+
+            <div class="modal-body">
+              <div class="col-md-12" style="padding-top: 10px;" *ngFor="let x of activities">
+
+
+                <div class="media-left media-middle">
+                  <a href="#">
+                    <img style="width:50px; height: 50px" on-error-src="img/profilepic.png" src="{{x.profilepic}}"
+                      class="media-object img-circle img-bordered" alt="User Image">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading">
+                    <b>{{x.recruiter}}</b> changed status of
+                    <i>
+                      <span class="text-red ">{{x.candidateName}} </span>
+                    </i> for
+                    <span class="text-aqua">({{x.job_title}})</span>
+                  </h4>
+                  <div class="row">
+                    <div class="col-md-8">Status :
+                      <b class="text-black">{{x.RootDisplayName}}/{{x.DisplayName}}</b>
+                    </div>
+                    <div class="col-md-4">Date :
+                      <b class="text-black ">{{x.created_at}}</b>
+                    </div>
+
+                  </div>
+                  <div class="col-md-12">
+                    <b>Comment : </b> {{x.comment==''?'-':x.comment}}
+
+                  </div>
+                  <div class="clearfix"></div>
+
+                </div>
+                <hr>
+              </div>
+
+              <div class="alert alert-danger" ng-show="activities.length == 0">
+                No Activity!
+              </div>
+              <div class="clearfix"></div>
+
+            </div>
+          </div>
+        </div>
+        <!--End  Start Submit CV-->
+      </div>
+      <div class="modal fade" role="dialog" id="trackerDetailExtra">
+
+
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button aria-hidden="true" data-dismiss="modal" (click)="cancel()" class="close" type="button">×</button>
+              <h4 class="modal-title text-danger">Tracker Data</h4>
+            </div>
+
+
+            <div class="modal-body">
+              <div class="col-md-12" style="padding-top: 10px;">
+
+                <div class="form-group">
+                  <label>Resume Source:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.resume_source" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Resume Source Name:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.resume_source_name" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Panel Shared Date(first):</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.panel_shared_date_first" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Joining Date:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.joining_date" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Offered Release Date:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.offered_release_date" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Offered Fixed:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.offered_fixed" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Offered Retiral:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.offered_retiral" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Variable/Hotskills incentive:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.variable_hotskills_incentive" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Actual Date of Joining:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.actual_date_of_joining" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Recruitment Expense Po Type:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.recruitment_expense_po_type" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Amount:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.amount" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Relocation Expense:</label>
+                  <input type="text" [(ngModel)]="trackerdatamyjob.relocation_expense" class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <input type="submit" value="Save" (click)="setatjidentitysave(trackerdatamyjob)" />
+                </div>
+
+              </div>
+
+
+              <div class="clearfix"></div>
+
+            </div>
+          </div>
+        </div>
+        <!--End  Start Submit CV-->
+      </div>
+
     </div>
+
   </div>
-  
+</div>
+
+<app-call></app-call>
+
+<app-add-to-job></app-add-to-job>

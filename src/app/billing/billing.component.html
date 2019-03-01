@@ -1,8 +1,861 @@
 <div class="main-content">
-    <div class="container-fluid">
-      <div class="row">
+  <div class="container-fluid">
+    <div class="row">
+
+      <!--sanjay-->
+      <div class="col-md-12">
+          <div class="card">
+
+            <div class="card-content">
+
+              <ul class="nav nav-pills">
+                <li class="active">
+                  <button (click)="topay = true;" show-tab="" class="btn btn-danger">Receivable</button>
+                </li>
+                <li class="" ng-hide="profile.disable_crowd_sourcing==1">
+                  <button (click)="topay = false; inprocessrpaytoprfn(); " class="btn btn-danger"
+                    show-tab="">Payable</button>
+                </li>
+                <!--                                    <li class="active">
+                                        <a href="#" (click)="" show-tab="" data-toggle="modal" data-target="#myModal"  >E-Mail</a>
+                                    </li>-->
+
+              </ul>
+              <div id="exTab3" class="box box-primary" *ngIf="topay">
+                <ul class="nav nav-pills">
+                  <li class="active">
+                    <a href="#1b" (click)="loadjoinedcandidates()" show-tab="" data-toggle="tab"
+                      class="btn btn-danger" aria-expanded="true">Joined Candidates</a>
+                  </li>
+                  <li class=""><a (click)="loadinprocess()" href="#2b" show-tab="" data-toggle="tab"
+                      class="btn btn-danger" aria-expanded="false">Invoice of Process</a>
+                  </li>
+                  <li class=""><a href="#3b" show-tab="" (click)="acceptedinvoicesfn()" data-toggle="tab"
+                      class="btn btn-danger" aria-expanded="false">Invoice Accepted</a>
+                  </li>
+                  <li class=""><a href="#4b" show-tab="" (click)="rejectedinvoicesfn()" data-toggle="tab"
+                      class="btn btn-danger" aria-expanded="false">Invoice Rejected</a>
+                  </li>
+
+
+                </ul>
+                <div class="col-md-12 text-center"
+                  *ngIf="joinedcandidatesloading || invoicesinprocessloading || acceptedinvoicesloading || rejectedinvoicesloading">
+                  <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i></div>
+                <hr class="hrstye">
+                <div class="tab-content clearfix col-md-12">
+                  <div class="tab-pane active" id="1b">
+                    <div id="exTab3" >
+                      <div class="row">
+                        <div class="col-md-4" style="margin-bottom: 40px;"
+                          *ngFor="let joinedcandidate of joinedcandidates">
+                          <div class="card card-stats">
+                            <div class="card-header" data-background-color="blue">
+                              <i class="fa fa fa-user fa-lg">
+                                <h4>&nbsp;{{joinedcandidate.CandidateName}}&nbsp;</h4>
+                              </i>
+                            </div>
+                            <ul class="nav">
+                              <li>
+                                <!--                                                                    comment hyper link by sanjay on 4th oct 2017-->
+                                <!--                                                                    <a href="#">-->
+                                <i class="fa fa-male fa-lg"><span
+                                    class="spanclass">{{joinedcandidate.JobTitle}}</span></i><br>
+                                <i class="fa fa-globe fa-lg"><span
+                                    class="spanclass">{{joinedcandidate.client_name}}</span></i><br>
+
+
+                                <!--                                                                    </a>-->
+                              </li>
+                            </ul>
+
+
+                            <div class="card-footer">
+                              <div class="timeline-heading">
+                                <div class="form-group">
+
+                                  <button type="button" class="btn  btn-raised btn-success btn-md"
+                                    (click)="generateinvoicesetvar(joinedcandidate)"
+                                    ng-hide="joinedcandidate.is_generated=='1'" data-toggle="modal"
+                                    data-target=".bss-example-modal-lg">Generate</button>
+                                  <button type="button" class="btn  btn-raised btn-info btn-md"
+                                    (click)="loadinvoice(joinedcandidate)"
+                                    *ngIf="joinedcandidate.is_generated=='1'" data-toggle="modal"
+                                    data-target=".bs-example-modal-lg">Generated</button>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+
+
+
+
+                      </div>
+
+                      <div class="tab-content clearfix">
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane" id="2b">
+
+                    <div id="exTab3"  >
+
+                      <div class="col-md-4" style="margin-top: 50px;" *ngFor="let inprocess of invoicesinprocess">
+                        <div class="card card-stats">
+                          <div class="card-header" data-background-color="blue">
+                            <i class="fa fa fa-user fa-lg">
+                              <h4 style="white-space: nowrap; overflow: hidden">{{inprocess.CandidateName}}&nbsp;
+                              </h4>
+                            </i>
+                          </div>
+                          <ul class="nav " style="padding: 10px;">
+                            <li>
+                              <!--                                                                <a href="#">-->
+                              <i class="fa fa-male fa-lg"><span class="spanclass"
+                                  style="white-space: nowrap; overflow: hidden">{{inprocess.JobTitle}}</span></i><br>
+                              <i class="fa fa-globe fa-lg"><span
+                                  class="spanclass">{{joinedcandidate.client_name}}</span></i><br>
+                              <i class="fa fa-money fa-lg"><span
+                                  class="spanclass">{{inprocess.billablectc}}</span></i><br>
+                              <i class="fa fa-calendar fa-lg"><span
+                                  class="spanclass">{{inprocess.joiningdate}}</span></i>
+
+                              <!--                                                                </a>-->
+                            </li>
+                          </ul>
+
+
+                          <div class="card-footer">
+                            <div class="timeline-heading">
+                              <div class="form-group">
+                                <div class="col-md-12">
+
+                                  <div class="dropdown">
+                                    <button class="btn  btn-raised btn-default dropdown-toggle" type="button"
+                                      data-toggle="dropdown">Actions
+                                      <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="#" (click)="openpopup(inprocess, '#myModal1')">Accepted</a>
+                                      </li>
+                                      <li><a href="#" (click)="openpopup(inprocess, '#saverejected')">Rejected</a>
+                                      </li>
+                                      <li><a href="#" (click)="openpopup(inprocess, '#editinvoice')">Edit</a></li>
+                                      <li><a href="#" (click)="loadinvoice(inprocess)" data-toggle="modal"
+                                          data-target=".bs-example-modal-lg">Invoice</a></li>
+                                    </ul>
+                                  </div>
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="tab-content clearfix">
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="tab-pane" id="3b">
+
+                    <div id="exTab3" class="container col-md-12">
+                      <div class="row">
+                        <div class="alert alert-danger" ng-hide="acceptedinvoices.length">
+                          No Data Available!
+                        </div>
+                        <div class="col-md-4" style="margin-bottom: 40px;"
+                          *ngFor="let acceptedinvoice of acceptedinvoices">
+                          <div class="card card-stats">
+                            <div class="card-header" data-background-color="green">
+                              <i class="fa fa fa-user fa-lg">
+                                <h4>&nbsp;{{acceptedinvoice.CandidateName}}&nbsp;</h4>
+                              </i>
+                            </div>
+                            <ul class="nav">
+                              <li>
+                                <!--                                                                    <a href="#">-->
+                                <i class="fa fa-male fa-lg"><span
+                                    class="spanclass">{{acceptedinvoice.JobTitle}}</span></i><br>
+                                <i class="fa fa-globe fa-lg"><span
+                                    class="spanclass">{{acceptedinvoice.client_name}}</span></i><br>
+                                <i class="fa fa-money fa-lg"><span
+                                    class="spanclass">{{acceptedinvoice.billablectc}}</span></i><br>
+                                <i class="fa fa-calendar fa-lg"><span
+                                    class="spanclass">{{acceptedinvoice.joiningdate}}</span></i>
+
+                                <!--                                                                    </a>-->
+                              </li>
+                            </ul>
+
+
+                            <!--                                                  <div class="card-footer">
+                                                                                                                            <div class="timeline-heading">
+                                                                                                                                <div class="form-group">
+                                                                                                                                    <button type="button" class="btn  btn-raised btn-success btn-md" >Accepted</button>                                                                    </div>
+                                                                                                                            </div>
+                                                                                                                        </div>-->
+
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-content clearfix">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="4b">
+
+                    <div id="exTab4" class="container col-md-12">
+                      <div id="exTab3" class="container col-md-12">
+                        <div class="row">
+                          <div class="alert alert-danger" ng-hide="rejectedinvoices.length">
+                            No Data Available!
+                          </div>
+                          <div class="col-md-4" style="margin-bottom: 40px;"
+                            *ngFor="let rejectedinvoice of rejectedinvoices">
+                            <div class="card card-stats">
+                              <div class="card-header" data-background-color="red">
+                                <i class="fa fa fa-user fa-lg">
+                                  <h4>&c ;{{rejectedinvoice.CandidateName}}&nbsp;</h4>
+                                </i>
+                              </div>
+                              <ul class="nav">
+                                <li>
+                                  <!--                                                                        <a href="#">-->
+                                  <i class="fa fa-male fa-lg"><span
+                                      class="spanclass">{{rejectedinvoice.JobTitle}}</span></i><br>
+                                  <i class="fa fa-money fa-lg"><span
+                                      class="spanclass">{{rejectedinvoice.billablectc}}</span></i><br>
+                                  <i class="fa fa-calendar fa-lg"><span
+                                      class="spanclass">{{rejectedinvoice.joiningdate}}</span></i><br>
+                                  <i class="fa fa-globe fa-lg"><span
+                                      class="spanclass">{{rejectedinvoice.client_name}}</span></i>
+
+                                  <!--                                                                        </a>-->
+                                </li>
+                              </ul>
+
+
+                              <!-- <div class="card-footer">
+                                                                     <div class="timeline-heading">
+                                                                         <div class="form-group">
+
+                                                                             <button type="button" class="btn  btn-raised btn-danger btn-md" >Rejected</button>
+                                                                         </div>
+                                                                     </div>
+                                                                 </div>-->
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="tab-content clearfix">
+
+                        </div>
+                      </div>
+                      <div class="tab-content clearfix">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="clearfix"></div>
+
+
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div *ngIf="!topay" class="box box-primary">
+                <ul class="nav nav-pills">
+                  <li class="active">
+                    <a href="#inprocesspr" (click)="inprocessrpaytoprfn()" show-tab="" data-toggle="tab"
+                      class="btn btn-danger" aria-expanded="true">To Pay (PR)</a>
+                  </li>
+                  <li class=""><a (click)="paidtoprfn()" href="#paidtopr" show-tab="" data-toggle="tab"
+                      class="btn btn-danger" aria-expanded="false">Paid (PR)</a>
+                  </li>
+                  <li class=""><a (click)="rejectedpaytoprfn()" href="#rejectedpaytopr" show-tab=""
+                      class="btn btn-danger" data-toggle="tab" aria-expanded="false">Rejected (PR)</a>
+                  </li>
+
+                  <li class="" *ngIf="isShowVendor">
+                    <a href="#inprocessvendor" (click)="inprocessrpaytovendorfn()" show-tab="" data-toggle="tab"
+                      class="btn btn-danger" aria-expanded="true">To Pay (Vendor)</a>
+                  </li>
+                  <li class="" *ngIf="isShowVendor"><a (click)="paidtovendorfn()" href="#paidtovendor" show-tab=""
+                      class="btn btn-danger" data-toggle="tab" aria-expanded="false">Paid (Vendor)</a>
+                  </li>
+                  <li class="" *ngIf="isShowVendor"><a (click)="rejectedpaytovendorfn()" class="btn btn-danger"
+                      href="#rejectedpaytovendor" show-tab="" data-toggle="tab" aria-expanded="false">Rejected
+                      (Vendor)</a>
+                  </li>
+
+
+                </ul>
+
+                <div class="col-md-12 text-center"
+                  *ngIf="paidtoprloading || inprocessrpaytoprloading || rejectedpaytoprloading || paidtovendorloading || inprocesspaytovendorloading || rejectedpaytovendorloading">
+                  <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw margin-bottom"></i></div>
+                <hr class="hrstye">
+                <div class="tab-content clearfix col-md-12">
+                  <div class="tab-pane active" id="inprocesspr">
+                    <div class="container col-md-12">
+                      <div class="row">
+                        <div class="alert alert-danger" *ngIf="inprocessrpaytopr.length===0">
+                          No Data Available!
+                        </div>
+                        <div class="col-md-4" style="margin-bottom: 40px;"
+                          *ngFor="let inprocessrpaytoprobj of inprocessrpaytopr">
+                          <div class="card card-stats">
+                            <div class="card-header" data-background-color="blue">
+                              <i class="fa fa fa-user fa-lg">
+                                <h4>&nbsp;{{inprocessrpaytoprobj.CandidateName}}&nbsp;</h4>
+                              </i>
+                            </div>
+                            <ul class="nav">
+                              <li>
+                                <!--                                                                    <a href="#">-->
+                                <i class="fa fa-male fa-lg"><span
+                                    class="spanclass">{{inprocessrpaytoprobj.JobTitle}}</span></i><br>
+                                <i class="fa fa-money fa-lg"><span
+                                    class="spanclass">{{inprocessrpaytoprobj.billablectc}}</span></i><br>
+                                <i class="fa fa-calendar fa-lg"><span
+                                    class="spanclass">{{inprocessrpaytoprobj.joiningdate}}</span></i><br>
+                                <i class="fa fa-globe fa-lg"><span
+                                    class="spanclass">{{inprocessrpaytoprobj.client_name}}</span></i>
+
+                                <!--                                                                    </a>-->
+                              </li>
+                            </ul>
+
+
+                            <!--                                                            <div class="card-footer">
+                                                                                                                            <div class="timeline-heading">
+                                                                                                                                <div class="form-group">
+
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>-->
+
+                          </div>
+                        </div>
+
+
+
+
+
+                      </div>
+
+                      <div class="tab-content clearfix">
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane" id="paidtopr">
+
+                    <div class="container col-md-12">
+                      <div class="alert alert-danger" ng-hide="paidtopr.length">
+                        No Data Available!
+                      </div>
+                      <div class="col-md-4" *ngFor="let paidtoprobj of paidtopr">
+                        <div class="card card-stats">
+                          <div class="card-header" data-background-color="green">
+                            <i class="fa fa fa-user fa-lg">
+                              <h4>{{paidtoprobj.CandidateName}}&nbsp;</h4>
+                            </i>
+                          </div>
+                          <ul class="nav">
+                            <li>
+                              <!--                                                                <a href="#">-->
+                              <i class="fa fa-male fa-lg"><span
+                                  class="spanclass">{{paidtoprobj.JobTitle}}</span></i><br>
+                              <i class="fa fa-money fa-lg"><span
+                                  class="spanclass">{{paidtoprobj.billablectc}}</span></i><br>
+                              <i class="fa fa-calendar fa-lg"><span
+                                  class="spanclass">{{paidtoprobj.joiningdate}}</span></i><br>
+                              <i class="fa fa-globe fa-lg"><span
+                                  class="spanclass">{{paidtoprobj.client_name}}</span></i>
+
+                              <!--                                                                </a>-->
+                            </li>
+                          </ul>
+
+
+                          <!--                                                        <div class="card-footer">
+                                                                                                                    <div class="timeline-heading">
+                                                                                                                        <div class="form-group">
+                                                                                                                            <div class="col-md-12">
+
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>-->
+
+                        </div>
+                      </div>
+                      <div class="tab-content clearfix">
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="tab-pane" id="rejectedpaytopr">
+
+                    <div class="container col-md-12">
+                      <div class="alert alert-danger" ng-hide="rejectedpaytopr.length">
+                        No Data Available!
+                      </div>
+                      <div class="col-md-4" *ngFor="let rejectedpaytoprobj of rejectedpaytopr">
+                        <div class="card card-stats">
+                          <div class="card-header" data-background-color="red">
+                            <i class="fa fa fa-user fa-lg">
+                              <h4>{{rejectedpaytoprobj.CandidateName}}&nbsp;</h4>
+                            </i>
+                          </div>
+                          <ul class="nav">
+                            <li>
+                              <!--                                                                <a href="#">-->
+                              <i class="fa fa-male fa-lg"><span
+                                  class="spanclass">{{rejectedpaytoprobj.JobTitle}}</span></i><br>
+                              <i class="fa fa-money fa-lg"><span
+                                  class="spanclass">{{rejectedpaytoprobj.billablectc}}</span></i><br>
+                              <i class="fa fa-calendar fa-lg"><span
+                                  class="spanclass">{{rejectedpaytoprobj.joiningdate}}</span></i><br>
+                              <i class="fa fa-globe fa-lg"><span
+                                  class="spanclass">{{rejectedpaytoprobj.client_name}}</span></i>
+
+                              <!--                                                                </a>-->
+                            </li>
+                          </ul>
+
+
+                          <!--                                                        <div class="card-footer">
+                                                                                                                    <div class="timeline-heading">
+                                                                                                                        <div class="form-group">
+                                                                                                                            <div class="col-md-12">
+
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>-->
+
+                        </div>
+                      </div>
+                      <div class="tab-content clearfix">
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="tab-pane active" id="inprocessvendor">
+                    <div class="container col-md-12">
+                      <div class="row">
+
+                        <div class="col-md-4" style="margin-bottom: 40px;"
+                          *ngFor="let inprocessrpaytovendorobj of inprocessrpaytovendor">
+                          <div class="card card-stats">
+                            <div class="card-header" data-background-color="blue">
+                              <i class="fa fa fa-user fa-lg">
+                                <h4>&nbsp;{{inprocessrpaytovendorobj.CandidateName}}&nbsp;</h4>
+                              </i>
+                            </div>
+                            <ul class="nav">
+                              <li>
+                                <!--                                                                    <a href="#">-->
+                                <i class="fa fa-male fa-lg"><span
+                                    class="spanclass">{{inprocessrpaytovendorobj.JobTitle}}</span></i><br>
+                                <i class="fa fa-money fa-lg"><span
+                                    class="spanclass">{{inprocessrpaytovendorobj.billablectc}}</span></i><br>
+                                <i class="fa fa-calendar fa-lg"><span
+                                    class="spanclass">{{inprocessrpaytovendorobj.joiningdate}}</span></i><br>
+                                <i class="fa fa-globe fa-lg"><span
+                                    class="spanclass">{{inprocessrpaytovendorobj.client_name}}</span></i>
+
+                                <!--                                                                    </a>-->
+                              </li>
+                            </ul>
+
+
+                            <div class="card-footer">
+                              <div class="timeline-heading">
+                                <div class="form-group">
+                                  <div class="dropdown">
+                                    <button class="btn  btn-raised btn-default dropdown-toggle" type="button"
+                                      data-toggle="dropdown">Actions
+                                      <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                      <li><a href="#"
+                                          (click)="accepttopayvendor(inprocessrpaytovendorobj)">Accepted</a></li>
+                                      <li><a href="#"
+                                          (click)="rejecttopayvendor(inprocessrpaytovendorobj)">Rejected</a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+
+
+
+
+                      </div>
+
+                      <div class="tab-content clearfix">
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane" id="paidtovendor">
+
+                    <div class="container col-md-12">
+                      <div class="alert alert-danger" ng-hide="paidtovendor.length">
+                        No Data Available!
+                      </div>
+                      <div class="col-md-4" *ngFor="let paidtovendorobj of paidtovendor">
+                        <div class="card card-stats">
+                          <div class="card-header" data-background-color="green">
+                            <i class="fa fa fa-user fa-lg">
+                              <h4>{{paidtovendorobj.CandidateName}}&nbsp;</h4>
+                            </i>
+                          </div>
+                          <ul class="nav">
+                            <li>
+                              <!--                                                                <a href="#">-->
+                              <i class="fa fa-male fa-lg"><span
+                                  class="spanclass">{{paidtovendorobj.JobTitle}}</span></i><br>
+                              <i class="fa fa-money fa-lg"><span
+                                  class="spanclass">{{paidtovendorobj.billablectc}}</span></i><br>
+                              <i class="fa fa-calendar fa-lg"><span
+                                  class="spanclass">{{paidtovendorobj.joiningdate}}</span></i><br>
+                              <i class="fa fa-globe fa-lg"><span
+                                  class="spanclass">{{inprocessrpaytovendorobj.client_name}}</span></i>
+
+
+                              <!--                                                                </a>-->
+                            </li>
+                          </ul>
+
+
+                          <!--                                                        <div class="card-footer">
+                                                                                                                    <div class="timeline-heading">
+                                                                                                                        <div class="form-group">
+                                                                                                                            <div class="col-md-12">
+
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>-->
+
+                        </div>
+                      </div>
+                      <div class="tab-content clearfix">
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="tab-pane" id="rejectedpaytovendor">
+
+                    <div class="container col-md-12">
+                      <div class="alert alert-danger" ng-hide="rejectedpaytovendor.length">
+                        No Data Available!
+                      </div>
+                      <div class="col-md-4" *ngFor="let rejectedpaytovendorobj of rejectedpaytovendor">
+                        <div class="card card-stats">
+                          <div class="card-header" data-background-color="red">
+                            <i class="fa fa fa-user fa-lg">
+                              <h4>{{rejectedpaytovendorobj.CandidateName}}&nbsp;</h4>
+                            </i>
+                          </div>
+                          <ul class="nav">
+                            <li>
+                              <!--                                                                <a href="#">-->
+                              <i class="fa fa-male fa-lg"><span
+                                  class="spanclass">{{rejectedpaytovendorobj.JobTitle}}</span></i><br>
+                              <i class="fa fa-money fa-lg"><span
+                                  class="spanclass">{{rejectedpaytovendorobj.billablectc}}</span></i><br>
+                              <i class="fa fa-calendar fa-lg"><span
+                                  class="spanclass">{{rejectedpaytovendorobj.joiningdate}}</span></i><br>
+                              <i class="fa fa-globe fa-lg"><span
+                                  class="spanclass">{{rejectedpaytovendorobj.client_name}}</span></i>
+                              <!--                                                                <i class="fa fa-users fa-lg"><span class="spanclass">{{rejectedpaytovendorobj.vender_name}}</span></i>-->
+
+                              <!--                                                                </a>-->
+                            </li>
+                          </ul>
+
+
+                          <!--                                                        <div class="card-footer">
+                                                                                                                    <div class="timeline-heading">
+                                                                                                                        <div class="form-group">
+                                                                                                                            <div class="col-md-12">
+
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>-->
+
+                        </div>
+                      </div>
+                      <div class="tab-content clearfix">
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="clearfix"></div>
+
+
+                </div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      <!-- Genrated bill Popup-->
+      <div class="modal bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h5 class="center" id="exampleModalLabel">Print the file</h5>
+            </div>
+            <div class="modal-body">
+
+              <!-- <iframe [src]="{{invoiceurl}}" style="border:0" width="100%" height="380"></iframe> -->
+
+            </div>
+            <div class="modal-footer">
+
+              <!-- <a href="http://api.passivereferral.com/index.php/api/invoiceuse/?type=pdf&fromPageURL=http:%2F%2Fapi.passivereferral.com%2Fpassivereferral%2Findex.php%23%2Fbilling&method=List&requestedurl=customnotification%2F&toPageURL=http:%2F%2Fapi.passivereferral.com%2Fpassivereferral%2Findex.php%23%2Fbilling&invoice={{loadinvoicecandidate.invoice_id}}&token={{token}}"
+                class="btn  btn-raised btn-secondary">PDF</a> -->
+              <!--<a href="http://api.passivereferral.com/index.php/api/invoiceuse/?type=doc&fromPageURL=http:%2F%2Fapi.passivereferral.com%2Fpassivereferral%2Findex.php%23%2Fbilling&method=List&requestedurl=customnotification%2F&toPageURL=http:%2F%2Fapi.passivereferral.com%2Fpassivereferral%2Findex.php%23%2Fbilling&invoice={{loadinvoicecandidate.invoice_id}}&token={{token}}" class="btn  btn-raised btn-secondary"  >Word</a>-->
+              <button type="button" class="btn  btn-raised btn-primary" data-toggle="modal"
+                data-target=".bs-example-modal-md" data-dismiss="modal">Submit to Client</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal bss-example-modal-lg" id="myModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3 class="center" id="exampleModalLabel">Invoice Generate</h3>
+
+            </div>
+            <div class="modal-body info">
+              <div class="ng-pristine ng-valid">
+                <div class="form-group">
+                  <label>DOJ</label>
+                  <input type="text" [(ngModel)]="gi.doj" class="form-control date">
+                </div>
+
+
+                <div class="form-group">
+                  <label>Billable CTC</label>
+                  <input type="text" [(ngModel)]="gi.billablectc" ng-change="fetchfeesslab()" class="form-control"
+                    placeholder="Billable CTC" />
+                  <div class="alert alert-danger" *ngIf="gi.billablectc.length > 3 && notinfeeslab"> Billable CTC is not
+                    of fee slab !</div>
+
+                </div>
+
+                <div class="form-group">
+                  <label>Billable Amount</label>
+                  <input type="text" [(ngModel)]="gi.billableamount" class="form-control" placeholder="Billable Amount"
+                    name="result" id="result" />
+                  <div *ngIf="loadingfeeslab" class="col-md-12">
+                    <div class="progress" style="height: 10px !important;">
+                      <div class="progress-bar progress-bar-green progress-bar-striped progress-bar-animated active"
+                        role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                        style="width: 100%"></div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+                <div class="form-group">
+                  <label>Designation</label>
+                  <input type="text" [(ngModel)]="gi.designation" class="form-control" placeholder="Designation">
+                </div>
+                <div class="form-group">
+                  <label>Billing Location</label>
+                  <ng-select [(ngModel)]="gi.location" class="form-control">
+                    <ng-option *ngFor="let client_gst of clients_gst_list">{{client_gst.state_name}}-{{client_gst.gst}}
+                    </ng-option>
+                  </ng-select>
+
+                  <!--                            <ng-select  class="form-control" [(ngModel)]="gi.state_name" id="state_name" >
+                  <ng-option *ngFor="let stateobj of states">{{stateobj.State}}</ng-option>
+              </ng-select>-->
+
+                </div>
+
+
+
+              </div>
+            </div>
+            <div class="modal-footer">
+
+
+              <button type="button" id="invoicegenerate" class="btn  btn-raised btn-primary"
+                (click)="generateinvoicestore()">Submit</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Genrated bill Popup-->
+
+
+
+
+      <div id="myModal1" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">×</button>
+              <h3 class="center">In Process</h3>
+            </div>
+            <div class="modal-body info">
+              <div class="ng-pristine ng-valid">
+                <div class="form-group">
+                  <label for="gst">GST</label>
+                  <input type="text" class="form-control" id="gst" placeholder="Gst" [(ngModel)]="accepted.gst">
+                </div>
+                <div class="form-group">
+                  <label for="TDS">TDS</label>
+                  <input type="text" class="form-control" id="TDS" placeholder="TDS" [(ngModel)]="accepted.tds">
+                </div>
+                <div class="form-group">
+                  <label for="servicecharge">Service Charge</label>
+                  <input type="text" class="form-control" id="servicecharge" placeholder="Service Charge"
+                    [(ngModel)]="accepted.servicecharge">
+                </div>
+                <button type="submit" id="InProcess" class="btn  btn-raised btn-primary"
+                  (click)="saveaccepted()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!--end popup ng-selected-->
+
+      <!-- start popup rejected-->
+      <div id="saverejected" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">×</button>
+              <h3 class="center">Rejected</h3>
+            </div>
+            <div class="modal-body info">
+              <div class="ng-pristine ng-valid">
+
+
+                <div class="form-group">
+                  <label for="servicecharge">Reason</label>
+                  <textarea class="form-control" id="servicecharge" placeholder="Reason" [(ngModel)]="rejected.reason">
+                                  </textarea>
+                </div>
+                <button type="submit" id="rejected" class="btn  btn-raised btn-primary"
+                  (click)="saverejected()">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="editinvoice" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">×</button>
+              <h3 class="center">Edit</h3>
+            </div>
+            <div class="modal-body info">
+              <div class="ng-pristine ng-valid">
+
+                <div class="form-group">
+                  <label>DOJ</label>
+                  <input type="text" [(ngModel)]="dataedit.doj" class="form-control date">
+                </div>
+
+
+                <div class="form-group">
+                  <label>Billable CTC</label>
+                  <input type="text" [(ngModel)]="dataedit.billable_ctc" ng-change="fetchfeesslabedit()"
+                    class="form-control" placeholder="Billable CTC" />
+                  <div class="alert alert-danger"
+                    *ngIf="(dataedit.billable_ctc&&dataedit.billable_ctc.length > 3) && notinfeeslab"> Billable CTC is
+                    not of fee slab !</div>
+
+
+                </div>
+
+                <div class="form-group">
+                  <label>Billable Amount</label>
+                  <input type="text" [(ngModel)]="dataedit.billable_amount" class="form-control"
+                    placeholder="Billable Amount" name="result" id="result" />
+
+
+
+
+                </div>
+                <div class="form-group">
+                  <label>Designation</label>
+                  <input type="text" [(ngModel)]="dataedit.candidate_designation" class="form-control"
+                    placeholder="Designation">
+                </div>
+                <div class="form-group">
+                  <label>Location</label>
+                  <input type="text" [(ngModel)]="dataedit.billing_location" class="form-control"
+                    placeholder="Location">
+                </div>
+                <!--<div class="form-group">
+                                  <label >Location</label>
+                                  <input type="text"  [(ngModel)]="dataedit.candidate_location" class="form-control"   placeholder="Location">
+                              </div>-->
+
+                <!--<div class="form-group">
+                                  <label for="servicecharge">Reason</label>
+                                  <input type="text" class="form-control" id="servicecharge" placeholder="Service Charge" [(ngModel)]="editinvoice.reason">
+                              </div>-->
+                <button type="submit" id="edit" class="btn  btn-raised btn-primary"
+                  (click)="editinvoice()">Update</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
       </div>
     </div>
   </div>
-  

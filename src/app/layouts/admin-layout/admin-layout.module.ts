@@ -37,7 +37,7 @@ import { MyTeamComponent } from '../../control/my-team/my-team.component';
 import { PvGetReferenceComponent } from '../../control/pv-get-reference/pv-get-reference.component';
 import { CallComponent } from '../../control/call/call.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-
+import { OrderModule } from 'ngx-order-pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
 import {
   MatButtonModule,
@@ -52,6 +52,7 @@ import {
   MatRadioModule,
   MatAutocompleteModule,
   MatTabsModule,
+  MatBadgeModule,
 
 } from '@angular/material';
 
@@ -76,6 +77,8 @@ import {
     NgSelectModule,
     MatTabsModule,
     AgGridModule.withComponents([]),
+    OrderModule,
+    MatBadgeModule,
     // TranslateService,
   //  NgSelectModule,
   ],

@@ -64,7 +64,7 @@
                   </div>
                   <div class="card-footer">
                       <div class="stats">
-                          
+
                           <i class="material-icons">money</i> Money
                       </div>
                   </div>
@@ -108,7 +108,7 @@
                                 <table class="table">
                                     <tbody>
 
-                                        <tr *ngFor="let x of notification" title="{{x.difference}} hour(s)"> 
+                                        <tr *ngFor="let x of notification" title="{{x.difference}} hour(s)">
                                                 <td>
                                                         <div class="form-check">
                                                             <label class="form-check-label">
@@ -120,9 +120,9 @@
                                                         </div>
                                                     </td>
                                                     <td>
-                                                <a  href="#" data-toggle="modal" data-target="#showreference"  ng-click="loadreferrence(x.job_id)" 
-                                                    class="Bold" > {{x.Job_title}}</a> <i    class="fa fa-star text-danger" ng-show="x.difference>72"></i> ->  
-                                                <a href="#" style="color:gray; text-decoration: underline;" ng-click="candidateshow(x.candiateid)">{{x.reference_name}}</a>
+                                                <a  href="#" data-toggle="modal" data-target="#showreference"  (click)="loadreferrence(x.job_id)"
+                                                    class="Bold" > {{x.Job_title}}</a> <i    class="fa fa-star text-danger" ng-show="x.difference>72"></i> ->
+                                                <a href="#" style="color:gray; text-decoration: underline;" (click)="candidateshow(x.candiateid)">{{x.reference_name}}</a>
                                                 <span class="pull-right"> (<i>{{x.date}}</i>)</span> </td>
                                                 <td class="td-actions text-right">
                                                     <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
@@ -133,7 +133,7 @@
                                                     </button>
                                                 </td>
                                         </tr>
-                                       
+
                                     </tbody>
                                 </table>
                             </div>
@@ -268,24 +268,24 @@
                     </div>
                     <div class="card-body table-responsive" style="height: 500px;">
                         <table class="table table-hover" >
-                            
+
                             <tbody>
                                 <tr *ngFor="let in_process_referral of in_process_referrals">
                                    <td >
                                         <h4 class="">{{in_process_referral.Last_action}} (Gap : {{in_process_referral.diff}} Days) <b class="pull-right text-"><i class="fa  fa- "></i></b></h4>
-                                      
-                                        <h5 style="width:98%;" >{{in_process_referral.job_title}} ({{in_process_referral.client_name}})</h5> 
-                                        <span style="width:98%;" ng-click="candidateshow(in_process_referral.id)" class="highlight link">{{in_process_referral.candidateName}} ({{in_process_referral.currentDesignation}})</span>
+
+                                        <h5 style="width:98%;" >{{in_process_referral.job_title}} ({{in_process_referral.client_name}})</h5>
+                                        <span style="width:98%;" (click)="candidateshow(in_process_referral.id)" class="highlight link">{{in_process_referral.candidateName}} ({{in_process_referral.currentDesignation}})</span>
                                         <span class="highlight">{{in_process_referral.mobileNo}}</span>
                                         <span class="highlight">{{in_process_referral.email}}</span>
-                                        <span>Recruiter : {{in_process_referral.Recruiter}}</span> 
+                                        <span>Recruiter : {{in_process_referral.Recruiter}}</span>
                                         <span>Referrer : {{in_process_referral.referrer_name}}</span>
                                         <span>Total Action : {{in_process_referral.total_action}}</span>
                                         <span>Last Action Date : {{in_process_referral.last_action_date}}</span>
-                                        <span class="link highlight" ng-click="rootactivity(in_process_referral)">View Activity</span>
-    
-                                        <span  class="link highlight"  ng-click="rootcomment(in_process_referral)">Change Status</span>
-     
+                                        <span class="link highlight" (click)="rootactivity(in_process_referral)">View Activity</span>
+
+                                        <span  class="link highlight"  (click)="rootcomment(in_process_referral)">Change Status</span>
+
                                    </td>
                                 </tr>
                             </tbody>
@@ -294,20 +294,20 @@
                 </div>
             </div>
         </div>
-      
+
         <div class="modal fade" id="internaldata" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                         <h4 class="modal-title">Browse Candidate</h4>  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    
+
                 </div>
                 <div class="modal-body bg-default">
                     <div class="row" >
                         <div class="col-md-6 col-xs-6">
                             <a href="javascript:"   (click)="navigateUrl('internaldatabase')"  class="btn btn-block  btn-raised btn-sq-lg btn-success" >
                                 <i class="fa fa-globe fa-3x"></i><br/>
-                                Database    
+                                Database
                                 <!--<div class="info-box">-->
                                     <!--<span class="info-box-icon bg-aqua"><i class="fa fa-globe"></i></span>-->
 
@@ -342,7 +342,7 @@
                         </div></div>
                         <div class="row">
                          <div class="col-md-6 col-xs-6" ng-hide='profile.channel_id==null'>
-                            <a href="javascript:"  data-toggle="modal"  ng-click="naukriclick('https://hire.timesjobs.com/')" data-target="#ndiv" class="btn btn-block  btn-raised btn-sq-lg btn-info" >
+                            <a href="javascript:"  data-toggle="modal"  (click)="naukriclick('https://hire.timesjobs.com/')" data-target="#ndiv" class="btn btn-block  btn-raised btn-sq-lg btn-info" >
                                <i class="fa fa-link fa-3x"></i><br/>
                                Times
                                 <!--<div class="info-box">-->
@@ -363,7 +363,7 @@
                         </div>
 
                         <div class="col-md-6 col-xs-6" ng-hide='profile.channel_id==null'>
-                            <a href="javascript:"  data-toggle="modal" class="btn  btn-block btn-raised btn-sq-lg btn-warning"  ng-click="naukriclick('https://recruiter.shine.com/')" data-target="#ndiv" >
+                            <a href="javascript:"  data-toggle="modal" class="btn  btn-block btn-raised btn-sq-lg btn-warning"  (click)="naukriclick('https://recruiter.shine.com/')" data-target="#ndiv" >
                                 <i class="fa fa-link fa-3x"></i><br/>
                                <span> Shine</span>
                                 <!--<div class="info-box">-->
@@ -453,20 +453,20 @@
 
     <div id="ndiv" class="modal fade" role="dialog">
             <div class="modal-dialog">
-    
+
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                       
-                        <a ng-click="" id="loginnaukri_stop" href="#" target=""> 
+
+                        <a  id="loginnaukri_stop" href="#" target="">
                             Browse
                         </a> <button type="button" class="close" data-dismiss="modal">&times;</button>
-    
+
                     </div>
                     <div class="modal-body">
                         <div class="col-md-12 col-sm-6 col-xs-12"  ng-if="db.mp.option_to_send_email">
                             <div class="form-group">
-                                
+
 
                                 <mat-form-field>
                                     <mat-select [(ngModel)]="setjobandreferencetemp.current_job_id" placeholder="Select Job">
@@ -480,36 +480,36 @@
                                     <select [(ngModel)]="setjobandreferencetemp.reference_email_template_id" title="Email Template for reference" class="form-control">
                                         <option value="0">Select Email Template</option>
                                         <option   value="{{emailtedb.mp.id}}" *ngFor="let emailtemp of emailmessagetemplatesforref">{{emailtedb.mp.templatename}}</option>
-    
+
                                     </select>
                                 </div>
-    
+
                                 <div class="form-group">
                                     <select [(ngModel)]="setjobandreferencetemp.reference_sms_template_id"   title="Sms Template for reference" class="form-control">
                                         <option value="0">Select SMS Template</option>
                                         <option value="{{smstedb.mp.id}}" *ngFor="let smstemp of smsmessagetemplatesforref">{{smstedb.mp.templatename}}</option>
-    
+
                                     </select></div>
-    
+
                             </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>
                     <div class="modal-footer">
-                        
+
                         <div class="checkbox" ng-show="profile.disable_crowd_sourcing!='1'">
                                 <mat-checkbox  [(ngModel)]="setjobandreferencetemp.is_send_auto_email_reference">Enable #Crowdsourcing (All integrated job partal)</mat-checkbox>
 
-                            
+
                         </div>
-    
-                        
-    
-                        <a  ng-click="setjobandreferencetempmpfunction()" helps="Please check : Proper job/Templates selected or not for reference"  class="btn  btn-raised btn-info  de" href="{{jobportalurl}}" target="_blank">
+
+
+
+                        <a  (click)="setjobandreferencetempmpfunction()" helps="Please check : Proper job/Templates selected or not for reference"  class="btn  btn-raised btn-info  de" href="{{jobportalurl}}" target="_blank">
                             GO</a>
                     </div>
                 </div>
-    
+
             </div>
         </div>
       <div class="row">
@@ -563,6 +563,6 @@
               </div>
           </div>
       </div>
-     
+
   </div>
 </div>
