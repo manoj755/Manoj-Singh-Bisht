@@ -29,7 +29,7 @@ import {
   MatSliderModule, MatSelectModule, MatRadioModule, MatInputModule, MatDatepickerModule,
   MatFormFieldModule, MatNativeDateModule,
   MatDialogModule, MatProgressSpinnerModule,
-  MatSnackBarModule
+  MatSnackBarModule,
 } from '@angular/material';
 import {
   AgmCoreModule
@@ -60,6 +60,7 @@ import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-refer
   imports: [
     //MaterialModule.forRoot(),
         //DatePickerModule,
+
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
@@ -96,7 +97,7 @@ import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-refer
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent, 
+    AdminLayoutComponent,
 
 
   ],

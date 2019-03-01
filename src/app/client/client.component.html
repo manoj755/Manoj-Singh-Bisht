@@ -21,15 +21,22 @@
           [enableRangeSelection]="true"
           [pagination]="true"
           (gridReady)="onGridReady($event)"
-           
+
           (rowClicked)="onRowClicked($event)"
             ></ag-grid-angular>
-            <div class="box-title">
+            <div class="card">
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title">Client Details</h4>
+                  <p class="card-category">Add or Edit Client details</p>
+                  </div>
+
+            <div class="box-title col-md-12">
                 <h2>{{clientsdepartment}}</h2>
-               
+
                     <div class="tab-content">
                         <div class="tab-pane active"  ng-show="tabindex == 0"  ng-hide="tabindex != 0" id="info-tab">
-                            <div class="form-group col-md-6">
+                           <div class="row">
+                          <div class="form-group col-md-6">
                                 <label class="col-xs-3 control-label">Name</label>
                                 <div class="col-xs-9">
                                     <input type="text" class="form-control e" id="clientname" [(ngModel)]="client.billingName" name="fullName" />
@@ -43,21 +50,23 @@
                                     <textarea   class="form-control e" maxlength="150" id="clientabout"  [(ngModel)]="client.about" name="About"></textarea>
                                 </div>
                             </div>
+                            </div>
 
-
-
+                            <div class="row">
                             <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}" >
                                 <label class="col-xs-3 control-label">Website</label>
                                 <div class="col-xs-9">
                                     <input type="text" class="form-control e web" id="clientWebsite"   [(ngModel)]="client.website"  name="Website" />
                                 </div>
-                            </div> 
+                            </div>
                             <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}">
                                 <label class="col-xs-3 control-label">Address</label>
                                 <div class="col-xs-9">
                                     <input type="text" class="form-control e" id="clientAddress"  [(ngModel)]="client.address" name="addr" />
                                 </div>
                             </div>
+                            </div>
+                            <div class="row">
                             <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}">
                                 <label class="col-xs-3 control-label">Billing Period </label>
                                 <div class="col-xs-9">
@@ -71,9 +80,10 @@
                                         <option>INR</option>
                                         <option>USD</option>
                                         <option>EUR</option>
-                                        
+
                                     </select>
                                 </div>
+                            </div>
                             </div>
 
 
@@ -81,19 +91,19 @@
                             <div class="form-group col-md-6 hidden  {{db.profile.is_ats != '0'?'':'remove'}}">
                                 <label class="col-xs-3 control-label">Upload</label>
                                 <div class="col-xs-9">
-                                   
+
 
                                 </div>
                             </div>
                             <!--                                    </div>
-                            
-                            
+
+
                                                                 <div ng-show="tabindex == 1" ng-hide="tabindex != 1" class="tab-pane active" id="address-tab">-->
                             <div ng-show="client.fee_slab.length > 0" class=" {{db.profile.is_ats != '0'?'':'remove'}}">
                                 <div class="col-md-12">
 
                                     <div class="row font-light bg-light-blue" > <div class="col-md-12"> <h5>Slabs</h5></div></div>
-                                    <div class="row font-light  "  style="background: #2b3b40;">
+                                    <div class="row font-light  "  style="background: #e94640;">
 
                                         <div class="col-md-3">
                                             From
@@ -110,7 +120,7 @@
 
 
                                     </div>
-                                    <div class="row bg-blue" style="border-bottom: solid 1px #bdbdbd; padding: 5px 0;" *ngFor="let item of client.fee_slab">
+                                    <div class="row bg-blue" style="border-bottom: solid 1px #e94640; padding: 5px 0;" *ngFor="let item of client.fee_slab">
 
 
                                         <div class="col-md-3">
@@ -125,7 +135,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <span ng-click="remove($index)" class="btn  btn-raised btn-default btn-xs">Remove</span>
-                                        </div> 
+                                        </div>
 
 
 
@@ -144,22 +154,22 @@
 
                             <div class=" {{db.profile.is_ats != '0'?'':'remove'}}">
                                 <div class="col-md-12 bg-light-blue " style="margin-top: 10px;"> <h5>Add Slab</h5></div>
-                                <div class="col-md-12  " style="padding: 20px; padding-top: 10px; margin-bottom:10px; background:#2b3b40">;
+                                <div class="col-md-12  " style="padding: 20px; padding-top: 10px; margin-bottom:10px; background:#e94640">;
 
                                     <div class="row">
 
                                         <div class=" col-md-3">
 
                                             <label>Fees From (LPA)</label>
-                                            <input type="number"  class="form-control" [(ngModel)]="fromfeesslab" name="feesslab" required/> 
+                                            <input type="number"  class="form-control" [(ngModel)]="fromfeesslab" name="feesslab" required/>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Fees To (LPA)</label>
-                                            <input type="number" class="form-control"  [(ngModel)]="tofeesslab" name="feesslab" required/> 
+                                            <input type="number" class="form-control"  [(ngModel)]="tofeesslab" name="feesslab" required/>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Amount/Percentage</label>
-                                            <input type="text" [(ngModel)]="amt"  class="form-control" id="amount" name="feesslab3" /> 
+                                            <input type="text" [(ngModel)]="amt"  class="form-control" id="amount" name="feesslab3" />
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group"><label>Contract Type</label>
@@ -185,13 +195,13 @@
 
 
                                         </div>
-                                    </div>                                            
+                                    </div>
                                 </div>
                             </div>
 
 
                             <div class="row  {{db.profile.is_ats != '0'?'':'remove'}}" >
-                                <div class="col-md-4">
+                                <div class="col-md-4 pull-left">
                                     <label style="margin-left:50px;">Contract Duration</label>
                                 </div>
                                 <div class="col-md-4">
@@ -206,24 +216,26 @@
 
 
 
-
+                            <div class="row">
                             <div class="form-group col-md-6  {{db.profile.is_ats != '0'?'':'remove'}}">
                                 <label class="col-xs-3 control-label">Email:</label>
                                 <div class="col-xs-9">
                                     <input type="text" id="clientemail"  class="form-control e m" [(ngModel)]="client.email" name="email">
                                 </div>
                             </div>
-                        </div>
+
                         <div class="form-group col-md-6  {{db.profile.is_ats != '0'?'':'remove'}}">
                             <label class="col-xs-3 control-label">Phone:</label>
                             <div class="col-xs-9">
                                 <input type="text" id="clientmobile"  class="form-control e " [(ngModel)]="client.phone" name="number"/>
                             </div>
                         </div>
+                        </div>
+                      </div>
                         <div class="form-group col-md-6 hidden  {{db.profile.is_ats != '0'?'':'remove'}}">
                             <label class="col-xs-3 control-label">Contract:</label>
                             <div class="col-xs-9">
-                                 
+
                             </div>
                         </div>
                         <div ng-show="client.uploadedImage && false" class="form-group col-md-6  {{db.profile.is_ats != '0'?'':'remove'}}">
@@ -238,7 +250,7 @@
 
                     </div>
             </div>
-
+            </div>
             <div class="form-group" style="margin-top: 15px;">
                 <div class="col-xs-10 col-xs-offset-2">
                     <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary"  (click)="clientupdate()">Update </button>
@@ -253,34 +265,34 @@
 
                 <div id="addbilling" class="modal fade" role="dialog">
                     <div class="modal-dialog">
-            
+
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
-                                
+
                                 <h4 class="modal-title">Add Billing Details</h4><button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-            
-                                <h1>GST No</h1> 
-            
+
+                                <h1>GST No</h1>
+
                                 <div ui-grid="gridclientStateswiseBillingDetail" ui-grid-selection ui-grid-pagination  ui-grid-cellnav ui-grid-exporter class="grid"></div>
                                 <div class='col-md-12  '><h2><span ng-show="isEditclientStateswiseBillingDetail">Edit</span><span ng-hide="isEditclientStateswiseBillingDetail">Add</span> Client Statewise Billing Detail</h2><div class='row'><div class='col-md-6'><div class="form-group ">
                                                 <label for="state_name">State Name</label>
                                                 <select  class="form-control" ng-model="clientStateswiseBillingDetail.state_name" id="state_name" >
                                                     <option ng-repeat="stateobj in states">{{stateobj.State}}</option>
                                                 </select>
-                                                
+
                                             </div>
                                         </div><div class='col-md-6'><div class="form-group ">
                                                 <label for="gst">Gst</label>
                                                 <input  class="form-control" maxlength='100' ng-model="clientStateswiseBillingDetail.gst" id="gst" placeholder="Gst"/>
-                                                 
+
                                             </div>
                                             <div class='col-md-6'><div class="form-group ">
-                                                <label for="gst">Tds</label>    
+                                                <label for="gst">Tds</label>
                                                 <input  class="form-control" maxlength='100' ng-model="clientStateswiseBillingDetail.tds" id="gst" placeholder="Gst"/>
-                                                
+
                                             </div>
                                         </div> </div> <div class="form-group">
                                         <div class=" col-md-10">
@@ -294,13 +306,13 @@
                                 <button type="button" class="btn  btn-raised btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>
-            
+
                     </div>
                 </div>
             </div>
-        
+
         </div>
- 
+
       </div>
 
 

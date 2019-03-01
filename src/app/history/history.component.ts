@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'; 
- 
+import { Component, OnInit } from '@angular/core';
+
 import { DBService } from 'app/db.service';
 @Component({
   selector: 'app-history',
@@ -7,7 +7,7 @@ import { DBService } from 'app/db.service';
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
-   
+
   title = 'app';
   private smsselected={};
   private emailselected={};
@@ -20,14 +20,20 @@ export class HistoryComponent implements OnInit {
   private rowGroupPanelShow;
   private pivotPanelShow;
   columnDefs = [
-    {  field: 'candidateName', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
-    { headerName: 'Skills', field: 'skillSet', sortable: true, filter: true },
-    { headerName: 'Email', field: 'email', sortable: true, filter: true },
-    { headerName: 'Mobile', field: 'mobileNo', sortable: true, filter: true },
+    { headerName: 'Job Name', field: 'job_name', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
+    { headerName: 'Candidate Name', field: 'candidateName', sortable: true, filter: true },
+    { headerName: 'Current Designation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
+    { headerName: 'Email', field: 'email', sortable: true, filter: true },
+    { headerName: 'Location', field: 'location', sortable: true, filter: true },
+    { headerName: 'Mobile No', field: 'mobileNo', sortable: true, filter: true },
+    { headerName: 'Overall Experience', field: 'ovarallExperiance', sortable: true, filter: true },
+    { headerName: 'Salary', field: 'currentSalary', sortable: true, filter: true },
+    { headerName: 'Recruiter Name', field: 'recruitername', sortable: true, filter: true },
+    { headerName: 'CV Status', field: 'cvstatus', sortable: true, filter: true },
  ];
 
-  rowData = [ 
+  rowData = [
   ];
   constructor(private db: DBService) {
     this.defaultColDef = {
@@ -47,11 +53,11 @@ export class HistoryComponent implements OnInit {
   ngOnInit() {
     this.LoadHistory();
   }
-  
+
   LoadHistory():void{
     this.db.list('history/', {  }, ((response): void => {
       this.rowData = response;
-       
+
 
     }));
   }

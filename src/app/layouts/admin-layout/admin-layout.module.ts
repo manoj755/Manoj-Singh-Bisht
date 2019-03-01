@@ -46,10 +46,10 @@ import {
   MatCheckboxModule,
   MatProgressBarModule,
   MatCardModule,
-  MatRadioModule, 
+  MatRadioModule,
+  MatAutocompleteModule,
+} from '@angular/material';
 
-} from '@angular/material'; 
- 
 // @dynamic
 @NgModule({
   imports: [
@@ -67,7 +67,9 @@ import {
     MatCardModule,
     MatRadioModule,
     CKEditorModule,
-  
+
+  MatAutocompleteModule,
+
     AgGridModule.withComponents([]),
     // TranslateService,
   //  NgSelectModule,
@@ -98,8 +100,8 @@ import {
     AddToJobComponent,
     AddCandidateComponent,
     MyTeamComponent,
-    PvGetReferenceComponent, 
-    
+    PvGetReferenceComponent,
+
   ]
 })
 export class AdminLayoutModule { }

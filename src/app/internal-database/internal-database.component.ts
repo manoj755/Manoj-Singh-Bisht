@@ -28,11 +28,14 @@ export class InternalDatabaseComponent implements OnInit {
   private rowGroupPanelShow;
   private pivotPanelShow;
   columnDefs = [
-    { headerName: 'Name', field: 'candidateName', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
-    { headerName: 'Skills', field: 'skillSet', sortable: true, filter: true },
+    { headerName: 'Candidate Name', field: 'candidateName', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
+    {headerNmae: 'CurrentDesignation', field: 'currentDesignation', sortable: true, filter: true},
     { headerName: 'Email', field: 'email', sortable: true, filter: true },
+    { headerName: 'Qualification', field: 'qualification', sortable: true, filter: true },
     { headerName: 'Mobile', field: 'mobileNo', sortable: true, filter: true },
-    { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
+    { headerName: 'Ovarall Experiance', field: 'ovarallExperiance', sortable: true, filter: true },
+    { headerName: 'Current Salary', field: 'currentSalary', sortable: true, filter: true },
+    { headerName: 'Preferred Location', field: 'preferredLocation', sortable: true, filter: true },
   ];
   totalItems = 0;
   rowData = [

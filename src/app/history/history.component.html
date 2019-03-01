@@ -3,27 +3,7 @@
 
 
     <div class="row">
-        <button (click)="exportdat()">Export</button>
-        <ag-grid-angular
-        style="width: 1500px; height: 500px;"
-        class="ag-theme-material"
-        [rowData]="rowData"
-        [columnDefs]="columnDefs"
-        suppressCsvExport=false
-        [autoGroupColumnDef]="autoGroupColumnDef"
-      [suppressRowClickSelection]="true"
-      [groupSelectsChildren]="true"
-      paginationAutoPageSize='true'
-      (selectionChanged)="onSelectionChanged($event)"
-      [debug]="true"
-      [rowSelection]="rowSelection"
-      [rowGroupPanelShow]="rowGroupPanelShow"
-      [pivotPanelShow]="pivotPanelShow"
-      [enableRangeSelection]="true"
-      [pagination]="true"
-      (gridReady)="onGridReady($event)"
-        >
-    </ag-grid-angular>
+
       <div class="row" style="margin-top:10px;">
         <div class="col-md-5 ">
           <div class="text-center">
@@ -846,9 +826,31 @@
           </div>
           <!--<div class="clearfix"></div>-->
           <div id="smsmail"></div>
+
         </div>
       </div>
 
     </div>
+    <button (click)="exportdat()">Export</button>
+    <ag-grid-angular
+    style="width: 1500px; height: 500px;"
+    class="ag-theme-material"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    suppressCsvExport=false
+    [autoGroupColumnDef]="autoGroupColumnDef"
+  [suppressRowClickSelection]="true"
+  [groupSelectsChildren]="true"
+  paginationAutoPageSize='true'
+  (selectionChanged)="onSelectionChanged($event)"
+  [debug]="true"
+  [rowSelection]="rowSelection"
+  [rowGroupPanelShow]="rowGroupPanelShow"
+  [pivotPanelShow]="pivotPanelShow"
+  [enableRangeSelection]="true"
+  [pagination]="true"
+  (gridReady)="onGridReady($event)"
+    >
+</ag-grid-angular>
   </div>
 </div>
