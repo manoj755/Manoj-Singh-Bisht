@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
+import { DBService } from 'app/db.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,7 @@ export class NavbarComponent implements OnInit {
   private toggleButton: any;
   private sidebarVisible: boolean;
 
-  constructor(location: Location, private element: ElementRef, private router: Router) {
+  constructor(location: Location, private element: ElementRef, private router: Router, private db: DBService) {
     this.location = location;
     this.sidebarVisible = false;
   }
@@ -115,6 +116,7 @@ export class NavbarComponent implements OnInit {
       titlee = titlee.slice(2);
     }
     titlee = titlee.split('/').pop();
+    this.db.setSelectedNodeType(titlee);
     titlee = '/' + titlee;
     for (var item = 0; item < this.listTitles.length; item++) {
       if (this.listTitles[item].path === titlee) {

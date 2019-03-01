@@ -6,7 +6,6 @@ import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { DBService } from 'app/db.service';
-
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
@@ -89,7 +88,7 @@ export class AdminLayoutComponent implements OnInit {
     } else {
       this.isLogin = false;
     }
-    this.db.selectedNodes=[];
+    this.db.setSelectedNodes([], '');
   }
   runOnRouteChange(): void {
     this.setIsLogin();

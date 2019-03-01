@@ -6,377 +6,40 @@
 
 
         <div class="row">
-          <div class="col-md-4 col-sm-8 hidden">
 
-            <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal"
-              data-target="#myModal-2">Email</button>
-
-            <!--<div ng-include="'views/partialviews/sendEmailForm.html'"></div>-->
-            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-2"
-              class="modal fade">
-              <div class="modal-dialog" id="internalemail">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h4 class="modal-title">Email</h4> <button aria-hidden="true" data-dismiss="modal" class="close"
-                      type="button">×</button>
-
-                  </div>
-                  <div class="modal-body">
-
-                    <div class="form-horizontal" role="form">
-                      <div class="form-group">
-
-                        <div class="col-lg-10">
-                          <input type="text" [(ngModel)]="sendemailmodel.prmTo" class="form-control m" n="To" validate
-                            id="inputEmail4" placeholder="TO:">
-                        </div>
-                      </div>
-                      <div class="form-group">
-
-                        <div class="col-lg-10">
-                          <input type="text" [(ngModel)]="sendemailmodel.prmCC" class="form-control m" n="CC" validate
-                            id="inputEmail5" placeholder="CC:">
-                        </div>
-
-                      </div>
-                      <div class="form-group">
-
-                        <div class="col-lg-10">
-                          <input type="text" class="form-control m" n="BCC" validate [(ngModel)]="sendemailmodel.prmBCC"
-                            id="inputEmail5" placeholder="BCC:">
-                        </div>
-
-                      </div>
-
-                      <div class="form-group">
-
-                        <div class="col-lg-10">
-                          <input type="file" class="form-control" [(ngModel)]="sendemailmodel.prmAttachment" id="upload"
-                            placeholder="Attechment">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-md-10">
-
-                          <select class="form-control m-bot15" [(ngModel)]="sendmailselected"
-                            ng-options="x.title for x of emailmessagetemplates" name="emailmessagetemplate_id">
-
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group">
-
-                        <div class="col-lg-10">
-                          <input type="text" class="form-control e" n="" [(ngModel)]="sendemailmodel.prmSubject"
-                            id="inputEmail5" placeholder="Subject:">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-
-                          <textarea class="form-control e" id="textareaemail" placeholder="message"
-                            [(ngModel)]="sendemailmodel.prmMessagge" style="min-width: 100%; height: 87px;">
-{{emailselected.message}}</textarea>
-                        </div>
-                      </div>
-
-                      <button type="submit" class="btn btn-primary btn-md" tar="#internalemail"
-                        ng-click="sendemailform()">send</button>
-                    </div>
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
+          <app-call></app-call>
+          <div class="col-md-3 " ng-show="mp.btn_take_internal_refeference">
+            <button type="button" class="btn btn-block  btn-primary btn-md" data-toggle="modal"
+              data-target="#getreferencemodal" title="Get referrence from selected candidates or send mail ">Get
+              Reference/Send Mail</button>
+            <app-pv-get-reference></app-pv-get-reference>
 
           </div>
+          <div class="col-md-3" ng-show="mp.add_to_job_store">
 
-          <div class="col-md-4 " ng-show="mp.btn_take_internal_refeference">
-            <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal" data-target="#myModal-3"
-              help="Get referrence from selected candidates or send mail ">Get Reference/Send Mail</button>
-            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-3"
-              class="modal fade">
-              <div class="modal-dialog" id="getrefer">
-                <div class="modal-content">
-                  <div class="modal-header">
-
-                    <h4 class="modal-title">Get References/Send Mail to Candidates</h4> <button aria-hidden="true"
-                      data-dismiss="modal" class="close" type="button">×</button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label for="inputEmail" class="control-label col-xs-2">{{clientsdepartment}}:</label>
-                        <div class="col-xs-10">
-                          <select class="form-control m-bot15 e" n="Client" ng-change="getcandidatebyclient()"
-                            [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
-                            <option value="{{x.id}}" *ngFor="let  x of  clients">{{x.billingName}}</option>
-
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="inputPassword" class="control-label col-xs-2">Jobs:</label>
-                        <div class="col-xs-10">
-                          <select class="form-control m-bot15 e" n="Job" [(ngModel)]="myjob.add_new_job_id"
-                            name="add_new_job_id">
-                            <option value="{{x.id}}" *ngFor="let  x of jobslistbyclients">{{x.job_title}}</option>
-
-                          </select>
-                        </div>
-                      </div>
-
-                      <ul class="nav nav-tabs">
-                        <li class="active"><a href="" ng-click="smsTabs(0)" data-toggle="tab">SMS<i class="fa"></i></a>
-                        </li>
-                        <li><a href="" ng-click="smsTabs(1)" data-toggle="tab">Send Mail <i class="fa"></i></a></li>
-                      </ul>
-
-                      <div class="tab-content">
-                        <div class="tab-pane active" ng-show="tabindex == 0" ng-hide="tabindex != 0" id="info-tab">
-
-                          <div class="form-group">
-                            <div class="col-sm-12">
-
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" [(ngModel)]="sendsms" value="">
-                                  <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                  Send Sms..
-                                </label>
-                              </div>
-
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="col-sm-12">
-                              <select class="form-control m-bot15" [(ngModel)]="smsselected" ng-change='setsms()'
-                                ng-options="x.templatename for xof smsmessagetemplates" name="smsmessagetemplate_id">
-
-                              </select>
-
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <div class="col-sm-12">
-                              <textarea class="form-control" [(ngModel)]="sms.prmMessagge"
-                                style="width: 100%;">{{smsselected.message}}</textarea>
-
-                            </div>
-                          </div>
-                        </div>
-                        <div ng-show="tabindex == 1" ng-hide="tabindex != 1" class="tab-pane active" id="address-tab">
-
-
-                          <div class="form-group">
-                            <div class="col-sm-12">
-
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox" [(ngModel)]="sendemail" value="">
-                                  <span class="cr"><i class="cr-icon fa fa-check"></i></span>
-                                  Send Mail
-                                </label>
-                              </div>
-
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="col-sm-12">
-
-                              <select class="form-control m-bot15" [(ngModel)]="emailselected" ng-change='setemail()'
-                                ng-options="x.templatename for x of emailmessagetemplates"
-                                name="emailmessagetemplate_id">
-
-                              </select>
-
-                            </div>
-                          </div>
-
-                          <div class="form-group">
-                            <div class="col-sm-12">
-                              <textarea class="form-control" style="width: 100%;"
-                                [(ngModel)]="myjob.prmSubject">{{emailselected.title}}</textarea>
-
-                            </div>
-                          </div>
-
-
-                          <div class="form-group">
-                            <div class="col-sm-12">
-                              <textarea contenteditable class="form-control" style="width: 100%;"
-                                [(ngModel)]="myjob.prmMessagge">{{emailselected.message}}</textarea>
-
-                            </div>
-                          </div>
-
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                        <div class="col-xs-offset-2 col-xs-10">
-                          <button type="submit" tar="#getrefer" class="btn btn-primary"
-                            ng-click="sendMessage()">Submit</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-md-4" ng-show="mp.add_to_job_store">
-
-            <button type="button" class="btn btn-block btn-primary btn-md" data-toggle="modal"
-              data-target="#myModal-4">Add to Job</button>
+            <button type="button" class="btn btn-block  btn-info btn-md" data-toggle="modal" data-target="#addtojob">Add
+              to Job</button>
 
             <app-add-to-job></app-add-to-job>
 
           </div>
-
-        </div>
-        <div class="row">
-          <div class=" col-md-6 validate">
-            <a class="btn btn-default" href="" data-toggle="modal" help='Add Candidate' data-target="#addcandidate"
-              ng-if="mp.candidate_detail_store">
+          <app-add-candidate></app-add-candidate>
+          <div class=" col-md-3 validate">
+            <a class="btn btn-default btn-block" href="" data-toggle="modal" help='Add Candidate'
+              data-target="#addcandidate" ng-if="mp.candidate_detail_store">
               Add Candidate
             </a>
-            <div id="addcandidate" class="modal fade " role="dialog">
-              <div class="modal-dialog modal-lg">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                  <div class="modal-header">
-
-                    <h4 class="modal-title">Add Candidate</h4> <button type="button" class="close"
-                      data-dismiss="modal">&times;</button>
-                  </div>
-                  <div class="modal-body">
-
-                    <div class="col-md-12 ">
-                      <div class="form-horizontal" role="form">
-                        <div class="form-group">
-                          <label for="name" class="control-label col-sm-4">Full Name</label>
-                          <div class="col-sm-6">
-                            <input type="text" [(ngModel)]="store.candidateName" class="form-control e" validate
-                              id="name" placeholder="Enter name">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="address" class="control-label col-sm-4">Gender</label>
-                          <div class="col-sm-7">
-                            <div>
-                              <select [(ngModel)]="store.gender" class="form-control">
-                                <option *ngFor="let  xof genders" value="{{x.id}}">
-                                  {{x.gender_name}}
-                                </option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="mobileNo" class="control-label col-sm-4">Mobile Number</label>
-                          <div class="col-sm-7">
-                            <input type="text" class="form-control e no" validate n="Mobile"
-                              [(ngModel)]="store.mobileNo" id="mobileNo" placeholder="Mobile Number">
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-                          <label for="email" class="control-label col-sm-4">Email</label>
-                          <div class="col-sm-7">
-                            <input type="text" class="form-control e m" validate n="Email" [(ngModel)]="store.email"
-                              id="email" placeholder="Email">
-                          </div>
-                        </div>
-                        <!--                                            <div class="form-group">
-                                                                                    <label for="panNo" class="control-label col-sm-4">Pan No</label>
-                                                                                    <div class="col-sm-7">
-                                                                                        <input type="text" class="form-control e" n="Pan Number"  [(ngModel)]="store.panNo" id="panNo" placeholder="Pan No">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <label for="industryType" class="control-label col-sm-4">Industry Type</label>
-                                                                                    <div class="col-sm-7">
-                                                                                        <input type="text" class="form-control e" n="Industry" [(ngModel)]="store.industryType" id="industryType" placeholder="Industry Type">
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group">
-                                                                                    <label for="functionalArea" class="control-label col-sm-4">Functional Area</label>
-                                                                                    <div class="col-sm-7">
-                                                                                        <input type="text" class="form-control e" n="Functional Area" [(ngModel)]="store.functionalArea" id="functionalArea" placeholder="functionalArea">
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="form-group">
-                                                                                    <label for="functionalArea" class="control-label col-sm-4">D.O.B</label>
-                                                                                    <div class="col-sm-7">
-                                                                                        <input type="date" [(ngModel)]="store.dob" name="contactDurationStart" md-placeholder="Date of Birth" class="form-control" />
-                                                                                    </div>
-                                                                                </div>
-
-
-                                                                                <div class="form-group">
-                                                                                    <label for="Key Skills" class="control-label col-sm-4">Key Skills</label>
-                                                                                    <div class="col-sm-7">
-                                                                                        <input type="text" class="form-control vn" n="Key Skills" [(ngModel)]="store.keySkills" id="Salary" placeholder="Key Skills">
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="form-group">
-                                                                                    <label for="function" class="control-label col-sm-4">Function</label>
-                                                                                    <div class="col-sm-7">
-                                                                                        <input type="text" class="form-control e" n="Function"  id="Function" placeholder="function">
-                                                                                    </div>
-                                                                                </div>-->
-                        <div class="form-group" ng-hide="true">
-                          <label for="source" class="control-label col-sm-4">Source</label>
-                          <div class="col-sm-7">
-                            <input type="text" class="form-control " [(ngModel)]="store.source" value="0" id="source"
-                              placeholder="Source">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="resume" class="control-label col-sm-4">Resume</label>
-                          <div class="col-sm-7">
-
-                          </div>
-                        </div>
-
-                        <div class="form-group">
-
-                          <div class="col-md-4 col-md-offset-4">
-                            <button class="btn btn-success btn-md btn-block validate" tar="#addCandidate"
-                              ng-click="candidatesave()">Save</button>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
           </div>
-          <div class='col-md-6'>
-            <a class="quick-btn" href="javascript:" help='call' data-target='#calldiv' style=' color:green !important; '
-              data-toggle='modal' ng-if="mp.btn_can_call">
+          <div class='col-md-3'>
+            <a mat-fab href="javascript:" help='call' data-target='#calldiv' data-toggle='modal'
+              ng-if="mp.btn_can_call">
               <i class="fa fa-phone fa-2x"></i>
 
             </a>
           </div>
-
-
         </div>
+
         <div id="calldiv" class="modal " role="dialog">
           <div class="modal-dialog">
 
@@ -464,8 +127,7 @@
           </div>
           <div class="col-8">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Search" type="text" [(ngModel)]="searchText"
-                (change)="loadInternalData()" />
+              <input matInput placeholder="Search" type="text" [(ngModel)]="searchText" (change)="loadInternalData()" />
             </mat-form-field>
           </div>
 

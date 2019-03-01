@@ -9,8 +9,8 @@ import { DBService } from 'app/db.service';
 export class HistoryComponent implements OnInit {
 
   title = 'app';
-  private smsselected={};
-  private emailselected={};
+  private smsselected = {};
+  private emailselected = {};
   private gridApi;
   private gridColumnApi;
 
@@ -71,8 +71,7 @@ export class HistoryComponent implements OnInit {
     this.gridApi.exportDataAsCsv();
   }
   onSelectionChanged(event) {
-    console.log(event.api.getSelectedNodes());
-    const rowCount = event.api.getSelectedNodes().length;
-    window.alert('selection changed, ' + rowCount + ' rows selected');
+    this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
+
   }
 }

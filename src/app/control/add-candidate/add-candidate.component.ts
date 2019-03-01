@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCandidateComponent implements OnInit {
 
+  store = {};
   constructor() { }
 
   ngOnInit() {

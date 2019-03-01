@@ -22,6 +22,7 @@ import { BillingComponent } from '../../billing/billing.component';
 import { HistoryComponent } from '../../history/history.component';
 import { InternalDatabaseComponent } from '../../internal-database/internal-database.component';
 import { NewJobComponent } from '../../new-job/new-job.component';
+import { DepartmentComponent } from '../../department/department.component';
 import { CallDetailComponent } from '../../call-detail/call-detail.component';
 import { MessageTemplateComponent } from '../../message-template/message-template.component';
 import { ClientComponent } from '../../client/client.component';
@@ -29,13 +30,23 @@ import { AddNewTrackerComponent } from '../../add-new-tracker/add-new-tracker.co
 import { TrackerFieldsComponent } from '../../tracker-fields/tracker-fields.component';
 import { UsersComponent } from '../../users/users.component';
 import { ChannelComponent } from '../../channel/channel.component';
+import { EmployeeemailComponent} from '../../employeeemail/employeeemail.component';
+import { ClientreportComponent} from '../../clientreport/clientreport.component';
+import { ClientReportFullComponent} from '../../client-report-full/client-report-full.component';
+import { RecruiterReportNewhistoryComponent} from '../../recruiter-report-newhistory/recruiter-report-newhistory.component';
+import { JobwiseComponent} from '../../jobwise/jobwise.component';
+import { RecruiterreportnewComponent} from '../../recruiterreportnew/recruiterreportnew.component';
+import { OpeningclientwiseComponent} from '../../openingclientwise/openingclientwise.component';
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ManagerComponent } from '../../control/manager/manager.component';
 import { AddToJobComponent } from '../../control/add-to-job/add-to-job.component';
 import { AddCandidateComponent } from '../../control/add-candidate/add-candidate.component';
 import { MyTeamComponent } from '../../control/my-team/my-team.component';
 import { PvGetReferenceComponent } from '../../control/pv-get-reference/pv-get-reference.component';
+import { CallComponent } from '../../control/call/call.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
+import { NgSelectModule } from '@ng-select/ng-select';
 import {
   MatButtonModule,
   MatInputModule,
@@ -48,7 +59,12 @@ import {
   MatCardModule,
   MatRadioModule,
   MatAutocompleteModule,
+  MatTabsModule,
+
+
 } from '@angular/material';
+
+
 
 // @dynamic
 @NgModule({
@@ -67,10 +83,11 @@ import {
     MatCardModule,
     MatRadioModule,
     CKEditorModule,
-
-  MatAutocompleteModule,
-
+    MatAutocompleteModule,
+    NgSelectModule,
+    MatTabsModule,
     AgGridModule.withComponents([]),
+
     // TranslateService,
   //  NgSelectModule,
   ],
@@ -101,6 +118,15 @@ import {
     AddCandidateComponent,
     MyTeamComponent,
     PvGetReferenceComponent,
+    CallComponent,
+    DepartmentComponent,
+    EmployeeemailComponent,
+    ClientreportComponent,
+    ClientReportFullComponent,
+    JobwiseComponent,
+    RecruiterReportNewhistoryComponent,
+    RecruiterreportnewComponent,
+    OpeningclientwiseComponent
 
   ]
 })

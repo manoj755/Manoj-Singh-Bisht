@@ -1,3 +1,127 @@
-<p>
-  pv-get-reference works!
-</p>
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="getreferencemodal"
+class="modal fade">
+<div class="modal-dialog  modal-lg" id="getrefer">
+  <div class="modal-content">
+    <div class="modal-header">
+
+      <h4 class="modal-title">Get References/Send Mail to Candidates</h4> <button aria-hidden="true"
+        data-dismiss="modal" class="close" type="button">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label for="inputEmail" class="control-label col-xs-2">{{clientsdepartment}}:</label>
+          <div class="col-xs-10">
+              <ng-select [(ngModel)]="addtojob.client_detail_id" (change)='getcandidatebyclientaddtojob()'>
+                  <ng-option *ngFor="let x of clients" [value]="x.id"  >{{x.billingName}}</ng-option>
+
+              </ng-select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword" class="control-label col-xs-2">Jobs:</label>
+          <div class="col-xs-10">
+              <ng-select [(ngModel)]="addnewjob.add_new_job_id"  name="add_new_job_id">
+              <ng-option [value]="x.id" *ngFor="let  x of jobslistbyclientsaddtojob">{{x.job_title}}
+              </ng-option>
+
+            </ng-select>
+          </div>
+        </div>
+
+        <mat-tab-group>
+            <mat-tab label="Sms">
+              <h3>Sms</h3>
+              <div    id="info-tab">
+
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                        <mat-checkbox [(ngModel)]="sendsms" >Send Sms </mat-checkbox>
+
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <ng-select [(ngModel)]="smsselectedid"   (change)='setsms()'>
+
+                        <ng-option *ngFor="let  x of smsmessagetemplates" [value]='x.id'>
+                          {{x.templatename}}
+                          </ng-option>
+
+                      </ng-select>
+
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <textarea class="form-control" [(ngModel)]="sms.prmMessagge"
+                        style="width: 100%;">{{smsselected.message}}</textarea>
+
+                    </div>
+                  </div>
+                </div>
+            </mat-tab>
+            <mat-tab label="Mail">
+              <h3>Mail</h3>
+              <div  id="address-tab">
+
+
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                        <mat-checkbox [(ngModel)]="sendemail" >Send Mail </mat-checkbox>
+
+
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+
+                      <ng-select [(ngModel)]="emailselectedid" (change)='setemail()'>
+                        <ng-option *ngFor="let  x of emailmessagetemplates" [value]="x.id">
+                            {{x.templatename}}
+                            </ng-option>
+                      </ng-select>
+
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <textarea class="form-control" style="width: 100%;"
+                        [(ngModel)]="myjob.prmSubject">{{emailselected.title}}</textarea>
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                        <ckeditor [editor]="Editor" data="emailselected.message" [(ngModel)]="emailselected.message"></ckeditor>
+
+
+                    </div>
+                  </div>
+
+                </div>
+            </mat-tab>
+          </mat-tab-group>
+
+
+
+
+
+        <div class="form-group">
+          <div class="col-xs-offset-2 col-xs-10">
+            <button type="submit" tar="#getrefer" class="btn btn-primary"
+              (click)="sendMessage()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>

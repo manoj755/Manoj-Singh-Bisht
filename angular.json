@@ -36,15 +36,13 @@
               "node_modules/ag-grid-community/src/styles/ag-theme-classic/sass/_ag-theme-classic.scss",
               "node_modules/ag-grid-community/src/styles/ag-theme-dark/sass/ag-theme-dark.scss",
               "node_modules/ag-grid-community/src/styles/ag-theme-fresh/sass/ag-theme-fresh.scss",
-              "node_modules/ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss"
-
+              "node_modules/select2/dist/css/select2.min.css",
+              "node_modules/ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss",
+              "node_modules/@ng-select/ng-select/themes/material.theme.css"
             ],
             "scripts": [
-
-
               "node_modules/jquery/dist/jquery.js",
               "node_modules/jquery-ui-dist/jquery-ui.min.js",
-
               "node_modules/slickgrid/lib/jquery.event.drag-2.3.0.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/angular-slickgrid/lib/multiple-select/multiple-select.js",
@@ -54,7 +52,8 @@
               "node_modules/moment/moment.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
-              "node_modules/chartist/dist/chartist.js"
+              "node_modules/chartist/dist/chartist.js",
+              "node_modules/select2/dist/js/select2.min.js"
             ]
           },
           "configurations": {
@@ -117,14 +116,13 @@
               "node_modules/ag-grid-community/src/styles/ag-theme-classic/sass/_ag-theme-classic.scss",
               "node_modules/ag-grid-community/src/styles/ag-theme-dark/sass/ag-theme-dark.scss",
               "node_modules/ag-grid-community/src/styles/ag-theme-fresh/sass/ag-theme-fresh.scss",
-              "node_modules/ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss"
+              "node_modules/select2/dist/css/select2.min.css",
+              "node_modules/ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss",
+              "node_modules/@ng-select/ng-select/themes/material.theme.css"
             ],
             "scripts": [
-
-
               "node_modules/jquery/dist/jquery.js",
               "node_modules/jquery-ui-dist/jquery-ui.min.js",
-
               "node_modules/slickgrid/lib/jquery.event.drag-2.3.0.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/angular-slickgrid/lib/multiple-select/multiple-select.js",
@@ -134,8 +132,8 @@
               "node_modules/moment/moment.js",
               "node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
               "node_modules/bootstrap-notify/bootstrap-notify.js",
-              "node_modules/chartist/dist/chartist.js"
-
+              "node_modules/chartist/dist/chartist.js",
+              "node_modules/select2/dist/js/select2.min.js"
             ],
             "assets": [
               "src/assets",

@@ -54,7 +54,7 @@ export class InternalDatabaseComponent implements OnInit {
   }
 
   loadInternalData(isPager?): void {
-    debugger;
+
     if (isPager) {
       this.isPager = true;
     } else {
@@ -88,9 +88,8 @@ export class InternalDatabaseComponent implements OnInit {
     this.gridApi.exportDataAsCsv();
   }
   onSelectionChanged(event) {
-    console.log(event.api.getSelectedNodes());
-    this.db.selectedNodes = event.api.getSelectedNodes();
-    const rowCount = event.api.getSelectedNodes().length;
+     this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
+
     // window.alert('selection changed, ' + rowCount + ' rows selected');
   }
 }

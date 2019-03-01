@@ -3,6 +3,8 @@
 
 <div class="main-content">
   <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
       <ag-grid-angular
       style="width: 1500px; height: 500px;"
       class="ag-theme-material"
@@ -24,297 +26,229 @@
 
     (rowClicked)="onRowClicked($event)"
       ></ag-grid-angular>
-      <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
 
-               Modal content
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      <h4 class="modal-title">Users</h4>
+
+            <div class="">
+          <div class="card col-md-12">
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title">User</h4>
+                  <p class="card-category">Add or Edit user details</p>
                   </div>
-                  <div class="modal-body">
 
-                               <div class="col-md-4">
-                              <ul class="list-unstyled">
-                                  <li> <a href="" class="name">{{row.entity.templateType}}</a></li>
-                                  <li>{{row.entity.title}}</li>
-                                 </ul></div>
+
+
+
+
+          <form name="userForm" >
+
+              <div class="row">
+                  <div class="col-md-4" ng-if="profile.app_id == 0">
+                      Application
+                      <select class="form-control" id="usersapp" [(ngModel)]="user.app_id" ng-change="loadmanager()">
+                          <option *ngFor="let app of applications" value="{{app.id}}">
+                              {{app.app_name}}
+                          </option>
+                      </select>
+
                   </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn  btn-raised btn-default" data-dismiss="modal">Close</button>
+                  <div class="col-md-4">
+                      Role
+                      <select class="form-control e" n=" Role" validate  ng-change="changerole(profile.app_id)" [(ngModel)]="user.role_id">
+                          <option *ngFor="let role of roles" value="{{role.id}}">
+                              {{role.roleName}}
+                          </option>
+                      </select>
 
                   </div>
-              </div>
+                  <div class="col-md-4">
+                      Select Manager
+                      <select class="form-control e"  n="Select Manager" validate [(ngModel)]="user.manager">
+                          <option *ngFor="let x of users" value="{{x.id}}">
+                              {{x.name}}
+                          </option>
+                      </select>
 
-          </div>
-    </div>
-<div class="container">
-  <div class="row">
-      <div class="col-md-10">
-          <h2 style="margin-left:10px;">Add Users</h2>
-    <section>
-      <div class="wizard">
-          <div class="wizard-inner">
-              <div class="connecting-line"></div>
-              <ul class="nav nav-tabs" role="tablist">
+                  </div>
+              </div><br>
+              <div class="row">
 
-                  <li role="presentation" class="active">
-                      <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Basic Info" onclick="return false;">
-                          <span class="round-tab">
-                              <i class="glyphicon glyphicon-folder-open"></i>
-                          </span>
-                      </a>
-                  </li>
 
-                  <li role="presentation" class="disabled">
-                      <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2" onclick="return false;">
-                          <span class="round-tab">
-                              <i class="glyphicon glyphicon-pencil"></i>
-                          </span>
-                      </a>
-                  </li>
-                  <li role="presentation" class="disabled">
-                      <a href="#step3" data-toggle="tab" aria-controls="step3" role="tab" title="Step 3" onclick="return false;">
-                          <span class="round-tab">
-                              <i class="glyphicon glyphicon-picture"></i>
-                          </span>
-                      </a>
-                  </li>
+                  <div class="col-md-4" > Name
 
-                  <li role="presentation" class="disabled">
-                      <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete" onclick="return false;">
-                          <span class="round-tab">
-                              <i class="glyphicon glyphicon-ok"></i>
-                          </span>
-                      </a>
-                  </li>
-              </ul>
-          </div>
+                      <input type="text" [(ngModel)]="user.name" class="form-control e" n="Name"  />
 
-          <form role="form">
-              <div class="tab-content">
-                  <div class="tab-pane active" role="tabpanel" id="step1">
-                      <div class="step1">
-                          <div class="row">
-                          <div class="col-md-6">
-                              <label >Full Name</label>
-                              <input type="text"  ng-model="usernew.name" class="form-control e" n="Name" >
-                          </div>
-<!--                            <div class="col-md-6">
-                              <label for="exampleInputEmail1">Last Name</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Last Name">
+
+                  </div>
+                  <div class="col-md-4" > Profile picture
+
+                      <input type="file" fileread="user.profilepic" />
+
+
+                  </div>
+                  <div class="col-md-4" > Date Of Birth
+
+
+
+                      <div class="controls input-append date form_date" data-date="" [(ngModel)]="user.dob"  data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                          <input size="16" type="text" value="" readonly>
+                          <span class="add-on"><i class="icon-remove"></i></span>
+                          <span class="add-on"><i class="icon-th"></i></span>
+                      </div>
+
+
+
+                  </div>
+
+  <!--                <md-input-container flex> <label>Name</label>     <input type="text" [(ngModel)]="user.name" class="form-control e" n="Name"  />  </md-input-container>
+                  <md-input-container flex>       <input type="file" fileread="user.profilepic" />  </md-input-container>-->
+
+
+              </div><br>
+              <!--            <div class="row">
+
+                              <md-input-container flex> <label>Date of Birth</label>
+                                  <md-datepicker type="text" [(ngModel)]="user.dob" required=""> </md-datepicker>
+                              </md-input-container>
+                              <div  class="errorinline" style="" ng-show="true"><div>please enter Date of Birth !</div></div>
                           </div>-->
-<!--                        </div>
-                      <div class="row">-->
-                          <div class="col-md-6">
-                              <label >Email address</label>
-                              <input type="email"   ng-model="usernew.email"  class="form-control m" n="Email" placeholder="Email">
-                          </div></div>
-                           <div class="row">
-                           <div class="col-md-6">
-                              <label >Password</label>
-                              <input type="password" autocomplete="off" ng-model="usernew.password"  class="form-control e" validate n="Password" >
-                          </div>
-                     <div class="col-md-6">
-                              <label >Mobile Number</label>
-                              <input type="text" ng-model="usernew.mobileNo" Maxlength="15" class="form-control n e" required>
-                          </div>
-                     <!--     </div>
-                      <div class="row">
-                          <div class="col-md-6">
-                              <label for="exampleInputEmail1">Mobile Number</label>
-                              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                          </div>
-<!--                            <div class="col-md-6">
-                          <label for="exampleInputEmail1">Email address</label>
-                              <div class="row">
-                                  <div class="col-md-3 col-xs-3">
-                                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                  </div>
-                                  <div class="col-md-9 col-xs-9">
-                                      <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                  </div>
-                              </div>
-                          </div>-->
-                      </div>
-                      </div>
-                      <ul class="list-inline pull-right">
-                          <li><button type="button" tar="#addUser" ng-show="isEdit" ng-click="back()" >Previous</button></li>
-                          <li><button type="button" class="btn  btn-raised btn-primary next-step" onclick="return false" tar="#addUser" ng-hide="isEdit" >Save and continue</button></li>
-                          <li><button type="button" class="btn  btn-raised btn-default next-step" tar="#addUser" ng-show="isEdit" >update and next</button></li>
-                      </ul>
+              <div class="row">
+                  <div class="col-md-6">Email
+
+                      <input type="text" autocomplete="off" [(ngModel)]="user.email"  class="form-control m" n="Email" />
                   </div>
-                  <div class="tab-pane" role="tabpanel" id="step2">
-                      <div class="step2">
-                          <div class="step_21">
-                              <div class="row">
-                                  <div class="col-md-6">
-                              <label >Gender</label>
-                              <!--<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">-->
-                              <select class="form-control e"  ng-model="usernew.gender"  n="Gender"  validate>
-                                  <option
-                                  *ngFor="let x of user.genders"
-                                  value="{{x.id}}">
-                          {{x.gender_name}}
-                      </option>
+                  <div class="col-md-6"  >Password
 
-                              </select>
-                          </div>
-                           <div class="col-md-6">
-                                <label >Location</label>
-                                  <select ng-model="usernew.location" class="form-control e" n="Location">
-
-                                      <option
-                                      *ngFor="let x of user.location"  value="{{x.id}}">{{x.location}}</option>
-                                      <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                                      <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                                      <option value="Assam">Assam</option>
-                                      <option value="Bihar">Bihar</option>
-                                      <option value="Chandigarh">Chandigarh</option>
-                                      <option value="Chhattisgarh">Chhattisgarh</option>
-                                      <option value="Dadra and Nagar Haveli">Dadra and Nagar Haveli</option>
-                                      <option value="Daman and Diu">Daman and Diu</option>
-                                      <option value="Delhi">Delhi</option>
-                                      <option value="Goa">Goa</option>
-                                      <option value="Gujarat">Gujarat</option>
-                                      <option value="Haryana">Haryana</option>
-                                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                                      <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                                      <option value="Jharkhand">Jharkhand</option>
-                                      <option value="Karnataka">Karnataka</option>
-                                      <option value="Kerala">Kerala</option>
-                                      <option value="Lakshadweep">Lakshadweep</option>
-                                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                      <option value="Maharashtra">Maharashtra</option>
-                                      <option value="Manipur">Manipur</option>
-                                      <option value="Meghalaya">Meghalaya</option>
-                                      <option value="Mizoram">Mizoram</option>
-                                      <option value="Nagaland">Nagaland</option>
-                                      <option value="Orissa">Orissa</option>
-                                      <option value="Pondicherry">Pondicherry</option>
-                                      <option value="Punjab">Punjab</option>
-                                      <option value="Rajasthan">Rajasthan</option>
-                                      <option value="Sikkim">Sikkim</option>
-                                      <option value="Tamil Nadu">Tamil Nadu</option>
-                                      <option value="Tripura">Tripura</option>
-                                      <option value="Uttaranchal">Uttaranchal</option>
-                                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                      <option value="West Bengal">West Bengal</option>
-                                  </select>
-                              </div>
-
-                              </div>
-                              <div class="row">
-                               <div class="col-md-6">
-                                    <label >Country</label>
-                                  <select class="form-control"  ng-model="usernew.country" class="form-control e" n="Country" >
-                      <option   *ngFor="let x of user.countries" value="{{x.id}}">
-                          {{x.name}} ({{x.country_code}})
-                      </option>
-
-                  </select>
-                              </div>
-                                  <!--<div class="form-group row">-->
-
-                                      <div class="col-md-6">
-                              <label >Channel</label>
-                              <!--<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">-->
-                              <select class="form-control e" validate ng-model="usernew.channel_id">
-                                  <option  *ngFor="let ch of user.channel" value="{{ch.id}}">
-                                              {{ch.display_name}}
-                      </option>
-
-
-                              </select>
-                          </div>
-                                   <div class="col-md-6 pull-right"  style="margin-top:20px;">
-                          <a href="#/channel" class="btn  btn-raised btn-default" target="_blank" style="background-color:rgb(70, 81, 99); color:white;">Add Channel</a> <a href="javascript:void(0)" class="btn  btn-raised btn-default" ng-click="channellist()" style="background-color:rgb(70, 81, 99); color: white;">Fetch Channel</a>
-              </div>
-                                  </div>
-                          </div>
-                          <div class="step-22">
-
-                          </div>
-                      </div>
-                      <ul class="list-inline pull-right">
-                          <li><button type="button" class="btn  btn-raised btn-default prev-step" tar="#addUser" ng-show="isEdit" ng-click="backprevious()">Previous</button></li>
-<li><button type="button" class="btn  btn-raised btn-default next-step" tar="#addUser" ng-show="isEdit">update and next</button></li>
-                          <li><button type="button" class="btn  btn-raised btn-primary next-step" ng-hide="isEdit">Save and continue</button></li>
-                      </ul>
+                      <input type="password" autocomplete="off" [(ngModel)]="user.password"  class="form-control e" validate n="Password" />
                   </div>
-                  <div class="tab-pane" role="tabpanel" id="step3">
-                      <div class="step33">
 
+  <!--                <md-input-container flex> <label>Email</label>     <input type="text" autocomplete="off" [(ngModel)]="user.email"  class="form-control m" n="Email" />  </md-input-container>
+                  <md-input-container flex> <label>Password</label>     <input type="password" autocomplete="off" [(ngModel)]="user.password" class="form-control e" validate n="Password" />  </md-input-container>-->
 
+              </div><br>
+              <div class="row">
+                  <!--                <md-input-container flex>-->
+                  <div class="col-md-6">
+                      Gender
 
+                      <select class="form-control e"  [(ngModel)]="user.gender"  n="Gender"  validate>
+                          <option *ngFor="let x of genders" value="{{x.id}}">
+                              {{x.gender_name}}
+                          </option>
+                      </select>
 
-
-
-
-
-                         <!--<h5><strong>Channel Details</strong></h5>-->
-
-                          <div class="row mar_ned">
-                              <div class="col-md-6" ng-if="profile.app_id == 0">
-                  <label>Application:</label>
-                  <select class="form-control" id="usersapp" ng-model="usernew.app_id" ng-change="loadmanager()">
-                      <option  *ngFor="let app of user.applications" value="{{app.id}}">
-                          {{app.app_name}}
-                      </option>
-                  </select>
-
-              </div>
-
-                  <div class="row" >
-                      <div class="col-md-5" style="margin-left:20px;">
-                  <label>Role:</label>
-
-                  <select class="form-control e" n=" Role" validate  ng-change="changerole(profile.app_id)" ng-model="usernew.role_id">
-                      <option ng-repeat="role in roles"  value="{{role.id}}">
-                          {{role.roleName}}
-                      </option>
-                  </select>
-
-              </div>
-             <div class="col-md-5">
-                  <label>Select Manager:</label>
-
-                  <select class="form-control e"  n="Select Manager" validate ng-model="usernew.manager">
-                      <option ng-repeat="x in users" value="{{x.id}}">
-                          {{x.name}}
-                      </option>
-                  </select>
-
-              </div>
-
-          </div>
-
-
-                          </div>
-
-                      </div>
-                      <ul class="list-inline pull-right">
-                          <li><button type="button" class="btn  btn-raised btn-default prev-step" tar="#addUser" ng-show="isEdit" ng-click="back()">Previous</button></li>
-                          <li><button type="button" class="btn  btn-raised btn-default next-step" tar="#addUser" ng-show="isEdit" ng-click="userupdate()">update</button></li>
-                          <li><button type="button" class="btn  btn-raised btn-primary btn-info-full next-step" tar="#addUser" ng-hide="isEdit" ng-click="usersave()">Save and continue</button></li>
-                      </ul>
+                      <!--</md-input-container>-->
                   </div>
-                  <div class="tab-pane" role="tabpanel" id="complete">
-                      <div class="step44">
-                          <h5>Completed</h5>
+                  <div class="col-md-6"> Mobile Number
+                      <input type="text" [(ngModel)]="user.mobileNo" Maxlength="15" class="form-control n e" required />
+                  </div>
+  <!--                <md-input-container flex> <label>Mobile No</label>     <input type="text" [(ngModel)]="user.mobileNo" class="form-control n e" n="Mobile Number" />  </md-input-container>-->
 
 
+
+              </div><br>
+              <div class="row" layout-xs="column">
+                  <div class="col-md-6">Phone Number
+
+                      <input type="text" [(ngModel)]="user.phoneNo" Maxlength="15" class="form-control n e" n="Phone Number" />
+                  </div>
+                  <div class="col-md-6">Location
+
+                      <input type="text" [(ngModel)]="user.location" class="form-control e" n="Location" />
+                  </div>
+
+
+
+  <!--                <md-input-container flex> <label>Phone No</label>     <input type="text" [(ngModel)]="user.phoneNo"class="form-control n e" n="Phone Number" />  </md-input-container>
+
+                  <md-input-container flex> <label>Location</label>     <input type="text" [(ngModel)]="user.location" class="form-control e" n="Location" />  </md-input-container>
+
+                  -->
+              </div><br>
+              <div class="row">
+                  <div class="col-md-6">Address
+                      <input type="text" [(ngModel)]="user.address"class="form-control  e" n="Address" />
+                  </div>
+
+
+  <!--                <md-input-container flex> <label>Address</label>     <input type="text" [(ngModel)]="user.address"class="form-control  e" n="Address" />  </md-input-container>-->
+                  <div class="col-md-6">Country
+                      <select class="form-control"  [(ngModel)]="user.country" class="form-control e" n="Country" >
+                          <option *ngFor="let x of countries" value="{{x.id}}">
+                              {{x.name}} ({{x.country_code}})
+                          </option>
+                      </select>
+                  </div>
+                  <!--                <md-input-container flex>
+
+                                      <select class="form-control"  [(ngModel)]="user.country" class="form-control e" n="Country" >
+                                          <option ng-repeat="x in countries" value="{{x.id}}">
+                                              {{x.name}} ({{x.country_code}})
+                                          </option>
+                                      </select>
+
+                                  </md-input-container>-->
+
+
+              </div><br>
+              <div class="row">
+                  <div class="col-md-6"> state
+                      <input type="text" [(ngModel)]="user.state" class="form-control  e" n="State" />
+                  </div>
+                  <div class="col-md-6"> city
+                      <input type="text" [(ngModel)]="user.city" class="form-control  e" n="City" />
+                  </div>
+
+  <!--                <md-input-container flex> <label>State</label>     <input type="text" [(ngModel)]="user.state" class="form-control  e" n="State" />  </md-input-container>
+                  <md-input-container flex> <label>City</label>     <input type="text" [(ngModel)]="user.city" class="form-control  e" n="City" />  </md-input-container>-->
+
+              </div>
+
+
+
+              <br>
+              <div class="row">
+
+
+                  <div class="col-md-6">
+                      Channel
+                      <select class="form-control e"  validate [(ngModel)]="user.channel_id">
+                          <option *ngFor="let ch of channel" value="{{ch.id}}">
+                              {{ch.display_name}}
+                          </option>
+                      </select>
+
+                  </div>
+                  <div class="col-md-6">
+                      <a href="#/channel" class="btn btn-default" target="_blank">Add Channel</a> <a href="javascript:void(0)" class="btn btn-default" ng-click="channellist()">Fetch Channel</a>
+                  </div>
+              <!--                <md-input-container flex> <label>State</label>     <input type="text" [(ngModel)]="user.state" class="form-control  e" n="State" />  </md-input-container>
+                              <md-input-container flex> <label>City</label>     <input type="text" [(ngModel)]="user.city" class="form-control  e" n="City" />  </md-input-container>-->
+
+              </div><br>
+
+              <div class="row">
+                  <div class="form-group">
+                      <div class=" col-xs-offset-2 col-xs-10">
+                          <button type="submit" class="btn btn-primary " tar="#addUser" *ngIf="!isEdit" (click)="usersave()">Save</button>
+                          <button type="button" class="btn btn-primary" tar="#addUser" *ngIf="isEdit" (click)="userupdate()">Update</button>
+                          <button type="button" class="btn btn-primary" tar="#addUser" *ngIf="isEdit" (click)="back()">Back</button>
                       </div>
                   </div>
-                  <div class="clearfix"></div>
+
+
+
+
               </div>
+
           </form>
-      </div>
-  </section>
+
+
+
+
+          </div>
+  </div>
  </div>
 </div>
 
-    </div>
+  </div>
 </div>

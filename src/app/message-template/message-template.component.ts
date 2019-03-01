@@ -9,10 +9,10 @@ import { DBService } from 'app/db.service';
 export class MessageTemplateComponent implements OnInit {
   public Editor = ClassicEditor;
   title = 'app';
-  message={id:0};
-  isEdit=false;
-  private smsselected={};
-  private emailselected={};
+  message = { id: 0 };
+  isEdit = false;
+  private smsselected = {};
+  private emailselected = {};
   private gridApi;
   private gridColumnApi;
 
@@ -83,69 +83,69 @@ export class MessageTemplateComponent implements OnInit {
 
   public onRowClicked(e) {
     if (e.event.target !== undefined) {
-        let data = e.data;
-        let actionType = e.event.target.getAttribute("data-action-type");
+      let data = e.data;
+      let actionType = e.event.target.getAttribute("data-action-type");
 
-        switch(actionType) {
-            case "delete":
-                return this.onActionDeleteClick(data);
-            case "edit":
-                return this.onActionEditClick(data);
-        }
+      switch (actionType) {
+        case "delete":
+          return this.onActionDeleteClick(data);
+        case "edit":
+          return this.onActionEditClick(data);
+      }
     }
-}
+  }
 
-public onActionDeleteClick(data: any){
+  public onActionDeleteClick(data: any) {
     console.log("View action clicked", data);
-}
+  }
 
 
-back():void {
-  this.isEdit = false;
-  this.message = {id:0};
-}
+  back(): void {
+    this.isEdit = false;
+    this.message = { id: 0 };
+  }
 
-onActionEditClick  (row):void {
+  onActionEditClick(row): void {
 
-  this.isEdit = false;
-  this.db.show("messagetemplate/", row.id,  ((response):void=> {
+    this.isEdit = false;
+    this.db.show("messagetemplate/", row.id, ((response): void => {
 
       this.isEdit = true;
       this.message = response;
-//            for (var i in response.data) {
-//                for (var j in response.data[i]) {
-//                    this.gridOptions.columnDefs.push({field:j});
-//                }
-//                break;
-//            }
+      //            for (var i in response.data) {
+      //                for (var j in response.data[i]) {
+      //                    this.gridOptions.columnDefs.push({field:j});
+      //                }
+      //                break;
+      //            }
 
 
-//            this.gridTotalJobs.data = response.data;
+      //            this.gridTotalJobs.data = response.data;
 
-  } ));
+    }));
 
-};
+  };
 
-messageupdate():void {
-  this.db.update("messagetemplate/", this.message.id, this.message,  ((response):void=> {
+  messageupdate(): void {
+    this.db.update("messagetemplate/", this.message.id, this.message, ((response): void => {
 
       this.LoadData();
       this.db.showMessage('Updated Successfully');
 
-  }));
-}
+    }));
+  }
 
-messagesave() :void{
+  messagesave(): void {
 
-      //this.user.profilepic=this.user.profilepic[0];
-     this.db.store("messagetemplate/", this.message,((response):void=> {
+    //this.user.profilepic=this.user.profilepic[0];
+    this.db.store("messagetemplate/", this.message, ((response): void => {
 
       this.db.showMessage('Added Successfully');
-          this.LoadData();
-          this.message = {id:0};
+      this.LoadData();
+      this.message = { id: 0 };
 
 
-      }));
+    }));
 
-}
+  }
 }
