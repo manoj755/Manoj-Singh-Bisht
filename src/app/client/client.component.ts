@@ -11,7 +11,7 @@ export class ClientComponent implements OnInit {
   title = 'app';
   client={id:0};
   isEdit=false;
-  item: any={}; 
+  item: any={};
   stateobj={};
   errors={};
   isEditclientStateswiseBillingDetail=false;
@@ -37,14 +37,15 @@ export class ClientComponent implements OnInit {
       <button type="button" data-action-type="delete" class="btn btn-danger btn-sm">
          Delete
       </button>`},
-    {  field: 'billingName', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
-    { headerName: 'website', field: 'website', sortable: true, filter: true },
-    { headerName: 'Email', field: 'email', sortable: true, filter: true },
-    { headerName: 'Mobile', field: 'mobileNo', sortable: true, filter: true },
-    { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
+    {  headerName: 'Billing Name', field: 'billingName', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
+    { headerName: 'About', field: 'about', sortable: true, filter: true },
+    { headerName: 'Website', field: 'website', sortable: true, filter: true },
+    { headerName: 'Address', field: 'address', sortable: true, filter: true },
+    { headerName: 'Billing Period', field: 'billing_period', sortable: true, filter: true },
+    { headerName: 'Invoice Currency', field: 'invoice_currency', sortable: true, filter: true },
  ];
 
-  rowData = [ 
+  rowData = [
   ];
   constructor(private db: DBService) {
     this.defaultColDef = {
@@ -64,11 +65,11 @@ export class ClientComponent implements OnInit {
   ngOnInit() {
     this.LoadData();
   }
-  
+
   LoadData():void{
     this.db.list('clientdetail/', {  }, ((response): void => {
       this.rowData = response;
-       
+
 
     }));
   }
@@ -105,7 +106,7 @@ public onActionDeleteClick(data: any){
     console.log("View action clicked", data);
 }
 
- 
+
 back():void {
   this.isEdit = false;
   this.client = {id:0};
@@ -115,7 +116,7 @@ onActionEditClick  (row):void {
 
   this.isEdit = false;
   this.db.show("clientdetail/", row.id,  ((response):void=> {
-      
+
       this.isEdit = true;
       this.client = response;
 //            for (var i in response.data) {
@@ -142,7 +143,7 @@ clientupdate():void {
 }
 
 clientsave() :void{
-  
+
       //this.user.profilepic=this.user.profilepic[0];
      this.db.store("clientdetail/", this.client,((response):void=> {
 
@@ -152,6 +153,6 @@ clientsave() :void{
 
 
       }));
-  
+
 }
 }

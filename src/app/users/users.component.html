@@ -1,8 +1,254 @@
-<div class="main-content">
-    <div class="container-fluid">
-      <div class="row">
 
-      </div>
-    </div>
+
+
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
+      <ag-grid-angular
+      style="width: 1500px; height: 500px;"
+      class="ag-theme-material"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      suppressCsvExport=false
+      [autoGroupColumnDef]="autoGroupColumnDef"
+    [suppressRowClickSelection]="true"
+    [groupSelectsChildren]="true"
+    paginationAutoPageSize='true'
+    (selectionChanged)="onSelectionChanged($event)"
+    [debug]="true"
+    [rowSelection]="rowSelection"
+    [rowGroupPanelShow]="rowGroupPanelShow"
+    [pivotPanelShow]="pivotPanelShow"
+    [enableRangeSelection]="true"
+    [pagination]="true"
+    (gridReady)="onGridReady($event)"
+
+    (rowClicked)="onRowClicked($event)"
+      ></ag-grid-angular>
+
+
+            <div class="">
+          <div class="card col-md-12">
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title">User</h4>
+                  <p class="card-category">Add or Edit user details</p>
+                  </div>
+
+
+
+
+
+          <form name="userForm" >
+
+              <div class="row">
+                  <div class="col-md-4" ng-if="profile.app_id == 0">
+                      Application
+                      <select class="form-control" id="usersapp" [(ngModel)]="user.app_id" ng-change="loadmanager()">
+                          <option *ngFor="let app of applications" value="{{app.id}}">
+                              {{app.app_name}}
+                          </option>
+                      </select>
+
+                  </div>
+                  <div class="col-md-4">
+                      Role
+                      <select class="form-control e" n=" Role" validate  ng-change="changerole(profile.app_id)" [(ngModel)]="user.role_id">
+                          <option *ngFor="let role of roles" value="{{role.id}}">
+                              {{role.roleName}}
+                          </option>
+                      </select>
+
+                  </div>
+                  <div class="col-md-4">
+                      Select Manager
+                      <select class="form-control e"  n="Select Manager" validate [(ngModel)]="user.manager">
+                          <option *ngFor="let x of users" value="{{x.id}}">
+                              {{x.name}}
+                          </option>
+                      </select>
+
+                  </div>
+              </div><br>
+              <div class="row">
+
+
+                  <div class="col-md-4" > Name
+
+                      <input type="text" [(ngModel)]="user.name" class="form-control e" n="Name"  />
+
+
+                  </div>
+                  <div class="col-md-4" > Profile picture
+
+                      <input type="file" fileread="user.profilepic" />
+
+
+                  </div>
+                  <div class="col-md-4" > Date Of Birth
+
+
+
+                      <div class="controls input-append date form_date" data-date="" [(ngModel)]="user.dob"  data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                          <input size="16" type="text" value="" readonly>
+                          <span class="add-on"><i class="icon-remove"></i></span>
+                          <span class="add-on"><i class="icon-th"></i></span>
+                      </div>
+
+
+
+                  </div>
+
+  <!--                <md-input-container flex> <label>Name</label>     <input type="text" [(ngModel)]="user.name" class="form-control e" n="Name"  />  </md-input-container>
+                  <md-input-container flex>       <input type="file" fileread="user.profilepic" />  </md-input-container>-->
+
+
+              </div><br>
+              <!--            <div class="row">
+
+                              <md-input-container flex> <label>Date of Birth</label>
+                                  <md-datepicker type="text" [(ngModel)]="user.dob" required=""> </md-datepicker>
+                              </md-input-container>
+                              <div  class="errorinline" style="" ng-show="true"><div>please enter Date of Birth !</div></div>
+                          </div>-->
+              <div class="row">
+                  <div class="col-md-6">Email
+
+                      <input type="text" autocomplete="off" [(ngModel)]="user.email"  class="form-control m" n="Email" />
+                  </div>
+                  <div class="col-md-6"  >Password
+
+                      <input type="password" autocomplete="off" [(ngModel)]="user.password"  class="form-control e" validate n="Password" />
+                  </div>
+
+  <!--                <md-input-container flex> <label>Email</label>     <input type="text" autocomplete="off" [(ngModel)]="user.email"  class="form-control m" n="Email" />  </md-input-container>
+                  <md-input-container flex> <label>Password</label>     <input type="password" autocomplete="off" [(ngModel)]="user.password" class="form-control e" validate n="Password" />  </md-input-container>-->
+
+              </div><br>
+              <div class="row">
+                  <!--                <md-input-container flex>-->
+                  <div class="col-md-6">
+                      Gender
+
+                      <select class="form-control e"  [(ngModel)]="user.gender"  n="Gender"  validate>
+                          <option *ngFor="let x of genders" value="{{x.id}}">
+                              {{x.gender_name}}
+                          </option>
+                      </select>
+
+                      <!--</md-input-container>-->
+                  </div>
+                  <div class="col-md-6"> Mobile Number
+                      <input type="text" [(ngModel)]="user.mobileNo" Maxlength="15" class="form-control n e" required />
+                  </div>
+  <!--                <md-input-container flex> <label>Mobile No</label>     <input type="text" [(ngModel)]="user.mobileNo" class="form-control n e" n="Mobile Number" />  </md-input-container>-->
+
+
+
+              </div><br>
+              <div class="row" layout-xs="column">
+                  <div class="col-md-6">Phone Number
+
+                      <input type="text" [(ngModel)]="user.phoneNo" Maxlength="15" class="form-control n e" n="Phone Number" />
+                  </div>
+                  <div class="col-md-6">Location
+
+                      <input type="text" [(ngModel)]="user.location" class="form-control e" n="Location" />
+                  </div>
+
+
+
+  <!--                <md-input-container flex> <label>Phone No</label>     <input type="text" [(ngModel)]="user.phoneNo"class="form-control n e" n="Phone Number" />  </md-input-container>
+
+                  <md-input-container flex> <label>Location</label>     <input type="text" [(ngModel)]="user.location" class="form-control e" n="Location" />  </md-input-container>
+
+                  -->
+              </div><br>
+              <div class="row">
+                  <div class="col-md-6">Address
+                      <input type="text" [(ngModel)]="user.address"class="form-control  e" n="Address" />
+                  </div>
+
+
+  <!--                <md-input-container flex> <label>Address</label>     <input type="text" [(ngModel)]="user.address"class="form-control  e" n="Address" />  </md-input-container>-->
+                  <div class="col-md-6">Country
+                      <select class="form-control"  [(ngModel)]="user.country" class="form-control e" n="Country" >
+                          <option *ngFor="let x of countries" value="{{x.id}}">
+                              {{x.name}} ({{x.country_code}})
+                          </option>
+                      </select>
+                  </div>
+                  <!--                <md-input-container flex>
+
+                                      <select class="form-control"  [(ngModel)]="user.country" class="form-control e" n="Country" >
+                                          <option ng-repeat="x in countries" value="{{x.id}}">
+                                              {{x.name}} ({{x.country_code}})
+                                          </option>
+                                      </select>
+
+                                  </md-input-container>-->
+
+
+              </div><br>
+              <div class="row">
+                  <div class="col-md-6"> state
+                      <input type="text" [(ngModel)]="user.state" class="form-control  e" n="State" />
+                  </div>
+                  <div class="col-md-6"> city
+                      <input type="text" [(ngModel)]="user.city" class="form-control  e" n="City" />
+                  </div>
+
+  <!--                <md-input-container flex> <label>State</label>     <input type="text" [(ngModel)]="user.state" class="form-control  e" n="State" />  </md-input-container>
+                  <md-input-container flex> <label>City</label>     <input type="text" [(ngModel)]="user.city" class="form-control  e" n="City" />  </md-input-container>-->
+
+              </div>
+
+
+
+              <br>
+              <div class="row">
+
+
+                  <div class="col-md-6">
+                      Channel
+                      <select class="form-control e"  validate [(ngModel)]="user.channel_id">
+                          <option *ngFor="let ch of channel" value="{{ch.id}}">
+                              {{ch.display_name}}
+                          </option>
+                      </select>
+
+                  </div>
+                  <div class="col-md-6">
+                      <a href="#/channel" class="btn btn-default" target="_blank">Add Channel</a> <a href="javascript:void(0)" class="btn btn-default" ng-click="channellist()">Fetch Channel</a>
+                  </div>
+              <!--                <md-input-container flex> <label>State</label>     <input type="text" [(ngModel)]="user.state" class="form-control  e" n="State" />  </md-input-container>
+                              <md-input-container flex> <label>City</label>     <input type="text" [(ngModel)]="user.city" class="form-control  e" n="City" />  </md-input-container>-->
+
+              </div><br>
+
+              <div class="row">
+                  <div class="form-group">
+                      <div class=" col-xs-offset-2 col-xs-10">
+                          <button type="submit" class="btn btn-primary " tar="#addUser" *ngIf="!isEdit" (click)="usersave()">Save</button>
+                          <button type="button" class="btn btn-primary" tar="#addUser" *ngIf="isEdit" (click)="userupdate()">Update</button>
+                          <button type="button" class="btn btn-primary" tar="#addUser" *ngIf="isEdit" (click)="back()">Back</button>
+                      </div>
+                  </div>
+
+
+
+
+              </div>
+
+          </form>
+
+
+
+
+          </div>
   </div>
-  
+ </div>
+</div>
+
+  </div>
+</div>

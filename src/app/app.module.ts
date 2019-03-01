@@ -29,11 +29,14 @@ import {
   MatSliderModule, MatSelectModule, MatRadioModule, MatInputModule, MatDatepickerModule,
   MatFormFieldModule, MatNativeDateModule,
   MatDialogModule, MatProgressSpinnerModule,
-  MatSnackBarModule
+  MatSnackBarModule,
 } from '@angular/material';
 import {
   AgmCoreModule
 } from '@agm/core';
+//import { MaterialModule } from '@angular/material';
+//import { DatePickerModule } from 'angular-material-datepicker';
+
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HistoryComponent } from './history/history.component';
 import { MyJobComponent } from './my-job/my-job.component';
@@ -51,11 +54,23 @@ import { AddToJobComponent } from './control/add-to-job/add-to-job.component';
 import { MyTeamComponent } from './control/my-team/my-team.component';
 import { AddCandidateComponent } from './control/add-candidate/add-candidate.component';
 import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-reference.component';
+import { DepartmentComponent } from './department/department.component';
+import { SmtpdetailsComponent } from './smtpdetails/smtpdetails.component';
+import { EmployeeemailComponent } from './employeeemail/employeeemail.component';
+import { ClientreportComponent } from './clientreport/clientreport.component';
+import { RecruiterreportnewComponent } from './recruiterreportnew/recruiterreportnew.component';
+import { RecruiterReportNewhistoryComponent } from './recruiter-report-newhistory/recruiter-report-newhistory.component';
+import { JobwiseComponent } from './jobwise/jobwise.component';
+import { ClientReportFullComponent } from './client-report-full/client-report-full.component';
+import { OpeningclientwiseComponent } from './openingclientwise/openingclientwise.component';
 
 
 
 @NgModule({
   imports: [
+    //MaterialModule.forRoot(),
+        //DatePickerModule,
+
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
@@ -93,6 +108,7 @@ import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-refer
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+
 
 
 

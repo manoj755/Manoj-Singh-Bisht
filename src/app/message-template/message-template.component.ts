@@ -22,23 +22,21 @@ export class MessageTemplateComponent implements OnInit {
   private rowGroupPanelShow;
   private pivotPanelShow;
   columnDefs = [
-    {
-      headerName: 'Delete', field: 'id', suppressMenu: true,
-      suppressSorting: true,
-      template:
-        `<button type="button" data-action-type="edit" class="btn btn-success btn-sm">
+    {  headerName: 'Action', field: 'id', suppressMenu: true,
+    suppressSorting: true, width: 300,
+    template:
+      `<button type="button" data-action-type="edit" class="btn btn-success btn-sm">
          Edit
        </button>
 
       <button type="button" data-action-type="delete" class="btn btn-danger btn-sm">
          Delete
       </button>`},
-    { field: 'templateType', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
-    { headerName: 'templateType', field: 'templateType', sortable: true, filter: true },
-    { headerName: 'Email', field: 'email', sortable: true, filter: true },
-    { headerName: 'Mobile', field: 'mobileNo', sortable: true, filter: true },
-    { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
-  ];
+    {  headerName: 'Template Type', field: 'templateType', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true, width: 250, },
+    { headerName: 'Template Area', field: 'templatearea', sortable: true, filter: true,  width: 250 },
+    { headerName: 'Template name', field: 'templatename', sortable: true, filter: true, width: 250 },
+   // { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
+ ];
 
   rowData = [
   ];
@@ -61,8 +59,8 @@ export class MessageTemplateComponent implements OnInit {
     this.LoadData();
   }
 
-  LoadData(): void {
-    this.db.list('messagetemplate/', {}, ((response): void => {
+  LoadData():void{
+    this.db.list('messagetemplate/', {  }, ((response): void => {
       this.rowData = response;
 
 

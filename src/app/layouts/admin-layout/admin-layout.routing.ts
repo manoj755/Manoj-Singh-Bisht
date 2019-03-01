@@ -21,9 +21,38 @@ import { AddNewTrackerComponent } from '../../add-new-tracker/add-new-tracker.co
 import { TrackerFieldsComponent } from '../../tracker-fields/tracker-fields.component';
 import { UsersComponent } from '../../users/users.component';
 import { ChannelComponent } from '../../channel/channel.component';
+import { DepartmentComponent } from '../../department/department.component';
+import { EmployeeemailComponent } from 'app/employeeemail/employeeemail.component';
+import { ClientreportComponent } from 'app/clientreport/clientreport.component';
+import { ClientReportFullComponent } from 'app/client-report-full/client-report-full.component';
+import { JobwiseComponent } from 'app/jobwise/jobwise.component';
+import { RecruiterReportNewhistoryComponent } from 'app/recruiter-report-newhistory/recruiter-report-newhistory.component';
+import { RecruiterreportnewComponent } from 'app/recruiterreportnew/recruiterreportnew.component';
+import { OpeningclientwiseComponent } from 'app/openingclientwise/openingclientwise.component';
+
 export const AdminLayoutRoutes: Routes = [
 
     { path: 'dashboard',      component: DashboardComponent },
+    { path: 'internaldatabase',        component: InternalDatabaseComponent },
+    { path: 'history',        component: HistoryComponent },
+    { path: 'calldetail',        component: CallDetailComponent },
+    { path: 'myjob',        component: MyJobComponent },
+    { path: 'newjob',        component: NewJobComponent },
+    { path: 'clientreport',        component: ClientreportComponent },
+    { path: 'recruiterreportnew',        component: RecruiterreportnewComponent },
+    { path: 'recruiter-report-newhistory',        component: RecruiterReportNewhistoryComponent },
+    { path: 'jobwise',        component: JobwiseComponent },
+    { path: 'client-report-full',        component: ClientReportFullComponent },
+    { path: 'openingclientwise',        component: OpeningclientwiseComponent },
+    { path: 'messagetemplate',        component: MessageTemplateComponent },
+    { path: 'client',        component: ClientComponent },
+    { path: 'newtracker',        component: AddNewTrackerComponent },
+    { path: 'trackers',        component: TrackerFieldsComponent },
+    { path: 'department',        component: DepartmentComponent },
+    { path: 'employeeemail',        component: EmployeeemailComponent },
+    { path: 'users',        component: UsersComponent },
+    { path: 'channel',        component: ChannelComponent },
+    { path: 'billing',        component: BillingComponent },
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
@@ -32,17 +61,16 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'login',        component: LoginComponent },
-    { path: 'myjob',        component: MyJobComponent },
-    { path: 'billing',        component: BillingComponent },
-    { path: 'history',        component: HistoryComponent },
-    { path: 'internaldatabase',        component: InternalDatabaseComponent },
-    { path: 'newjob',        component: NewJobComponent },
-    { path: 'calldetail',        component: CallDetailComponent },
-    { path: 'messagetemplate',        component: MessageTemplateComponent },
-    { path: 'client',        component: ClientComponent },
-    { path: 'newtracker',        component: AddNewTrackerComponent },
-    { path: 'trackers',        component: TrackerFieldsComponent },
-    { path: 'users',        component: UsersComponent },
-    { path: 'channel',        component: ChannelComponent },
+
+
+
+
+
+
+
+
+
+
+
 
 ];

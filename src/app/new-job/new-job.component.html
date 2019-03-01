@@ -12,13 +12,18 @@
               <h2>Please Create Tracker.</h2><span ng-show="mp.page_client">To create please <a    href="#/tracker">click here</a></span>
               <span ng-hide="mp.page_client">Please contact your manager</span>.
           </div>
-          <div class=" col-12 bg-default" ng-show="clientdetails.length>0&& trackerlist.length>0"  style="background: #f3f3f3; padding-top: 20px" id="addnewjobform">
+          <div class=" col-12 bg-default" ng-show="clientdetails.length>0&& trackerlist.length>0"  style=" padding-top: 20px" id="addnewjobform">
 
 
-
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">New Job</h4>
+                      <p class="card-category">Add new job details</p>
+                  </div>
+                  <div class="card-body">
               <div class="row">
                   <div class="col-md-12">
-                      <div class="" role="form" name="userForm">
+                      <div class="row" role="form" name="userForm">
                           <div class="form-group col-md-6">
                               <label class="col-md-4 " select>Select a {{clientsdepartment}}:</label>
                               <div class="col-md-8">
@@ -129,12 +134,13 @@
 
 
                              <div class="form-group col-md-6 ">
+                               <div class="row">
                               <label class="col-md-4 " Industry>Hide Salary from jobseekers</label>
 
                               <div class="col-md-8"  >
-                                  <input type="checkbox" [(ngModel)]='myjob.HideSalaryfromjobseekers'  ng-true-value="'YES'" ng-false-value="'NO'">
+                                  <mat-checkbox [(ngModel)]='myjob.HideSalaryfromjobseekers'  ng-true-value="'YES'" ng-false-value="'NO'"></mat-checkbox>
                               </div>
-
+                              </div>
                           </div>
                           <div class="form-group col-md-6" ng-hide="mp.hide_referral_bonus || profile.disable_crowd_sourcing=='1'">
                               <label class="col-md-4" Referral>Referral Bonus:</label>
@@ -145,7 +151,7 @@
                               </div>
 
                           </div>
-                          <h4 class="col-md-12">Experience:(In Years)</h4>
+                          <h4 class="col-md-12 pull-left">Experience:(In Years)</h4>
                           <div class="form-group col-md-6"  >
                               <label class="col-md-4" Exprience>From Years</label>
                               <div class="col-md-8" >
@@ -181,9 +187,10 @@
                               </div>
                           </div>
 
-                          <div id="internshipdiv">
+                          <div id="internshipdiv" class="col-md-12">
                               <div class="form-group col-md-6" >
                                   <label class="col-md-4">Internship duration</label>
+                                <div class="row">
                                   <div class="col-md-4">
                                       <select class="form-control  " n="Internship" id="internship"  [(ngModel)]='myjob.internshipduration'>
                                           <option >1</option>
@@ -196,7 +203,7 @@
                                       </select>
 
                                   </div>
-                                  <div class="col-md-2">
+                                  <div class="col-md-4">
                                       <select class="form-control " n="a Month or Weeks" id="Responsibility" [(ngModel)]='myjob.internshipdurationunit'>
                                           <option  >Month</option>
                                           <option  >Weeks</option>
@@ -205,8 +212,10 @@
                                       </select>
 
                                   </div>
+                                  </div>
                               </div>
                               <div class="form-group col-md-6" >
+                                  <div class="row">
                                   <label class="col-md-4">Is Part Time Allowed</label>
                                   <div class="col-md-8">
                                         <mat-radio-group>
@@ -216,25 +225,29 @@
 
 
                                   </div>
-
+                                  </div>
                               </div>
                           </div>
                           <div id="contract" class="col-md-12">
                               <div class="form-group col-md-6" id="contract">
+
                                   <label class="col-md-4">Contract Re-newable</label>
+
                                   <div class="col-md-8">
                                         <mat-radio-group>
                                                 <mat-radio-button  [(ngModel)]='myjob.contractrenewable'  value="yes">Yes</mat-radio-button>
                                                 <mat-radio-button  [(ngModel)]='myjob.contractrenewable' value="no">No</mat-radio-button>
                                             </mat-radio-group>
 
+                                            </div>
 
-                                  </div>
 
                               </div>
                               <div class="form-group col-md-6">
-                                  <label class="col-md-2">Contract Duration</label>
-                                  <div class="col-md-5">
+
+                                  <label class="col-md-3">Contract Duration</label>
+                                <div class="row">
+                                  <div class="col-md-4">
                                       <select class="form-control " n="a Contract Duration" id="Contract" [(ngModel)]='myjob.contract'>
                                           <option  >1</option>
                                           <option  >2</option>
@@ -254,6 +267,7 @@
 
                                       </select>
 
+                                      </div>
                                   </div>
                               </div>
                           </div>
@@ -273,8 +287,8 @@
 
 
                           <div class="form-group col-md-12">
-                              <label class="col-md-2" JD>Job Description:</label>
-                              <div class="col-md-10">
+                              <label class="col-md-3" style="min-width: 768px;" JD>Job Description:</label>
+                              <div class="col-md-9">
                                   <textarea class = "form-control" n="Job Description" pp="" id='jobdescription' contenteditable  rows = "5" ck="jd"   [(ngModel)]="myjob.jobDescription"  name="jobDescription" ></textarea>
 
                               </div>
@@ -291,7 +305,7 @@
 
                                           <span *ngFor="let skill of suggestedkeyskills" style="margin:5px;  padding:8px 12px; display: inline-block;" class="label label-info ">
 
-                                              <span (click)="addSkill($index,skill)" help="Add to skills">{{skill}}</span> <span class="fa fa-close" help="remove" (click)="deleteSkill($index)"></span>
+                                              <span ng-click="addSkill($index,skill)" help="Add to skills">{{skill}}</span> <span class="fa fa-close" help="remove" ng-click="deleteSkill($index)"></span>
                                           </span>
 
                                       </div>
@@ -302,7 +316,7 @@
 
                           <div class="form-group col-md-12">
                               <label class="col-md-2" Title>
-                                  <a class="locinter {{locationtype}} " href="#" (click)="loadinternationlocation()">International Location</a><a (click)="loadlocation()" class="loc {{locationtype}}" href="#">Location</a>
+                                  <a class="locinter {{locationtype}} " href="#" ng-click="loadinternationlocation()">International Location</a><a ng-click="loadlocation()" class="loc {{locationtype}}" href="#">Location</a>
                               </label>
                               <div class="col-md-10">
 
@@ -377,8 +391,18 @@
 
                               <div class="row">
                                   <div class="col-md-6">
-                                      <div class="control-group">
+                                      <label class=" col-md-4">Job Display From</label>
+                                      <input size="16" type="date" value="" class="e form-control"  id="dob"  n="Start Date " [(ngModel)]="myjob.start_date" >
+                                      <!--<mat-form-field>
+                                          <input matInput [matDatepicker]="picker" placeholder="title">
+                                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                          <button matSuffix [matDatepickerToggle]="picker"></button>
+                                          <mat-datepicker #picker></mat-datepicker>
+                                        </mat-form-field>-->
+                                    <!--  <div class="control-group">
                                           <label class=" col-md-4">Job Display From</label>
+
+
                                           <div class="controls input-append date form_date col-md-8" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
                                               <input size="16" type="text" value="" class="e form-control"  id="dob"  n="Start Date " readonly [(ngModel)]="myjob.start_date" >
                                               <span class="add-on"><i class="icon-remove"></i></span>
@@ -386,19 +410,21 @@
                                           </div>
                                           <input type="hidden" id="dtp_input2" value="" /><br/>
 
-                                      </div>
+                                      </div>-->
 
                                   </div>
                                   <div class="col-md-6">
-                                      <div class="control-group">
-                                          <label class="col-md-4">Job Display To</label>
+                                      <label class="col-md-8">Job Display To</label>
+                                      <input size="16" type="date" value="" class="e form-control"  id="Dend" validate n="End Date"  [(ngModel)]="myjob.end_date">
+
+                                     <!--<div class="control-group">
+
                                           <div class="controls input-append date form_date col-md-8" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
-                                              <input size="16" type="text" value="" class="e form-control"  id="Dend" validate n="End Date" readonly [(ngModel)]="myjob.end_date">
                                               <span class="add-on"><i class="icon-remove"></i></span>
                                               <span class="add-on"><i class="icon-th"></i></span>
-                                          </div>
+
                                           <input type="hidden" id="dtp_input3" value="" /><br/>
-                                      </div>
+                                      </div>-->
 
                                   </div>
                               </div>
@@ -459,9 +485,9 @@
 
 
                               <div class="col-lg-offset-2 col-md-10">
-                                  <button type="submit"  class="btn btn-primary validate"  ng-hide="isjobediting ||jobupdate " tar="#addnewjobform"   (click)="addNewJobSave(myjob, location, functionalArea)">Save</button>
-                                  <div  ng-show="isjobediting">
-                                      <button type="submit" class="btn btn-primary validate" tar="#addnewjobform" (click)="addNewJobupdate()">Save</button>
+                                  <button type="submit"  class="btn btn-primary validate"  ng-hide="isjobediting ||jobupdate " tar="#addnewjobform"   ng-click="addNewJobSave(myjob, location, functionalArea)">Save</button>
+                                  <div  ng-show="isjobediting='true'">
+                                      <button type="submit" class="btn btn-primary validate" tar="#addnewjobform" ng-click="addNewJobupdate()">Save</button>
 
                                   </div>
 
@@ -471,6 +497,8 @@
                   </div>
 
               </div>
+            </div>
+            </div>
 
           </div>
 
