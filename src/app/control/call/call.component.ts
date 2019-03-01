@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { FormControl } from '@angular/forms';
 @Component({
-  selector: 'app-add-to-job',
-  templateUrl: './add-to-job.component.html',
-  styleUrls: ['./add-to-job.component.scss']
+  selector: 'app-call',
+  templateUrl: './call.component.html',
+  styleUrls: ['./call.component.scss']
 })
-export class AddToJobComponent implements OnInit {
+export class CallComponent implements OnInit {
   clients = [];
   jobslistbyclientsaddtojob = [];
   managers = [];
@@ -41,7 +41,7 @@ export class AddToJobComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
-  addtojobcandidates(): void {
+  sendcalltocandidates(): void {
 
     const allrow = this.db.getIDs(this.db.nodetype);
 
@@ -53,17 +53,12 @@ export class AddToJobComponent implements OnInit {
       'candidates': allrow, 'job': this.addnewjob.add_new_job_id,
       'manager': this.addnewjob.manager
     };
-    this.db.store('copyjob/', copyjob, ((response): void => {
+    this.db.store('sendcall/', copyjob, ((response): void => {
 
       console.log(response);
 
-      let addtojobmessage = '';
-      if (response.alreadyexists > 0) {
-        addtojobmessage = response.alreadyexists + ' Candidate(s) already in pipeline.';
-      } else {
-        addtojobmessage = 'Assign Candidate Successfully';
+      const addtojobmessage = 'Done';
 
-      }
       this.db.showMessage(addtojobmessage);
 
     }), ((Response): void => {
@@ -87,5 +82,4 @@ export class AddToJobComponent implements OnInit {
 
     }));
   };
-
 }

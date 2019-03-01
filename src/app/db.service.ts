@@ -19,12 +19,19 @@ export class DBService implements OnInit {
   // var rooturi = 'http://192.168.1.198:8080/laravel/public/';
   ServiceURL = this.rooturi + 'index.php/api/';
   CurrentURL: string;
+
   LoginURL = 'login';
   clientsdepartment = '';
   profile: any = {};
   PF: any = {};
   mp: any = {};
-  selectedNodes = [];
+  private selectedNodes = [];
+  nodetype: string;
+  public NodeType = {
+    internaldatabase: 'internaldatabase',
+    history: 'history',
+    myjob: 'myjob',
+  };
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
 
   }
@@ -93,16 +100,16 @@ export class DBService implements OnInit {
     localStorage.setItem('token', this.token);
 
   }
-  showNotification(message,from?, align?) {
-    if(from==null ||from===undefined){
-      from='top';
+  public showNotification(message, from?, align?) {
+    if (from == null || from === undefined) {
+      from = 'top';
     }
-    if(align==null ||align===undefined){
-      align='right';
+    if (align == null || align === undefined) {
+      align = 'right';
     }
     const type = ['', 'info', 'success', 'warning', 'danger'];
 
-    const color =4;// Math.floor((Math.random() * 4) + 1);
+    const color = 4;// Math.floor((Math.random() * 4) + 1);
 
     $.notify({
       icon: 'notifications',
@@ -127,24 +134,24 @@ export class DBService implements OnInit {
           '</div>'
       });
   }
-  showMessage(message: any, action?: string, durationMS?: number): void {
+  public showMessage(message: any, action?: string, durationMS?: number): void {
 
 
     if (isObject(message) && message.status === 0) {
       message = 'Please check your internet.';
     } else if (isObject(message) && message.status === 401) {
       message = 'Please authenticate to access secured resource.';
-    }else if (isObject(message) && message.status === 422) {
-    message=message.error;
-      var messages=[];
-      for (var k in message){
+    } else if (isObject(message) && message.status === 422) {
+      message = message.error;
+      var messages = [];
+      for (var k in message) {
         this.showNotification(message[k]);
         //messages.push(message[k].toString());
-                 
-        }
-        message="Please Fill values";
 
-     
+      }
+      message = "Please Fill values";
+
+
     }
     console.log(message);
     if (action === undefined) {
@@ -307,7 +314,7 @@ export class DBService implements OnInit {
     this.showloaderfunction(loader);
     let fullurl = url;
     if (url.indexOf('http') === - 1) {
-      fullurl = this.ServiceURL + url+'?token='+this.getToken();
+      fullurl = this.ServiceURL + url + '?token=' + this.getToken();
     }
     const req = {
       method: 'post',
@@ -322,7 +329,7 @@ export class DBService implements OnInit {
     // post data missing(here you pass email and password)
     let body = new FormData();
 
-    for(let i in data){
+    for (let i in data) {
       body.append(i, data[i]);
     }
     return this.http.post(req.url, body, { headers: headersfull })
@@ -407,7 +414,7 @@ export class DBService implements OnInit {
     this.showloaderfunction(loader);
     let fullurl = url;
     if (url.indexOf('http') === - 1) {
-      fullurl = this.ServiceURL + url + 'update/' + id+'?token='+this.getToken();
+      fullurl = this.ServiceURL + url + 'update/' + id + '?token=' + this.getToken();
     }
     const req = {
       method: 'post',
@@ -422,11 +429,11 @@ export class DBService implements OnInit {
     // post data missing(here you pass email and password)
     let body = new FormData();
 
-    for(let i in data){
+    for (let i in data) {
       body.append(i, data[i]);
     }
-    
-    return this.http.post(req.url,body, { headers: headersfull })
+
+    return this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -458,7 +465,7 @@ export class DBService implements OnInit {
     this.showloaderfunction(loader);
     let fullurl = url;
     if (url.indexOf('http') === - 1) {
-      fullurl = this.ServiceURL + url + 'delete/' + id+'?token='+this.getToken();
+      fullurl = this.ServiceURL + url + 'delete/' + id + '?token=' + this.getToken();
     }
     const req = {
       method: 'post',
@@ -474,11 +481,11 @@ export class DBService implements OnInit {
     // post data missing(here you pass email and password)
     let body = new FormData();
 
-    for(let i in data){
+    for (let i in data) {
       body.append(i, data[i]);
     }
-    
-    return this.http.post(req.url,body, { headers: headersfull})
+
+    return this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -524,37 +531,63 @@ export class DBService implements OnInit {
     a.remove();
   }
 
-  getIDs(id?): any {
+  getIDs(nodetype?, id?): any {
+    debugger;
     if (id === null || id === undefined) {
       id = 'id';
     }
     const ids = [];
-    for (const i in this.selectedNodes) {
-      ids.push(this.selectedNodes[i].data[id]);
+    if (nodetype === this.nodetype) {
+      for (const i in this.selectedNodes) {
+        if (this.selectedNodes[i]) {
+          ids.push(this.selectedNodes[i].data[id]);
+        }
+      }
     }
     return ids;
 
   }
+
+  setSelectedNodes(data?, type?): void {
+    this.nodetype = type;
+    this.selectedNodes = data;
+
+  }
+  setSelectedNodeType(type?): void {
+    this.nodetype = type;
+
+
+  }
+  getSelectedNodes(type?): any {
+    if (type === this.nodetype) {
+      return this.selectedNodes;
+
+    } else {
+      return [];
+    }
+
+  }
+
   public customCellRendererFunc(params): string {
-    let cellContent: string = '';
+    let cellContent = '';
     debugger;
     try {
-        
-            let id: string = params.value;
 
-             
+      const id: string = params.value;
 
 
-            cellContent = '<button (click)="edit('+id+')">Edit</button>';
-        
+
+
+      cellContent = '<button (click)="edit(' + id + ')">Edit</button>';
+
     } catch (exception) {
 
-        console.error(exception);
+      console.error(exception);
     }
 
     return cellContent
-}
+  }
 
-   
+
 
 }

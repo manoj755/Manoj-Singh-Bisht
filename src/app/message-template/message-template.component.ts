@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { DBService } from 'app/db.service'; 
+import { DBService } from 'app/db.service';
 @Component({
   selector: 'app-message-template',
   templateUrl: './message-template.component.html',
@@ -9,10 +9,10 @@ import { DBService } from 'app/db.service';
 export class MessageTemplateComponent implements OnInit {
   public Editor = ClassicEditor;
   title = 'app';
-  message={id:0};
-  isEdit=false;
-  private smsselected={};
-  private emailselected={};
+  message = { id: 0 };
+  isEdit = false;
+  private smsselected = {};
+  private emailselected = {};
   private gridApi;
   private gridColumnApi;
 
@@ -22,24 +22,25 @@ export class MessageTemplateComponent implements OnInit {
   private rowGroupPanelShow;
   private pivotPanelShow;
   columnDefs = [
-    {  headerName: 'Delete', field: 'id', suppressMenu: true,
-    suppressSorting: true,
-    template:
-      `<button type="button" data-action-type="edit" class="btn btn-success btn-sm">
+    {
+      headerName: 'Delete', field: 'id', suppressMenu: true,
+      suppressSorting: true,
+      template:
+        `<button type="button" data-action-type="edit" class="btn btn-success btn-sm">
          Edit
        </button>
 
       <button type="button" data-action-type="delete" class="btn btn-danger btn-sm">
          Delete
       </button>`},
-    {  field: 'templateType', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
+    { field: 'templateType', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
     { headerName: 'templateType', field: 'templateType', sortable: true, filter: true },
     { headerName: 'Email', field: 'email', sortable: true, filter: true },
     { headerName: 'Mobile', field: 'mobileNo', sortable: true, filter: true },
     { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
- ];
+  ];
 
-  rowData = [ 
+  rowData = [
   ];
   constructor(private db: DBService) {
     this.defaultColDef = {
@@ -59,11 +60,11 @@ export class MessageTemplateComponent implements OnInit {
   ngOnInit() {
     this.LoadData();
   }
-  
-  LoadData():void{
-    this.db.list('messagetemplate/', {  }, ((response): void => {
+
+  LoadData(): void {
+    this.db.list('messagetemplate/', {}, ((response): void => {
       this.rowData = response;
-       
+
 
     }));
   }
@@ -84,69 +85,69 @@ export class MessageTemplateComponent implements OnInit {
 
   public onRowClicked(e) {
     if (e.event.target !== undefined) {
-        let data = e.data;
-        let actionType = e.event.target.getAttribute("data-action-type");
+      let data = e.data;
+      let actionType = e.event.target.getAttribute("data-action-type");
 
-        switch(actionType) {
-            case "delete":
-                return this.onActionDeleteClick(data);
-            case "edit":
-                return this.onActionEditClick(data);
-        }
+      switch (actionType) {
+        case "delete":
+          return this.onActionDeleteClick(data);
+        case "edit":
+          return this.onActionEditClick(data);
+      }
     }
-}
+  }
 
-public onActionDeleteClick(data: any){
+  public onActionDeleteClick(data: any) {
     console.log("View action clicked", data);
-}
+  }
 
- 
-back():void {
-  this.isEdit = false;
-  this.message = {id:0};
-}
 
-onActionEditClick  (row):void {
+  back(): void {
+    this.isEdit = false;
+    this.message = { id: 0 };
+  }
 
-  this.isEdit = false;
-  this.db.show("messagetemplate/", row.id,  ((response):void=> {
-      
+  onActionEditClick(row): void {
+
+    this.isEdit = false;
+    this.db.show("messagetemplate/", row.id, ((response): void => {
+
       this.isEdit = true;
       this.message = response;
-//            for (var i in response.data) {
-//                for (var j in response.data[i]) {
-//                    this.gridOptions.columnDefs.push({field:j});
-//                }
-//                break;
-//            }
+      //            for (var i in response.data) {
+      //                for (var j in response.data[i]) {
+      //                    this.gridOptions.columnDefs.push({field:j});
+      //                }
+      //                break;
+      //            }
 
 
-//            this.gridTotalJobs.data = response.data;
+      //            this.gridTotalJobs.data = response.data;
 
-  } ));
+    }));
 
-};
+  };
 
-messageupdate():void {
-  this.db.update("messagetemplate/", this.message.id, this.message,  ((response):void=> {
+  messageupdate(): void {
+    this.db.update("messagetemplate/", this.message.id, this.message, ((response): void => {
 
       this.LoadData();
       this.db.showMessage('Updated Successfully');
 
-  }));
-}
+    }));
+  }
 
-messagesave() :void{
-  
-      //this.user.profilepic=this.user.profilepic[0];
-     this.db.store("messagetemplate/", this.message,((response):void=> {
+  messagesave(): void {
+
+    //this.user.profilepic=this.user.profilepic[0];
+    this.db.store("messagetemplate/", this.message, ((response): void => {
 
       this.db.showMessage('Added Successfully');
-          this.LoadData();
-          this.message = {id:0};
+      this.LoadData();
+      this.message = { id: 0 };
 
 
-      }));
-  
-}
+    }));
+
+  }
 }

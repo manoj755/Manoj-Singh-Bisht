@@ -53,6 +53,7 @@ import { AddCandidateComponent } from './control/add-candidate/add-candidate.com
 import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-reference.component';
 
 
+
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -91,7 +92,8 @@ import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-refer
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent, 
+    AdminLayoutComponent,
+
 
 
   ],

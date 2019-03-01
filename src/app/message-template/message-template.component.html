@@ -3,29 +3,9 @@
       <div class="row">
         <div class="col-12">
 
-            <ag-grid-angular
-            style="width: 1500px; height: 500px;"
-            class="ag-theme-material"
-            [rowData]="rowData"
-            [columnDefs]="columnDefs"
-            suppressCsvExport=false
-            [autoGroupColumnDef]="autoGroupColumnDef"
-          [suppressRowClickSelection]="true"
-          [groupSelectsChildren]="true"
-          paginationAutoPageSize='true'
-          (selectionChanged)="onSelectionChanged($event)"
-          [debug]="true"
-          [rowSelection]="rowSelection"
-          [rowGroupPanelShow]="rowGroupPanelShow"
-          [pivotPanelShow]="pivotPanelShow"
-          [enableRangeSelection]="true"
-          [pagination]="true"
-          (gridReady)="onGridReady($event)"
-           
-          (rowClicked)="onRowClicked($event)"
-            ></ag-grid-angular>
+
             <div class="bs-example" id="messagetemp">
-              
+
 
                     <div class="form-group">
                         <label for="" class="control-label col-md-2">Template Type</label>
@@ -40,12 +20,12 @@
                         <label for="" class="control-label col-md-2">Template Area</label>
                         <div class="col-md-6">
                             <select class="form-control e" id="Template" n="area" [(ngModel)]="message.templatearea">
-                                <option>For Reference</option>      
-                                <option value="cs" >Candidate Status</option>      
-                                <option value="rs" ng-if="profile.app_id=='6'">Referrer Status</option>     
+                                <option>For Reference</option>
+                                <option value="cs" >Candidate Status</option>
+                                <option value="rs" ng-if="profile.app_id=='6'">Referrer Status</option>
                                 <option value="job_status">Job Status</option>
                                 <option value="misc">Misc.</option>
-                                
+
                             </select>
                         </div>
                     </div>
@@ -65,7 +45,7 @@
                         <label for="titile" class="control-label col-md-2">Message</label>
                         <div class="col-md-6">
                             <b class="text-danger">Please use lowercase for key between #valuetoreplace# otherwise value will not be replaced.</b>
-                            
+
                             <ckeditor [editor]="Editor" data="message.message" [(ngModel)]="message.message"></ckeditor>
 
                         </div>
@@ -86,12 +66,31 @@
 
 
 
- 
+
             </div>
-        
+            <ag-grid-angular
+            style="width: 1500px; height: 500px;"
+            class="ag-theme-material"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs"
+            suppressCsvExport=false
+            [autoGroupColumnDef]="autoGroupColumnDef"
+          [suppressRowClickSelection]="true"
+          [groupSelectsChildren]="true"
+          paginationAutoPageSize='true'
+          (selectionChanged)="onSelectionChanged($event)"
+          [debug]="true"
+          [rowSelection]="rowSelection"
+          [rowGroupPanelShow]="rowGroupPanelShow"
+          [pivotPanelShow]="pivotPanelShow"
+          [enableRangeSelection]="true"
+          [pagination]="true"
+          (gridReady)="onGridReady($event)"
+
+          (rowClicked)="onRowClicked($event)"
+            ></ag-grid-angular>
         </div>
- 
+
       </div>
     </div>
   </div>
-  

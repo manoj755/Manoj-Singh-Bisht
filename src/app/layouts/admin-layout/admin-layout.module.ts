@@ -35,7 +35,10 @@ import { AddToJobComponent } from '../../control/add-to-job/add-to-job.component
 import { AddCandidateComponent } from '../../control/add-candidate/add-candidate.component';
 import { MyTeamComponent } from '../../control/my-team/my-team.component';
 import { PvGetReferenceComponent } from '../../control/pv-get-reference/pv-get-reference.component';
+import { CallComponent } from '../../control/call/call.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
+import { NgSelectModule } from '@ng-select/ng-select';
 import {
   MatButtonModule,
   MatInputModule,
@@ -46,10 +49,12 @@ import {
   MatCheckboxModule,
   MatProgressBarModule,
   MatCardModule,
-  MatRadioModule, 
+  MatRadioModule,
+  MatAutocompleteModule,
+  MatTabsModule,
 
-} from '@angular/material'; 
- 
+} from '@angular/material';
+
 // @dynamic
 @NgModule({
   imports: [
@@ -67,7 +72,9 @@ import {
     MatCardModule,
     MatRadioModule,
     CKEditorModule,
-  
+    MatAutocompleteModule,
+    NgSelectModule,
+    MatTabsModule,
     AgGridModule.withComponents([]),
     // TranslateService,
   //  NgSelectModule,
@@ -98,8 +105,9 @@ import {
     AddToJobComponent,
     AddCandidateComponent,
     MyTeamComponent,
-    PvGetReferenceComponent, 
-    
+    PvGetReferenceComponent,
+    CallComponent,
+
   ]
 })
 export class AdminLayoutModule { }
