@@ -11,7 +11,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AppComponent } from './app.component';
+import { AppComponent } from './app.component'; 
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
