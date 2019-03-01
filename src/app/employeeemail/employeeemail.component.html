@@ -1,0 +1,62 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+
+
+
+        <!-- Main content -->
+
+
+
+
+            <div class="card col-md-12">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Employee Email</h4>
+                    <p class="card-category">Add or Edit employee email details</p>
+                    </div>
+                    <form class="form-inline">
+                        <div class="form-group col-md-4">
+                            <label for="applicationdepartment">Application Department:</label>
+                            <select  class="form-control" id="applicationdepartment" [(ngModel)]="applicationdepartmentid">
+                                <option value="{{x.id}}" *ngFor="let x of appdeparments">{{x.department}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="applicationdepartment">Search:</label>
+                            <input type="button" class="form-control" ng-click="search()" value="Search">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="upload">Upload:</label>
+                            <span  class="form-control" id="upload"><i ngf-accept='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"' ngf-pattern='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"' data-toggle="tooltip" ngf-select="upload($file)" title="Upload CVs(Excel)"  class="fa fa-upload fa-2x"></i></span>
+                        </div>
+
+
+                    </form>
+
+
+
+          </div>
+          <ag-grid-angular
+            style="width: 1500px; height: 500px;"
+            class="ag-theme-material"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs"
+            suppressCsvExport=false
+            [autoGroupColumnDef]="autoGroupColumnDef"
+          [suppressRowClickSelection]="true"
+          [groupSelectsChildren]="true"
+          paginationAutoPageSize='true'
+          (selectionChanged)="onSelectionChanged($event)"
+          [debug]="true"
+          [rowSelection]="rowSelection"
+          [rowGroupPanelShow]="rowGroupPanelShow"
+          [pivotPanelShow]="pivotPanelShow"
+          [enableRangeSelection]="true"
+          [pagination]="true"
+          (gridReady)="onGridReady($event)"
+
+          (rowClicked)="onRowClicked($event)"
+            ></ag-grid-angular>
+          </div>
+          </div>
+          </div>
