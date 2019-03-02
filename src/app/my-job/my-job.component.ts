@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from '../db.service';
-
+declare var $: any;
 @Component({
   selector: 'app-my-job',
   templateUrl: './my-job.component.html',
@@ -463,7 +463,7 @@ export class MyJobComponent implements OnInit {
     this.bindJoblist(data);
   };
   numberOfPages(data): number {
-    const text;
+    let text;
     try {
       text = Math.ceil(data.length / this.pageSize);
     } catch (e) {

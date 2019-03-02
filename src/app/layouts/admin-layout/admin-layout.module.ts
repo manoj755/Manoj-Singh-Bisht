@@ -65,7 +65,7 @@ import {
 
 } from '@angular/material';
 
-
+declare var $: any;
 
 // @dynamic
 @NgModule({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
-import { settings } from 'cluster';
 
+declare var $: any;
 @Component({
   selector: 'app-tracker-fields',
   templateUrl: './tracker-fields.component.html',
@@ -170,11 +170,11 @@ export class TrackerFieldsComponent implements OnInit {
   submittrackersave(): void {
     this.trackerdata = {};
 
-    var liElements = mySort.getElementsByTagName('li');
+    let liElements = [];// mySort.getElementsByTagName('li');
     //            for (var i = 0; i < liElements.length; i++) {
     //                newSortIndexes.push(liElements[i].getAttribute('data-index'));
     //            }
-    for (const i = 0; i < liElements.length; i++) {
+    for (let i = 0; i < liElements.length; i++) {
 
 
       this.trackerdata[(i + 1).toString()] = liElements[i].dataset.id;
@@ -220,7 +220,7 @@ export class TrackerFieldsComponent implements OnInit {
     //
     this.trackerdata = {};
 
-    let liElements = mySort.getElementsByTagName('li');
+    let liElements = [];// mySort.getElementsByTagName('li');
     //            for (var i = 0; i < liElements.length; i++) {
     //                newSortIndexes.push(liElements[i].getAttribute('data-index'));
     //            }
