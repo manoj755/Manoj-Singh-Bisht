@@ -118,6 +118,8 @@ export class NavbarComponent implements OnInit {
     titlee = titlee.split('/').pop();
     this.db.setSelectedNodeType(titlee);
     titlee = '/' + titlee;
+    $('.active').removeClass('active');
+    $('[href="' + titlee + '"').parent().addClass('active');
     for (var item = 0; item < this.listTitles.length; item++) {
       if (this.listTitles[item].path === titlee) {
 
