@@ -38,7 +38,8 @@
               "node_modules/ag-grid-community/src/styles/ag-theme-fresh/sass/ag-theme-fresh.scss",
               "node_modules/select2/dist/css/select2.min.css",
               "node_modules/ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss",
-              "node_modules/@ng-select/ng-select/themes/material.theme.css"
+              "node_modules/@ng-select/ng-select/themes/material.theme.css",
+              "node_modules/c3/c3.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
@@ -118,7 +119,8 @@
               "node_modules/ag-grid-community/src/styles/ag-theme-fresh/sass/ag-theme-fresh.scss",
               "node_modules/select2/dist/css/select2.min.css",
               "node_modules/ag-grid-community/src/styles/ag-theme-material/sass/ag-theme-material.scss",
-              "node_modules/@ng-select/ng-select/themes/material.theme.css"
+              "node_modules/@ng-select/ng-select/themes/material.theme.css",
+              "node_modules/c3/c3.min.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
