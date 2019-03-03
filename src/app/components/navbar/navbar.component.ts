@@ -3,7 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { DBService } from 'app/db.service';
-
+declare var $: any;
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',

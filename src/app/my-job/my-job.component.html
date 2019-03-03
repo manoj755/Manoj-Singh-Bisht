@@ -114,19 +114,16 @@
           <div class="box box-primary" id="#">
             <mat-progress-bar mode="indeterminate" *ngIf="isLoadingJobs"></mat-progress-bar>
 
-            <div class="box-body-{{item.selected?'info':'default'}}  bg-{{item.selected?'info':'default'}}"
-              style="border-bottom: 1px solid rgb(0, 0, 0);border-top: solid 1px #d4d4d4;margin-bottom: 5px;"
-              (click)="selectdeselect($event,item);" *ngFor="let item of jobslist | orderBy:'visibleonwebsite'">
-              <div class="box-title">
 
-                <div class="row" style="margin: 0;">
-                  <div class="col-md-12">
-                    <div class="joblnk">
-                      <div class='row'>
-                        <div class="jtitle col-md-6">
 
-                          {{index+1}} ) .
-                          <a class="title_in" target="_blank" href="/#/myjob/{{item.id}}"
+            <div class="row">
+
+              <div class="col-md-12"  >
+                  <div class="card" (click)="selectdeselect($event,item)" *ngFor="let item of jobslist | orderBy:'visibleonwebsite';  let i = index">
+                      <div class="card-header card-header-{{item.selected?'success':'info'}}">
+                          <h4 class="card-title">
+                              <!-- {{i}}  -->
+                            <a class="title_in" target="_blank" href="/#/myjob/{{item.id}}"
                             ___stopclick="showJob(item.id, $event)">
 
                             <span itemprop="title" class="title_in" style="margin-right:2px;">
@@ -134,7 +131,8 @@
                               <span class="hightlighted_keyword"> {{item.job_title}} </span>
 
                             </span>
-                          </a>
+                          </a> </h4>
+                          <p class="card-category">
                           <span>( Job ID : {{item.category_code}}{{item.id}} )</span>
 
                           <span itemtype="#" help='Client'>{{item.ClientName}} </span>
@@ -144,8 +142,9 @@
                             ng-hide='mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
                             class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
                             <i class="fa fa-check"></i>
-                          </span>
-                        </div>
+                          </span></p>
+                      </div>
+                      <div class="card-body table-responsive" >
                         <div class="member-social pull-right col-md-6 shareparent" style="text-align: right;">
 
 
@@ -156,12 +155,12 @@
                           <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
 
                           <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager'
-                            class="select{{item.is_approved_by_manager}}" title="Approve by Manager" href="javascript:"
-                            (click)="is_approved_by_manager(item)">
+                             title="Approve by Manager"
+                            href="javascript:" (click)="is_approved_by_manager(item)">
                             <i class="fa fa-check"></i>
                           </a>
 
-                          <a mat-mini-fab class="select{{item.tagged}}" title="Tag" href="javascript:"
+                          <a mat-mini-fab   title="Tag" href="javascript:"
                             (click)="tag(item)">
                             <i class="fa fa-tags"></i>
                           </a>
@@ -200,8 +199,8 @@
                             <i class="fa fa-bullhorn  "></i>
                           </a>
                           <a mat-mini-fab href="#" class="pull-right text-aqua" ng-show="mp.btn_upload_cv_myjobs">
-                            <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)" help="Upload CVs(Excel)"
-                              class="fa fa-upload"></i>
+                            <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)"
+                              help="Upload CVs(Excel)" class="fa fa-upload"></i>
                           </a>
 
                           <div class="sharediv">
@@ -224,78 +223,57 @@
                             </a></div>
 
                         </div>
+
+                        <div class="col-md-12">
+                          <div class='row buttonwithnumber'>
+
+                            <button mat-raised-button color="primary" matBadge="{{item.allcandidate}}"
+                              matBadgePosition="after" matBadgeColor="accent" class=" "
+                              (click)="filterdrbytab('My Candidates', 'all', item)" data-toggle="modal"
+                              data-target="#candidatesall">All
+                            </button>
+
+                            <button type="button" mat-raised-button color="primary" matBadge="{{item.underreview}}"
+                              matBadgePosition="after" matBadgeColor="accent" class=" "
+                              (click)="filterdrbytab('My Candidates', 'Under Review', item)" data-toggle="modal"
+                              data-target="#candidatesall">In Review/Referrals
+
+                            </button>
+                            <button mat-raised-button color="primary" matBadge="{{item.inprocess}}" matBadgePosition="after"
+                              matBadgeColor="accent" type="button" class="btnnew2 "
+                              (click)="filterdrbytab('My Candidates', 'In Process', item)" data-toggle="modal"
+                              data-target="#candidatesall">In process
+
+                            </button>
+                            <button mat-raised-button color="primary" matBadge="{{item.candidates_interview_count}}"
+                              matBadgePosition="after" matBadgeColor="accent" type="button" class="btnnew5 "
+                              (click)="filterdrbytab('My Candidates', 'isinterview', item)" data-toggle="modal"
+                              data-target="#candidatesall">Interview
+
+                            </button>
+                            <button mat-raised-button color="primary" matBadge="{{item.selectedcandidate}}"
+                              matBadgePosition="after" matBadgeColor="accent" type="button" class=" btnnew3  "
+                              (click)="filterdrbytab('My Candidates', 'Selected', item)" data-toggle="modal"
+                              data-target="#candidatesall"> Selected
+
+                            </button>
+                            <button mat-raised-button color="primary" matBadge="{{item.rejected}}" matBadgePosition="after"
+                              matBadgeColor="accent" type="button" class=" btnnew4 "
+                              (click)="filterdrbytab('My Candidates', 'Rejected', item)" data-toggle="modal"
+                              data-target="#candidatesall">Rejected
+
+                            </button>
+                          </div>
+
+                        </div>
+                        <div class="col-md-12" [hidden]="!item.responsibilityshow">
+                          <p class="htmlele">{{item.jobDescription}}</p>
+                        </div>
+
                       </div>
-
-
-                      <div class="jtxt">
-
-
-                        <span itemprop="skills">
-
-                          <span style="color: blue;font-size: 17px;">Location:</span>{{item.location}}
-                        </span>
-                        <!--                                            <span itemprop="skills">
-
-                                                      <span style="color: blue;font-size: 17px;">Salary:</span>{{myjob.maximumSalary}}
-                                                  </span>-->
-                      </div>
-
-
-                    </div>
-
                   </div>
-                  <div class="col-md-12">
-                    <div class='row'>
-
-                      <button mat-raised-button color="primary" matBadge="{{item.allcandidate}}"
-                        matBadgePosition="after" matBadgeColor="accent" class=" col-md-2"
-                        (click)="filterdrbytab('My Candidates', 'all', item)" data-toggle="modal"
-                        data-target="#candidatesall">All
-                      </button>
-
-                      <button type="button" mat-raised-button color="primary" matBadge="{{item.underreview}}"
-                        matBadgePosition="after" matBadgeColor="accent" class="col-md-2 "
-                        (click)="filterdrbytab('My Candidates', 'Under Review', item)" data-toggle="modal"
-                        data-target="#candidatesall">In Review/Referrals
-
-                      </button>
-                      <button mat-raised-button color="primary" matBadge="{{item.inprocess}}" matBadgePosition="after"
-                        matBadgeColor="accent" type="button" class="btnnew2 col-md-2 "
-                        (click)="filterdrbytab('My Candidates', 'In Process', item)" data-toggle="modal"
-                        data-target="#candidatesall">In process
-
-                      </button>
-                      <button mat-raised-button color="primary" matBadge="{{item.candidates_interview_count}}"
-                        matBadgePosition="after" matBadgeColor="accent" type="button"
-                        class="btnnew5 col-md-2 "
-                        (click)="filterdrbytab('My Candidates', 'isinterview', item)" data-toggle="modal"
-                        data-target="#candidatesall">Interview
-
-                      </button>
-                      <button mat-raised-button color="primary" matBadge="{{item.selectedcandidate}}"
-                        matBadgePosition="after" matBadgeColor="accent" type="button"
-                        class=" btnnew3 col-md-2"
-                        (click)="filterdrbytab('My Candidates', 'Selected', item)" data-toggle="modal"
-                        data-target="#candidatesall"> Selected
-
-                      </button>
-                      <button mat-raised-button color="primary" matBadge="{{item.rejected}}" matBadgePosition="after"
-                        matBadgeColor="accent" type="button" class=" btnnew4 "
-                        (click)="filterdrbytab('My Candidates', 'Rejected', item)" data-toggle="modal"
-                        data-target="#candidatesall">Rejected
-
-                      </button>
-                    </div>
-
-                  </div>
-                  <div class="col-md-12" [hidden]="!item.responsibilityshow">
-                    <p class="htmlele">{{item.jobDescription}}</p>
-                  </div>
-                </div>
-
               </div>
-
-            </div>
+          </div>
 
             <mat-card [hidden]='jobslist.length>0||isLoadingJobs'>
               No Data Found
@@ -565,7 +543,7 @@
 
       <!-- All Candidate -->
       <div class="modal fade" id="candidatesall" role="dialog">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg" style="max-width:1100px;">
 
 
 
@@ -635,7 +613,8 @@
                     [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
                     (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
                     [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
-                    [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)">
+                    [enableRangeSelection]="true" [getRowHeight]='getRowHeight' [pagination]="true"
+                    (gridReady)="onGridReady($event)">
                   </ag-grid-angular>
                   <div class="clearfix clear"></div>
                 </div>
@@ -980,130 +959,7 @@
 
       </div>
 
-      <div class="modal fade" role="dialog" id="commentstatus">
 
-
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button aria-hidden="true" data-dismiss="modal" (click)="cancel()" class="close" type="button">×</button>
-              <h4 class="modal-title text-danger ">Comment/Status </h4>
-            </div>
-            <div class="modal-body">
-              <div class="col-md-12">
-                <div class="form-horizontal" role="form" name="userForm">
-                  <div class="form-group" ng-show="showowner">
-                    <label for="inputEmail" class="col-md-3  col-sm-offset-2">Owner</label>
-                    <div class="col-md-4">
-                      <select class="form-control e" n="Owner" [(ngModel)]="commentstatus.recruiterid">
-                        <option value="{{profile.id}}">Self</option>
-                        <option value="{{manager.id}}" *ngFor="let manager of managers">
-                          {{manager.name}}
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-md-3 col-sm-offset-2" select="">Status:</label>
-                    <div class="col-md-6">
-                      <select class="form-control" style="width: 80%;" id="purpose" ng-change="purposechange()"
-                        [(ngModel)]="commentstatus.status" name="client_detail_id">
-                        <option selected="" value="{{currentstatusid}}">{{currentstatusname}}</option>
-                        <option value="{{x.id}}" title="{{x.isinterview}}" *ngFor="let x of statuses">
-                          {{x.DisplayName}}
-                        </option>
-
-                      </select>
-                      <label ng-show="mp.btn_show_all_status"><input type="checkbox" ng-change="comment()"
-                          [(ngModel)]="allstatus" />Override Status</label>
-                      <label><input type="checkbox" [(ngModel)]="commentstatus.noemail" ng-true-value="1"
-                          ng-false-value="0">No email/sms to candidate</label>
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <label class="col-md-3 col-sm-offset-2" referral="">Comment :</label>
-                    <div class="col-md-5">
-                      <textarea class="form-control" [(ngModel)]="commentstatus.comment" placeholder="Comment"
-                        required=""></textarea>
-                    </div>
-                  </div>
-                  <div class="col-lg-offset-2 col-md-3">
-                    <button type="submit" class="btn  btn-raised btn-block btn-primary"
-                      (click)="updatestatuscommentmyjob()">Update</button>
-                  </div>
-                </div>
-
-
-              </div>
-
-              <div class="clearfix"></div>
-            </div>
-
-
-          </div>
-        </div>
-        <!--End  Start Submit CV-->
-      </div>
-      <div class="modal fade" role="dialog" id="activity">
-
-
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button aria-hidden="true" data-dismiss="modal" (click)="cancel()" class="close" type="button">×</button>
-              <h4 class="modal-title text-danger">Activity</h4>
-            </div>
-
-
-            <div class="modal-body">
-              <div class="col-md-12" style="padding-top: 10px;" *ngFor="let x of activities">
-
-
-                <div class="media-left media-middle">
-                  <a href="#">
-                    <img style="width:50px; height: 50px" on-error-src="img/profilepic.png" src="{{x.profilepic}}"
-                      class="media-object img-circle img-bordered" alt="User Image">
-                  </a>
-                </div>
-                <div class="media-body">
-                  <h4 class="media-heading">
-                    <b>{{x.recruiter}}</b> changed status of
-                    <i>
-                      <span class="text-red ">{{x.candidateName}} </span>
-                    </i> for
-                    <span class="text-aqua">({{x.job_title}})</span>
-                  </h4>
-                  <div class="row">
-                    <div class="col-md-8">Status :
-                      <b class="text-black">{{x.RootDisplayName}}/{{x.DisplayName}}</b>
-                    </div>
-                    <div class="col-md-4">Date :
-                      <b class="text-black ">{{x.created_at}}</b>
-                    </div>
-
-                  </div>
-                  <div class="col-md-12">
-                    <b>Comment : </b> {{x.comment==''?'-':x.comment}}
-
-                  </div>
-                  <div class="clearfix"></div>
-
-                </div>
-                <hr>
-              </div>
-
-              <div class="alert alert-danger" ng-show="activities.length == 0">
-                No Activity!
-              </div>
-              <div class="clearfix"></div>
-
-            </div>
-          </div>
-        </div>
-        <!--End  Start Submit CV-->
-      </div>
       <div class="modal fade" role="dialog" id="trackerDetailExtra">
 
 
@@ -1190,3 +1046,7 @@
 <app-call></app-call>
 
 <app-add-to-job></app-add-to-job>
+<app-add-note></app-add-note>
+<app-add-candidate></app-add-candidate>
+<app-update-status></app-update-status>
+<app-activity></app-activity>

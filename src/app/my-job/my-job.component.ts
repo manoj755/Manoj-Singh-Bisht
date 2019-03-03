@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from '../db.service';
+import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-my-job.component';
 declare var $: any;
 @Component({
   selector: 'app-my-job',
@@ -20,11 +21,12 @@ export class MyJobComponent implements OnInit {
   private rowGroupPanelShow;
   private pivotPanelShow;
   columnDefs = [
-    { field: 'candidateName', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
-    { headerName: 'Skills', field: 'skillSet', sortable: true, filter: true },
-    { headerName: 'Email', field: 'email', sortable: true, filter: true },
-    { headerName: 'Mobile', field: 'mobileNo', sortable: true, filter: true },
-    { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
+    {
+      headerName: 'activity', sortable: false, filter: true, headerCheckboxSelection: true, checkboxSelection: true,
+      field: 'id', cellRendererFramework: CandidateMyJobComponent,
+      width: 1000,
+    },
+
   ];
 
   rowData = [
@@ -137,6 +139,9 @@ export class MyJobComponent implements OnInit {
       this.db.addmessageandremove('Please Select CV');
     }
   }
+  getRowHeight = function(params) {
+    return 200;
+  }
 
   submit_cv_to_panel_status(): void {
 
@@ -152,6 +157,7 @@ export class MyJobComponent implements OnInit {
     }));
 
   };
+
 
   submitcv(download): void {
     if (download) {

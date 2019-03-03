@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DBService } from 'app/db.service';
+import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-my-job.component';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
@@ -21,7 +22,11 @@ export class HistoryComponent implements OnInit {
   private rowGroupPanelShow;
   private pivotPanelShow;
   columnDefs = [
-    { headerName: 'Job Name', field: 'job_name', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
+    {
+      headerName: 'Job Name',
+      field: 'job_name', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true
+    },
+    { headerName: 'activity',  field: 'id', cellRendererFramework: CandidateMyJobComponent },
     { headerName: 'Candidate Name', field: 'candidateName', sortable: true, filter: true },
     { headerName: 'Current Designation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
@@ -32,7 +37,7 @@ export class HistoryComponent implements OnInit {
     { headerName: 'Salary', field: 'currentSalary', sortable: true, filter: true },
     { headerName: 'Recruiter Name', field: 'recruitername', sortable: true, filter: true },
     { headerName: 'CV Status', field: 'cvstatus', sortable: true, filter: true },
- ];
+  ];
 
   rowData = [
   ];
