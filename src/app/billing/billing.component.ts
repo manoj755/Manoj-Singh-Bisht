@@ -10,11 +10,11 @@ export class BillingComponent implements OnInit {
 
 
   sendmail = { to: '', cc: '', bcc: '', subject: '', message: '' };
-  gi = { billablectc: '' };
+  //gi = { billablectc: '' };
   acceptedinvoices: any;
-  accepted = {};
-  rejected = {};
-  dataedit = { billable_ctc: '' };
+  //accepted = {};
+  rejected: any;
+  //dataedit = { billable_ctc: '' };
   joinedcandidates = [];
   invoicesinprocessloading: any;
   invoicesinprocess = [];
@@ -27,7 +27,7 @@ export class BillingComponent implements OnInit {
   joinedcandidate: any;
   inprocessrpaytoprloading: any;
   inprocessrpaytopr: any;
-  rejected: any;
+ // rejected: {};
   topay = true;
   rejectedinvoicesloading: any;
   rejectedinvoices: any;
