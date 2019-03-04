@@ -45,3 +45,4 @@ Thumbs.db
 /nbproject/private/
 /nbproject/project.xml
 /nbproject/project.properties
+/src/app/jobwise/jobwise.component.html
