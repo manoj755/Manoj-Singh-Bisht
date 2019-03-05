@@ -599,4 +599,53 @@ export class DBService implements OnInit {
 
 
 
+
+  SelectedCheckbox(obj, selected = 'selected', key = 'id'): any {
+    let selectedmanager = [];
+    for (const i in obj) {
+      if (obj[i][selected] === true) {
+        selectedmanager.push(obj[i][key]);
+      }
+    }
+    return selectedmanager;
+  }
+  SelectedCheckboxWithComma(obj, selected = 'selected', key = 'id'): any {
+    let selectedcheckbox = '';
+    for (const i in obj) {
+      if (obj[i][selected] === true) {
+        selectedcheckbox += (obj[i][key]) + ',';
+      }
+    }
+    return selectedcheckbox;
+  }
+
+  SelectedWithComma(obj, key = 'id'): any {
+    let selectedcheckbox = '';
+    for (const i in obj) {
+      if (obj[i]) {
+        selectedcheckbox += (obj[i][key]) + ',';
+      }
+    }
+    return selectedcheckbox.substring(0, selectedcheckbox.lastIndexOf(','));
+    // creturn selectedcheckbox;
+  }
+  SelectedItems(obj, key = 'id'): any {
+    const selectedcheckbox = [];
+    for (const i in obj) {
+      if (obj[i][key]) {
+        selectedcheckbox.push(obj[i][key]);
+      }
+    }
+    return selectedcheckbox;
+    // return selectedcheckbox;
+  }
+  SelectedObjects(obj, selected = 'selected'): any {
+    const selectedmanager = [];
+    for (const i in obj) {
+      if (obj[i][selected] === true) {
+        selectedmanager.push(obj[i]);
+      }
+    }
+    return selectedmanager;
+  }
 }
