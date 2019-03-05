@@ -4,7 +4,7 @@
 
     <div class="row">
       <ag-grid-angular style="width: 1500px; height: 500px;" class="ag-theme-material" [rowData]="rowData"
-        [columnDefs]="columnDefs" suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef"
+        [columnDefs]="columnDefs" suppressCsvExport=false
         [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
         (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
         [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"

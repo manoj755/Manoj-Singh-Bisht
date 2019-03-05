@@ -33,7 +33,7 @@ export class PvGetReferenceComponent implements OnInit {
   myControl = new FormControl();
   tabindex = 0;
   options: string[] = ['One', 'Two', 'Three'];
-  constructor(private db: DBService) {
+  constructor(public db: DBService) {
 
   }
 

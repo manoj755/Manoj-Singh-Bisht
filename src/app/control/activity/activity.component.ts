@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-activity',
@@ -7,11 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActivityComponent implements OnInit {
 
+  @Input()
   activities = [];
+
+
+
   constructor() { }
 
   ngOnInit() {
 
+  }
+
+
+  vote(agreed: boolean) {
   }
 
 }

@@ -146,8 +146,8 @@ export class DBService implements OnInit {
       message = 'Please authenticate to access secured resource.';
     } else if (isObject(message) && message.status === 422) {
       message = message.error;
-      var messages = [];
-      for (var k in message) {
+      const messages = [];
+      for (const k in message) {
         this.showNotification(message[k]);
         //messages.push(message[k].toString());
 
@@ -209,8 +209,14 @@ export class DBService implements OnInit {
     const headersfull = new HttpHeaders();
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
+    const body = new FormData();
 
-    return this.http.post(req.url, data, { headers: headersfull })
+    for (const i in data) {
+      if (data[i]) {
+        body.append(i, data[i]);
+      }
+    }
+    return this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -330,9 +336,9 @@ export class DBService implements OnInit {
     const headersfull = new HttpHeaders();
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
-    let body = new FormData();
+    const body = new FormData();
 
-    for (let i in data) {
+    for (const i in data) {
       body.append(i, data[i]);
     }
     return this.http.post(req.url, body, { headers: headersfull })
@@ -430,9 +436,9 @@ export class DBService implements OnInit {
     const headersfull = new HttpHeaders();
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
-    let body = new FormData();
+    const body = new FormData();
 
-    for (let i in data) {
+    for (const i in data) {
       body.append(i, data[i]);
     }
 
@@ -482,9 +488,9 @@ export class DBService implements OnInit {
     const headersfull = new HttpHeaders();
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
-    let body = new FormData();
+    const body = new FormData();
 
-    for (let i in data) {
+    for (const i in data) {
       body.append(i, data[i]);
     }
 

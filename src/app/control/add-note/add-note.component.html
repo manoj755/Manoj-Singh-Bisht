@@ -4,18 +4,19 @@
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Notes</h4>
 
+        <h4 class="modal-title">Notes</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
         <div class="media">
-          <div ng-repeat="gridCandidateNote in gridCandidateNotes">
+          <div class="row">
+          <div class="col-md-12" *ngFor="let gridCandidateNote of gridCandidateNotes">
 
 
-            <div class="media-left media-middle">
+            <div class="media-left media-middle float-left " >
               <a href="#">
-                <img style="width:50px; height: 50px" [src]="gridCandidateNote.profilepic"
+                <img style="width:50px; height: 50px; margin-right: 10px;" [src]="pp+gridCandidateNote.profilepic"
                   class="img-circle media-object" alt="User Image">
               </a>
             </div>
@@ -29,8 +30,11 @@
             </div>
             <hr />
           </div>
+          <div class="col-12">
+              <div class="alert alert-danger " *ngIf="gridCandidateNotes.length==0">No Notes</div>
+          </div>
+        </div>
 
-          <div class="alert alert-danger " ng-show="gridCandidateNotes.length==0">No Notes</div>
 
 
 
@@ -42,13 +46,13 @@
 
       <div class="modal-body">
         <div class='col-md-12  alert alert-info'>
-          <h2><span ng-show="isEditCandidateNote">Edit</span><span ng-hide="isEditCandidateNote">Add</span> Candidate
+          <h2><span *ngIf="isEditCandidateNote">Edit</span><span *ngIf="!isEditCandidateNote">Add</span> Candidate
             Note</h2>
           <div class='row'>
             <div class='col-md-12'>
               <div class="form-group ">
                 <label for="notes">Notes</label>
-                <textarea class="form-control" required="" maxlength='255' ng-model="$root.CandidateNote.notes"
+                <textarea class="form-control" required="" maxlength='255' [(ngModel)]="CandidateNote.notes"
                   id="notes" placeholder="Notes"></textarea>
 
               </div>
@@ -57,7 +61,7 @@
           <div class="form-group">
             <div class=" col-md-10">
               <button type="submit" class="btn  btn-raised btn-primary" ng-hide="isEditCandidateNote"
-                ng-click="CandidateNotesave()">Save</button>
+                (click)="CandidateNotesave()">Save</button>
 
             </div>
           </div>

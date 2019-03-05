@@ -41,7 +41,7 @@ export class ClientreportComponent implements OnInit {
   myjob = { client_detail_id: 0 };
   clientdetails: any;
   gridTotalCandidate = { data: null };
-  constructor(private db: DBService) { }
+  constructor(public db: DBService) { }
 
   ngOnInit() {
     this.getlist();

@@ -24,7 +24,7 @@ export class CallComponent implements OnInit {
   // filteredOptions = ['first', 'second', 'three'];
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
-  constructor(private db: DBService) {
+  constructor(public db: DBService) {
 
   }
 

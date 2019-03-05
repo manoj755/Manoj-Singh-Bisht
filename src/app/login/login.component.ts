@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DBService } from '../db.service';
+declare var $: any;
 
 
 @Component({
@@ -10,19 +11,24 @@ import { DBService } from '../db.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   islogin: boolean;
-  constructor(private router: Router, private db: DBService) {
+  loginData = {
+    username: '',
+    password: '', remember: false
+  };
+  showSpinner = false;
+  constructor(private router: Router, public db: DBService) {
 
   }
-   loginData={username : '',
-   password : '',  remember : false};
-  showSpinner = false;
+
+
   login(): void {
 
     const data = { email: this.loginData.username, password: this.loginData.password, remember: this.loginData.remember };
     this.showSpinner = true;
     this.db.post('authenticate/?employer=1', data, ((response): void => {
       this.db.setToken(response.token);
-      this.router.navigate(['dashboard']);
+      // this.router.navigate(['dashboard']);
+      window.location.href = '/';
       this.showSpinner = false;
     }), ((response): void => {
       if (response.data && response.data.msg) {
@@ -39,11 +45,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit() {
+    $('.sidebar').hide();
+    $('.main-panel').css('width', '100%');
+    $('app-navbar').remove();
     this.islogin = true;
 
   }
   ngOnDestroy(): void {
-    this.islogin = false;
+
 
   }
 

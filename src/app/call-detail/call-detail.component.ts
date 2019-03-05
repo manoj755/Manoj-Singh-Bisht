@@ -22,7 +22,7 @@ export class CallDetailComponent implements OnInit {
   isLoadingJobs = false;
   $url = 'http://www.passivereferral.com/refer/';
   $urlapply = 'http://www.passivereferral.com/apply/';
-  constructor(private db: DBService) { }
+  constructor(public db: DBService) { }
 
   ngOnInit() {
     this.bindJob();

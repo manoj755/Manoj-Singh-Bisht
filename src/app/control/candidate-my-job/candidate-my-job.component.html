@@ -4,8 +4,8 @@
   <div class="col-md-4">
       <ul class="list-unstyled">
           <li class='i'>{{row.entity.candidateName}}  <b style="cursor: pointer;" class="name"  *ngIf="row.entity.recruitershow">
-                  <i style="margin-left: 5px;color:#5b4dcc;" ng-click="candidateshow(row.entity.id)" data-toggle="modal" data-target="#addcandidate"  title="Open Candidate" class="fa fa-link"></i>
-                  <i style="margin-left: 3px;color:red;" ng-click="setupdateid(row.entity.id)" title="Add Notes" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
+                  <i style="margin-left: 5px;color:#5b4dcc;"  data-action-type="candidateshow"   title="Open Candidate" class="fa fa-link"></i>
+                  <i data-action-type="notes" style="margin-left: 3px;color:red;" ng-click="setupdateid(row.entity.id)" title="Add Notes" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
 
 
               </b></li>
@@ -28,15 +28,15 @@
       </b>
       <div class="clearfix"></div>
 
-      <a href="javascript:" ng-if="row.entity.id"  *ngIf="row.entity.recruitershow" target="#commentstatus" data-toggle="modal"   (click)="comment(row.entity)" >
-          <span class="link-black i"><i class="fa fa-files-o fa-lg"></i> {{row.entity.display_name}}</span>
+      <a href="javascript:"  class="btn btn-raised btn-info btn-sm"   ng-if="row.entity.id"  *ngIf="row.entity.recruitershow" target="#commentstatus" data-toggle="modal" data-action-type='comment'   (click)="comment(row.entity)" >
+          {{row.entity.display_name}}
       </a>
 
 
       <span *ngIf="!row.entity.recruitershow"   class="link-black i"><i class="fa fa-files-o fa-lg"></i> {{row.entity.display_name}}</span>
 
 
-      <button class="btn btn-raised btn-danger btn-sm" *ngIf="row.entity.recruitershow" data-target="#activity" data-toggle="modal" (click)="activity(row.entity)" >Activity</button>
+      <button class="btn btn-raised btn-danger btn-sm" *ngIf="row.entity.recruitershow" data-target="#activity" data-toggle="modal" data-action-type='activity' (click)="activity(row.entity)" >Activity</button>
       <br/>
       <a href="" *ngIf="row.entity.recruitershow" class="text-danger" ng-click="grid.appScope.setatjidentity(row.entity)" >Custom Tracker Data</a>status
 

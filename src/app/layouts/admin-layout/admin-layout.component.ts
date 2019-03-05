@@ -18,7 +18,7 @@ export class AdminLayoutComponent implements OnInit {
   private isLogin = false;
   private yScrollStack: number[] = [];
 
-  constructor(public location: Location, private router: Router, private db: DBService) {
+  constructor(public location: Location, private router: Router, public db: DBService) {
     this.setIsLogin();
   }
 

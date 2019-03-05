@@ -22,25 +22,26 @@ export class MessageTemplateComponent implements OnInit {
   private rowGroupPanelShow;
   private pivotPanelShow;
   columnDefs = [
-    {  headerName: 'Action', field: 'id', suppressMenu: true,
-    suppressSorting: true, width: 300,
-    template:
-      `<button type="button" data-action-type="edit" class="btn btn-success btn-sm">
+    {
+      headerName: 'Action', field: 'id', suppressMenu: true,
+      suppressSorting: true, width: 300,
+      template:
+        `<button type='button' data-action-type='edit' class='btn btn-success btn-sm'>
          Edit
        </button>
 
-      <button type="button" data-action-type="delete" class="btn btn-danger btn-sm">
+      <button type='button' data-action-type='delete' class='btn btn-danger btn-sm'>
          Delete
       </button>`},
-    {  headerName: 'Template Type', field: 'templateType', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true, width: 250, },
-    { headerName: 'Template Area', field: 'templatearea', sortable: true, filter: true,  width: 250 },
+    { headerName: 'Template Type', field: 'templateType', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true, width: 250, },
+    { headerName: 'Template Area', field: 'templatearea', sortable: true, filter: true, width: 250 },
     { headerName: 'Template name', field: 'templatename', sortable: true, filter: true, width: 250 },
-   // { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
- ];
+    // { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
+  ];
 
   rowData = [
   ];
-  constructor(private db: DBService) {
+  constructor(public db: DBService) {
     this.defaultColDef = {
       editable: true,
       enableRowGroup: true,
@@ -59,8 +60,8 @@ export class MessageTemplateComponent implements OnInit {
     this.LoadData();
   }
 
-  LoadData():void{
-    this.db.list('messagetemplate/', {  }, ((response): void => {
+  LoadData(): void {
+    this.db.list('messagetemplate/', {}, ((response): void => {
       this.rowData = response;
 
 
@@ -83,20 +84,20 @@ export class MessageTemplateComponent implements OnInit {
 
   public onRowClicked(e) {
     if (e.event.target !== undefined) {
-      let data = e.data;
-      let actionType = e.event.target.getAttribute("data-action-type");
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
 
       switch (actionType) {
-        case "delete":
+        case 'delete':
           return this.onActionDeleteClick(data);
-        case "edit":
+        case 'edit':
           return this.onActionEditClick(data);
       }
     }
   }
 
   public onActionDeleteClick(data: any) {
-    console.log("View action clicked", data);
+    console.log('View action clicked', data);
   }
 
 
@@ -108,7 +109,7 @@ export class MessageTemplateComponent implements OnInit {
   onActionEditClick(row): void {
 
     this.isEdit = false;
-    this.db.show("messagetemplate/", row.id, ((response): void => {
+    this.db.show('messagetemplate/', row.id, ((response): void => {
 
       this.isEdit = true;
       this.message = response;
@@ -127,7 +128,7 @@ export class MessageTemplateComponent implements OnInit {
   };
 
   messageupdate(): void {
-    this.db.update("messagetemplate/", this.message.id, this.message, ((response): void => {
+    this.db.update('messagetemplate/', this.message.id, this.message, ((response): void => {
 
       this.LoadData();
       this.db.showMessage('Updated Successfully');
@@ -138,7 +139,7 @@ export class MessageTemplateComponent implements OnInit {
   messagesave(): void {
 
     //this.user.profilepic=this.user.profilepic[0];
-    this.db.store("messagetemplate/", this.message, ((response): void => {
+    this.db.store('messagetemplate/', this.message, ((response): void => {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();

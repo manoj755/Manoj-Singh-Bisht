@@ -6,18 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-job.component.scss']
 })
 export class NewJobComponent implements OnInit {
-  clients:any=[];
-  addtojob:any={};
-  sendemailmodel:any={};
-  copycandidate:any={};
-  myjob:any={};
-  sms:any={};
-  addnewjob:any={};
-  profile:any={};
-  store:any={};  
-  emailselected:any={};   
-  smsselected:any={};
-  mp:any={};
+  clients: any = [];
+  addtojob: any = {};
+  sendemailmodel: any = {};
+  copycandidate: any = {};
+  myjob: any = {};
+  sms: any = {};
+  addnewjob: any = {};
+  profile: any = {};
+  store: any = {};
+  emailselected: any = {};
+  smsselected: any = {};
+  mp: any = {};
+  maxexperience: any;
   constructor() { }
 
   ngOnInit() {

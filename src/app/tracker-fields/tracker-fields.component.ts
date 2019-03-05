@@ -18,7 +18,7 @@ export class TrackerFieldsComponent implements OnInit {
   trackerdata: any;
   rowdata = [];
   tracker: any;
-  constructor(private db: DBService) { }
+  constructor(public db: DBService) { }
 
   ngOnInit() {
     this.loadTrackerMaster();
@@ -170,7 +170,7 @@ export class TrackerFieldsComponent implements OnInit {
   submittrackersave(): void {
     this.trackerdata = {};
 
-    let liElements = [];// mySort.getElementsByTagName('li');
+    const liElements = []; // mySort.getElementsByTagName('li');
     //            for (var i = 0; i < liElements.length; i++) {
     //                newSortIndexes.push(liElements[i].getAttribute('data-index'));
     //            }
@@ -191,7 +191,7 @@ export class TrackerFieldsComponent implements OnInit {
       //                trackerdata[i] = this.trackerselected[i].id;
       //
       //            }
-      let trackerdata = JSON.stringify(this.trackerdata);
+      const trackerdata = JSON.stringify(this.trackerdata);
 
       this.trackermessage.tracker_data = trackerdata;
       this.db.store('tracker/', this.trackermessage, ((response): void => {
@@ -220,7 +220,7 @@ export class TrackerFieldsComponent implements OnInit {
     //
     this.trackerdata = {};
 
-    let liElements = [];// mySort.getElementsByTagName('li');
+    const liElements = []; // mySort.getElementsByTagName('li');
     //            for (var i = 0; i < liElements.length; i++) {
     //                newSortIndexes.push(liElements[i].getAttribute('data-index'));
     //            }

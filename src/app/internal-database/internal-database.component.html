@@ -135,7 +135,7 @@
 
 
         <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
-          suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"
+          suppressCsvExport=false   [suppressRowClickSelection]="true"
           [groupSelectsChildren]="true" (selectionChanged)="onSelectionChanged($event)" [debug]="true"
           [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
           [enableRangeSelection]="true" (gridReady)="onGridReady($event)">

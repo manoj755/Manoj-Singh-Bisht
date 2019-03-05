@@ -61,7 +61,7 @@ export class BillingComponent implements OnInit {
   editinvoiceid: any;
   invoice_item_id: any;
   accepteditem: any;
-  constructor(private db: DBService) { }
+  constructor(public db: DBService) { }
 
   ngOnInit(): void {
     this.db.list('clientdetail/', { 'gi': 'rolecreating' }, ((response): void => {

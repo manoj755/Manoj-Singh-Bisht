@@ -29,6 +29,8 @@ import { JobwiseComponent } from 'app/jobwise/jobwise.component';
 import { RecruiterReportNewhistoryComponent } from 'app/recruiter-report-newhistory/recruiter-report-newhistory.component';
 import { RecruiterreportnewComponent } from 'app/recruiterreportnew/recruiterreportnew.component';
 import { OpeningclientwiseComponent } from 'app/openingclientwise/openingclientwise.component';
+import {  LogoutComponent } from 'app/logout/logout.component';
+import { NotfoundComponent } from 'app/notfound/notfound.component';
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -61,6 +63,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'login',        component: LoginComponent },
+    { path: 'logout',        component: LogoutComponent },
+    { path: '**',        component: NotfoundComponent },
 
 
 

@@ -12,7 +12,7 @@ export class AddCandidateComponent implements OnInit {
   updateid: any;
   countries = [];
   genders = [];
-  constructor(private db: DBService) { }
+  constructor(public db: DBService) { }
 
   ngOnInit() {
     this.LoadDropDown();
