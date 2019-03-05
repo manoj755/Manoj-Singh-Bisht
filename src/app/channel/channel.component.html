@@ -1,70 +1,72 @@
 <div class="main-content">
-    <div class="container-fluid">
+  <div class="container-fluid">
 
 
-      <div class="row">
- <ag-grid-angular
-            style="width: 1500px; height: 500px;"
-            class="ag-theme-material"
-            [rowData]="rowData"
-            [columnDefs]="columnDefs"
-            suppressCsvExport=false
-            [autoGroupColumnDef]="autoGroupColumnDef"
-          [suppressRowClickSelection]="true"
-          [groupSelectsChildren]="true"
-          paginationAutoPageSize='true'
-          (selectionChanged)="onSelectionChanged($event)"
-          [debug]="true"
-          [rowSelection]="rowSelection"
-          [rowGroupPanelShow]="rowGroupPanelShow"
-          [pivotPanelShow]="pivotPanelShow"
-          [enableRangeSelection]="true"
-          [pagination]="true"
-          (gridReady)="onGridReady($event)"
-
-          (rowClicked)="onRowClicked($event)"
-            ></ag-grid-angular>
-            <div class="card col-md-12">
-                <div class="card-header card-header-danger">
-                    <h4 class="card-title">channels</h4>
-                    <p class="card-category">Add or Edit channel details</p>
-                    </div>
-          <form class='col-md-12 '><h2><span ng-show="isEditchannel">Edit</span><span ng-hide="isEditchannel">Add</span>  channel</h2>
-            <div class='row'>
+    <div class="row">
+      <ag-grid-angular style="width: 1500px; height: 500px;" class="ag-theme-material" [rowData]="rowData"
+        [columnDefs]="columnDefs" suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef"
+        [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+        (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+        [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"
+        [pagination]="true" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)"></ag-grid-angular>
+      <div class="card col-md-12">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title">channels</h4>
+          <p class="card-category">Add or Edit channel details</p>
+        </div>
+        <div class='col-md-12 '>
+          <h2><span *ngIf="isEditchannel">Edit</span><span *ngIf="!isEditchannel">Add</span> channel</h2>
+          <div class='row'>
             <div class='col-md-6'>
-            <div class="form-group ">
-              <label for="display_name">channel Name</label>
-              <input type="text"  class="form-control e" n="Display Name" maxlength='200' [(ngModel)]="channel.display_name" id="display_name" placeholder="Display Name"/>
+              <div class="form-group ">
+                <label for="display_name">channel Name</label>
+                <input type="text" class="form-control e" n="Display Name" maxlength='200'
+                  [(ngModel)]="channel.display_name" id="display_name" placeholder="Display Name" />
 
-          </div>
-      </div><div class='col-md-6 hidden'><div class="form-group ">
-              <label for="type">Type</label>
-              <select  class="form-control e" n="Type"  [(ngModel)]="channel.type" id="type" >
+              </div>
+            </div>
+            <div class='col-md-6 d-none'>
+              <div class="form-group ">
+                <label for="type">Type</label>
+                <select class="form-control e" n="Type" [(ngModel)]="channel.type" id="type">
                   <option>Naukri</option>
                   <option>Monster</option>
                   <option>Time Jobs</option>
-              </select>
+                </select>
 
+              </div>
+            </div>
           </div>
-      </div></div><div class='row'><div class='col-md-6'><div class="form-group ">
-              <label for="user_name">Login ID</label>
-              <input type="text"  maxlength='50' class="form-control e" n="User Name"  [(ngModel)]="channel.user_name" id="user_name" placeholder="User Name">
+          <div class='row'>
+            <div class='col-md-6'>
+              <div class="form-group ">
+                <label for="user_name">Login ID</label>
+                <input type="text" maxlength='50' class="form-control e" n="User Name" [(ngModel)]="channel.user_name"
+                  id="user_name" placeholder="User Name">
 
-          </div>
-      </div><div class='col-md-6'   ><div class="form-group ">
-              <label for="password">Password</label>
-              <input  class="form-control e" validate n="Password" type="password" maxlength='255' [(ngModel)]="channel.password" id="password" placeholder="Password"/>
+              </div>
+            </div>
+            <div class='col-md-6'>
+              <div class="form-group ">
+                <label for="password">Password</label>
+                <input class="form-control e" validate n="Password" type="password" maxlength='255'
+                  [(ngModel)]="channel.password" id="password" placeholder="Password" />
 
+              </div>
+            </div>
           </div>
-      </div></div> <div class="form-group">
-      <div class=" col-md-10">
-          <button type="submit" class="btn  btn-raised btn-primary " tar="#messagetemp" *ngIf="!isEdit" (click)="channelsave()">Save</button>
-          <button type="button" class="btn  btn-raised btn-primary" tar="#channel" *ngIf="isEdit" (click)="channelupdate()">Update</button>
-          <button type="button" class="btn  btn-raised btn-primary" tar="#channel" *ngIf="isEdit"  (click)="back()">Back</button>
-      </div>
-  </div>
-</form>
+          <div class="form-group">
+            <div class=" col-md-10">
+              <button type="submit" class="btn  btn-raised btn-primary " tar="#messagetemp" *ngIf="!isEdit"
+                (click)="channelsave()">Save</button>
+              <button type="button" class="btn  btn-raised btn-primary" tar="#channel" *ngIf="isEdit"
+                (click)="channelupdate()">Update</button>
+              <button type="button" class="btn  btn-raised btn-primary" tar="#channel" *ngIf="isEdit"
+                (click)="back()">Back</button>
+            </div>
           </div>
+        </div>
       </div>
     </div>
   </div>
+</div>

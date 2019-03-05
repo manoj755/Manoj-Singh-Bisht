@@ -2,13 +2,28 @@
   <div class="container-fluid">
     <div class="row">
 
-      <ag-grid-angular style="width: 1500px; height: 500px;" class="ag-theme-material" [rowData]="rowData"
-        [columnDefs]="columnDefs" suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef"
-        [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
-        (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
-        [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"
-        [pagination]="true" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)"></ag-grid-angular>
-      <br>
+      <ag-grid-angular
+          style="width: 1500px; height: 500px;"
+          class="ag-theme-material"
+          [rowData]="rowData"
+          [columnDefs]="columnDefs"
+          suppressCsvExport=false
+          [autoGroupColumnDef]="autoGroupColumnDef"
+        [suppressRowClickSelection]="true"
+        [groupSelectsChildren]="true"
+        paginationAutoPageSize='true'
+        (selectionChanged)="onSelectionChanged($event)"
+        [debug]="true"
+        [rowSelection]="rowSelection"
+        [rowGroupPanelShow]="rowGroupPanelShow"
+        [pivotPanelShow]="pivotPanelShow"
+        [enableRangeSelection]="true"
+        [pagination]="true"
+        (gridReady)="onGridReady($event)"
+
+        (rowClicked)="onRowClicked($event)"
+          ></ag-grid-angular>
+           <br>
       <div class="continer">
         <div class="col-md-10">
           <div class="wizard">
@@ -45,15 +60,14 @@
           <div class="row" id="trackermessage">
             <div class="col-md-6">
 
-              <form class="form-horizontal">
+              <div class="form-horizontal">
 
                 <div class="form-group">
                   <H2>Add Tracker</H2>
                   <h4>Select Tracker Fields:</h4>
 
 
-                  Search : <input ng-auto-complete callback-fn='trackersuggest()' id='searchtracker' type="text"
-                    class="form-control" placeholder="Quick Search" [(ngModel)]="search.display_name">
+                  Search : <input  id='searchtracker' type="text"   class="form-control" placeholder="Quick Search"  [(ngModel)]="search.display_name"/>
                   <div class="clear" style="clear:both;"></div>
 
                   <!--                            <div class=" col-md-3"  *ngFor="let tr  of trackermaster|  orderBy:'display_name' | filter:search">
@@ -72,10 +86,11 @@
 
                 </div>
 
-              </form>
+              </div>
             </div>
           </div>
         </div>
+      </div>
         <div class="col-md-12">
 
 

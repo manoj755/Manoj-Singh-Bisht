@@ -1,0 +1,57 @@
+<div class="modal fade" role="dialog" id="activity">
+
+
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title text-danger">Activity</h4> <button aria-hidden="true" data-dismiss="modal"   class="close" type="button">×</button>
+      </div>
+
+
+      <div class="modal-body">
+        <div class="col-md-12" style="padding-top: 10px;" *ngFor="let x of activities">
+
+
+          <div class="media-left media-middle">
+            <a href="#">
+              <img style="width:50px; height: 50px" on-error-src="img/profilepic.png" src="{{x.profilepic}}"
+                class="media-object img-circle img-bordered" alt="User Image">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">
+              <b>{{x.recruiter}}</b> changed status of
+              <i>
+                <span class="text-red ">{{x.candidateName}} </span>
+              </i> for
+              <span class="text-aqua">({{x.job_title}})</span>
+            </h4>
+            <div class="row">
+              <div class="col-md-8">Status :
+                <b class="text-black">{{x.RootDisplayName}}/{{x.DisplayName}}</b>
+              </div>
+              <div class="col-md-4">Date :
+                <b class="text-black ">{{x.created_at}}</b>
+              </div>
+
+            </div>
+            <div class="col-md-12">
+              <b>Comment : </b> {{x.comment==''?'-':x.comment}}
+
+            </div>
+            <div class="clearfix"></div>
+
+          </div>
+          <hr>
+        </div>
+
+        <div class="alert alert-danger" ng-show="activities.length == 0">
+          No Activity!
+        </div>
+        <div class="clearfix"></div>
+
+      </div>
+    </div>
+  </div>
+</div>

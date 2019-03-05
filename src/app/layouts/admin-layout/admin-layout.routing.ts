@@ -29,6 +29,10 @@ import { JobwiseComponent } from 'app/jobwise/jobwise.component';
 import { RecruiterReportNewhistoryComponent } from 'app/recruiter-report-newhistory/recruiter-report-newhistory.component';
 import { RecruiterreportnewComponent } from 'app/recruiterreportnew/recruiterreportnew.component';
 import { OpeningclientwiseComponent } from 'app/openingclientwise/openingclientwise.component';
+import { SmtpdetailsComponent } from 'app/smtpdetails/smtpdetails.component';
+import { CandidatestatusupdateComponent } from 'app/candidatestatusupdate/candidatestatusupdate.component';
+import { MessagelogComponent } from 'app/messagelog/messagelog.component';
+import { SmslogComponent } from 'app/smslog/smslog.component';
 
 export const AdminLayoutRoutes: Routes = [
 
@@ -44,6 +48,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'jobwise',        component: JobwiseComponent },
     { path: 'client-report-full',        component: ClientReportFullComponent },
     { path: 'openingclientwise',        component: OpeningclientwiseComponent },
+    { path: 'smtpdetails',        component: SmtpdetailsComponent },
+    { path: 'candidatestatusupdate',        component: CandidatestatusupdateComponent },
     { path: 'messagetemplate',        component: MessageTemplateComponent },
     { path: 'client',        component: ClientComponent },
     { path: 'newtracker',        component: AddNewTrackerComponent },
@@ -61,6 +67,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'login',        component: LoginComponent },
+    { path: 'messagelog',        component: MessagelogComponent },
+    { path: 'smslog',        component: SmslogComponent },
 
 
 

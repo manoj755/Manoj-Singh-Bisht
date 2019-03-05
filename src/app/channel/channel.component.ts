@@ -10,7 +10,7 @@ export class ChannelComponent implements OnInit {
 
   public Editor = ClassicEditor;
   title = 'app';
-  channel = {id: 0};
+  channel = { id: 0 };
   isEdit = false;
   item: any = {};
   stateobj = {};
@@ -22,7 +22,7 @@ export class ChannelComponent implements OnInit {
   applications = [];
   roles = [];
 
- // usernew = {};
+  // usernew = {};
   private smsselected = {};
   private emailselected = {};
   private gridApi;
@@ -34,12 +34,13 @@ export class ChannelComponent implements OnInit {
   private rowGroupPanelShow;
   private pivotPanelShow;
   columnDefs = [
-    {headerName: 'Action', field: 'id', suppressMenu: 'true', suppressSorting: 'true',
-   template: `<button type='button' data-action-type='edit' class='btn btn-success btn-sm'>Edit</button>
+    {
+      headerName: 'Action', field: 'id', suppressMenu: 'true', suppressSorting: 'true',
+      template: `<button type='button' data-action-type='edit' class='btn btn-success btn-sm'>Edit</button>
    <button type='button' data-action-type='delete' class='btn btn-danger btn-sm'>delete</button>`
-  },
-  {headerName: 'Channel Name', field: 'display_name', sortable: 'true', filter: 'true'},
-  {headerName: 'Login ID', field: 'user_name', sortable: 'true', filter: 'true'},
+    },
+    { headerName: 'Channel Name', field: 'display_name', sortable: 'true', filter: 'true' },
+    { headerName: 'Login ID', field: 'user_name', sortable: 'true', filter: 'true' },
   ];
   rowData = [];
 
@@ -59,7 +60,7 @@ export class ChannelComponent implements OnInit {
     this.pivotPanelShow = 'always';
 
 
-   }
+  }
 
 
 
@@ -68,7 +69,7 @@ export class ChannelComponent implements OnInit {
     this.LoadData();
   }
   LoadData(): void {
-    this.db.list('channel/', {  }, ((response): void => {
+    this.db.list('channel/', {}, ((response): void => {
       this.rowData = response;
     }));
 
@@ -80,8 +81,8 @@ export class ChannelComponent implements OnInit {
     this.gridApi = params.gridApi;
     this.gridColumnApi = params.columnApi;
   }
-  exportdat(){
-   this.gridApi.exportDataAsCsv();
+  exportdat() {
+    this.gridApi.exportDataAsCsv();
   }
   onSelectionChanged(event) {
     console.log(event.api.getSelectedNodes());
@@ -90,66 +91,67 @@ export class ChannelComponent implements OnInit {
   }
   public onRowClicked(e) {
     if (e.event.target !== undefined) {
-        let data = e.data;
-        let actionType = e.event.target.getAttribute('data-action-type');
+      let data = e.data;
+      let actionType = e.event.target.getAttribute('data-action-type');
 
-        switch(actionType) {
-            case 'delete' :
-                return this.onActionDeleteClick(data);
-            case 'edit':
-                return this.onActionEditClick(data);
-        }
+      switch (actionType) {
+        case 'delete':
+          return this.onActionDeleteClick(data);
+        case 'edit':
+          return this.onActionEditClick(data);
+      }
     }
-}
-public onActionDeleteClick(data: any){
-  console.log('View action clicked', data);
-}
-back():void {
-  this.isEdit = false;
-  this.channel = {id: 0};
-}
+  }
+  public onActionDeleteClick(data: any) {
+    console.log('View action clicked', data);
+  }
+  back(): void {
+    this.isEdit = false;
+    this.channel = { id: 0 };
+  }
 
-onActionEditClick  (row):void {
+  onActionEditClick(row): void {
 
-  this.isEdit = false;
-  this.db.show('channel/', row.id,  ((response): void => {
+    this.isEdit = false;
+
+    this.db.show('channel/', row.id, ((response): void => {
 
       this.isEdit = true;
       this.channel = response;
-//            for (var i in response.data) {
-//                for (var j in response.data[i]) {
-//                    this.gridOptions.columnDefs.push({field:j});
-//                }
-//                break;
-//            }
+      //            for (var i in response.data) {
+      //                for (var j in response.data[i]) {
+      //                    this.gridOptions.columnDefs.push({field:j});
+      //                }
+      //                break;
+      //            }
 
 
-//            this.gridTotalJobs.data = response.data;
+      //            this.gridTotalJobs.data = response.data;
 
-  } ));
+    }));
 
-};
-channelupdate():void {
-  this.db.update('channel/', this.channel.id, this.channel,  ((response): void => {
+  };
+  channelupdate(): void {
+    this.db.update('channel/', this.channel.id, this.channel, ((response): void => {
 
       this.LoadData();
       this.db.showMessage('Updated Successfully');
 
-  }));
-}
-channelsave() :void{
+    }));
+  }
+  channelsave(): void {
 
-  //this.user.profilepic=this.user.profilepic[0];
- this.db.store('channel/', this.channel, ((response): void => {
+    //this.user.profilepic=this.user.profilepic[0];
+    this.db.store('channel/', this.channel, ((response): void => {
 
-  this.db.showMessage('Added Successfully');
+      this.db.showMessage('Added Successfully');
       this.LoadData();
-      this.channel = {id: 0};
+      this.channel = { id: 0 };
 
 
-  }));
+    }));
 
-}
+  }
 
 
 

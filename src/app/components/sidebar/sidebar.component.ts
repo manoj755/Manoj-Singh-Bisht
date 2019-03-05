@@ -1,13 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { path } from 'd3';
 
 declare const $: any;
-declare interface RouteInfo {
+declare interface ChildRouteInfo {
   path: string;
   title: string;
   icon: string;
   class: string;
 }
+declare interface RouteInfo {
+  path: string;
+  href?: string;
+  title: string;
+  icon: string;
+  class: string;
+  childpages?: ChildRouteInfo[],
+  mainmenu?: boolean;
+}
 export const ROUTES: RouteInfo[] = [
+  {
+    path: 'd', href: '#pages', title: 'Login', icon: 'person', class: '', mainmenu: true, childpages: [
+
+      { path: '/login', title: 'Login', icon: 'person', class: '' },
+    ]
+
+  },
   { path: '/dashboard', title: 'Dashboard', icon: 'dashboard', class: '' },
   { path: '/internaldatabase', title: 'Internal Database', icon: 'person', class: '' },
   { path: '/history', title: 'History', icon: 'person', class: '' },
@@ -29,7 +46,8 @@ export const ROUTES: RouteInfo[] = [
   { path: '/users', title: 'Users', icon: 'person', class: '' },
   { path: '/channel', title: 'Channel', icon: 'person', class: '' },
   { path: '/billing', title: 'Billing', icon: 'person', class: '' },
-
+  { path: '/messagelog', title: 'Message Log', icon: 'person', class: '' },
+  { path: '/smslog', title: 'Sms Log', icon: 'person', class: '' },
 
   { path: '/user-profile', title: 'User Profile', icon: 'person', class: '' },
   { path: '/table-list', title: 'Table List', icon: 'content_paste', class: '' },
@@ -38,6 +56,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/maps', title: 'Maps', icon: 'location_on', class: '' },
   { path: '/notifications', title: 'Notifications', icon: 'notifications', class: '' },
   { path: '/login', title: 'Login', icon: 'person', class: '' },
+
 
 ];
 

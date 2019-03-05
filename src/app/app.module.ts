@@ -11,7 +11,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { AppComponent } from './app.component'; 
+import { AppComponent } from './app.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
@@ -21,7 +21,7 @@ import { IconsComponent } from './icons/icons.component';
 import { MapsComponent } from './maps/maps.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { UpgradeComponent } from './upgrade/upgrade.component';
-import {  LoginComponent } from './login/login.component';
+import { LoginComponent } from './login/login.component';
 
 import {
   MatButtonModule, MatCardModule, MatIconModule, MatSidenavModule, MatListModule,
@@ -63,13 +63,21 @@ import { RecruiterReportNewhistoryComponent } from './recruiter-report-newhistor
 import { JobwiseComponent } from './jobwise/jobwise.component';
 import { ClientReportFullComponent } from './client-report-full/client-report-full.component';
 import { OpeningclientwiseComponent } from './openingclientwise/openingclientwise.component';
+import { CandidateMyJobComponent } from './control/candidate-my-job/candidate-my-job.component';
+
+
+import { AddNoteComponent } from './control/add-note/add-note.component';
+import { UpdateStatusComponent } from './control/update-status/update-status.component';
+import { ActivityComponent } from './control/activity/activity.component';
+import { MessagelogComponent } from './messagelog/messagelog.component';
+import { SmslogComponent } from './smslog/smslog.component';
 
 
 
 @NgModule({
   imports: [
     //MaterialModule.forRoot(),
-        //DatePickerModule,
+    //DatePickerModule,
 
     BrowserAnimationsModule,
     FormsModule,
@@ -108,6 +116,9 @@ import { OpeningclientwiseComponent } from './openingclientwise/openingclientwis
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+
+
+
 
 
 

@@ -30,13 +30,17 @@ import { AddNewTrackerComponent } from '../../add-new-tracker/add-new-tracker.co
 import { TrackerFieldsComponent } from '../../tracker-fields/tracker-fields.component';
 import { UsersComponent } from '../../users/users.component';
 import { ChannelComponent } from '../../channel/channel.component';
-import { EmployeeemailComponent} from '../../employeeemail/employeeemail.component';
-import { ClientreportComponent} from '../../clientreport/clientreport.component';
-import { ClientReportFullComponent} from '../../client-report-full/client-report-full.component';
-import { RecruiterReportNewhistoryComponent} from '../../recruiter-report-newhistory/recruiter-report-newhistory.component';
-import { JobwiseComponent} from '../../jobwise/jobwise.component';
-import { RecruiterreportnewComponent} from '../../recruiterreportnew/recruiterreportnew.component';
-import { OpeningclientwiseComponent} from '../../openingclientwise/openingclientwise.component';
+import { EmployeeemailComponent } from '../../employeeemail/employeeemail.component';
+import { ClientreportComponent } from '../../clientreport/clientreport.component';
+import { ClientReportFullComponent } from '../../client-report-full/client-report-full.component';
+import { RecruiterReportNewhistoryComponent } from '../../recruiter-report-newhistory/recruiter-report-newhistory.component';
+import { JobwiseComponent } from '../../jobwise/jobwise.component';
+import { RecruiterreportnewComponent } from '../../recruiterreportnew/recruiterreportnew.component';
+import { SmtpdetailsComponent } from '../../smtpdetails/smtpdetails.component';
+import { CandidatestatusupdateComponent } from '../../candidatestatusupdate/candidatestatusupdate.component';
+import { OpeningclientwiseComponent } from '../../openingclientwise/openingclientwise.component';
+import { MessagelogComponent } from '../../messagelog/messagelog.component';
+import { SmslogComponent } from '../../smslog/smslog.component';
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ManagerComponent } from '../../control/manager/manager.component';
 import { AddToJobComponent } from '../../control/add-to-job/add-to-job.component';
@@ -47,6 +51,7 @@ import { CallComponent } from '../../control/call/call.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { OrderModule } from 'ngx-order-pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CandidateMyJobComponent } from '../../control/candidate-my-job/candidate-my-job.component';
 import {
   MatButtonModule,
   MatInputModule,
@@ -65,10 +70,16 @@ import {
 
 } from '@angular/material';
 
-
+import { AddNoteComponent } from '../../control/add-note/add-note.component';
+import { UpdateStatusComponent } from '../../control/update-status/update-status.component';
+import { ActivityComponent } from '../../control/activity/activity.component';
+declare var $: any;
 
 // @dynamic
 @NgModule({
+  exports: [
+
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
@@ -87,11 +98,14 @@ import {
     MatAutocompleteModule,
     NgSelectModule,
     MatTabsModule,
-    AgGridModule.withComponents([]),
+    AgGridModule.withComponents([
+
+      CandidateMyJobComponent,
+    ]),
     OrderModule,
     MatBadgeModule,
     // TranslateService,
-  //  NgSelectModule,
+    //  NgSelectModule,
   ],
   declarations: [
     DashboardComponent,
@@ -117,6 +131,9 @@ import {
     ChannelComponent,
     ManagerComponent,
     AddToJobComponent,
+    AddNoteComponent,
+    UpdateStatusComponent,
+    ActivityComponent,
     AddCandidateComponent,
     MyTeamComponent,
     PvGetReferenceComponent,
@@ -128,7 +145,13 @@ import {
     JobwiseComponent,
     RecruiterReportNewhistoryComponent,
     RecruiterreportnewComponent,
-    OpeningclientwiseComponent
+    OpeningclientwiseComponent,
+    CandidateMyJobComponent,
+    SmtpdetailsComponent,
+    CandidatestatusupdateComponent,
+    MessagelogComponent,
+    SmslogComponent
+
 
   ]
 })

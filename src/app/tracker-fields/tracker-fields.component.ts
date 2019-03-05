@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
-import { settings } from 'cluster';
 
+declare var $: any;
 @Component({
   selector: 'app-tracker-fields',
   templateUrl: './tracker-fields.component.html',
@@ -11,14 +11,61 @@ export class TrackerFieldsComponent implements OnInit {
 
   ishidereference = true;
   isEdit = false;
-  trackermessage: any;
+  trackermessage: any = {};
   trackerselected = [];
   trackerselected_temp = [];
   trackermaster = [];
   trackerdata: any;
   rowdata = [];
   tracker: any;
-  constructor(private db: DBService) { }
+  search: any = { display_name: '' };
+
+  private smsselected = {};
+  private emailselected = {};
+  private gridApi;
+  private gridColumnApi;
+
+  private autoGroupColumnDef;
+  private defaultColDef;
+  private rowSelection;
+  private rowGroupPanelShow;
+  private pivotPanelShow;
+  columnDefs = [
+    {
+      headerName: 'Action', field: 'id', suppressMenu: true,
+      suppressSorting: true,
+      template:
+        `<button type="button" data-action-type="edit" class="btn btn-success btn-sm">
+         Edit
+       </button>
+
+      <button type="button" data-action-type="delete" class="btn btn-danger btn-sm">
+         Delete
+      </button>`},
+
+    { headerName: 'tracker_name', field: 'tracker_name', sortable: true, filter: true },
+
+    { headerName: 'Created at', field: 'created_at', sortable: true, filter: true },
+    { headerName: 'Updated at', field: 'updated_at', sortable: true, filter: true },
+  ];
+
+
+  constructor(private db: DBService) {
+    this.defaultColDef = {
+      editable: true,
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true,
+      sortable: true,
+      resizable: true,
+      filter: true
+    };
+    this.rowSelection = 'singal';
+    this.rowGroupPanelShow = 'always';
+    this.pivotPanelShow = 'always';
+  }
+
+
 
   ngOnInit() {
     this.loadTrackerMaster();
@@ -170,11 +217,11 @@ export class TrackerFieldsComponent implements OnInit {
   submittrackersave(): void {
     this.trackerdata = {};
 
-    var liElements = mySort.getElementsByTagName('li');
+    let liElements = [];// mySort.getElementsByTagName('li');
     //            for (var i = 0; i < liElements.length; i++) {
     //                newSortIndexes.push(liElements[i].getAttribute('data-index'));
     //            }
-    for (const i = 0; i < liElements.length; i++) {
+    for (let i = 0; i < liElements.length; i++) {
 
 
       this.trackerdata[(i + 1).toString()] = liElements[i].dataset.id;
@@ -220,7 +267,7 @@ export class TrackerFieldsComponent implements OnInit {
     //
     this.trackerdata = {};
 
-    let liElements = mySort.getElementsByTagName('li');
+    let liElements = [];// mySort.getElementsByTagName('li');
     //            for (var i = 0; i < liElements.length; i++) {
     //                newSortIndexes.push(liElements[i].getAttribute('data-index'));
     //            }
@@ -241,7 +288,9 @@ export class TrackerFieldsComponent implements OnInit {
   }
 
 
+  onGridReady(event): void {
 
+  }
 
 
 

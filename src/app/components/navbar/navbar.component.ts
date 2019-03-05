@@ -3,7 +3,7 @@ import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
 import { DBService } from 'app/db.service';
-
+declare var $: any;
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -118,6 +118,8 @@ export class NavbarComponent implements OnInit {
     titlee = titlee.split('/').pop();
     this.db.setSelectedNodeType(titlee);
     titlee = '/' + titlee;
+    $('.active').removeClass('active');
+    $('[href="' + titlee + '"').parent().addClass('active');
     for (var item = 0; item < this.listTitles.length; item++) {
       if (this.listTitles[item].path === titlee) {
 

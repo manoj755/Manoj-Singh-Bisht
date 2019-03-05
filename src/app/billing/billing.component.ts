@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
-
+declare var $: any;
 @Component({
   selector: 'app-billing',
   templateUrl: './billing.component.html',
@@ -9,12 +9,12 @@ import { DBService } from 'app/db.service';
 export class BillingComponent implements OnInit {
 
 
-  sendmail = { to: '', cc: '', bcc: '', subject: '', message: '' };
-  //gi = { billablectc: '' };
+  sendmail = { to: '', cc: '', bcc: '', subject: '', message: '', atj_id: 0 };
+  gi = { billablectc: 0, billableamount: 0, billpercentage: 0, atj_id: 0 };
   acceptedinvoices: any;
-  //accepted = {};
-  rejected: any;
-  //dataedit = { billable_ctc: '' };
+  accepted = { invoiceid: 0, invoice_item_id: 0, invoice_id: 0, atj_id: 0 };
+  rejected = { invoice_id: 0, atj_id: 0 };
+  dataedit = { billable_ctc: 0, billabl_eamount: 0, billable_amount: 0, billingpercentage: 0, invoiceid: 0, invoice_item_id: 0 };
   joinedcandidates = [];
   invoicesinprocessloading: any;
   invoicesinprocess = [];
@@ -27,21 +27,17 @@ export class BillingComponent implements OnInit {
   joinedcandidate: any;
   inprocessrpaytoprloading: any;
   inprocessrpaytopr: any;
- // rejected: {};
   topay = true;
   rejectedinvoicesloading: any;
   rejectedinvoices: any;
   joinedcandidatesloading: any;
   applications = [];
   emailid = '';
-  dataedit: any = {};
   billingpercentage = 8.33;
   isShowVendor = false;
   billpercentage = 0;
   notinfeeslab = false;
   acceptedinvoicesloading: any;
-  accepted: any;
-  gi: any;
   loadingfeeslab: any;
 
 
@@ -133,7 +129,7 @@ export class BillingComponent implements OnInit {
       if (datain.result === 'notinfeeslab') {
 
         this.notinfeeslab = true;
-        this.gi.billableamount = '';
+        this.gi.billableamount = 0;
 
       } else {
         this.notinfeeslab = false;
@@ -157,7 +153,7 @@ export class BillingComponent implements OnInit {
       if (datain.result === 'notinfeeslab') {
 
         this.notinfeeslab = true;
-        this.dataedit.billabl_eamount = '';
+        this.dataedit.billabl_eamount = 0;
 
       } else {
         this.notinfeeslab = false;

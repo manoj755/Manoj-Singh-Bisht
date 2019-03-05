@@ -1,8 +1,33 @@
 <div class="main-content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12">
+          <ag-grid-angular
+          style="width: 1500px; height: 500px;"
+          class="ag-theme-material"
+          [rowData]="rowData"
+          [columnDefs]="columnDefs"
+          suppressCsvExport=false
+          [autoGroupColumnDef]="autoGroupColumnDef"
+        [suppressRowClickSelection]="true"
+        [groupSelectsChildren]="true"
+        paginationAutoPageSize='true'
+        (selectionChanged)="onSelectionChanged($event)"
+        [debug]="true"
+        [rowSelection]="rowSelection"
+        [rowGroupPanelShow]="rowGroupPanelShow"
+        [pivotPanelShow]="pivotPanelShow"
+        [enableRangeSelection]="true"
+        [pagination]="true"
+        (gridReady)="onGridReady($event)"
 
+        (rowClicked)="onRowClicked($event)"
+          ></ag-grid-angular>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Message Templates</h4>
+                    <p class="card-category">Add or Edit Message Templates</p>
+                    </div>
 
             <div class="bs-example" id="messagetemp">
 
@@ -68,27 +93,7 @@
 
 
             </div>
-            <ag-grid-angular
-            style="width: 1500px; height: 500px;"
-            class="ag-theme-material"
-            [rowData]="rowData"
-            [columnDefs]="columnDefs"
-            suppressCsvExport=false
-            [autoGroupColumnDef]="autoGroupColumnDef"
-          [suppressRowClickSelection]="true"
-          [groupSelectsChildren]="true"
-          paginationAutoPageSize='true'
-          (selectionChanged)="onSelectionChanged($event)"
-          [debug]="true"
-          [rowSelection]="rowSelection"
-          [rowGroupPanelShow]="rowGroupPanelShow"
-          [pivotPanelShow]="pivotPanelShow"
-          [enableRangeSelection]="true"
-          [pagination]="true"
-          (gridReady)="onGridReady($event)"
-
-          (rowClicked)="onRowClicked($event)"
-            ></ag-grid-angular>
+            </div>
         </div>
 
       </div>
