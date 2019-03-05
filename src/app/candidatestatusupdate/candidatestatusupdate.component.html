@@ -1,0 +1,200 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="card">
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title">Candidate Status Update</h4>
+
+                  </div>
+<!--<div class="table-responsive">
+    <table class="table table-striped table-bordered  ">
+        <tr><th>Status</th>
+            <th>Candidate Email Template</th>
+            <th>Candidate Sms Template</th>
+            <th ng-if="profile.app_id=='6'" >Referrer Sms Template</th>
+            <th ng-if="profile.app_id=='6'" >Referrer Email Template</th>
+            <th>Action</th>
+        </tr>
+        <tr *ngFor="let candidatestatuswithmsg of  candidatestatuswithmsgs">
+            <td> {{candidatestatuswithmsg.DisplayName}} </td>
+            <td>
+
+                <select class="form-control"  [(ngModel)]="candidatestatuswithmsg.candidate_template_id" >
+                    <option value="0" ng-selected="{{0 == candidatestatuswithmsg.candidate_template_id}}"></option>
+                    <option value="{{Emailcandidate.id}}" ng-selected="{{Emailcandidate.id == candidatestatuswithmsg.candidate_template_id}}" *ngFor="let Emailcandidate of Emailcandidates">
+                        {{Emailcandidate.title}}
+                    </option>
+
+                </select> </td>
+            <td><select  class="form-control"  [(ngModel)]="candidatestatuswithmsg.candidate_sms_template_id" >
+                    <option value="0" ng-selected="{{0 == candidatestatuswithmsg.candidate_sms_template_id}}"></option>
+                    <option value="{{smscandidate.id}}" ng-selected="{{smscandidate.id == candidatestatuswithmsg.candidate_sms_template_id}}" *ngFor="let smscandidate of smscandidates">
+                        {{smscandidate.title}}
+                    </option>
+
+                </select></td>
+            <td  ng-if="profile.app_id=='6'" ><select  class="form-control" [(ngModel)]="candidatestatuswithmsg.referrer_sms_template_id" >
+                    <option ng-selected="{{0 == candidatestatuswithmsg.referrer_sms_template_id}}" value="0"></option>
+                    <option ng-selected="{{smsreferrer.id == candidatestatuswithmsg.referrer_sms_template_id}}" value="{{smsreferrer.id}}" *ngFor="let smsreferrer of smsreferrers">
+                        {{smsreferrer.title}}
+                    </option>
+
+                </select></td>
+            <td  ng-if="profile.app_id=='6'" ><select  class="form-control"  [(ngModel)]="candidatestatuswithmsg.referrer_template_id" >
+                    <option value="0" ng-selected="{{0 == candidatestatuswithmsg.referrer_template_id}}"></option>
+                    <option ng-selected="{{Emailreferrer.id == candidatestatuswithmsg.referrer_template_id}}"  value="{{Emailreferrer.id}}" *ngFor="let Emailreferrer of Emailreferrers">
+                        {{Emailreferrer.title}}
+                    </option>
+
+                </select> </td><td><input ng-click="updatestatus(candidatestatuswithmsg)" type="button" value="Update" class="btn  btn-raised btn-success"></td>
+        </tr>
+        <tr ng-show="candidatestatuswithmsgs.length==0">
+            <th colspan="6" class="text-center">No Status found</th>
+        </tr>
+    </table></div>
+
+<div class="bg-gray">
+    <div class="col-md-12" id="addnewcandidate">
+
+        <div class="row candidate_status">
+
+            <div class="col-md-12"><div class="h1">Email/Sms Template for Job Status Change</div>
+                <div class="row text-danger">
+
+                    <div class="col-md-1 Bold">Status</div>
+                    <div class="col-md-11 Bold">
+                        <div class="row">
+                            <div class="col-md-3">Candidate Sms T</div>
+                            <div class="col-md-3">Candidate Email T</div>
+                            <div class="col-md-3">Referrer Sms T</div>
+                            <div class="col-md-3">Referrer Email T</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-1 Bold">Active</div>
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-md-3"><select  class="form-control e" validate  n="Candidate Sms To"  [(ngModel)]="jobstatus.active_candidate_sms_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{smscandidate.id}}"   *ngFor="let smscandidate of smsjobstatuses">
+                                        {{smscandidate.title}}
+                                    </option>
+
+                                </select> </div>
+                            <div class="col-md-3"><select  class="form-control e" validate  n="Candidate Email To"  [(ngModel)]="jobstatus.active_candidate_email_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{emailcandidate.id}}"   *ngFor="let emailcandidate of emailjobstatuses">
+                                        {{emailcandidate.title}}
+                                    </option>
+
+                                </select> </div>
+
+                            <div class="col-md-3"><select  class="form-control e"  n="Candidate Referrer Sms To"  [(ngModel)]="jobstatus.active_referrer_sms_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{smsreferrer.id}}"   *ngFor="let smsreferrer of smsjobstatuses">
+                                        {{smsreferrer.title}}
+                                    </option>
+
+                                </select> </div>
+                            <div class="col-md-3"><select  class="form-control e"  n="Referrer Email To"  [(ngModel)]="jobstatus.active_referrer_email_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{Emailreferrer.id}}"   *ngFor="let Emailreferrer of emailjobstatuses">
+                                        {{Emailreferrer.title}}
+                                    </option>
+
+                                </select> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-1 Bold">Hold</div>
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-md-3"><select  class="form-control"  [(ngModel)]="jobstatus.hold_candidate_sms_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{smscandidate.id}}"   *ngFor="let smscandidate of smsjobstatuses">
+                                        {{smscandidate.title}}
+                                    </option>
+
+                                </select> </div>
+                            <div class="col-md-3"><select  class="form-control"  [(ngModel)]="jobstatus.hold_candidate_email_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{emailcandidate.id}}"   *ngFor="let emailcandidate of emailjobstatuses">
+                                        {{emailcandidate.title}}
+                                    </option>
+
+                                </select> </div>
+
+                            <div class="col-md-3"><select  class="form-control"  [(ngModel)]="jobstatus.hold_referrer_sms_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{smsreferrer.id}}"   *ngFor="let smsreferrer of smsjobstatuses">
+                                        {{smsreferrer.title}}
+                                    </option>
+
+                                </select> </div>
+                            <div class="col-md-3"><select  class="form-control"  [(ngModel)]="jobstatus.hold_referrer_email_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{Emailreferrer.id}}"   *ngFor="let Emailreferrer of emailjobstatuses">
+                                        {{Emailreferrer.title}}
+                                    </option>
+
+                                </select> </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-1 Bold">Profile Closed</div>
+                    <div class="col-md-11">
+                        <div class="row">
+
+                            <div class="col-md-3"><select  class="form-control"  [(ngModel)]="jobstatus.profile_closed_candidate_sms_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{smscandidate.id}}"   *ngFor="smscandidate in smsjobstatuses">
+                                        {{smscandidate.title}}
+                                    </option>
+
+                                </select> </div>
+                            <div class="col-md-3"><select  class="form-control"  [(ngModel)]="jobstatus.profile_closed_candidate_email_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{emailcandidate.id}}"   *ngFor="let emailcandidate of emailjobstatuses">
+                                        {{emailcandidate.title}}
+                                    </option>
+
+                                </select> </div>
+
+                            <div class="col-md-3"><select  class="form-control"  [(ngModel)]="jobstatus.profile_closed_referrer_sms_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{smsreferrer.id}}"   *ngFor="let smsreferrer of smsjobstatuses">
+                                        {{smsreferrer.title}}
+                                    </option>
+
+                                </select> </div>
+                            <div class="col-md-3"><select  class="form-control"  [(ngModel)]="jobstatus.profile_closed_referrer_email_id" >
+                                    <option value="0">No Template</option>
+                                    <option value="{{Emailreferrer.id}}"   *ngFor="let Emailreferrer of emailjobstatuses">
+                                        {{Emailreferrer.title}}
+                                    </option>
+
+                                </select> </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="submit" ng-click="jobstatusupdate()"  value="Save" class="btn  btn-raised btn-default validate"  tar="#addnewcandidate"/>
+                    </div>
+                </div>
+
+            </div>
+        </div></div>
+</div>-->
+</div>
+</div>
+</div>
+</div>

@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-
-import { DBService } from 'app/db.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { DBService } from 'app/db.service';
 @Component({
-  selector: 'app-add-new-tracker',
-  templateUrl: './add-new-tracker.component.html',
-  styleUrls: ['./add-new-tracker.component.scss']
+  selector: 'app-candidatestatusupdate',
+  templateUrl: './candidatestatusupdate.component.html',
+  styleUrls: ['./candidatestatusupdate.component.scss']
 })
-export class AddNewTrackerComponent implements OnInit {
+export class CandidatestatusupdateComponent implements OnInit {
+
   public Editor = ClassicEditor;
   title = 'app';
-  newtracker = { id: 0 };
+  smtp = { id: 0 };
   isEdit = false;
-  item: any = {};
-  stateobj = {};
-  errors = {};
-  isEditclientStateswiseBillingDetail = false;
-  clientStateswiseBillingDetail = {};
+  smsreferrers = [];
+  smscandidates = [];
+  Emailreferrers = [];
+  Emailcandidates = [];
+  emailjobstatuses = [];
+  smsjobstatuses = [];
   private smsselected = {};
   private emailselected = {};
+
   private gridApi;
   private gridColumnApi;
 
@@ -30,24 +32,22 @@ export class AddNewTrackerComponent implements OnInit {
   columnDefs = [
     {
       headerName: 'Action', field: 'id', suppressMenu: true,
-      suppressSorting: true,
+      suppressSorting: true, width: 300,
       template:
-        `<button type="button" data-action-type="edit" class="btn btn-success btn-sm">
+        `<button type='button' data-action-type='edit' class='btn btn-success btn-sm'>
          Edit
        </button>
 
-      <button type="button" data-action-type="delete" class="btn btn-danger btn-sm">
+      <button type='button' data-action-type='delete' class='btn btn-danger btn-sm'>
          Delete
       </button>`},
     {
-      headerName: 'Display Name', field: 'display_name', sortable: true, filter: true, headerCheckboxSelection: true,
-      checkboxSelection: true
+      headerName: 'smtp Type', field: 'smtptype', sortable: true,
+      filter: true, headerCheckboxSelection: true, checkboxSelection: true, width: 250,
     },
-    { headerName: 'DB Name', field: 'db_name', sortable: true, filter: true },
-
-    { headerName: 'Created at', field: 'created_at', sortable: true, filter: true },
-    { headerName: 'Updated at', field: 'updated_at', sortable: true, filter: true },
-    { headerName: 'IP Address', field: 'ipAddress', sortable: true, filter: true },
+    { headerName: 'Incoming server', field: 'smtpname', sortable: true, filter: true, width: 250 },
+    { headerName: 'User Name', field: 'user_name', sortable: true, filter: true, width: 250 },
+    { headerName: 'Port', field: 'port', sortable: true, filter: true },
   ];
 
   rowData = [
@@ -72,8 +72,38 @@ export class AddNewTrackerComponent implements OnInit {
   }
 
   LoadData(): void {
-    this.db.list('trackermaster/', {}, ((response): void => {
+    this.db.list('messagetemplate/', {}, ((response): void => {
       this.rowData = response;
+
+
+    }));
+    this.db.list('messagetemplatefordd/', {}, ((response): void => {
+      this.smsreferrers = response;
+
+
+    }));
+    this.db.list('messagetemplatefordd/', {}, ((response): void => {
+      this.smscandidates = response;
+
+
+    }));
+    this.db.list('messagetemplatefordd/', {}, ((response): void => {
+      this.Emailreferrers = response;
+
+
+    }));
+    this.db.list('messagetemplatefordd/', {}, ((response): void => {
+      this.Emailcandidates = response;
+
+
+    }));
+    this.db.list('messagetemplatefordd/', {}, ((response): void => {
+      this.emailjobstatuses = response;
+
+
+    }));
+    this.db.list('messagetemplatefordd/', {}, ((response): void => {
+      this.smsjobstatuses = response;
 
 
     }));
@@ -96,34 +126,34 @@ export class AddNewTrackerComponent implements OnInit {
   public onRowClicked(e) {
     if (e.event.target !== undefined) {
       let data = e.data;
-      let actionType = e.event.target.getAttribute("data-action-type");
+      let actionType = e.event.target.getAttribute('data-action-type');
 
       switch (actionType) {
-        case "delete":
+        case 'delete':
           return this.onActionDeleteClick(data);
-        case "edit":
+        case 'edit':
           return this.onActionEditClick(data);
       }
     }
   }
 
   public onActionDeleteClick(data: any) {
-    console.log("View action clicked", data);
+    console.log('View action clicked', data);
   }
 
 
   back(): void {
     this.isEdit = false;
-    this.newtracker = { id: 0 };
+    this.smtp = { id: 0 };
   }
 
   onActionEditClick(row): void {
 
     this.isEdit = false;
-    this.db.show("trackermaster/", row.id, ((response): void => {
+    this.db.show('messagetemplate/', row.id, ((response): void => {
 
       this.isEdit = true;
-      this.newtracker = response;
+      this.smtp = response;
       //            for (var i in response.data) {
       //                for (var j in response.data[i]) {
       //                    this.gridOptions.columnDefs.push({field:j});
@@ -138,8 +168,8 @@ export class AddNewTrackerComponent implements OnInit {
 
   };
 
-  newtrackerupdate(): void {
-    this.db.update("trackermaster/", this.newtracker.id, this.newtracker, ((response): void => {
+  smtpupdate(): void {
+    this.db.update('messagetemplate/', this.smtp.id, this.smtp, ((response): void => {
 
       this.LoadData();
       this.db.showMessage('Updated Successfully');
@@ -147,18 +177,17 @@ export class AddNewTrackerComponent implements OnInit {
     }));
   }
 
-  newtrackersave(): void {
+  smtpsave(): void {
 
     //this.user.profilepic=this.user.profilepic[0];
-    this.db.store("trackermaster/", this.newtracker, ((response): void => {
+    this.db.store('messagetemplate/', this.smtp, ((response): void => {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
-      this.newtracker = { id: 0 };
+      this.smtp = { id: 0 };
 
 
     }));
 
   }
-
 }

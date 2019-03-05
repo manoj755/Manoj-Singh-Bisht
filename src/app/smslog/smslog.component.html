@@ -1,0 +1,33 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="card">
+              <div class="card-header card-header-danger">
+                  <h4 class="card-title">Sms log</h4>
+
+                  </div>
+                  <ag-grid-angular
+            style="width: 1500px; height: 500px;"
+            class="ag-theme-material"
+            [rowData]="rowData"
+            [columnDefs]="columnDefs"
+            suppressCsvExport=false
+            [autoGroupColumnDef]="autoGroupColumnDef"
+          [suppressRowClickSelection]="true"
+          [groupSelectsChildren]="true"
+          paginationAutoPageSize='true'
+          (selectionChanged)="onSelectionChanged($event)"
+          [debug]="true"
+          [rowSelection]="rowSelection"
+          [rowGroupPanelShow]="rowGroupPanelShow"
+          [pivotPanelShow]="pivotPanelShow"
+          [enableRangeSelection]="true"
+          [pagination]="true"
+          (gridReady)="onGridReady($event)"
+
+          (rowClicked)="onRowClicked($event)"
+            ></ag-grid-angular>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
