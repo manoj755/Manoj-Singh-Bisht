@@ -9,15 +9,20 @@ import { Profile } from 'selenium-webdriver/firefox';
 })
 export class UserProfileComponent implements OnInit {
 
-  profile:any={};
-  changepassword:any={};
-  constructor(private db:DBService) { }
+  ProfileTabs: any;
+  updateprofie: any;
+  profile: any = {};
+  changepassword: any = {};
+  constructor(public db: DBService) { }
 
   ngOnInit() {
-    
+
     this.db.setProfile();
-     
-    
+
+
   }
+  changepasswordfun(): void {
+
+   }
 
 }

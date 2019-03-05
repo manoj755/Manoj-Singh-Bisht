@@ -4,8 +4,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-
-        <h4 class="modal-title text-danger">Activity</h4> <button aria-hidden="true" data-dismiss="modal"   class="close" type="button">×</button>
+          <h4 class="modal-title text-danger">Activity</h4> <button aria-hidden="true" data-dismiss="modal"   class="close" type="button">×</button>
       </div>
 
 
@@ -46,7 +45,7 @@
           <hr>
         </div>
 
-        <div class="alert alert-danger" ng-show="activities.length == 0">
+        <div class="alert alert-danger" *ngIf="activities.length == 0">
           No Activity!
         </div>
         <div class="clearfix"></div>

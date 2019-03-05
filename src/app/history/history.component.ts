@@ -16,17 +16,16 @@ export class HistoryComponent implements OnInit {
   recruiter;
   private gridColumnApi;
   managers = [];
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  defaultColDef: any;
+  rowSelection: any;
+  rowGroupPanelShow: any;
+  pivotPanelShow: any;
   columnDefs = [
     {
       headerName: 'Job Name',
       field: 'job_name', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true
     },
-    { headerName: 'activity',  field: 'id', cellRendererFramework: CandidateMyJobComponent },
+    { headerName: 'activity', field: 'id', cellRendererFramework: CandidateMyJobComponent },
     { headerName: 'Candidate Name', field: 'candidateName', sortable: true, filter: true },
     { headerName: 'Current Designation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
@@ -41,7 +40,7 @@ export class HistoryComponent implements OnInit {
 
   rowData = [
   ];
-  constructor(private db: DBService) {
+  constructor(public db: DBService) {
     this.defaultColDef = {
       editable: true,
       enableRowGroup: true,

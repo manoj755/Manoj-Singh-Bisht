@@ -34,8 +34,8 @@ import {
 import {
   AgmCoreModule
 } from '@agm/core';
-//import { MaterialModule } from '@angular/material';
-//import { DatePickerModule } from 'angular-material-datepicker';
+// import { MaterialModule } from '@angular/material';
+// import { DatePickerModule } from 'angular-material-datepicker';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { HistoryComponent } from './history/history.component';
@@ -69,6 +69,11 @@ import { CandidateMyJobComponent } from './control/candidate-my-job/candidate-my
 import { AddNoteComponent } from './control/add-note/add-note.component';
 import { UpdateStatusComponent } from './control/update-status/update-status.component';
 import { ActivityComponent } from './control/activity/activity.component';
+import { LogoutComponent } from './logout/logout.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SettingsComponent } from './settings/settings.component';
+import { UpdateCandidateComponent } from './control/update-candidate/update-candidate.component';
 import { MessagelogComponent } from './messagelog/messagelog.component';
 import { SmslogComponent } from './smslog/smslog.component';
 
@@ -76,8 +81,8 @@ import { SmslogComponent } from './smslog/smslog.component';
 
 @NgModule({
   imports: [
-    //MaterialModule.forRoot(),
-    //DatePickerModule,
+    // MaterialModule.forRoot(),
+    // DatePickerModule,
 
     BrowserAnimationsModule,
     FormsModule,

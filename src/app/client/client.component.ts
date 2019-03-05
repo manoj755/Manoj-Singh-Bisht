@@ -31,16 +31,16 @@ export class ClientComponent implements OnInit {
       headerName: 'Delete', field: 'id', suppressMenu: true,
       suppressSorting: true,
       template:
-        `<button type="button" data-action-type="edit" class="btn btn-success btn-sm">
+        `<button type='button' data-action-type='edit' class='btn btn-success btn-sm'>
          Edit
        </button>
 
-      <button type="button" data-action-type="delete" class="btn btn-danger btn-sm">
+      <button type='button' data-action-type='delete' class='btn btn-danger btn-sm'>
          Delete
       </button>`},
     {
-      headerName: 'Billing Name', field: 'billingName', sortable: true, filter: true,
-      headerCheckboxSelection: true, checkboxSelection: true
+      headerName: 'Billing Name', field: 'billingName', sortable: true, filter:
+        true, headerCheckboxSelection: true, checkboxSelection: true
     },
     { headerName: 'About', field: 'about', sortable: true, filter: true },
     { headerName: 'Website', field: 'website', sortable: true, filter: true },
@@ -51,7 +51,7 @@ export class ClientComponent implements OnInit {
 
   rowData = [
   ];
-  constructor(private db: DBService) {
+  constructor(public db: DBService) {
     this.defaultColDef = {
       editable: true,
       enableRowGroup: true,
@@ -94,20 +94,20 @@ export class ClientComponent implements OnInit {
 
   public onRowClicked(e) {
     if (e.event.target !== undefined) {
-      let data = e.data;
-      let actionType = e.event.target.getAttribute("data-action-type");
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
 
       switch (actionType) {
-        case "delete":
+        case 'delete':
           return this.onActionDeleteClick(data);
-        case "edit":
+        case 'edit':
           return this.onActionEditClick(data);
       }
     }
   }
 
   public onActionDeleteClick(data: any) {
-    console.log("View action clicked", data);
+    console.log('View action clicked', data);
   }
 
 
@@ -119,7 +119,7 @@ export class ClientComponent implements OnInit {
   onActionEditClick(row): void {
 
     this.isEdit = false;
-    this.db.show("clientdetail/", row.id, ((response): void => {
+    this.db.show('clientdetail/', row.id, ((response): void => {
 
       this.isEdit = true;
       this.client = response;
@@ -138,7 +138,7 @@ export class ClientComponent implements OnInit {
   };
 
   clientupdate(): void {
-    this.db.update("clientdetail/", this.client.id, this.client, ((response): void => {
+    this.db.update('clientdetail/', this.client.id, this.client, ((response): void => {
 
       this.LoadData();
       this.db.showMessage('Updated Successfully');
@@ -148,8 +148,8 @@ export class ClientComponent implements OnInit {
 
   clientsave(): void {
 
-    //this.user.profilepic=this.user.profilepic[0];
-    this.db.store("clientdetail/", this.client, ((response): void => {
+    // this.user.profilepic=this.user.profilepic[0];
+    this.db.store('clientdetail/', this.client, ((response): void => {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();

@@ -5,49 +5,59 @@
     <div class="modal-content">
       <div class="modal-header">
 
-        <h4 class="modal-title text-danger ">Comment/Status </h4>  <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+        <h4 class="modal-title text-danger ">Comment/Status </h4> <button aria-hidden="true" data-dismiss="modal"
+          class="close" type="button">×</button>
       </div>
       <div class="modal-body">
         <div class="col-md-12">
           <div class="form-horizontal" role="form" name="userForm">
-            <div class="form-group" ng-show="showowner">
-              <label for="inputEmail" class="col-md-3  col-sm-offset-2">Owner</label>
-              <div class="col-md-4">
-                <select class="form-control e" n="Owner" [(ngModel)]="commentstatus.recruiterid">
-                  <option value="{{db.profile.id}}">Self</option>
-                  <option value="{{manager.id}}" *ngFor="let manager of managers">
+            <div class="form-group" *ngIf="showowner">
+              <label for="inputEmail" class="">Owner</label>
+              <div class="">
+                <ng-select n="Owner" [(ngModel)]="commentstatus.recruiterid">
+                  <ng-option [value]="db.profile.id">Self</ng-option>
+                  <ng-option [value]="manager.id" *ngFor="let manager of managers">
                     {{manager.name}}
-                  </option>
-                </select>
+                  </ng-option>
+                </ng-select>
               </div>
             </div>
             <div class="form-group">
-              <label class="col-md-3 col-sm-offset-2" select="">Status:</label>
-              <div class="col-md-6">
-                <select class="form-control" style="width: 80%;" id="purpose" ng-change="purposechange()"
-                  [(ngModel)]="commentstatus.status" name="client_detail_id">
-                  <option selected="" value="{{currentstatusid}}">{{currentstatusname}}</option>
-                  <option value="{{x.id}}" title="{{x.isinterview}}" *ngFor="let x of statuses">
+              <label class="" select="">Status:</label>
+              <div class="">
+                <ng-select id="purpose" ng-change="purposechange()" [(ngModel)]="commentstatus.status"
+                  name="client_detail_id">
+                  <ng-option selected="" value="{{currentstatusid}}">{{currentstatusname}}</ng-option>
+                  <ng-option value="{{x.id}}" title="{{x.isinterview}}" *ngFor="let x of statuses">
                     {{x.DisplayName}}
-                  </option>
+                  </ng-option>
 
-                </select>
-                <label ng-show="mp.btn_show_all_status"><input type="checkbox" ng-change="comment()"
-                    [(ngModel)]="allstatus" />Override Status</label>
-                <label><input type="checkbox" [(ngModel)]="commentstatus.noemail" ng-true-value="1"
-                    ng-false-value="0">No email/sms to candidate</label>
+                </ng-select>
+                <label ng-show="mp.btn_show_all_status"></label>
+
+
+              </div>
+              <div class="col-12">
+
+                <mat-checkbox (change)="comment()" [(ngModel)]="allstatus">Override Status</mat-checkbox>
+              </div>
+              <div class="col-12">
+
+
+                <mat-checkbox [(ngModel)]="commentstatus.noemailset">No email/sms to candidate</mat-checkbox>
+
               </div>
             </div>
 
 
             <div class="form-group">
-              <label class="col-md-3 col-sm-offset-2" referral="">Comment :</label>
-              <div class="col-md-5">
+              <label class="col-md-12" referral="">Comment :</label>
+              <div class="col-md-12">
                 <textarea class="form-control" [(ngModel)]="commentstatus.comment" placeholder="Comment"
                   required=""></textarea>
               </div>
             </div>
-            <div class="col-lg-offset-2 col-md-3">
+            <div class="col-12">
               <button type="submit" class="btn  btn-raised btn-block btn-primary"
                 (click)="updatestatuscommentmyjob()">Update</button>
             </div>

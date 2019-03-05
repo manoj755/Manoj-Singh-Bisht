@@ -1,0 +1,402 @@
+<div id="candidateshow" class=" "
+  style="display: none; overflow: auto; height: 100%; background: rgba(0,0,0,0.7); position: fixed; top:0; left:0; z-index: 1060; width: 100%;"
+  role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title">Candidate Details</h4><button type="button" class="close"
+          data-dismiss="modal">&times;</button>
+
+
+      </div>
+      <div class="modal-body">
+
+
+        <mat-tab-group>
+          <mat-tab label="Profile">
+            <div class="container" style="width:100%;padding:40px 20px;background:#dee5ea; color: #4e4e4e;">
+              <a class="btn  btn-raised btn-success btn-sm pull-right" (click)="setNotes()" data-toggle="modal"
+              data-target="#notesdetail">Add Notes</a>
+              <div ng-show="globaljobid > 0 && (ProfileData.length > 0 || JobData.length > 0)">
+                <div class="row">
+                  <h4>Tracker Fields</h4>
+
+                  <div class="form-group col-md-6" *ngFor=" let pdata of ProfileData">
+                    <label for="name" class="control-label col-sm-4 text-info">{{pdata.display_name}}</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="pdata.value" id="name"
+                        placeholder="Enter {{pdata.display_name}}">
+                    </div>
+                  </div>
+
+
+
+                </div>
+                <!--                <hr/>-->
+                <div class="row">
+
+                  <!--                    <h4>Job Data</h4>-->
+
+                  <div class="form-group col-md-6" *ngFor=" let jdata of JobData">
+                    <label for="name" class="control-label col-sm-4 text-blue">{{jdata.display_name}}</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="jdata.value" id="name"
+                        placeholder="Enter {{jdata.display_name}}">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="form-group col-md-6"> <input type="button" value="Submit" ng-click="saveCustomData()"
+                      class="btn  btn-raised btn-info" />
+
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <div class="form-horizontal" role="form">
+
+
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="name" class="control-label col-sm-4">Full Name</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.candidateName" id="name"
+                        placeholder="Enter name">
+                      <a ng-show="candidateshowdata.naukri_url" target="_blank"
+                        href="{{candidateshowdata.naukri_url}}">Naukri
+                        Profile</a>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-6">
+                    <label for="gender" class="control-label col-sm-4">Gender</label>
+                    <div class="col-sm-7">
+                      <select class="form-control" id="gender" [(ngModel)]="candidateshowdata.gender">
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="form-group col-md-6">
+                    <label for="email" class="control-label col-sm-4">Current Organization</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="currentorg"
+                        [(ngModel)]="candidateshowdata.currentOrganization" placeholder="Current Organization">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="currentdesignation" class="control-label col-sm-4">Current designation</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="currentdesignation"
+                        [(ngModel)]="candidateshowdata.currentDesignation" placeholder="Current designation">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="currentdesignation" class="control-label col-sm-4">Relevant Experiance</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" id="currentdesignation"
+                        [(ngModel)]="candidateshowdata.relevantExperiance" placeholder="Relevant Experiance">
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="Qualification" class="control-label col-sm-4">Qualification</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.qualification"
+                        id="Qualification" placeholder="Qualification">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="Qualification" class="control-label col-sm-4">Country</label>
+                    <div class="col-sm-7">
+                      <select class="form-control" [(ngModel)]="candidateshowdata.country" id="Qualification"
+                        placeholder="Country">
+                        <option *ngFor=" let x of countries" value="{{x.id}}">
+                          {{x.name}} ({{x.country_code}})
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="Qualification" class="control-label col-sm-4">State</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.state" id="Qualification"
+                        placeholder="State">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="Qualification" class="control-label col-sm-4">City</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.city" id="Qualification"
+                        placeholder="City">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="location" class="control-label col-sm-4">Current Location</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.location" id="location"
+                        placeholder="CurrentLocation">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="preferedlocation" class="control-label col-sm-4">Prefered Location</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.preferredLocation"
+                        id="preferelocation" placeholder="prefered Location">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="Salary" class="control-label col-sm-4">Current Salary</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.currentSalary" id="Salary"
+                        placeholder="Current Salary">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="Salary" class="control-label col-sm-4">Expected Salary</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.expectedSalary" id="Salary"
+                        placeholder="Expected  salary">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="Mobile" class="control-label col-sm-4">Phone Number</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.phoneNo" id="mobile"
+                        placeholder="Phone Number">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="Mobile" class="control-label col-sm-4">Mobile</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.mobileNo" id="mobile"
+                        placeholder="Enter the Mobile">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="Mobile" class="control-label col-sm-4">Notice Period</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.noticePeriod" id="mobile"
+                        placeholder="Notice Period">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="Mobile" class="control-label col-sm-4">Nationality</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.nationality" id="mobile"
+                        placeholder="Nationality">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="Mobile" class="control-label col-sm-4">Visa Type</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.visaType" id="mobile"
+                        placeholder="Visa Type">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="Mobile" class="control-label col-sm-4">Remark</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.remark" id="mobile"
+                        placeholder="Remark">
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="Mobile" class="control-label col-sm-4">Ovarall Experiance</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.ovarallExperiance"
+                        id="mobile" placeholder="Ovarall Experiance">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="Mobile" class="control-label col-sm-4">Address</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.address" id="mobile"
+                        placeholder="Address">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="email" class="control-label col-sm-4">Email</label>
+                    <div class="col-sm-7">
+                      <input type="email" class="form-control" [(ngModel)]="candidateshowdata.email" id="emailcandidate"
+                        placeholder="Enter the Email">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="form-group col-md-6">
+                    <label for="Pan No" class="control-label col-sm-4">Pan No</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.panNo" id="Function"
+                        placeholder="Enter the Pan No">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="industry" class="control-label col-sm-4">Industry Type</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.industryType" id="Function"
+                        placeholder="Industry Type">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="function" class="control-label col-sm-4">Functional Area</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.functionalArea"
+                        id="Function" placeholder="Functional Area">
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="DOB" class="control-label col-sm-4">Date of Birth</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.dob" id="DOB"
+                        placeholder="DOB">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="keyskill" class="control-label col-sm-4">Key Skills:</label>
+                    <div class="col-sm-7">
+                      <textarea class="form-control" [(ngModel)]="candidateshowdata.skillSet" id="keyskill"
+                        placeholder="Key Skills">
+                        </textarea>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-6">
+                    <label for="function" class="control-label col-sm-4">Function</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.function" id="Function"
+                        placeholder="function">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="form-group col-md-6 hidden">
+                    <label for="function" class="control-label col-sm-4">Source</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.source" id="Function"
+                        placeholder="Source">
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="DOB" class="control-label col-sm-4">Resume</label>
+                    <div class="col-sm-7">
+                      <iframe class="form-control" style="border:0; height: 45px; overflow: hidden;"
+                        id="uploadResumeupdate"></iframe>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6" *ngFor=" let data of  candidateshowdata.customdata">
+                    <label for="DOBd" class="control-label col-sm-4">{{data.key}}</label>
+                    <div class="col-sm-7">
+                      <b class="form-control">{{data.value}}</b>
+
+                    </div>
+                  </div>
+
+
+
+
+
+
+                </div>
+                <div class="row">
+                  <div class=" col-md-6">
+
+                    <a target="_blank" class="btn  btn-raised  btn-success btn-md"
+                      href="http://api.passivereferral.com/resumes/{{candidateshowdata.resume}}">Download CV</a>
+                  </div>
+                  <div class="  col-md-6">
+                    <button type="submit" class="btn  btn-raised btn-primary"
+                      (click)="updatecandidate()">Update</button>
+                  </div>
+
+                </div>
+
+                <div class="row" *ngFor=" let trackerjobdataone of trackerjobdata">
+                  <div class="col-md-12">
+                    <h3 class="text-bold text-red">{{trackerjobdataone.jobTitle}}</h3>
+                  </div>
+
+                  <div class="form-group col-md-6" *ngFor=" let data of trackerjobdataone.custom_data">
+                    <label for="DOBd" class="control-label col-sm-4">{{data.key}}</label>
+                    <div class="col-sm-7">
+                      <b class="form-control">{{data.value}}</b>
+
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+            </div>
+          </mat-tab>
+          <mat-tab label="CV">      <div class="well" style="position: relative;">
+            <div ng-hide="candidateshowdata.resume">
+              <h1>No CV Found</h1>
+            </div>
+            <iframe
+              [attr.srouce]='"https://docs.google.com/gview?url=http://api.passivereferral.com/resumes/"+candidateshowdata.resume+"&pid=explorer&efh=false&a=v&chrome=false&embedded=true"'
+              *ngIf="candidateshowdata.resume" id="resumeview" style="border:0;" width="100%" height="800px"></iframe>
+            <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;">&nbsp;</div>
+          </div> </mat-tab>
+
+        </mat-tab-group>
+
+        <div class="tab-content">
+          <div id="profile" class=" tab-pane fade of active">
+
+
+          </div>
+          <div id="cv" class="tab-pane fade ">
+
+          </div>
+
+
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<app-add-note [set_candidate_id]='candidate_id'></app-add-note>

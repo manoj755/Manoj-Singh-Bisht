@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular/main';
 declare var $: any;
 @Component({
@@ -9,6 +9,8 @@ declare var $: any;
 export class CandidateMyJobComponent implements ICellRendererAngularComp {
   private params: any;
   private cubed: number;
+  @Output()
+  rowdata = new EventEmitter<any>();
   row = { entity: null }
   myname = 'narender';
   constructor() { }
@@ -25,6 +27,8 @@ export class CandidateMyJobComponent implements ICellRendererAngularComp {
   }
 
   activity(row): void {
+    debugger;
+    this.rowdata.emit(row);
     $('#activity').modal('show');
 
   }

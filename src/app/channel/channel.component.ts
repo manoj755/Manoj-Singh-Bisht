@@ -17,7 +17,7 @@ export class ChannelComponent implements OnInit {
   genders = [];
   errors = {};
   countries = [];
-  //channel = [];
+  // channel = [];
   location = [];
   applications = [];
   roles = [];
@@ -44,7 +44,7 @@ export class ChannelComponent implements OnInit {
   ];
   rowData = [];
 
-  constructor(private db: DBService) {
+  constructor(public db: DBService) {
     this.defaultColDef = {
       editable: 'true',
       enableRowGroup: 'true',
@@ -91,8 +91,8 @@ export class ChannelComponent implements OnInit {
   }
   public onRowClicked(e) {
     if (e.event.target !== undefined) {
-      let data = e.data;
-      let actionType = e.event.target.getAttribute('data-action-type');
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
 
       switch (actionType) {
         case 'delete':
@@ -141,7 +141,7 @@ export class ChannelComponent implements OnInit {
   }
   channelsave(): void {
 
-    //this.user.profilepic=this.user.profilepic[0];
+    // this.user.profilepic=this.user.profilepic[0];
     this.db.store('channel/', this.channel, ((response): void => {
 
       this.db.showMessage('Added Successfully');

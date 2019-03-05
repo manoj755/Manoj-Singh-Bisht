@@ -118,162 +118,160 @@
 
             <div class="row">
 
-              <div class="col-md-12"  >
-                  <div class="card" (click)="selectdeselect($event,item)" *ngFor="let item of jobslist | orderBy:'visibleonwebsite';  let i = index">
-                      <div class="card-header card-header-{{item.selected?'success':'info'}}">
-                          <h4 class="card-title">
-                              <!-- {{i}}  -->
-                            <a class="title_in" target="_blank" href="/#/myjob/{{item.id}}"
-                            ___stopclick="showJob(item.id, $event)">
+              <div class="col-md-12">
+                <div class="card" (click)="selectdeselect($event,item)"
+                  *ngFor="let item of jobslist | orderBy:'visibleonwebsite';  let i = index">
+                  <div class="card-header card-header-{{item.selected?'success':'info'}}">
+                    <h4 class="card-title">
+                      <!-- {{i}}  -->
+                      <a class="title_in" target="_blank" href="/#/myjob/{{item.id}}"
+                        ___stopclick="showJob(item.id, $event)">
 
-                            <span itemprop="title" class="title_in" style="margin-right:2px;">
+                        <span itemprop="title" class="title_in" style="margin-right:2px;">
 
-                              <span class="hightlighted_keyword"> {{item.job_title}} </span>
+                          <span class="hightlighted_keyword"> {{item.job_title}} </span>
 
-                            </span>
-                          </a> </h4>
-                          <p class="card-category">
-                          <span>( Job ID : {{item.category_code}}{{item.id}} )</span>
+                        </span>
+                      </a> </h4>
+                    <p class="card-category">
+                      <span>( Job ID : {{item.category_code}}{{item.id}} )</span>
 
-                          <span itemtype="#" help='Client'>{{item.ClientName}} </span>
+                      <span itemtype="#" help='Client'>{{item.ClientName}} </span>
 
-                          <span style='padding-left:10px; display:inline-block;'>
-                            <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
-                            ng-hide='mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
-                            class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
-                            <i class="fa fa-check"></i>
-                          </span></p>
-                      </div>
-                      <div class="card-body table-responsive" >
-                        <div class="member-social pull-right col-md-6 shareparent" style="text-align: right;">
-
-
-                          <a mat-mini-fab class="" help="Assign to recruiter" href="javascript:"
-                            (click)="assignjobClick()">
-                            <i class="fa fa-share-square-o"></i>
-                          </a>
-                          <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
-
-                          <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager'
-                             title="Approve by Manager"
-                            href="javascript:" (click)="is_approved_by_manager(item)">
-                            <i class="fa fa-check"></i>
-                          </a>
-
-                          <a mat-mini-fab   title="Tag" href="javascript:"
-                            (click)="tag(item)">
-                            <i class="fa fa-tags"></i>
-                          </a>
-                          <a mat-mini-fab class="" help="Show JD" href="javascript:"
-                            style='color:black; background:#ffffbe;'
-                            (click)="item.responsibilityshow=!item.responsibilityshow;">
-                            <i class="fa fa-bolt "></i>
-                          </a>
-                          <a mat-mini-fab ng-show='item.visibleonwebsite==1' class=""
-                            href="{{$url}}/{{item.slug}}/{{item.id}}/{{profile.id}}" target="_blank"
-                            style='color:red; background:white;' help='Visible on Website'>
-                            <i class="fa fa-eye "></i>
-                          </a>
-
-                          <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
-                            href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
-                            target="_blank">
-                            <i class="fa fa-facebook "></i>
-                          </a>
-
-                          <a mat-mini-fab class="twitter" ng-hide="profile.isvendor=='1'"
-                            href="https://twitter.com/share?url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
-                            target="_blank">
-                            <i class="fa fa-twitter  "></i>
-                          </a>
-
-                          <a mat-mini-fab class="linkedin" ng-hide="profile.isvendor=='1'"
-                            href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
-                            target="_blank">
-                            <i class="fa fa-linkedin "></i>
-                          </a>
-                          <a mat-mini-fab data-toggle="modal" ng-show="mp.btn_take_internal_refeference"
-                            data-target="#internalreference" href="javascript:"
-                            (click)="GetInHourseReference(item.id, $event)" class="text-danger"
-                            help='get reference internal' title='get reference internal'>
-                            <i class="fa fa-bullhorn  "></i>
-                          </a>
-                          <a mat-mini-fab href="#" class="pull-right text-aqua" ng-show="mp.btn_upload_cv_myjobs">
-                            <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)"
-                              help="Upload CVs(Excel)" class="fa fa-upload"></i>
-                          </a>
-
-                          <div class="sharediv">
-                            Share for Apply : <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
-                              href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
-                              target="_blank">
-                              <i class="fa fa-facebook "></i>
-                            </a>
-
-                            <a class="twitter" mat-mini-fab ng-hide="profile.isvendor=='1'"
-                              href="https://twitter.com/share?url={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
-                              target="_blank">
-                              <i class="fa fa-twitter  "></i>
-                            </a>
-
-                            <a class="linkedin" mat-mini-fab ng-hide="profile.isvendor=='1'"
-                              href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
-                              target="_blank">
-                              <i class="fa fa-linkedin "></i>
-                            </a></div>
-
-                        </div>
-
-                        <div class="col-md-12">
-                          <div class='row buttonwithnumber'>
-
-                            <button mat-raised-button color="primary" matBadge="{{item.allcandidate}}"
-                              matBadgePosition="after" matBadgeColor="accent" class=" "
-                              (click)="filterdrbytab('My Candidates', 'all', item)" data-toggle="modal"
-                              data-target="#candidatesall">All
-                            </button>
-
-                            <button type="button" mat-raised-button color="primary" matBadge="{{item.underreview}}"
-                              matBadgePosition="after" matBadgeColor="accent" class=" "
-                              (click)="filterdrbytab('My Candidates', 'Under Review', item)" data-toggle="modal"
-                              data-target="#candidatesall">In Review/Referrals
-
-                            </button>
-                            <button mat-raised-button color="primary" matBadge="{{item.inprocess}}" matBadgePosition="after"
-                              matBadgeColor="accent" type="button" class="btnnew2 "
-                              (click)="filterdrbytab('My Candidates', 'In Process', item)" data-toggle="modal"
-                              data-target="#candidatesall">In process
-
-                            </button>
-                            <button mat-raised-button color="primary" matBadge="{{item.candidates_interview_count}}"
-                              matBadgePosition="after" matBadgeColor="accent" type="button" class="btnnew5 "
-                              (click)="filterdrbytab('My Candidates', 'isinterview', item)" data-toggle="modal"
-                              data-target="#candidatesall">Interview
-
-                            </button>
-                            <button mat-raised-button color="primary" matBadge="{{item.selectedcandidate}}"
-                              matBadgePosition="after" matBadgeColor="accent" type="button" class=" btnnew3  "
-                              (click)="filterdrbytab('My Candidates', 'Selected', item)" data-toggle="modal"
-                              data-target="#candidatesall"> Selected
-
-                            </button>
-                            <button mat-raised-button color="primary" matBadge="{{item.rejected}}" matBadgePosition="after"
-                              matBadgeColor="accent" type="button" class=" btnnew4 "
-                              (click)="filterdrbytab('My Candidates', 'Rejected', item)" data-toggle="modal"
-                              data-target="#candidatesall">Rejected
-
-                            </button>
-                          </div>
-
-                        </div>
-                        <div class="col-md-12" [hidden]="!item.responsibilityshow">
-                          <p class="htmlele">{{item.jobDescription}}</p>
-                        </div>
-
-                      </div>
+                      <span style='padding-left:10px; display:inline-block;'>
+                        <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
+                        ng-hide='mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
+                        class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
+                        <i class="fa fa-check"></i>
+                      </span></p>
                   </div>
+                  <div class="card-body table-responsive">
+                    <div class="member-social pull-right col-md-6 shareparent" style="text-align: right;">
+
+
+                      <a mat-mini-fab class="" help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
+                        <i class="fa fa-share-square-o"></i>
+                      </a>
+                      <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
+
+                      <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager' title="Approve by Manager"
+                        href="javascript:" (click)="is_approved_by_manager(item)">
+                        <i class="fa fa-check"></i>
+                      </a>
+
+                      <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item)">
+                        <i class="fa fa-tags"></i>
+                      </a>
+                      <a mat-mini-fab class="" help="Show JD" href="javascript:"
+                        style='color:black; background:#ffffbe;'
+                        (click)="item.responsibilityshow=!item.responsibilityshow;">
+                        <i class="fa fa-bolt "></i>
+                      </a>
+                      <a mat-mini-fab ng-show='item.visibleonwebsite==1' class=""
+                        href="{{$url}}/{{item.slug}}/{{item.id}}/{{profile.id}}" target="_blank"
+                        style='color:red; background:white;' help='Visible on Website'>
+                        <i class="fa fa-eye "></i>
+                      </a>
+
+                      <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                        href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
+                        target="_blank">
+                        <i class="fa fa-facebook "></i>
+                      </a>
+
+                      <a mat-mini-fab class="twitter" ng-hide="profile.isvendor=='1'"
+                        href="https://twitter.com/share?url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
+                        target="_blank">
+                        <i class="fa fa-twitter  "></i>
+                      </a>
+
+                      <a mat-mini-fab class="linkedin" ng-hide="profile.isvendor=='1'"
+                        href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
+                        target="_blank">
+                        <i class="fa fa-linkedin "></i>
+                      </a>
+                      <a mat-mini-fab data-toggle="modal" ng-show="mp.btn_take_internal_refeference"
+                        data-target="#internalreference" href="javascript:"
+                        (click)="GetInHourseReference(item.id, $event)" class="text-danger"
+                        help='get reference internal' title='get reference internal'>
+                        <i class="fa fa-bullhorn  "></i>
+                      </a>
+                      <a mat-mini-fab href="#" class="pull-right text-aqua" ng-show="mp.btn_upload_cv_myjobs">
+                        <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)" help="Upload CVs(Excel)"
+                          class="fa fa-upload"></i>
+                      </a>
+
+                      <div class="sharediv">
+                        Share for Apply : <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                          href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
+                          target="_blank">
+                          <i class="fa fa-facebook "></i>
+                        </a>
+
+                        <a class="twitter" mat-mini-fab ng-hide="profile.isvendor=='1'"
+                          href="https://twitter.com/share?url={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
+                          target="_blank">
+                          <i class="fa fa-twitter  "></i>
+                        </a>
+
+                        <a class="linkedin" mat-mini-fab ng-hide="profile.isvendor=='1'"
+                          href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
+                          target="_blank">
+                          <i class="fa fa-linkedin "></i>
+                        </a></div>
+
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class='row buttonwithnumber'>
+
+                        <button mat-raised-button color="primary" matBadge="{{item.allcandidate}}"
+                          matBadgePosition="after" matBadgeColor="accent" class=" "
+                          (click)="filterdrbytab('My Candidates', 'all', item)" data-toggle="modal"
+                          data-target="#candidatesall">All
+                        </button>
+
+                        <button type="button" mat-raised-button color="primary" matBadge="{{item.underreview}}"
+                          matBadgePosition="after" matBadgeColor="accent" class=" "
+                          (click)="filterdrbytab('My Candidates', 'Under Review', item)" data-toggle="modal"
+                          data-target="#candidatesall">In Review/Referrals
+
+                        </button>
+                        <button mat-raised-button color="primary" matBadge="{{item.inprocess}}" matBadgePosition="after"
+                          matBadgeColor="accent" type="button" class="btnnew2 "
+                          (click)="filterdrbytab('My Candidates', 'In Process', item)" data-toggle="modal"
+                          data-target="#candidatesall">In process
+
+                        </button>
+                        <button mat-raised-button color="primary" matBadge="{{item.candidates_interview_count}}"
+                          matBadgePosition="after" matBadgeColor="accent" type="button" class="btnnew5 "
+                          (click)="filterdrbytab('My Candidates', 'isinterview', item)" data-toggle="modal"
+                          data-target="#candidatesall">Interview
+
+                        </button>
+                        <button mat-raised-button color="primary" matBadge="{{item.selectedcandidate}}"
+                          matBadgePosition="after" matBadgeColor="accent" type="button" class=" btnnew3  "
+                          (click)="filterdrbytab('My Candidates', 'Selected', item)" data-toggle="modal"
+                          data-target="#candidatesall"> Selected
+
+                        </button>
+                        <button mat-raised-button color="primary" matBadge="{{item.rejected}}" matBadgePosition="after"
+                          matBadgeColor="accent" type="button" class=" btnnew4 "
+                          (click)="filterdrbytab('My Candidates', 'Rejected', item)" data-toggle="modal"
+                          data-target="#candidatesall">Rejected
+
+                        </button>
+                      </div>
+
+                    </div>
+                    <div class="col-md-12" [hidden]="!item.responsibilityshow">
+                      <p class="htmlele">{{item.jobDescription}}</p>
+                    </div>
+
+                  </div>
+                </div>
               </div>
-          </div>
+            </div>
 
             <mat-card [hidden]='jobslist.length>0||isLoadingJobs'>
               No Data Found
@@ -609,12 +607,13 @@
 
 
                   <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-material" [rowData]="rowData"
-                    [columnDefs]="columnDefs" suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef"
-                    [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+                    [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
+                    [groupSelectsChildren]="true" paginationAutoPageSize='true'
                     (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
                     [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
                     [enableRangeSelection]="true" [getRowHeight]='getRowHeight' [pagination]="true"
-                    (gridReady)="onGridReady($event)">
+                    (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)"
+                    (rowClicked)="onRowClicked($event)">
                   </ag-grid-angular>
                   <div class="clearfix clear"></div>
                 </div>
@@ -680,7 +679,7 @@
         <div class="modal-dialog modal-lg" style="width:100%;">
           <div class="modal-content">
             <div class="modal-header">
-              <button aria-hidden="true" data-dismiss="modal" (click)="cancel()" class="close" type="button">×</button>
+              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
               <h4 class="modal-title">CVS</h4>
             </div>
             <div class="modal-body">
@@ -707,7 +706,7 @@
           <div class="modal-content">
             <div class="modal-header">
               <h4 class="modal-title">Submit cv to panel</h4>
-              <button aria-hidden="true" data-dismiss="modal" (click)="cancel()" class="close" type="button">×</button>
+              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
 
             </div>
             <div class="modal-body">
@@ -966,7 +965,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <button aria-hidden="true" data-dismiss="modal" (click)="cancel()" class="close" type="button">×</button>
+              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
               <h4 class="modal-title text-danger">Tracker Data</h4>
             </div>
 
@@ -1046,7 +1045,8 @@
 <app-call></app-call>
 
 <app-add-to-job></app-add-to-job>
-<app-add-note></app-add-note>
+<app-add-note [set_candidate_id]='candidate_id'></app-add-note>
 <app-add-candidate></app-add-candidate>
-<app-update-status></app-update-status>
-<app-activity></app-activity>
+<app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status>
+<app-activity [activities]="activities"></app-activity>
+<app-update-candidate [current_data]='currentData'></app-update-candidate>

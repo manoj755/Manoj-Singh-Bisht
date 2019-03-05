@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { DBService } from 'app/db.service';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { DBService } from '../../db.service';
+import { BehaviorSubject } from 'rxjs';
+declare var $: any;
 @Component({
   selector: 'app-update-status',
   templateUrl: './update-status.component.html',
@@ -8,18 +9,116 @@ import { DBService } from 'app/db.service';
 })
 export class UpdateStatusComponent implements OnInit {
 
-  commentstatus = {};
+  commentstatus: any = {};
+  showowner = false;
   managers = [];
+  status_id = 0;
+  current_row: any;
+  entityvar: any;
   currentstatusid = 0;
+  allstatus = false;
+  ajid = 0;
   currentstatusname = '';
+  @Input()
+  set set_status_row(row: any) {
+    if (row && row.status_id) {
+      this.status_id = row.status_id;
+      this.comment(row);
+      this.current_row = row;
+    }
+  }
+  @Input()
+  allstatusload = 0;
   statuses = [];
-  constructor(private db: DBService) { }
+  constructor(public db: DBService) {
+
+
+  }
 
   ngOnInit() {
+    this.loadmanagerid();
 
   }
-  updatestatuscommentmyjob(): void {
+
+  bindStatus(): void {
+
+
 
   }
+
+  comment(entity): void {
+    if (entity) {
+      this.entityvar = entity;
+    } else {
+      entity = this.entityvar;
+    }
+    if (this.allstatus) {
+      this.allstatusload = 1;
+    } else {
+      this.allstatusload = 0;
+    }
+
+    if (this.commentstatus.noemailset) {
+      this.commentstatus.noemail = 1;
+    } else {
+      this.commentstatus.noemail = 0;
+    }
+
+    debugger;
+    if (entity.recruiter_id == null) {
+      this.showowner = true;
+    } else {
+      this.showowner = false;
+    }
+    this.ajid = entity.ajid;
+    console.log(entity);
+    this.currentstatusid = entity.status_id;
+    this.currentstatusname = entity.display_name;
+    this.db.list('csr/' + entity.status_id, { allstatus: this.allstatusload }, (response): void => {
+      $('#business').hide();
+      $('#offerhide').hide();
+      this.statuses = response;
+      $('#commentstatus').modal('show');
+
+    });
+  }
+
+
+  updatestatuscommentmyjob(showpopup): any {
+    if (typeof showpopup === 'undefined') {
+      showpopup = true;
+    }
+
+    this.commentstatus.ajid = this.current_row.ajid;
+    // $scope.commentstatus.recruiterid=$scope.recruiterid;
+
+    this.db.store('csr/', this.commentstatus, (response): void => {
+      $('#commentstatus').modal('hide');
+      // $scope.filterdrbytab();
+      this.commentstatus = { ajid: 0 };
+      // $rootScope.notificationload();
+      // $scope.loadCandidate();
+      if (showpopup) {
+        this.db.showNotification('Status changed successfully.');
+      }
+    });
+  };
+
+  LoadCommentData(status_id) {
+
+  }
+
+
+
+
+
+  loadmanagerid(): void {
+
+    this.db.list('manager/', null, ((response): void => {
+      this.managers = response;
+
+
+    }));
+  };
 
 }

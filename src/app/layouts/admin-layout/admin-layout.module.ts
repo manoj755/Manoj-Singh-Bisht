@@ -73,6 +73,15 @@ import {
 import { AddNoteComponent } from '../../control/add-note/add-note.component';
 import { UpdateStatusComponent } from '../../control/update-status/update-status.component';
 import { ActivityComponent } from '../../control/activity/activity.component';
+import { UpdateCandidateComponent } from '../../control/update-candidate/update-candidate.component';
+
+import { NotfoundComponent } from '../../notfound/notfound.component';
+import { LogoutComponent } from '../../logout/logout.component';
+import { SmtpdetailsComponent } from '../../smtpdetails/smtpdetails.component';
+import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
+import { SettingsComponent } from '../../settings/settings.component';
+
+
 declare var $: any;
 
 // @dynamic
@@ -147,11 +156,13 @@ declare var $: any;
     RecruiterreportnewComponent,
     OpeningclientwiseComponent,
     CandidateMyJobComponent,
+    LoginComponent,
+    LogoutComponent,
+    NotfoundComponent,
     SmtpdetailsComponent,
-    CandidatestatusupdateComponent,
-    MessagelogComponent,
-    SmslogComponent
-
+    PageNotFoundComponent,
+    SettingsComponent,
+    UpdateCandidateComponent,
 
   ]
 })

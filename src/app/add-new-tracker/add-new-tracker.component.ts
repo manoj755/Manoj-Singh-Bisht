@@ -32,11 +32,11 @@ export class AddNewTrackerComponent implements OnInit {
       headerName: 'Action', field: 'id', suppressMenu: true,
       suppressSorting: true,
       template:
-        `<button type="button" data-action-type="edit" class="btn btn-success btn-sm">
+        `<button type='button' data-action-type='edit' class='btn btn-success btn-sm'>
          Edit
        </button>
 
-      <button type="button" data-action-type="delete" class="btn btn-danger btn-sm">
+      <button type='button' data-action-type='delete' class='btn btn-danger btn-sm'>
          Delete
       </button>`},
     {
@@ -52,7 +52,7 @@ export class AddNewTrackerComponent implements OnInit {
 
   rowData = [
   ];
-  constructor(private db: DBService) {
+  constructor(public db: DBService) {
     this.defaultColDef = {
       editable: true,
       enableRowGroup: true,
@@ -95,20 +95,20 @@ export class AddNewTrackerComponent implements OnInit {
 
   public onRowClicked(e) {
     if (e.event.target !== undefined) {
-      let data = e.data;
-      let actionType = e.event.target.getAttribute("data-action-type");
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
 
       switch (actionType) {
-        case "delete":
+        case 'delete':
           return this.onActionDeleteClick(data);
-        case "edit":
+        case 'edit':
           return this.onActionEditClick(data);
       }
     }
   }
 
   public onActionDeleteClick(data: any) {
-    console.log("View action clicked", data);
+    console.log('View action clicked', data);
   }
 
 
@@ -120,7 +120,7 @@ export class AddNewTrackerComponent implements OnInit {
   onActionEditClick(row): void {
 
     this.isEdit = false;
-    this.db.show("trackermaster/", row.id, ((response): void => {
+    this.db.show('trackermaster/', row.id, ((response): void => {
 
       this.isEdit = true;
       this.newtracker = response;
@@ -139,7 +139,7 @@ export class AddNewTrackerComponent implements OnInit {
   };
 
   newtrackerupdate(): void {
-    this.db.update("trackermaster/", this.newtracker.id, this.newtracker, ((response): void => {
+    this.db.update('trackermaster/', this.newtracker.id, this.newtracker, ((response): void => {
 
       this.LoadData();
       this.db.showMessage('Updated Successfully');
@@ -149,8 +149,8 @@ export class AddNewTrackerComponent implements OnInit {
 
   newtrackersave(): void {
 
-    //this.user.profilepic=this.user.profilepic[0];
-    this.db.store("trackermaster/", this.newtracker, ((response): void => {
+    // this.user.profilepic=this.user.profilepic[0];
+    this.db.store('trackermaster/', this.newtracker, ((response): void => {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();

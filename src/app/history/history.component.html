@@ -47,17 +47,17 @@
 
       <div class="form-group col-md-6">
         <div class="row">
-        <label class="col-md-3">Recruiter</label>
-        <div class="col-md-9">
-          <ng-select  (change)="LoadHistory()" n="Owner" [(ngModel)]="recruiter">
-            <ng-option value="{{db.profile.id}}">Self</ng-option>
-            <ng-option value="{{x.id}}" *ngFor="let x of managers">
-              {{x.name}}
-            </ng-option>
-          </ng-select>
+          <label class="col-md-3">Recruiter</label>
+          <div class="col-md-9">
+            <ng-select (change)="LoadHistory()" n="Owner" [(ngModel)]="recruiter">
+              <ng-option value="{{db.profile.id}}">Self</ng-option>
+              <ng-option value="{{x.id}}" *ngFor="let x of managers">
+                {{x.name}}
+              </ng-option>
+            </ng-select>
+          </div>
         </div>
       </div>
-      </div>
 
 
 
@@ -65,26 +65,11 @@
 
 
 
-    <button (click)="exportdat()">Export</button>
-    <ag-grid-angular
-    style="width: 1500px; height: 500px;"
-    class="ag-theme-material"
-    [rowData]="rowData"
-    [columnDefs]="columnDefs"
-    suppressCsvExport=false
-    [autoGroupColumnDef]="autoGroupColumnDef"
-  [suppressRowClickSelection]="true"
-  [groupSelectsChildren]="true"
-  paginationAutoPageSize='true'
-  (selectionChanged)="onSelectionChanged($event)"
-  [debug]="true"
-  [rowSelection]="rowSelection"
-  [rowGroupPanelShow]="rowGroupPanelShow"
-  [pivotPanelShow]="pivotPanelShow"
-  [enableRangeSelection]="true"
-  [pagination]="true"
-  (gridReady)="onGridReady($event)"
-    >
-</ag-grid-angular>
+      <button (click)="exportdat()">Export</button>
+      <ag-grid-angular style="width: 1500px; height: 500px;" class="ag-theme-material" [rowData]="rowData"
+        [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
+        [groupSelectsChildren]="true" paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)"
+        [debug]="true" [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)">
+      </ag-grid-angular>
+    </div>
   </div>
-</div>

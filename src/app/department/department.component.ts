@@ -52,7 +52,7 @@ export class DepartmentComponent implements OnInit {
 
   rowData = [
   ];
-  constructor(private db: DBService) {
+  constructor(public db: DBService) {
     this.defaultColDef = {
       editable: true,
       enableRowGroup: true,
@@ -95,8 +95,8 @@ export class DepartmentComponent implements OnInit {
 
   public onRowClicked(e) {
     if (e.event.target !== undefined) {
-      let data = e.data;
-      let actionType = e.event.target.getAttribute('data-action-type');
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
 
       switch (actionType) {
         case 'delete':

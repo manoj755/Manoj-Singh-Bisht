@@ -79,7 +79,7 @@
                         <div class="nav-tabs-navigation">
                             <div class="nav-tabs-wrapper">
                                 <span class="nav-tabs-title">New Reference</span>
-                                <ul class="nav nav-tabs" data-tabs="tabs">
+                                <ul  class="nav nav-tabs d-none" data-tabs="tabs">
                                     <li class="nav-item">
                                         <a mat-button class="nav-link active" href="#profile" data-toggle="tab">
                                             <i class="material-icons">bug_report</i> A
@@ -104,13 +104,13 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
-                            <div class="tab-pane active"  style='height:500px; overflow:auto;' id="profile">
+                            <div class="tab-pane active"  style='height:500px; overflow:auto; display: block !important;' id="profile">
                                 <table class="table">
                                     <tbody>
 
                                         <tr *ngFor="let x of notification" title="{{x.difference}} hour(s)">
                                                 <td>
-                                                        <div class="form-check">
+                                                        <div class="form-check d-none">
                                                             <label class="form-check-label">
                                                                 <input class="form-check-input" type="checkbox" value="" checked>
                                                                 <span class="form-check-sign">
@@ -124,7 +124,7 @@
                                                     class="Bold" > {{x.Job_title}}</a> <i    class="fa fa-star text-danger" ng-show="x.difference>72"></i> ->
                                                 <a href="#" style="color:gray; text-decoration: underline;" (click)="candidateshow(x.candiateid)">{{x.reference_name}}</a>
                                                 <span class="pull-right"> (<i>{{x.date}}</i>)</span> </td>
-                                                <td class="td-actions text-right">
+                                                <td class="td-actions text-right d-none">
                                                     <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                         <i class="material-icons">edit</i>
                                                     </button>
@@ -142,7 +142,7 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <div class="form-check">
+                                                <div class="form-check d-none">
                                                     <label class="form-check-label">
                                                         <input class="form-check-input" type="checkbox" value="" checked>
                                                         <span class="form-check-sign">
@@ -153,7 +153,7 @@
                                             </td>
                                             <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
                                             </td>
-                                            <td class="td-actions text-right">
+                                            <td class="td-actions text-right d-none">
                                                 <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
                                                     <i class="material-icons">edit</i>
                                                 </button>

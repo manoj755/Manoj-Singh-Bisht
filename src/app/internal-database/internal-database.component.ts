@@ -47,7 +47,7 @@ export class InternalDatabaseComponent implements OnInit {
   isPager = false;
   totalpage = [];
   pageSizes = [10, 20, 50, 100, 500, 1000, 5000, 10000, 50000];
-  constructor(private db: DBService) { }
+  constructor(public db: DBService) { }
 
   ngOnInit() {
     this.loadInternalData();
