@@ -1,29 +1,25 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
+{{rowData}} dd
+        <ag-grid-angular
+        style="width: 1500px; height: 500px;"
+        class="ag-theme-material"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        suppressCsvExport=false
+        [autoGroupColumnDef]="autoGroupColumnDef"
+      [suppressRowClickSelection]="true"
+      paginationAutoPageSize='true'
+      (selectionChanged)="onSelectionChanged($event)"
+      [debug]="true"
+      [rowSelection]="rowSelection"
+      [pagination]="true"
+      (gridReady)="onGridReady($event)"
 
-      <ag-grid-angular
-          style="width: 1500px; height: 500px;"
-          class="ag-theme-material"
-          [rowData]="rowData"
-          [columnDefs]="columnDefs"
-          suppressCsvExport=false
-          [autoGroupColumnDef]="autoGroupColumnDef"
-        [suppressRowClickSelection]="true"
-        [groupSelectsChildren]="true"
-        paginationAutoPageSize='true'
-        (selectionChanged)="onSelectionChanged($event)"
-        [debug]="true"
-        [rowSelection]="rowSelection"
-        [rowGroupPanelShow]="rowGroupPanelShow"
-        [pivotPanelShow]="pivotPanelShow"
-        [enableRangeSelection]="true"
-        [pagination]="true"
-        (gridReady)="onGridReady($event)"
-
-        (rowClicked)="onRowClicked($event)"
-          ></ag-grid-angular>
-           <br>
+      (rowClicked)="onRowClicked($event)"
+        ></ag-grid-angular>
+      <br>
       <div class="continer">
         <div class="col-md-10">
           <div class="wizard">
@@ -67,14 +63,10 @@
                   <h4>Select Tracker Fields:</h4>
 
 
-                  Search : <input  id='searchtracker' type="text"   class="form-control" placeholder="Quick Search"  [(ngModel)]="search.display_name"/>
+                  <!-- Search : <input id='searchtracker' type="text" class="form-control" placeholder="Quick Search"
+                    [(ngModel)]='search.display_name' /> -->
                   <div class="clear" style="clear:both;"></div>
 
-                  <!--                            <div class=" col-md-3"  *ngFor="let tr  of trackermaster|  orderBy:'display_name' | filter:search">
-
-                                      <div class="checkbox">
-                                      <label><input type="checkbox" ng-checked="tr.selected" ng-change='tr.selected=!tr.selected' [(ngModel)]='dd'/><span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>{{tr.display_name}} <b class=" badge badge-danger" *ngIf="tr.is_job_specific=='1'">JS</b></label>
-                                      </div></div>-->
                   <div class="col-md-6"> <button type="submit" class="btn  btn-raised btn-primary validate"
                       tar="#trackermessage" (click)="trackersave()">Select</button>
                   </div>
@@ -91,87 +83,86 @@
           </div>
         </div>
       </div>
-        <div class="col-md-12">
+      <div class="col-md-12">
 
 
-          <div class="panel panel-success">
-            <div class="panel-heading">Selected Fields of Panel</div>
-            <div class="panel-body">
-              <ul id="my-sort" class="sortable list-group" [(ngModel)]="tracker">
-                <!-- note the "track by" section. this is important so that it doesn't rebuild the list -->
-                <li class="list-group-item" *ngFor="let obj of trackerselected" data-index=""
-                  data-id="{{obj.id}}">
-                  {{obj.display_name}} <span class="pull-right"><button type="button" (click)="removetracker(obj)"
-                      class="glyphicon glyphicon-trash"
-                      style="background-color:red;color:white;margin-right: 10px;"></button><button type="button"
-                      (click)="Edit(obj)" class="glyphicon glyphicon-pencil"></button></span>
-                </li>
+        <div class="panel panel-success">
+          <div class="panel-heading">Selected Fields of Panel</div>
+          <div class="panel-body">
+            <ul id="my-sort" class="sortable list-group" >
+              <!-- note the "track by" section. this is important so that it doesn't rebuild the list -->
+              <li class="list-group-item" *ngFor="let obj of trackerselected" data-index="" data-id="{{obj.id}}">
+                {{obj.display_name}} <span class="pull-right"><button type="button" (click)="removetracker(obj)"
+                    class="glyphicon glyphicon-trash"
+                    style="background-color:red;color:white;margin-right: 10px;"></button><button type="button"
+                    (click)="Edit(obj)" class="glyphicon glyphicon-pencil"></button></span>
+              </li>
 
-              </ul>
-              <div class="alert alert-info" *ngIf='trackerselected.length===0'>Please select tracker fields and click
-                select button !</div>
-            </div>
+            </ul>
+            <div class="alert alert-info" *ngIf='trackerselected.length===0'>Please select tracker fields and click
+              select button !</div>
           </div>
         </div>
+      </div>
 
 
 
 
 
 
-        <div class="col-md-12">
-          <div class="box box-primary">
-            <div class="box-body">
+      <div class="col-md-12">
+        <div class="box box-primary">
+          <div class="box-body">
 
 
-              <div class="box-title">
+            <div class="box-title">
 
-                <div class="tab-content">
+              <div class="tab-content">
 
-                  <div class="form-group" id="trackermessage">
-                    <label class="col-md-4">Tracker name:</label>
-                    <div class="col-md-8">
-                      <!--                                                <label>{{trackermessage.display_name}}</label>-->
-                      <input type="text" class="form-control e" id="tname" n="Tracker Name" validate
-                        [(ngModel)]="trackermessage.tracker_name">
+                <div class="form-group" id="trackermessage">
+                  <label class="col-md-4">Tracker name:</label>
+                  <div class="col-md-8">
+                    <!--                                                <label>{{trackermessage.display_name}}</label>-->
+                    <input type="text" class="form-control e" id="tname" n="Tracker Name" validate
+                      [(ngModel)]="trackermessage.tracker_name">
 
-
-
-                    </div>
-
-
-                  </div><br>
-                  <hr>
-
-                  <div class="form-group">
-                    <div class="col-md-10">
-                      <button type="button" ng-hide="isEdit" class="btn  btn-raised btn-primary validate"
-                        tar="#trackermessage" (click)="submittrackersave(obj)">Submit</button>
-                      <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
-                        (click)="trackerupdate(obj)">Update</button>
-                      <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
-                        (click)="back()">Back</button>
-
-                    </div>
 
 
                   </div>
-                  <br>
+
+
+                </div><br>
+                <hr>
+
+                <div class="form-group">
+                  <div class="col-md-10">
+                    <button type="button" ng-hide="isEdit" class="btn  btn-raised btn-primary validate"
+                      tar="#trackermessage" (click)="submittrackersave(obj)">Submit</button>
+                    <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
+                      (click)="trackerupdate(obj)">Update</button>
+                    <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
+                      (click)="back()">Back</button>
+
+                  </div>
+
 
                 </div>
-                <br><br>
-              </div>
+                <br>
 
+              </div>
+              <br><br>
             </div>
+
           </div>
         </div>
-
-
-
-
-
-
-
       </div>
+
+
+
+
+
+
+
     </div>
   </div>
+</div>
