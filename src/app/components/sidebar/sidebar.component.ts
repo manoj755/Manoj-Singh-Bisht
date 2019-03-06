@@ -46,6 +46,9 @@ export const ROUTES: RouteInfo[] = [
   { path: '/users', title: 'Users', icon: 'person', class: '' },
   { path: '/channel', title: 'Channel', icon: 'person', class: '' },
   { path: '/billing', title: 'Billing', icon: 'person', class: '' },
+  { path: '/smtpdetails', title: 'Smtp Details', icon: 'person', class: '' },
+  { path: '/candidatestatusupdate', title: 'Candidate Status Update', icon: 'person', class: '' },
+
   { path: '/messagelog', title: 'Message Log', icon: 'person', class: '' },
   { path: '/smslog', title: 'Sms Log', icon: 'person', class: '' },
 
