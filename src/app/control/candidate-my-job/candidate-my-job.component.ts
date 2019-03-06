@@ -27,7 +27,7 @@ export class CandidateMyJobComponent implements ICellRendererAngularComp {
   }
 
   activity(row): void {
-    debugger;
+
     this.rowdata.emit(row);
     $('#activity').modal('show');
 

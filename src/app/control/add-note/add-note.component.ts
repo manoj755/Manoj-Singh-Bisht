@@ -52,7 +52,6 @@ export class AddNoteComponent implements OnInit {
         this.pp = this.db.rooturi + 'profile/';
         this.gridCandidateNotes = response;
       } catch (e) {
-        console.info(e);
       }
 
     });

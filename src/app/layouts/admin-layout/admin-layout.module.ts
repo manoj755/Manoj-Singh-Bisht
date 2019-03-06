@@ -66,6 +66,7 @@ import {
   MatAutocompleteModule,
   MatTabsModule,
   MatBadgeModule,
+  MatDatepickerModule,
 
 
 } from '@angular/material';
@@ -77,9 +78,10 @@ import { UpdateCandidateComponent } from '../../control/update-candidate/update-
 
 import { NotfoundComponent } from '../../notfound/notfound.component';
 import { LogoutComponent } from '../../logout/logout.component';
-import { SmtpdetailsComponent } from '../../smtpdetails/smtpdetails.component';
+
 import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 import { SettingsComponent } from '../../settings/settings.component';
+
 
 
 declare var $: any;
@@ -107,6 +109,7 @@ declare var $: any;
     MatAutocompleteModule,
     NgSelectModule,
     MatTabsModule,
+    MatDatepickerModule,
     AgGridModule.withComponents([
 
       CandidateMyJobComponent,
@@ -163,6 +166,11 @@ declare var $: any;
     PageNotFoundComponent,
     SettingsComponent,
     UpdateCandidateComponent,
+    SmtpdetailsComponent,
+    CandidatestatusupdateComponent,
+    MessagelogComponent,
+    SmslogComponent,
+
 
   ]
 })
