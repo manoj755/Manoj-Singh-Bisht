@@ -122,7 +122,7 @@
                                                     <td>
                                                 <a  href="#" data-toggle="modal" data-target="#showreference"  (click)="loadreferrence(x.job_id)"
                                                     class="Bold" > {{x.Job_title}}</a> <i    class="fa fa-star text-danger" ng-show="x.difference>72"></i> ->
-                                                <a href="#" style="color:gray; text-decoration: underline;" (click)="candidateshow(x.candiateid)">{{x.reference_name}}</a>
+                                                <span   style="color:gray; text-decoration: underline;" (click)="candidateshow(x)">{{x.reference_name}}</span>
                                                 <span class="pull-right"> (<i>{{x.date}}</i>)</span> </td>
                                                 <td class="td-actions text-right d-none">
                                                     <button mat-raised-button type="button" matTooltip="Edit Task" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm btn-just-icon">
@@ -566,3 +566,4 @@
 
   </div>
 </div>
+<app-update-candidate [current_data]='currentData'></app-update-candidate>

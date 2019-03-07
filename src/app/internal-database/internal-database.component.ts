@@ -29,7 +29,7 @@ export class InternalDatabaseComponent implements OnInit {
   private pivotPanelShow;
   columnDefs = [
     { headerName: 'Candidate Name', field: 'candidateName', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
-    {headerNmae: 'CurrentDesignation', field: 'currentDesignation', sortable: true, filter: true},
+    { headerNmae: 'CurrentDesignation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Email', field: 'email', sortable: true, filter: true },
     { headerName: 'Qualification', field: 'qualification', sortable: true, filter: true },
     { headerName: 'Mobile', field: 'mobileNo', sortable: true, filter: true },
@@ -41,6 +41,7 @@ export class InternalDatabaseComponent implements OnInit {
   rowData = [
 
   ];
+  allids = [];
   page = 1;
   pageSize = 50;
   searchText = '';
@@ -88,7 +89,9 @@ export class InternalDatabaseComponent implements OnInit {
     this.gridApi.exportDataAsCsv();
   }
   onSelectionChanged(event) {
-     this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
+
+    this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
+
 
     // window.alert('selection changed, ' + rowCount + ' rows selected');
   }

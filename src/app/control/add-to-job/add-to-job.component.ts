@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { FormControl } from '@angular/forms';
 @Component({
@@ -21,6 +21,8 @@ export class AddToJobComponent implements OnInit {
   selectedCarId: any;
   emailselected: any = {};
   smsselected: any = {};
+  @Input()
+  allids = [];
   // filteredOptions = ['first', 'second', 'three'];
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
@@ -43,7 +45,7 @@ export class AddToJobComponent implements OnInit {
   }
   addtojobcandidates(): void {
 
-    const allrow = this.db.getIDs(this.db.nodetype);
+    const allrow = this.allids;
 
     if (allrow.length === 0) {
       this.db.showMessage('Please select candidates');

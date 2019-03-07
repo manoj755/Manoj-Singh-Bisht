@@ -14,6 +14,7 @@ export class HistoryComponent implements OnInit {
   private emailselected = {};
   private gridApi;
   recruiter;
+  allids = [];
   private gridColumnApi;
   managers = [];
   defaultColDef: any;
@@ -82,7 +83,7 @@ export class HistoryComponent implements OnInit {
     this.gridApi.exportDataAsCsv();
   }
   onSelectionChanged(event) {
-    this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
+    this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
 
   }
 

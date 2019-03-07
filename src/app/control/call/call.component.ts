@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { FormControl } from '@angular/forms';
 @Component({
@@ -7,6 +7,8 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./call.component.scss']
 })
 export class CallComponent implements OnInit {
+  @Input()
+  allids = [];
   clients = [];
   jobslistbyclientsaddtojob = [];
   managers = [];
@@ -43,7 +45,7 @@ export class CallComponent implements OnInit {
   }
   sendcalltocandidates(): void {
 
-    const allrow = this.db.getIDs(this.db.nodetype);
+    const allrow = this.allids;
 
     if (allrow.length === 0) {
       this.db.showMessage('Please select candidates');
