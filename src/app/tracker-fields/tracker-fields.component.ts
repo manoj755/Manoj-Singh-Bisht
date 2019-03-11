@@ -16,10 +16,9 @@ export class TrackerFieldsComponent implements OnInit {
   trackerselected_temp = [];
   trackermaster = [];
   trackerdata: any;
-  rowdata = [];
+  public rowdata = [{ 1: 3 }, { 3: 3 }];
   tracker: any;
-  search: any = { display_name: '' };
-
+  search = { display_name: 'ac' };
   private smsselected = {};
   private emailselected = {};
   private gridApi;
@@ -30,10 +29,11 @@ export class TrackerFieldsComponent implements OnInit {
   private rowSelection;
   private rowGroupPanelShow;
   private pivotPanelShow;
+
   columnDefs = [
     {
       headerName: 'Action', field: 'id', suppressMenu: true,
-      suppressSorting: true,
+      sortable: false,
       template:
         `<button type="button" data-action-type="edit" class="btn btn-success btn-sm">
          Edit
@@ -43,7 +43,7 @@ export class TrackerFieldsComponent implements OnInit {
          Delete
       </button>`},
 
-    { headerName: 'tracker_name', field: 'tracker_name', sortable: true, filter: true },
+    { headerName: 'Tracker Name', field: 'tracker_name', sortable: true, filter: true },
 
     { headerName: 'Created at', field: 'created_at', sortable: true, filter: true },
     { headerName: 'Updated at', field: 'updated_at', sortable: true, filter: true },
@@ -69,7 +69,7 @@ export class TrackerFieldsComponent implements OnInit {
 
   ngOnInit() {
     this.loadTrackerMaster();
-    this.getlist()
+    // this.getlist()
   }
 
   back(): void {
@@ -171,6 +171,8 @@ export class TrackerFieldsComponent implements OnInit {
 
       try {
         this.rowdata = response;
+        console.log(this.rowdata);
+
       } catch (e) {
       }
 

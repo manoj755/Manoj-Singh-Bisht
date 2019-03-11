@@ -42,6 +42,7 @@ export class NewJobComponent implements OnInit {
   current_job_id = 0;
   suggestionlist = [];
   locationtype = '';
+  //jobtype= '';
 
   t = null;
   clientdetails = [];

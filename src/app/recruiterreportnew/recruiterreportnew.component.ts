@@ -35,10 +35,14 @@ export class RecruiterreportnewComponent implements OnInit {
   gridTotalProcessCandidate: any;
   user: any;
   job: any;
+  loaddata = false;
   update: any;
+  showchart = false;
+  clientreport: any;
+  clientreportpie: any;
   updatedd: any;
   jobslistbyclients: any;
-  myjob = { client_detail_id: 0 };
+  myjob = { client_detail_id: 0, job_id: 0 };
   clientdetails: any;
   gridTotalCandidate = { data: null };
   constructor(private db: DBService) { }
@@ -60,6 +64,145 @@ export class RecruiterreportnewComponent implements OnInit {
       }
     });
   }
+  clientchange(): void {
+    this.getlistmain();
+    this.getcandidatebyclient();
+  }
+
+  getlistmain(): void {
+
+    this.db.hl();
+    this.db.list('recruiterreportApi/', this.myjob, (response): void => {
+      let jobshow = false;
+      if (this.myjob.job_id === 0) {
+        jobshow = true;
+      }
+
+      const xval = ['x'];
+
+      // var Total_Jobs = ['Total Jobs'];
+
+      const Total_Candidate = ['Total'];
+      const selected_Candidate = ['Selected'];
+      const Rejected_Candidate = ['Rejected'];
+      const In_Process_Candidate = ['In Process'];
+      const UnderReview = ['Under Review'];
+
+
+      for (const i in response) {
+        if (response[i]) {
+          if (jobshow) {
+            xval.push(response[i].recruiter_Name + '( Jobs : ' + response[i].Total_Jobs + ')');
+          } else {
+
+          }
+          //                Total_Jobs.push(response[i].Total_Jobs);
+          Total_Candidate.push(response[i].Total_Candidate);
+          selected_Candidate.push(response[i].selected_Candidate);
+          Rejected_Candidate.push(response[i].Rejected_Candidate);
+          In_Process_Candidate.push(response[i].In_Process_Candidate);
+          UnderReview.push(response[i].UnderReview);
+        }
+      }
+      const Columns = [];
+      const ColumnsPie = [];
+      Columns.push(xval);
+      //            if (jobshow) {
+      //
+      //                Columns.push(Total_Jobs);
+      //            }
+
+      Columns.push(Total_Candidate);
+
+      Columns.push(selected_Candidate);
+      Columns.push(Rejected_Candidate);
+      Columns.push(In_Process_Candidate);
+      Columns.push(UnderReview);
+
+      ColumnsPie.push(selected_Candidate);
+      ColumnsPie.push(Rejected_Candidate);
+      ColumnsPie.push(In_Process_Candidate);
+      ColumnsPie.push(UnderReview);
+
+
+
+      if (this.loaddata) {
+        this.clientreport.load({
+          unload: true,
+          columns: Columns
+        });
+        this.clientreportpie.load({
+          unload: true,
+          columns: ColumnsPie
+        });
+      } else {
+        this.clientreport = c3.generate({
+          bindto: '#clientReport',
+          data: {
+            x: 'x',
+            columns: Columns,
+            type: 'bar'
+          },
+          bar: {
+            width: {
+              ratio: 0.8 // this makes bar width 50% of length between ticks
+            }
+          },
+          axis: {
+            x: {
+              type: 'category',
+              tick: {
+                rotate: 75,
+                multiline: true
+              },
+              height: 150
+            }
+          }
+        });
+        this.clientreportpie = c3.generate({
+          bindto: '#clientReportpie',
+          data: {
+
+            columns: ColumnsPie,
+            type: 'pie'
+          },
+          bar: {
+            width: {
+              ratio: 0.8 // this makes bar width 50% of length between ticks
+            }
+          },
+          axis: {
+            x: {
+              type: 'category',
+              tick: {
+                rotate: 75,
+                multiline: false
+              },
+              height: 150
+            }
+          }
+        });
+
+        this.loaddata = true;
+      }
+      // Chart Design End
+
+      //            for (var i in response) {
+      //                for (var j in response[i]) {
+      //                    $scope.gridOptions.columnDefs.push({field:j});
+      //                }
+      //                break;
+      //            }
+
+
+      this.gridOptions.data = response;
+      this.db.sl();
+    }, (response): void => {
+      // $scope.token=response.statusText;
+      this.db.sl();
+    });
+  };
+
   refreshgrid(): void {
 
 
@@ -284,6 +427,10 @@ export class RecruiterreportnewComponent implements OnInit {
       this.jobslistbyclients = response;
     });
   };
+
+  onGridReady(event): void {
+
+  }
 
 
 

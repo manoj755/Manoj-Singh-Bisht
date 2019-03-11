@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DBService } from 'app/db.service';
-import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-my-job.component';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
@@ -10,22 +9,18 @@ import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-m
 export class HistoryComponent implements OnInit {
 
   title = 'app';
-  private smsselected = {};
-  private emailselected = {};
+  private smsselected={};
+  private emailselected={};
   private gridApi;
-  recruiter;
   private gridColumnApi;
-  managers = [];
-  defaultColDef: any;
-  rowSelection: any;
-  rowGroupPanelShow: any;
-  pivotPanelShow: any;
+
+  private autoGroupColumnDef;
+  private defaultColDef;
+  private rowSelection;
+  private rowGroupPanelShow;
+  private pivotPanelShow;
   columnDefs = [
-    {
-      headerName: 'Job Name',
-      field: 'job_name', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true
-    },
-    { headerName: 'activity', field: 'id', cellRendererFramework: CandidateMyJobComponent },
+    { headerName: 'Job Name', field: 'job_name', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
     { headerName: 'Candidate Name', field: 'candidateName', sortable: true, filter: true },
     { headerName: 'Current Designation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
@@ -36,11 +31,11 @@ export class HistoryComponent implements OnInit {
     { headerName: 'Salary', field: 'currentSalary', sortable: true, filter: true },
     { headerName: 'Recruiter Name', field: 'recruitername', sortable: true, filter: true },
     { headerName: 'CV Status', field: 'cvstatus', sortable: true, filter: true },
-  ];
+ ];
 
   rowData = [
   ];
-  constructor(public db: DBService) {
+  constructor(private db: DBService) {
     this.defaultColDef = {
       editable: true,
       enableRowGroup: true,
@@ -57,16 +52,10 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit() {
     this.LoadHistory();
-    this.loadmanagerid();
   }
 
   LoadHistory(): void {
-    let data = {};
-    if (this.recruiter) {
-      data = { recruiter: this.recruiter };
-
-    }
-    this.db.list('history/', data, ((response): void => {
+    this.db.list('history/', {  }, ((response): void => {
       this.rowData = response;
 
 
@@ -82,16 +71,8 @@ export class HistoryComponent implements OnInit {
     this.gridApi.exportDataAsCsv();
   }
   onSelectionChanged(event) {
-    this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
-
+    console.log(event.api.getSelectedNodes());
+    const rowCount = event.api.getSelectedNodes().length;
+    window.alert('selection changed, ' + rowCount + ' rows selected');
   }
-
-  loadmanagerid(): void {
-
-    this.db.list('manager/', null, ((response): void => {
-      this.managers = response;
-
-
-    }));
-  };
 }

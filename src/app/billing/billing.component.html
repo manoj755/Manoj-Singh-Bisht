@@ -21,6 +21,7 @@
                                     </li>-->
 
               </ul>
+
               <div id="exTab3" class="box box-primary" *ngIf="topay">
                 <ul class="nav nav-pills">
                   <li class="active">
@@ -113,21 +114,21 @@
                               </h4>
                             </i>
                           </div>
-                          <ul class="nav " style="padding: 10px;">
-                            <li>
+                          <mat-card class="nav " style="padding: 10px;">
+
                               <!--                                                                <a href="#">-->
-                              <i class="fa fa-male fa-lg"><span class="spanclass"
-                                  style="white-space: nowrap; overflow: hidden">{{inprocess.JobTitle}}</span></i><br>
-                              <i class="fa fa-globe fa-lg"><span
-                                  class="spanclass">{{joinedcandidate.client_name}}</span></i><br>
-                              <i class="fa fa-money fa-lg"><span
-                                  class="spanclass">{{inprocess.billablectc}}</span></i><br>
-                              <i class="fa fa-calendar fa-lg"><span
-                                  class="spanclass">{{inprocess.joiningdate}}</span></i>
+                              <mat-card-title class="fa fa-male fa-lg"><span class="spanclass"
+                                  style="white-space: nowrap; overflow: hidden">{{inprocess.JobTitle}}</span></mat-card-title><br>
+                              <mat-card-content class="fa fa-globe fa-lg"><span
+                                  class="spanclass">{{joinedcandidate.client_name}}</span></mat-card-content><br>
+                              <mat-card-content class="fa fa-money fa-lg"><span
+                                  class="spanclass">{{inprocess.billablectc}}</span></mat-card-content><br>
+                              <mat-card-content class="fa fa-calendar fa-lg"><span
+                                  class="spanclass">{{inprocess.joiningdate}}</span></mat-card-content>
 
                               <!--                                                                </a>-->
-                            </li>
-                          </ul>
+
+                          </mat-card>
 
 
                           <div class="card-footer">

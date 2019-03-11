@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 declare var $: any;
 @Component({
   selector: 'app-billing',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
-import { Router } from '@angular/router';
-import { DBService } from '../db.service';
+import { Router } from "@angular/router";
+import { DBService } from "../db.service";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -15,17 +15,17 @@ export class DashboardComponent implements OnInit {
   notification_success = 0;
   notification_default = 0;
   notification_warning = 0;
-  notification: any = [];
-  myjob: any = [];
-  jobslistforref: any = [];
-  jobportalurl: any = [];
-  setjobandreferencetemp: any = {};
-  profile: any = {};
+  notification:any=[];
+  myjob:any=[];
+  jobslistforref:any=[];
+  jobportalurl:any=[];
+  setjobandreferencetemp:any={};
+  profile:any={};
   in_process_referrals: any = [];
-  smsmessagetemplatesforref: any = [];
-  emailmessagetemplatesforref: any = [];
-  mp: any = {};
-  constructor(private router: Router, public db: DBService) { }
+  smsmessagetemplatesforref:any=[];
+  emailmessagetemplatesforref:any=[];
+  mp:any={};
+  constructor(private router: Router, private db: DBService) { }
   startAnimationForLineChart(chart) {
     let seq: any, delays: any, durations: any;
     seq = 0;
@@ -90,9 +90,6 @@ export class DashboardComponent implements OnInit {
   currentdate = function () {
     return new Date();
   };
-  setjobandreferencetempmpfunction(): void {
-
-  }
   highlight = function (diff) {
 
     if (diff < 3) {
@@ -108,26 +105,26 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  naukriclick(url: any): void {
+  naukriclick(url:any):void {
     debugger;
     this.jobportalurl = url;
-    this.db.list("addnewjob/", { clientId: this.myjob.client_detail_id }, ((response): void => {
-      this.jobslistforref = response;
+    this.db.list("addnewjob/", {clientId: this.myjob.client_detail_id}, ((response): void => {
+        this.jobslistforref = response;
 
-    })
+    } )
     );
-    this.db.list("smsmessagetemplate/", null, ((response): void => {
-      this.smsmessagetemplatesforref = response;
+    this.db.list("smsmessagetemplate/", null, ((response): void => { 
+        this.smsmessagetemplatesforref = response;
     }));
     //Email-Message-Template
-    this.db.list("emailmessagetemplate/", null, ((response): void => {
-      this.emailmessagetemplatesforref = response;
+    this.db.list("emailmessagetemplate/", null,((response): void => { 
+        this.emailmessagetemplatesforref = response;
     }));
-  }
+}
   bindNewReference(): void {
     this.db.list('in_process_referral', null, ((response): void => {
-      const datainprocess = response;
-      for (const i in datainprocess) {
+      var datainprocess = response;
+      for (var i in datainprocess) {
         datainprocess[i].diff = this.daydiff(datainprocess[i].last_action_date, this.currentdate());
       }
       this.in_process_referrals = datainprocess;
@@ -136,8 +133,8 @@ export class DashboardComponent implements OnInit {
       this.notification_success = 0;
       this.notification_default = 0;
       this.notification_warning = 0;
-      for (const i in datainprocess) {
-        const diff = datainprocess[i].diff;
+      for (var i in datainprocess) {
+        var diff = datainprocess[i].diff;
 
         if (diff < 3) {
           this.notification_success = this.notification_success + 1;
@@ -160,13 +157,13 @@ export class DashboardComponent implements OnInit {
     })
     );
   }
-  internaldata(): void {
+  internaldata():void {
 
     // $('').modal('show');
-  };
+};
   getnotification(): void {
     this.db.list('getnotification', null, ((response): void => {
-      this.notification = response;
+      this.notification =response;
 
     }), ((response): void => {
 
@@ -199,7 +196,7 @@ export class DashboardComponent implements OnInit {
       chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
     }
 
-    const dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+    var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
 
     this.startAnimationForLineChart(dailySalesChart);
 
@@ -222,7 +219,7 @@ export class DashboardComponent implements OnInit {
       chartPadding: { top: 0, right: 0, bottom: 0, left: 0 }
     }
 
-    const completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+    var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
 
     // start animation for the Completed Tasks Chart - Line Chart
     this.startAnimationForLineChart(completedTasksChart);
@@ -231,14 +228,14 @@ export class DashboardComponent implements OnInit {
 
     /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
 
-    const datawebsiteViewsChart = {
+    var datawebsiteViewsChart = {
       labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
       series: [
         [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
 
       ]
     };
-    const optionswebsiteViewsChart = {
+    var optionswebsiteViewsChart = {
       axisX: {
         showGrid: false
       },
@@ -246,7 +243,7 @@ export class DashboardComponent implements OnInit {
       high: 1000,
       chartPadding: { top: 0, right: 5, bottom: 0, left: 0 }
     };
-    const responsiveOptions: any[] = [
+    var responsiveOptions: any[] = [
       ['screen and (max-width: 640px)', {
         seriesBarDistance: 5,
         axisX: {
@@ -256,7 +253,7 @@ export class DashboardComponent implements OnInit {
         }
       }]
     ];
-    const websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
+    var websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
 
     //start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);

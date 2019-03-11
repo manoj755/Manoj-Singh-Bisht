@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DBService } from '../db.service';
-import { UpdateStatusComponent } from '../control/update-status/update-status.component';
 import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-my-job.component';
 declare var $: any;
 @Component({
@@ -9,34 +8,18 @@ declare var $: any;
   styleUrls: ['./my-job.component.scss']
 })
 export class MyJobComponent implements OnInit {
-  @ViewChild(UpdateStatusComponent)
-  updatestatuscomponent: UpdateStatusComponent;
-  candidate_id = 0;
   private smsselected = {};
   private emailselected = {};
   private gridApi;
-  currentData = {};
   recruiter;
-  allstatusload = 0;
-  status_id = 0;
   displaydd = 'Job';
-  gridColumnApi;
+  private gridColumnApi;
   managers = [];
-  autoGroupColumnDef;
-  defaultColDef;
-  rowSelection;
-  rowGroupPanelShow;
-  pivotPanelShow;
-  vendorSearch: any;
-  departments = [];
-  prmSubject = '';
-  prmMessagge = '';
-  trackerno: any;
-  filteragain: any;
-  filterbycandidate: any;
-  status_row: any;
-  managerSearch: any;
-  selectedmanager: any;
+  private autoGroupColumnDef;
+  private defaultColDef;
+  private rowSelection;
+  private rowGroupPanelShow;
+  private pivotPanelShow;
   columnDefs = [
     {
       headerName: 'activity', sortable: false, filter: true, headerCheckboxSelection: true, checkboxSelection: true,
@@ -96,10 +79,7 @@ export class MyJobComponent implements OnInit {
   mainprocess: any;
   $url = 'http://www.passivereferral.com/refer/';
   $urlapply = 'http://www.passivereferral.com/apply/';
-  agreed = 0;
-  disagreed = 0;
-  constructor(public db: DBService) { }
-
+  constructor(private db: DBService) { }
 
   ngOnInit() {
     this.bindJob();
@@ -179,7 +159,7 @@ export class MyJobComponent implements OnInit {
   };
 
 
-  submitcv(download?): void {
+  submitcv(download): void {
     if (download) {
       this.downloadcv = true;
     } else {
@@ -355,13 +335,7 @@ export class MyJobComponent implements OnInit {
 
     this.assignjobClickToVendor();
   };
-  cvformdatapost(): void {
-
-  }
-  vendorsave(): void {
-
-  }
-  filterdrbytab(mainprocess?, childprocess?, jobitem?): void {
+  filterdrbytab(mainprocess, childprocess, jobitem): void {
     this.isinterview = 9;
     if (childprocess === 'isinterview') {
       childprocess = 'all';
@@ -443,95 +417,6 @@ export class MyJobComponent implements OnInit {
     }));
   };
 
-
-  public onRowClicked(e) {
-    if (e.event.target !== undefined) {
-      const data = e.data;
-      const actionType = e.event.target.getAttribute('data-action-type');
-
-
-      switch (actionType) {
-        case 'activity':
-          return this.activityclick(data);
-        case 'comment':
-          return this.onCommentClick(data);
-        case 'notes':
-          return this.onNotesClick(data);
-        case 'candidateshow':
-          return this.oncandidateshowClick(data);
-      }
-    }
-  }
-  public oncandidateshowClick(data: any) {
-
-    this.currentData = data;
-  }
-
-  public onNotesClick(data: any) {
-
-    this.candidate_id = data.id;
-  }
-
-  public onCommentClick(data: any) {
-
-    this.allstatusload = 0;
-    debugger;
-    this.status_row = data;
-    // this.updatestatuscomponent.status_id = 22;
-    // if (entity) {
-    //   $scope.entityvar = entity;
-    // } else {
-    //   entity = $scope.entityvar;
-    // }
-    // if ($scope.allstatus) {
-    //   $scope.allstatusload = 1;
-    // } else {
-    //   $scope.allstatusload = 0;
-    // }
-
-    // debugger;
-    // if (entity.recruiter_id == null) {
-    //   $scope.showowner = true;
-    // } else {
-    //   $scope.showowner = false;
-    // }
-    // $scope.ajid = entity.ajid;
-    // $rootScope.ajid = entity.ajid;
-    // console.log(entity);
-    // $scope.currentstatusid = entity.status_id;
-    // $scope.currentstatusname = entity.display_name;
-    // db.list('csr/' + entity.status_id, { allstatus: $scope.allstatusload }, function (response) {
-    //   $("#business").hide();
-    //   $("#offerhide").hide();
-    //   $scope.statuses = response.data;
-    //   $('#commentstatus').modal('show');
-    //   //            $mdDialog.show({
-    //   //                contentElement: '#commentstatus',
-    //   //                parent: angular.element(document.body),
-    //   //                clickOutsideToClose: true,
-    //   //                fullscreen: false,
-    //   //                disableParentScroll: false
-    //   //
-    //   //            });
-    // });
-
-
-
-  }
-
-  public activityclick(data: any) {
-    this.db.show('addtojob/activity/', data.ajid, (response): void => {
-      this.activities = response;
-
-    });
-
-
-  }
-
-
-
-  onActionEditClick(row): void {
-  }
   selectdeselect(event, item): void {
 
     if (!event.ctrlKey) {
@@ -627,9 +512,9 @@ export class MyJobComponent implements OnInit {
         job_id: job_id
       }, ((response): void => {
         const recruiterunderjoblist = response;
-        for (const k in recruiterunderjoblist) {
-
-          for (const m in this.managers) {
+        for (let k in recruiterunderjoblist) {
+          debugger;
+          for (let m in this.managers) {
             if (recruiterunderjoblist[k].recruiter_id == this.managers[m].id) {
               this.managers[m].selected = true;
               break;
@@ -677,12 +562,6 @@ export class MyJobComponent implements OnInit {
   };
   openaddvendor(): void {
     $('#addvendor').modal('show');
-  }
-
-  bindrowdata(data: any) {
-    debugger;
-    alert(data);
-
   }
 
   assignjob(): void {
