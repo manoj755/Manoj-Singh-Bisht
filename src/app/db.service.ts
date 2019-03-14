@@ -125,7 +125,7 @@ export class DBService implements OnInit {
           from: from,
           align: align
         },
-        template: '<div style="z-index:9999;" data-notify="container" class="col-xl-4 col-lg-4 col-11 col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
+        template: '<div style="z-index:99999!important;" data-notify="container" class="col-xl-4 col-lg-4 col-11 zindex col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
           '<button mat-button  type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
           '<i class="material-icons" data-notify="icon">notifications</i> ' +
           '<span data-notify="title">{1}</span> ' +
@@ -161,7 +161,7 @@ export class DBService implements OnInit {
       action = 'Message';
     }
     if (durationMS === undefined) {
-      durationMS = 3000;
+      durationMS = 300000;
     }
     const snackBarRef = this.snackBar.open(message, action, {
       duration: durationMS,
