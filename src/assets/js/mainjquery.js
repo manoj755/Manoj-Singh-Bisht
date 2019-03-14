@@ -172,7 +172,7 @@ $(function () {
       offset = $(element).offset();
     }
     var width = $(element).width();
-    if (width > 400 || width < 200) {
+    if (width > 1000 || width < 200) {
       width = 300;
     }
     var leftOff = offset.left;
