@@ -33,3 +33,4 @@
 .web{/*web*/}
 .no{/*no*/}
 .loadingpr{ cursor: wait;}
+.cdk-overlay-container,.zindex{ z-index: 99999 !important;}
