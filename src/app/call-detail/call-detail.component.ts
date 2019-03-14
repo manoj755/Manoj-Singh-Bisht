@@ -107,8 +107,8 @@ export class CallDetailComponent implements OnInit {
   delete: any;
   clients: any;
   industries: [];
-  start_date: '2000-01-01';
-  end_date: number = Date.now();
+  //start_date: '2000-01-01';
+  //end_date: number = Date.now();
 
 
   childprocessnewvar: any;
@@ -124,7 +124,11 @@ export class CallDetailComponent implements OnInit {
   isLoadingJobs = false;
   $url = 'http://www.passivereferral.com/refer/';
   $urlapply = 'http://www.passivereferral.com/apply/';
-  constructor(public db: DBService) { }
+  today = new Date();
+  start_date = '';
+  constructor(public db: DBService) {
+    //this.start_date = formatDate(this.today, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
+  }
 
   ngOnInit() {
     this.bindJob();
@@ -140,6 +144,7 @@ export class CallDetailComponent implements OnInit {
     })
     );
   }
+
 
   callallfunction(): void {
     this.db.list('manager/', null, ((response): void => {
