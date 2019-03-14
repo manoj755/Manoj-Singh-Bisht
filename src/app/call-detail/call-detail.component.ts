@@ -133,7 +133,7 @@ export class CallDetailComponent implements OnInit {
   }
   bindJob(): void {
     this.isLoadingJobs = true;
-    this.db.list('joblist/', {}, ((response): void => {
+    this.db.list('joblistbycall/', {}, ((response): void => {
       this.jobslist = response;
       this.isLoadingJobs = false;
 

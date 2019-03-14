@@ -17,6 +17,7 @@ import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { LoginComponent } from '../../login/login.component';
+import { LogoutComponent } from '../../logout/logout.component';
 import { MyJobComponent } from '../../my-job/my-job.component';
 import { BillingComponent } from '../../billing/billing.component';
 import { HistoryComponent } from '../../history/history.component';
@@ -77,7 +78,6 @@ import { ActivityComponent } from '../../control/activity/activity.component';
 import { UpdateCandidateComponent } from '../../control/update-candidate/update-candidate.component';
 
 import { NotfoundComponent } from '../../notfound/notfound.component';
-import { LogoutComponent } from '../../logout/logout.component';
 
 import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 import { SettingsComponent } from '../../settings/settings.component';
@@ -159,7 +159,7 @@ declare var $: any;
     RecruiterreportnewComponent,
     OpeningclientwiseComponent,
     CandidateMyJobComponent,
-   
+
     PageNotFoundComponent,
     SettingsComponent,
     UpdateCandidateComponent,
@@ -167,6 +167,7 @@ declare var $: any;
     CandidatestatusupdateComponent,
     MessagelogComponent,
     SmslogComponent,
+    LogoutComponent,
 
 
   ]
