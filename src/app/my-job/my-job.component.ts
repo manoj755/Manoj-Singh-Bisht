@@ -88,6 +88,10 @@ export class MyJobComponent implements OnInit {
 
 
   sendtrackermsg(download): void {
+    if (!$('.validate').validate('#myModal')) {
+      //  $.fn.showMessage('Please fill values');
+      return;
+    }
 
     if (download) {
       this.download = true;
@@ -217,7 +221,10 @@ export class MyJobComponent implements OnInit {
   };
 
   sendCvToPanel(): void {
-
+    if (!$('.validate').validate('#submit_cv_to_panel_status')) {
+      //  $.fn.showMessage('Please fill values');
+        return;
+      }
     const allrow = this.db.getIDs(this.db.nodetype);
 
     if (allrow.length === 0) {
@@ -340,6 +347,10 @@ export class MyJobComponent implements OnInit {
 
   }
   vendorsave(): void {
+    if (!$('.validate').validate('#addvendor')) {
+      //  $.fn.showMessage('Please fill values');
+        return;
+      }
     this.db.store('vendor/', this.vendornew, (response): void => {
       if (response.d === true) {
         alert(response.msg);
@@ -619,7 +630,7 @@ export class MyJobComponent implements OnInit {
   };
 
 
-  unassignjobtovendor(): void {
+  unassignjobtovendor() {
     const unassignjob = {
       'vendors': this.db.SelectedCheckbox(this.vendors),
       'jobs': this.db.SelectedCheckbox(this.jobslist)

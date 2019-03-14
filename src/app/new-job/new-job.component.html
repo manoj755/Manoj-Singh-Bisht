@@ -25,7 +25,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-md-12">
-                <div class="row" role="form" name="userForm">
+                <div class="row" role="form" name="userForm" id="mynewjob">
                   <div class="form-group col-md-6">
                     <label class="col-md-4 " select>Select a {{clientsdepartment}}:</label>
                     <div class="col-md-8">
@@ -110,7 +110,7 @@
                     <!--<input type="number" min="100000" max="5000000" id="minsalary" step="10000" class="form-control e" validate  n="Minimum Experience" [(ngModel)]="myjob.minimumSalary" name="minimumSalary" placeholder="From (Min 10000)" maxlength="10" />-->
                     <label class="col-md-4" Title><b>From</b> Lakhs</label>
                     <div class="col-md-8">
-                      <ng-select id="minimumSalaryOption" (change)="updatemaxsalary()" [(ngModel)]="minimumSalarylac"
+                      <ng-select class="e" id="minimumSalaryOption" (change)="updatemaxsalary()" [(ngModel)]="minimumSalarylac"
                         name="minimumSalary">
                         <ng-option [value]='opt' *ngFor="let opt of  minimumSalaryOption">{{opt}}</ng-option>
                       </ng-select>
@@ -120,7 +120,7 @@
                     <!--<input type="number" min="100000" max="5000000" id="minsalary" step="10000" class="form-control e" validate  n="Minimum Experience" [(ngModel)]="myjob.minimumSalary" name="minimumSalary" placeholder="From (Min 10000)" maxlength="10" />-->
                     <label class="col-md-4" Title>Thousands</label>
                     <div class="col-md-8">
-                      <ng-select id="minimumSalaryOptionink" name="minimumSalary" [(ngModel)]="minimumSalarythousand">
+                      <ng-select class="e" id="minimumSalaryOptionink" name="minimumSalary" [(ngModel)]="minimumSalarythousand">
                         <ng-option [value]='opt' *ngFor="let opt of  minimumSalaryOptionink">{{opt}}</ng-option>
                       </ng-select>
                     </div>
@@ -129,7 +129,7 @@
                     <!--<input type="number"  min="{{myjob.minimumSalary}}" min="100000" id="maxsalary" max="5000000" step="10000"  class="form-control e" validate n="Maximum Experience" [(ngModel)]="myjob.maximumSalary" name="maximumSalary" placeholder="To (Max 5000000)" maxlength="10" />-->
                     <label class="col-md-4" Title><b>To</b> Lakhs</label>
                     <div class="col-md-8">
-                      <ng-select id="maxsalary" validate n="Maximum salary" [(ngModel)]="maximumSalarylac"
+                      <ng-select class="e"  id="maxsalary" validate n="Maximum salary" [(ngModel)]="maximumSalarylac"
                         name="maximumSalary">
                         <ng-option [value]='opt' *ngFor="let opt of  maxSalaryOption" help="first select minimum value">{{opt}}
                         </ng-option>
@@ -140,7 +140,7 @@
                     <!--<input type="number"  min="{{myjob.minimumSalary}}" min="100000" id="maxsalary" max="5000000" step="10000"  class="form-control e" validate n="Maximum Experience" [(ngModel)]="myjob.maximumSalary" name="maximumSalary" placeholder="To (Max 5000000)" maxlength="10" />-->
                     <label class="col-md-4" Title>Thousands</label>
                     <div class="col-md-8">
-                      <ng-select name="maximumSalary" [(ngModel)]="maximumSalarythousand" id="maximumSalarythousand">
+                      <ng-select class="e"  name="maximumSalary" [(ngModel)]="maximumSalarythousand" id="maximumSalarythousand">
                         <ng-option [value]='opt' *ngFor="let opt of  maximumSalaryOptionink">{{opt}}
                         </ng-option>
                       </ng-select>
@@ -164,7 +164,7 @@
                     <label class="col-md-4" Referral>Referral Bonus:</label>
                     <div class="col-md-8">
                       <input type="number"
-                        class="form-control {{mp.hide_referral_bonus || profile.disable_crowd_sourcing=='1'?'':'e'}}"
+                        class="form-control e {{mp.hide_referral_bonus || profile.disable_crowd_sourcing=='1'?'':'e'}}"
                         min="2000" id='referralBonus' maxlength="5" validate n="Referral Bonus"
                         [(ngModel)]="myjob.referralBonus" placeholder="Bonus" name="referralBonus" />
 
@@ -177,7 +177,7 @@
                     <label class="col-md-4" Exprience>From Years</label>
                     <div class="col-md-8">
 
-                      <ng-select (change)="updatemaxexperience()" id="MinimumExperience" validate n="Minimum Experience"
+                      <ng-select class="e"  (change)="updatemaxexperience()" id="MinimumExperience" validate n="Minimum Experience"
                         [(ngModel)]="myjob.minimumExperience" name="minimumExperience">
                         <ng-option [value]='opt' *ngFor="let opt of  minexperience">{{opt}}</ng-option>
                       </ng-select>
@@ -188,7 +188,7 @@
                     <label class="col-md-4" Exprience>To Years</label>
                     <div class="col-md-8">
 
-                      <ng-select id="MaxExperience" validate n="Maximum Experience"
+                      <ng-select class="e"  id="MaxExperience" validate n="Maximum Experience"
                         [(ngModel)]="myjob.maximumExperience" name="maximumExperience">
                         <ng-option  [value]='opt' *ngFor="let opt of  maxexperience">{{opt}}</ng-option>
                       </ng-select>
@@ -200,7 +200,7 @@
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Title>Job Type</label>
                     <div class="col-md-8">
-                      <ng-select (change)="jobtype()" n="Job Type" [(ngModel)]='myjob.jobtype'>
+                      <ng-select class="e"  (change)="jobtype()" n="Job Type" [(ngModel)]='myjob.jobtype'>
                         <ng-option>Full Time</ng-option>
                         <ng-option>Internship</ng-option>
                         <ng-option>Contract</ng-option>
@@ -216,7 +216,7 @@
                       <label class="col-md-4">Internship duration</label>
                       <div class="row">
                         <div class="col-md-4" id="internship">
-                          <ng-select [(ngModel)]='myjob.internshipduration'>
+                          <ng-select class="e"  [(ngModel)]='myjob.internshipduration'>
                             <ng-option>1</ng-option>
                             <ng-option>2</ng-option>
                             <ng-option>3</ng-option>
@@ -228,7 +228,7 @@
 
                         </div>
                         <div class="col-md-4 " id="Responsibility">
-                          <ng-select [(ngModel)]='myjob.internshipdurationunit'>
+                          <ng-select class="e"  [(ngModel)]='myjob.internshipdurationunit'>
                             <ng-option>Month</ng-option>
                             <ng-option>Weeks</ng-option>
                           </ng-select>
@@ -270,7 +270,7 @@
                       <label class="col-md-3">Contract Duration</label>
                       <div class="row">
                         <div class="col-md-4">
-                          <ng-select n="a Contract Duration" id="Contract" [(ngModel)]='myjob.contract'>
+                          <ng-select  n="a Contract Duration" id="Contract" [(ngModel)]='myjob.contract'>
                             <ng-option>1</ng-option>
                             <ng-option>2</ng-option>
                             <ng-option>3</ng-option>
@@ -312,7 +312,7 @@
                   <div class="form-group col-md-12">
                     <label class="col-md-3" style="min-width: 768px;" JD>Job Description:</label>
                     <div class="col-md-9">
-                      <textarea class="form-control" n="Job Description" pp="" id='jobdescription' contenteditable
+                      <textarea class="form-control e" n="Job Description" pp="" id='jobdescription' contenteditable
                         rows="5" ck="jd" [(ngModel)]="myjob.jobDescription" name="jobDescription"></textarea>
 
                     </div>

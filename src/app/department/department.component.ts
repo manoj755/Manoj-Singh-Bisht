@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+declare var $: any;
 
 @Component({
   selector: 'app-department',
@@ -139,6 +140,10 @@ export class DepartmentComponent implements OnInit {
   };
 
   departmentupdate(): void {
+  //   if (!$('.validate').validate('#trackermaster')) {
+  //     // $.fn.showMessage('Please fill values');
+  //    return;
+  //  }
     this.db.update('applicationdepartment/', this.department.id, this.department, ((response): void => {
 
       this.LoadData();
@@ -148,7 +153,10 @@ export class DepartmentComponent implements OnInit {
   }
 
   departmentsave(): void {
-
+// if (!$('.validate').validate('#trackermaster')) {
+//       // $.fn.showMessage('Please fill values');
+//      return;
+//    }
     //this.user.profilepic=this.user.profilepic[0];
     this.db.store('applicationdepartment/', this.department, ((response): void => {
 

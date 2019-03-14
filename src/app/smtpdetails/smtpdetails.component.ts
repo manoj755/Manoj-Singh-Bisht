@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { DBService } from 'app/db.service';
+declare var $: any;
 @Component({
   selector: 'app-smtpdetails',
   templateUrl: './smtpdetails.component.html',
@@ -132,6 +133,10 @@ export class SmtpdetailsComponent implements OnInit {
   };
 
   smtpupdate(): void {
+    // if (!$('body').validate('#smtpid')) {
+    //   //  $.fn.showMessage('Please fill values');
+    //   return;
+    // }
     this.db.update('smtpdetail/', this.smtp.id, this.smtp, ((response): void => {
 
       this.LoadData();
@@ -141,7 +146,10 @@ export class SmtpdetailsComponent implements OnInit {
   }
 
   smtpsave(): void {
-
+    // if (!$('.validate').validate('#smtpid')) {
+    //   //  $.fn.showMessage('Please fill values');
+    //   return;
+    // }
     //this.user.profilepic=this.user.profilepic[0];
     this.db.store('smtpdetail/', this.smtp, ((response): void => {
 

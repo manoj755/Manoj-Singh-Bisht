@@ -5,7 +5,7 @@
           <nav class="navbar" ng-show="showmyjoblist">
               <div class="container-fluid">
                 <div class="navbar-header">
-                  <div class="row">
+                  <div class="row" id="calldetail">
                     <div class="col-md-6">
                       <div class="input-group" style="margin-top: 9px;">
                         <div class="input-group-btn  btn-raised search-panel">
@@ -815,58 +815,59 @@
               <div class="modal fade" role="dialog" id="submit_cv_to_panel_status">
 
 
-                  <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <button aria-hidden="true" data-dismiss="modal"  class="close" type="button">×</button>
-                              <h4 class="modal-title">Submit cv to panel</h4>
-                          </div>
-                          <div class="modal-body">
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <div class="form-horizontal" role="form">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Submit cv to panel</h4>
+                      <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-horizontal" role="form">
 
 
-                                          <div class="form-group">
-                                              <label class="col-md-3 ">Email:</label>
-                                              <div class="col-md-9">
-                                                  <input type="text" class="form-control e m" n="Email" [(ngModel)]="cv_to_panel.email"/>
+                            <div class="form-group">
+                              <label class="col-md-3 ">Email:</label>
+                              <div class="col-md-9">
+                                <input type="text" class="form-control e m" n="Email" [(ngModel)]="cv_to_panel.email" />
 
-
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <label class="col-md-3 ">Subject:</label>
-                                              <div class="col-md-9">
-                                                  <input type="text" class="form-control e" n="Subject" [(ngModel)]="cv_to_panel.subject"/>
-
-
-                                              </div>
-                                          </div>
-                                          <div class="form-group">
-                                              <label class="col-md-3 ">Comment:</label>
-                                              <div class="col-md-9">
-                                                  <textarea  class="form-control e" n="Comment" [(ngModel)]="cv_to_panel.comment">
-                                                  </textarea>
-
-
-                                              </div>
-                                          </div>
-                                          <div class="col-md-3">
-                                              <button type="submit" class="btn  btn-raised btn-block btn-primary validatebutton" validate tar="#submit_cv_to_panel_status" (click)="sendCvToPanel()">send</button>
-
-                                          </div>
-                                        </div>
-                                  </div>
 
                               </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-md-3 ">Subject:</label>
+                              <div class="col-md-9">
+                                <input type="text" class="form-control e" n="Subject" [(ngModel)]="cv_to_panel.subject" />
+
+
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label class="col-md-3 ">Comment:</label>
+                              <div class="col-md-9">
+                                <textarea class="form-control e" n="Comment" [(ngModel)]="cv_to_panel.comment">
+                                                            </textarea>
+
+
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <button type="submit" class="btn  btn-raised btn-block btn-primary validatebutton" validate
+                                tar="#submit_cv_to_panel_status" (click)="sendCvToPanel()">send</button>
+
+                            </div>
                           </div>
+                        </div>
+
                       </div>
+                    </div>
                   </div>
+                </div>
 
 
               </div>
-
               <div class="modal" id="addvendor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                       <div class="modal-content">

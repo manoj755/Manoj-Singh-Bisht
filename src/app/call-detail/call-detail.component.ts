@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from '../db.service';
+declare var $: any;
 @Component({
   selector: 'app-call-detail',
   templateUrl: './call-detail.component.html',
@@ -288,7 +289,10 @@ export class CallDetailComponent implements OnInit {
   };
 
   sendCvToPanel(): void {
-
+    if (!$('.validate').validate('#mynewjob')) {
+      //  $.fn.showMessage('Please fill values');
+        return;
+      }
     const allrow = this.db.getIDs(this.db.nodetype);
 
     if (allrow.length === 0) {
@@ -718,7 +722,10 @@ export class CallDetailComponent implements OnInit {
   };
 
   getlist(): void {
-
+    if (!$('.validate').validate('#myModal')) {
+      //  $.fn.showMessage('Please fill values');
+      return;
+    }
     this.db.list("joblistbycall/", this.item, ((response): void => {
       this.jobslistmain = response.data;
       //this.item=response.data;

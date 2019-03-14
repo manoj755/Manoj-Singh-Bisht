@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { DBService } from 'app/db.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+declare var $: any;
 @Component({
   selector: 'app-add-new-tracker',
   templateUrl: './add-new-tracker.component.html',
@@ -139,6 +140,10 @@ export class AddNewTrackerComponent implements OnInit {
   };
 
   newtrackerupdate(): void {
+  //     if (!$('.validate').validate('#trackertemp')) {
+  //     // $.fn.showMessage('Please fill values');
+  //    return;
+  //  }
     this.db.update('trackermaster/', this.newtracker.id, this.newtracker, ((response): void => {
 
       this.LoadData();
@@ -148,7 +153,10 @@ export class AddNewTrackerComponent implements OnInit {
   }
 
   newtrackersave(): void {
-
+  // if (!$('.validate').validate('#trackertemp')) {
+  //     // $.fn.showMessage('Please fill values');
+  //    return;
+  //  }
     // this.user.profilepic=this.user.profilepic[0];
     this.db.store('trackermaster/', this.newtracker, ((response): void => {
 

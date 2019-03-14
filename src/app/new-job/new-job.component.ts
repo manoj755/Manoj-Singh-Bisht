@@ -305,6 +305,10 @@ export class NewJobComponent implements OnInit {
     }
   };
   addNewJobupdate() {
+    if (!$('.validate').validate('#submit_cv_to_panel_status')) {
+      //  $.fn.showMessage('Please fill values');
+        return;
+      }
     if (true) {
 
       const locations = this.location;

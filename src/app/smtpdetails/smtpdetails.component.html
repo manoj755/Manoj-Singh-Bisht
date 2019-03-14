@@ -27,9 +27,9 @@
         <h4 class="card-title">Smtp Details</h4>
         <p class="card-category">Add or Edit Smtp Details</p>
         </div>
-<div class='col-md-12' ><h2><span *ngIf="isEdit">Edit</span><span *ngIf="!isEdit">Add</span>  Smtp Detail</h2><div class='row'><div class='col-md-6'><div class="form-group ">
+<div class='col-md-12' id="smtpid" ><h2><span *ngIf="isEdit">Edit</span><span *ngIf="!isEdit">Add</span>  Smtp Detail</h2><div class='row'><div class='col-md-6'><div class="form-group ">
     <label for="smttpype">Smtp Type</label>
-    <select  class="form-control"   [(ngModel)]="smtp.smtptype" id="smttpype" placeholder="Smttpype">
+    <select  class="form-control e"   [(ngModel)]="smtp.smtptype" id="smttpype" placeholder="Smttpype">
         <option>Gmail</option>
         <option>Yahoo</option>
         <option>Rediff</option>

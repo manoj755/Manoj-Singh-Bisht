@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { DBService } from 'app/db.service';
+declare var $: any;
 @Component({
   selector: 'app-message-template',
   templateUrl: './message-template.component.html',
@@ -128,6 +129,10 @@ export class MessageTemplateComponent implements OnInit {
   };
 
   messageupdate(): void {
+    // if (!$('.validate').validate('#messagetemp')) {
+    //      // $.fn.showMessage('Please fill values');
+    //     return;
+    //   }
     this.db.update('messagetemplate/', this.message.id, this.message, ((response): void => {
 
       this.LoadData();
@@ -137,7 +142,10 @@ export class MessageTemplateComponent implements OnInit {
   }
 
   messagesave(): void {
-
+  //   if (!$('.validate').validate('#messagetemp')) {
+  //     // $.fn.showMessage('Please fill values');
+  //    return;
+  //  }
     //this.user.profilepic=this.user.profilepic[0];
     this.db.store('messagetemplate/', this.message, ((response): void => {
 
