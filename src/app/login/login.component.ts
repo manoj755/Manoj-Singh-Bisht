@@ -22,6 +22,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   login(): void {
+    if (!$('.validate').validate('#loginform')) {
+    //  $.fn.showMessage('Please fill values');
+      return;
+    }
+
 
     const data = { email: this.loginData.username, password: this.loginData.password, remember: this.loginData.remember };
     this.showSpinner = true;
