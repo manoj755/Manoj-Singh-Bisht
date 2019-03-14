@@ -11,7 +11,7 @@ class="modal fade">
         <div class="form-group">
           <label for="Client" class="control-label col-xs-2">{{clientsdepartment}}:</label>
           <div class="col-xs-10">
-            <ng-select [(ngModel)]="addtojob.client_detail_id" (change)='getcandidatebyclientaddtojob()'>
+            <ng-select class='e' [(ngModel)]="addtojob.client_detail_id" (change)='getcandidatebyclientaddtojob()'>
               <ng-option *ngFor="let x of clients" [value]="x.id"  >{{x.billingName}}</ng-option>
 
           </ng-select>
@@ -22,9 +22,9 @@ class="modal fade">
         <div class="form-group">
           <label for="Jobs" class="control-label col-xs-2">Jobs:</label>
           <div class="col-xs-10">
-            <ng-select [(ngModel)]="addnewjob.add_new_job_id"
+            <ng-select class='e' [(ngModel)]="addnewjob.add_new_job_id"
               name="add_new_job_id">
-              <ng-option [value]="x.id" *ngFor="let  x of jobslistbyclientsaddtojob">{{x.job_title}}
+              <ng-option  [value]="x.id" *ngFor="let  x of jobslistbyclientsaddtojob">{{x.job_title}}
               </ng-option>
 
             </ng-select>
@@ -33,7 +33,7 @@ class="modal fade">
         <div class="form-group">
           <label for="Jobs" class="control-label col-xs-2">Owner</label>
           <div class="col-xs-10">
-            <ng-select  [(ngModel)]="addnewjob.manager">
+            <ng-select class='e' [(ngModel)]="addnewjob.manager">
               <ng-option [value]="db.profile.id">Self</ng-option>
               <ng-option [value]="x.id" *ngFor="let  x of managers">
                 {{x.name}}

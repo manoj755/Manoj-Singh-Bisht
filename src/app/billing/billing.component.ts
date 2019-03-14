@@ -75,6 +75,10 @@ export class BillingComponent implements OnInit {
 
 
   accepttopayvendor(item): void {
+    if (!$('.validate').validate('#loginform')) {
+      //  $.fn.showMessage('Please fill values');
+        return;
+      }
     this.db.store('acceptpaytovendor', { invoiceid: item.invoiceid }, ((response): void => {
       alert('done');
       this.inprocessrpaytovendorfn();
@@ -212,6 +216,10 @@ export class BillingComponent implements OnInit {
   };
 
   editinvoice(): void {
+    if (!$('.validate').validate('#editinvoice')) {
+      //  $.fn.showMessage('Please fill values');
+        return;
+      }
 
     this.dataedit.invoiceid = this.editinvoiceid;
     this.dataedit.invoice_item_id = this.invoice_item_id;
@@ -347,6 +355,10 @@ export class BillingComponent implements OnInit {
     }));
   };
   generateinvoicestore(): void {
+    if (!$('.validate').validate('#myModal')) {
+      //  $.fn.showMessage('Please fill values');
+        return;
+      }
     console.log(this.gi);
 
     this.gi.atj_id = this.joinedcandidate.atj_id;

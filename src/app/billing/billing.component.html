@@ -73,7 +73,7 @@
 
                             <div class="card-footer">
                               <div class="timeline-heading">
-                                <div class="form-group">
+                                <div class="form-group e">
 
                                   <button type="button" class="btn  btn-raised btn-success btn-md"
                                     (click)="generateinvoicesetvar(joinedcandidate)"
@@ -133,7 +133,7 @@
 
                           <div class="card-footer">
                             <div class="timeline-heading">
-                              <div class="form-group">
+                              <div class="form-group e">
                                 <div class="col-md-12">
 
                                   <div class="dropdown">
@@ -199,7 +199,7 @@
 
                             <!--                                                  <div class="card-footer">
                                                                                                                             <div class="timeline-heading">
-                                                                                                                                <div class="form-group">
+                                                                                                                                <div class="form-group e">
                                                                                                                                     <button type="button" class="btn  btn-raised btn-success btn-md" >Accepted</button>                                                                    </div>
                                                                                                                             </div>
                                                                                                                         </div>-->
@@ -246,7 +246,7 @@
 
                               <!-- <div class="card-footer">
                                                                      <div class="timeline-heading">
-                                                                         <div class="form-group">
+                                                                         <div class="form-group e">
 
                                                                              <button type="button" class="btn  btn-raised btn-danger btn-md" >Rejected</button>
                                                                          </div>
@@ -338,7 +338,7 @@
 
                             <!--                                                            <div class="card-footer">
                                                                                                                             <div class="timeline-heading">
-                                                                                                                                <div class="form-group">
+                                                                                                                                <div class="form-group e">
 
                                                                                                                                 </div>
                                                                                                                             </div>
@@ -391,7 +391,7 @@
 
                           <!--                                                        <div class="card-footer">
                                                                                                                     <div class="timeline-heading">
-                                                                                                                        <div class="form-group">
+                                                                                                                        <div class="form-group e">
                                                                                                                             <div class="col-md-12">
 
                                                                                                                             </div>
@@ -439,7 +439,7 @@
 
                           <!--                                                        <div class="card-footer">
                                                                                                                     <div class="timeline-heading">
-                                                                                                                        <div class="form-group">
+                                                                                                                        <div class="form-group e">
                                                                                                                             <div class="col-md-12">
 
                                                                                                                             </div>
@@ -486,7 +486,7 @@
 
                             <div class="card-footer">
                               <div class="timeline-heading">
-                                <div class="form-group">
+                                <div class="form-group e">
                                   <div class="dropdown">
                                     <button class="btn  btn-raised btn-default dropdown-toggle" type="button"
                                       data-toggle="dropdown">Actions
@@ -549,7 +549,7 @@
 
                           <!--                                                        <div class="card-footer">
                                                                                                                     <div class="timeline-heading">
-                                                                                                                        <div class="form-group">
+                                                                                                                        <div class="form-group e">
                                                                                                                             <div class="col-md-12">
 
                                                                                                                             </div>
@@ -598,7 +598,7 @@
 
                           <!--                                                        <div class="card-footer">
                                                                                                                     <div class="timeline-heading">
-                                                                                                                        <div class="form-group">
+                                                                                                                        <div class="form-group e">
                                                                                                                             <div class="col-md-12">
 
                                                                                                                             </div>
@@ -668,24 +668,24 @@
             </div>
             <div class="modal-body info">
               <div class="ng-pristine ng-valid">
-                <div class="form-group">
+                <div class="form-group e">
                   <label>DOJ</label>
-                  <input type="text" [(ngModel)]="gi.doj" class="form-control date">
+                  <input type="text" [(ngModel)]="gi.doj" class="form-control e date">
                 </div>
 
 
-                <div class="form-group">
+                <div class="form-group e">
                   <label>Billable CTC</label>
-                  <input type="text" [(ngModel)]="gi.billablectc" ng-change="fetchfeesslab()" class="form-control"
+                  <input type="text" [(ngModel)]="gi.billablectc" ng-change="fetchfeesslab()" class="form-control e"
                     placeholder="Billable CTC" />
                   <div class="alert alert-danger" *ngIf="gi.billablectc.length > 3 && notinfeeslab"> Billable CTC is not
                     of fee slab !</div>
 
                 </div>
 
-                <div class="form-group">
+                <div class="form-group e">
                   <label>Billable Amount</label>
-                  <input type="text" [(ngModel)]="gi.billableamount" class="form-control" placeholder="Billable Amount"
+                  <input type="text" [(ngModel)]="gi.billableamount" class="form-control e" placeholder="Billable Amount"
                     name="result" id="result" />
                   <div *ngIf="loadingfeeslab" class="col-md-12">
                     <div class="progress" style="height: 10px !important;">
@@ -698,18 +698,18 @@
 
 
                 </div>
-                <div class="form-group">
+                <div class="form-group e">
                   <label>Designation</label>
-                  <input type="text" [(ngModel)]="gi.designation" class="form-control" placeholder="Designation">
+                  <input type="text" [(ngModel)]="gi.designation" class="form-control e" placeholder="Designation">
                 </div>
-                <div class="form-group">
+                <div class="form-group e">
                   <label>Billing Location</label>
-                  <ng-select [(ngModel)]="gi.location" class="form-control">
+                  <ng-select [(ngModel)]="gi.location" class="form-control e">
                     <ng-option *ngFor="let client_gst of clients_gst_list">{{client_gst.state_name}}-{{client_gst.gst}}
                     </ng-option>
                   </ng-select>
 
-                  <!--                            <ng-select  class="form-control" [(ngModel)]="gi.state_name" id="state_name" >
+                  <!--                            <ng-select  class="form-control e" [(ngModel)]="gi.state_name" id="state_name" >
                   <ng-option *ngFor="let stateobj of states">{{stateobj.State}}</ng-option>
               </ng-select>-->
 
@@ -743,17 +743,17 @@
             </div>
             <div class="modal-body info">
               <div class="ng-pristine ng-valid">
-                <div class="form-group">
+                <div class="form-group e">
                   <label for="gst">GST</label>
-                  <input type="text" class="form-control" id="gst" placeholder="Gst" [(ngModel)]="accepted.gst">
+                  <input type="text" class="form-control e" id="gst" placeholder="Gst" [(ngModel)]="accepted.gst">
                 </div>
-                <div class="form-group">
+                <div class="form-group e">
                   <label for="TDS">TDS</label>
-                  <input type="text" class="form-control" id="TDS" placeholder="TDS" [(ngModel)]="accepted.tds">
+                  <input type="text" class="form-control e" id="TDS" placeholder="TDS" [(ngModel)]="accepted.tds">
                 </div>
-                <div class="form-group">
+                <div class="form-group e">
                   <label for="servicecharge">Service Charge</label>
-                  <input type="text" class="form-control" id="servicecharge" placeholder="Service Charge"
+                  <input type="text" class="form-control e" id="servicecharge" placeholder="Service Charge"
                     [(ngModel)]="accepted.servicecharge">
                 </div>
                 <button type="submit" id="InProcess" class="btn  btn-raised btn-primary"
@@ -780,9 +780,9 @@
               <div class="ng-pristine ng-valid">
 
 
-                <div class="form-group">
+                <div class="form-group e">
                   <label for="servicecharge">Reason</label>
-                  <textarea class="form-control" id="servicecharge" placeholder="Reason" [(ngModel)]="rejected.reason">
+                  <textarea class="form-control e" id="servicecharge" placeholder="Reason" [(ngModel)]="rejected.reason">
                                   </textarea>
                 </div>
                 <button type="submit" id="rejected" class="btn  btn-raised btn-primary"
@@ -804,16 +804,16 @@
             <div class="modal-body info">
               <div class="ng-pristine ng-valid">
 
-                <div class="form-group">
+                <div class="form-group e">
                   <label>DOJ</label>
-                  <input type="text" [(ngModel)]="dataedit.doj" class="form-control date">
+                  <input type="text" [(ngModel)]="dataedit.doj" class="form-control e date">
                 </div>
 
 
-                <div class="form-group">
+                <div class="form-group e">
                   <label>Billable CTC</label>
                   <input type="text" [(ngModel)]="dataedit.billable_ctc" ng-change="fetchfeesslabedit()"
-                    class="form-control" placeholder="Billable CTC" />
+                    class="form-control e" placeholder="Billable CTC" />
                   <div class="alert alert-danger"
                     *ngIf="(dataedit.billable_ctc&&dataedit.billable_ctc.length > 3) && notinfeeslab"> Billable CTC is
                     not of fee slab !</div>
@@ -821,33 +821,33 @@
 
                 </div>
 
-                <div class="form-group">
+                <div class="form-group e">
                   <label>Billable Amount</label>
-                  <input type="text" [(ngModel)]="dataedit.billable_amount" class="form-control"
+                  <input type="text" [(ngModel)]="dataedit.billable_amount" class="form-control e"
                     placeholder="Billable Amount" name="result" id="result" />
 
 
 
 
                 </div>
-                <div class="form-group">
+                <div class="form-group e">
                   <label>Designation</label>
-                  <input type="text" [(ngModel)]="dataedit.candidate_designation" class="form-control"
+                  <input type="text" [(ngModel)]="dataedit.candidate_designation" class="form-control e"
                     placeholder="Designation">
                 </div>
-                <div class="form-group">
+                <div class="form-group e">
                   <label>Location</label>
-                  <input type="text" [(ngModel)]="dataedit.billing_location" class="form-control"
+                  <input type="text" [(ngModel)]="dataedit.billing_location" class="form-control e"
                     placeholder="Location">
                 </div>
-                <!--<div class="form-group">
+                <!--<div class="form-group e">
                                   <label >Location</label>
-                                  <input type="text"  [(ngModel)]="dataedit.candidate_location" class="form-control"   placeholder="Location">
+                                  <input type="text"  [(ngModel)]="dataedit.candidate_location" class="form-control e"   placeholder="Location">
                               </div>-->
 
-                <!--<div class="form-group">
+                <!--<div class="form-group e">
                                   <label for="servicecharge">Reason</label>
-                                  <input type="text" class="form-control" id="servicecharge" placeholder="Service Charge" [(ngModel)]="editinvoice.reason">
+                                  <input type="text" class="form-control e" id="servicecharge" placeholder="Service Charge" [(ngModel)]="editinvoice.reason">
                               </div>-->
                 <button type="submit" id="edit" class="btn  btn-raised btn-primary"
                   (click)="editinvoice()">Update</button>

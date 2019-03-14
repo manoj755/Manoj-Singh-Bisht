@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { FormControl } from '@angular/forms';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+declare var $: any;
 @Component({
   selector: 'app-pv-get-reference',
   templateUrl: './pv-get-reference.component.html',
@@ -50,7 +51,10 @@ export class PvGetReferenceComponent implements OnInit {
   }
 
   sendMessage(): void {
-
+    if (!$('.validate').validate('#getreferencemodal')) {
+      //  $.fn.showMessage('Please fill values');
+        return;
+      }
     // this.user.profilepic=this.user.profilepic[0];
     const allrow = this.db.getIDs(this.db.nodetype);
 

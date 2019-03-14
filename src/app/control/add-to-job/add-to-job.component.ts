@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { FormControl } from '@angular/forms';
+declare var $: any;
 @Component({
   selector: 'app-add-to-job',
   templateUrl: './add-to-job.component.html',
@@ -44,7 +45,10 @@ export class AddToJobComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
   addtojobcandidates(): void {
-
+    if (!$('.validate').validate('#addtojob')) {
+      //  $.fn.showMessage('Please fill values');
+        return;
+      }
     const allrow = this.allids;
 
     if (allrow.length === 0) {

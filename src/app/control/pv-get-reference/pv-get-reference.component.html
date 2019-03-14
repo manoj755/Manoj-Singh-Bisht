@@ -12,7 +12,7 @@ class="modal fade">
         <div class="form-group">
           <label for="inputEmail" class="control-label col-xs-2">{{clientsdepartment}}:</label>
           <div class="col-xs-10">
-              <ng-select [(ngModel)]="addtojob.client_detail_id" (change)='getcandidatebyclientaddtojob()'>
+              <ng-select class="e" [(ngModel)]="addtojob.client_detail_id" (change)='getcandidatebyclientaddtojob()'>
                   <ng-option *ngFor="let x of clients" [value]="x.id"  >{{x.billingName}}</ng-option>
 
               </ng-select>
@@ -21,7 +21,7 @@ class="modal fade">
         <div class="form-group">
           <label for="inputPassword" class="control-label col-xs-2">Jobs:</label>
           <div class="col-xs-10">
-              <ng-select [(ngModel)]="addnewjob.add_new_job_id"  name="add_new_job_id">
+              <ng-select class="e" [(ngModel)]="addnewjob.add_new_job_id"  name="add_new_job_id">
               <ng-option [value]="x.id" *ngFor="let  x of jobslistbyclientsaddtojob">{{x.job_title}}
               </ng-option>
 
@@ -44,7 +44,7 @@ class="modal fade">
                   </div>
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <ng-select [(ngModel)]="smsselectedid"   (change)='setsms()'>
+                      <ng-select class="e" [(ngModel)]="smsselectedid"   (change)='setsms()'>
 
                         <ng-option *ngFor="let  x of smsmessagetemplates" [value]='x.id'>
                           {{x.templatename}}
@@ -57,7 +57,7 @@ class="modal fade">
 
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <textarea class="form-control" [(ngModel)]="sms.prmMessagge"
+                      <textarea class="form-control e" [(ngModel)]="sms.prmMessagge"
                         style="width: 100%;">{{smsselected.message}}</textarea>
 
                     </div>
@@ -80,7 +80,7 @@ class="modal fade">
                   <div class="form-group">
                     <div class="col-sm-12">
 
-                      <ng-select [(ngModel)]="emailselectedid" (change)='setemail()'>
+                      <ng-select class="e" [(ngModel)]="emailselectedid" (change)='setemail()'>
                         <ng-option *ngFor="let  x of emailmessagetemplates" [value]="x.id">
                             {{x.templatename}}
                             </ng-option>
@@ -91,7 +91,7 @@ class="modal fade">
 
                   <div class="form-group">
                     <div class="col-sm-12">
-                      <textarea class="form-control" style="width: 100%;"
+                      <textarea class="form-control e" style="width: 100%;"
                         [(ngModel)]="myjob.prmSubject">{{emailselected.title}}</textarea>
 
                     </div>
