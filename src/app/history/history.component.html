@@ -4,11 +4,12 @@
 
     <div class="row">
 
+      <app-call  [allids]='allids'></app-call>
+      <app-add-to-job [allids]='allids'></app-add-to-job>
+      <app-pv-get-reference [allids]='allids'></app-pv-get-reference>
 
       <div class="col-md-6 ">
-        <app-add-to-job></app-add-to-job>
-        <app-pv-get-reference></app-pv-get-reference>
-        <app-call></app-call>
+
         <div>
           <!--<a class="quick-btn "  href="" data-toggle="modal" help='Add Candidate' data-target="#addcandidate" ng-if="mp.candidate_detail_store">-->
           <!--<div class="col-xs-8">-->

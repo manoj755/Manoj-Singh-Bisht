@@ -15,12 +15,13 @@ export class DashboardComponent implements OnInit {
   notification_success = 0;
   notification_default = 0;
   notification_warning = 0;
-  notification:any=[];
-  myjob:any=[];
-  jobslistforref:any=[];
-  jobportalurl:any=[];
-  setjobandreferencetemp:any={};
-  profile:any={};
+  notification: any = [];
+  currentData: any;
+  myjob: any = [];
+  jobslistforref: any = [];
+  jobportalurl: any = [];
+  setjobandreferencetemp: any = {};
+  profile: any = {};
   in_process_referrals: any = [];
   smsmessagetemplatesforref:any=[];
   emailmessagetemplatesforref:any=[];
@@ -255,8 +256,14 @@ export class DashboardComponent implements OnInit {
     ];
     var websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
 
-    //start animation for the Emails Subscription Chart
+    // start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);
+  }
+
+  candidateshow(data): void {
+
+    this.currentData = data;
+    this.currentData.id = this.currentData.candiateid;
   }
 
 }

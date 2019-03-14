@@ -577,12 +577,6 @@ export class CallDetailComponent implements OnInit {
         } else {
           this.db.addmessageandremove('tracker sent');
         }
-      }, function (response) {
-        if (response.errormsg != undefined) {
-          this.db.addmessageandremove(response.errormsg);
-        } else {
-          this.db.addmessageandremove('Some error occured');
-        }
       })
       );
     } else {

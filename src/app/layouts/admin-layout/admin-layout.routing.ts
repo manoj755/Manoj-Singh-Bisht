@@ -39,7 +39,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'internaldatabase',        component: InternalDatabaseComponent },
     { path: 'history',        component: HistoryComponent },
-    { path: 'calldetail',        component: CallDetailComponent },
+    { path: 'call-detail',        component: CallDetailComponent },
     { path: 'myjob',        component: MyJobComponent },
     { path: 'newjob',        component: NewJobComponent },
     { path: 'clientreport',        component: ClientreportComponent },

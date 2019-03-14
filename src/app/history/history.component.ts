@@ -12,6 +12,8 @@ export class HistoryComponent implements OnInit {
   private smsselected={};
   private emailselected={};
   private gridApi;
+  recruiter;
+  allids = [];
   private gridColumnApi;
 
   private autoGroupColumnDef;
@@ -71,8 +73,7 @@ export class HistoryComponent implements OnInit {
     this.gridApi.exportDataAsCsv();
   }
   onSelectionChanged(event) {
-    console.log(event.api.getSelectedNodes());
-    const rowCount = event.api.getSelectedNodes().length;
-    window.alert('selection changed, ' + rowCount + ' rows selected');
+    this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
+
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { FormControl } from '@angular/forms';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -8,6 +8,8 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
   styleUrls: ['./pv-get-reference.component.scss']
 })
 export class PvGetReferenceComponent implements OnInit {
+  @Input()
+  allids = [];
   public Editor = ClassicEditor;
   clients = [];
   jobslistbyclientsaddtojob = [];
@@ -130,7 +132,7 @@ export class PvGetReferenceComponent implements OnInit {
   }
   addtojobcandidates(): void {
 
-    const allrow = this.db.getIDs(this.db.nodetype);
+    const allrow = this.allids;
 
     if (allrow.length === 0) {
       this.db.showMessage('Please select candidates');

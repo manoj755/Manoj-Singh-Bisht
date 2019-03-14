@@ -7,12 +7,15 @@
 
         <div class="row">
 
-          <app-call></app-call>
+          <app-call  [allids]='allids'></app-call>
+          <app-add-to-job [allids]='allids'></app-add-to-job>
+          <app-pv-get-reference [allids]='allids'></app-pv-get-reference>
+
           <div class="col-md-3 " ng-show="mp.btn_take_internal_refeference">
             <button type="button" class="btn btn-block  btn-primary btn-md" data-toggle="modal"
               data-target="#getreferencemodal" title="Get referrence from selected candidates or send mail ">Get
               Reference/Send Mail</button>
-            <app-pv-get-reference></app-pv-get-reference>
+
 
           </div>
           <div class="col-md-3" ng-show="mp.add_to_job_store">
@@ -20,7 +23,7 @@
             <button type="button" class="btn btn-block  btn-info btn-md" data-toggle="modal" data-target="#addtojob">Add
               to Job</button>
 
-            <app-add-to-job></app-add-to-job>
+
 
           </div>
           <app-add-candidate></app-add-candidate>

@@ -83,6 +83,7 @@ export class MyJobComponent implements OnInit {
 
   ngOnInit() {
     this.bindJob();
+    this.loadmanager();
   }
 
 
@@ -335,7 +336,17 @@ export class MyJobComponent implements OnInit {
 
     this.assignjobClickToVendor();
   };
-  filterdrbytab(mainprocess, childprocess, jobitem): void {
+  cvformdatapost(): void {
+
+  }
+  vendorsave(): void {
+    this.db.store('vendor/', this.vendornew, (response): void => {
+      if (response.d === true) {
+        alert(response.msg);
+      }
+    });
+  }
+  filterdrbytab(mainprocess?, childprocess?, jobitem?): void {
     this.isinterview = 9;
     if (childprocess === 'isinterview') {
       childprocess = 'all';
@@ -563,11 +574,19 @@ export class MyJobComponent implements OnInit {
   openaddvendor(): void {
     $('#addvendor').modal('show');
   }
+  loadmanager(): void {
+
+    this.db.list('manager/', null, ((response): void => {
+      this.managers = response;
+
+
+    }));
+  };
 
   assignjob(): void {
     const assignjob = {
-      // 'managers': FH.SelectedCheckbox(this.managers),
-      // 'jobs': FH.SelectedCheckbox(this.jobslist)
+      'managers': this.db.SelectedCheckbox(this.managers),
+      'jobs': this.db.SelectedCheckbox(this.jobslist)
     };
     this.db.store('assignjob/', assignjob, ((response): void => {
       console.log(response);
@@ -577,8 +596,8 @@ export class MyJobComponent implements OnInit {
 
   unassignjob(): void {
     const unassignjob = {
-      // 'managers': FH.SelectedCheckbox(this.managers),
-      // 'jobs': FH.SelectedCheckbox(this.jobslist)
+      'managers': this.db.SelectedCheckbox(this.managers),
+      'jobs': this.db.SelectedCheckbox(this.jobslist)
     };
     this.db.store('unassignjob/', unassignjob, ((response): void => {
       console.log(response);
@@ -590,8 +609,8 @@ export class MyJobComponent implements OnInit {
 
   assignjobtovendor(): void {
     const assignjob = {
-      // 'vendors': FH.SelectedCheckbox(this.vendors),
-      // 'jobs': FH.SelectedCheckbox(this.jobslist)
+      'vendors': this.db.SelectedCheckbox(this.vendors),
+      'jobs': this.db.SelectedCheckbox(this.jobslist)
     };
     this.db.store('assignjobtovendor/', assignjob, ((response): void => {
       console.log(response);
@@ -602,8 +621,8 @@ export class MyJobComponent implements OnInit {
 
   unassignjobtovendor(): void {
     const unassignjob = {
-      // 'vendors': FH.SelectedCheckbox(this.vendors),
-      // 'jobs': FH.SelectedCheckbox(this.jobslist)
+      'vendors': this.db.SelectedCheckbox(this.vendors),
+      'jobs': this.db.SelectedCheckbox(this.jobslist)
     };
     this.db.store('unassignjobtovendor/', unassignjob, ((response): void => {
 

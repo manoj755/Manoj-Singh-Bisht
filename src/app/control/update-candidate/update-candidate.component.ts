@@ -11,7 +11,7 @@ export class UpdateCandidateComponent implements OnInit {
   currentData: any;
   updateid = 0;
   trackerjobdata: any;
-  ProfileData: any;
+  ProfileData: any = [];
   candidate_id = 0;
   JobData: any;
   countries: any;
@@ -19,13 +19,14 @@ export class UpdateCandidateComponent implements OnInit {
   globaljobid = 0;
   @Input()
   set current_data(currentData: any) {
-    console.log(currentData);
-    this.currentData = currentData;
-    this.currentData.candidate_id = currentData.id;
-    if (currentData && currentData.candidate_id && currentData.candidate_id > 0) {
-      this.globaljobid = this.currentData.id;
-      this.candidateshow(currentData.candidate_id);
+    if (currentData !== undefined) {
+      this.currentData = currentData;
+      this.currentData.candidate_id = currentData.id;
+      if (currentData && currentData.candidate_id && currentData.candidate_id > 0) {
+        this.globaljobid = this.currentData.id;
+        this.candidateshow(currentData.candidate_id);
 
+      }
     }
   }
 
@@ -43,7 +44,7 @@ export class UpdateCandidateComponent implements OnInit {
     $('#candidateshow').modal('show');
     this.updateid = id;
     this.trackerjobdata = {};
-    this.ProfileData = {};
+    this.ProfileData = [];
     this.JobData = {};
     $('#resumeview').attr('src', 'http://employer.passivereferral.com/in.html');
     if (this.countries === undefined) {
@@ -54,6 +55,7 @@ export class UpdateCandidateComponent implements OnInit {
       });
     }
     if (this.globaljobid > 0) {
+      debugger;
       this.db.list('trackerdata', {
         'candidate_id': id,
         'jobid': this.globaljobid

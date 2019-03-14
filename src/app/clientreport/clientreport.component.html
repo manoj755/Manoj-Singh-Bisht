@@ -154,7 +154,7 @@
               </div>
             </div>
             <div class="clearfix"></div>
-            <div ng-show="showchart">
+            <div *ngIf="showchart">
 
               <div id="clientReport"></div>
               <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"

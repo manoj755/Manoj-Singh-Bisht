@@ -37,12 +37,12 @@ export class RecruiterreportnewComponent implements OnInit {
   job: any;
   loaddata = false;
   update: any;
-  showchart = false;
+  showchart = true;
   clientreport: any;
   clientreportpie: any;
   updatedd: any;
   jobslistbyclients: any;
-  myjob = { client_detail_id: 0, job_id: 0 };
+  myjob = { client_detail_id: 0, job_id: 0, start_date: '2000-01-01', end_date: '2019-12-06' };
   clientdetails: any;
   gridTotalCandidate = { data: null };
   constructor(private db: DBService) { }
@@ -72,6 +72,7 @@ export class RecruiterreportnewComponent implements OnInit {
   getlistmain(): void {
 
     this.db.hl();
+    $('.chartctrl').height(500);
     this.db.list('recruiterreportApi/', this.myjob, (response): void => {
       let jobshow = false;
       if (this.myjob.job_id === 0) {
@@ -197,6 +198,7 @@ export class RecruiterreportnewComponent implements OnInit {
 
       this.gridOptions.data = response;
       this.db.sl();
+
     }, (response): void => {
       // $scope.token=response.statusText;
       this.db.sl();
