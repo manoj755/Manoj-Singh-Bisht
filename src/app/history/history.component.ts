@@ -12,7 +12,8 @@ export class HistoryComponent implements OnInit {
   private smsselected = {};
   private emailselected = {};
   private gridApi;
-  recruiter: any;
+  currentData: any;
+  recruiter;
   allids = [];
   managers: any;
   data: any;
@@ -27,6 +28,14 @@ export class HistoryComponent implements OnInit {
   private pivotPanelShow;
   columnDefs = [
     { headerName: 'Job Name', field: 'job_name', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
+
+    {
+      headerName: 'View', field: 'candidateName',
+      sortable: false, filter: false,
+      template: `<button type='button' data-action-type='candidateshow' class='btn btn-success btn-sm'>
+     Edit
+   </button>
+`   },
     { headerName: 'Candidate Name', field: 'candidateName', sortable: true, filter: true },
     { headerName: 'Current Designation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
@@ -82,8 +91,31 @@ export class HistoryComponent implements OnInit {
     );
   }
 
+  public onRowClicked(e) {
+    if (e.event.target !== undefined) {
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
 
+      debugger;
+      switch (actionType) {
+        // case 'activity':
+        //   return this.activityclick(data);
+        // case 'comment':
+        //   return this.onCommentClick(data);
+        // case 'notes':
+        //   return this.onNotesClick(data);
+        case 'candidateshow':
+          return this.oncandidateshowClick(data);
+      }
+    }
+  }
+  public oncandidateshowClick(data: any) {
 
+    debugger;
+    data.tempdate = new Date().getMilliseconds();
+    this.currentData = {};
+    this.currentData = data;
+  }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;

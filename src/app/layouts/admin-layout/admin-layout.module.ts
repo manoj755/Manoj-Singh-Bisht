@@ -83,6 +83,7 @@ import { NotfoundComponent } from '../../notfound/notfound.component';
 
 import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 import { SettingsComponent } from '../../settings/settings.component';
+import { MyFilterPipe } from '../../shared/pipes/my-filter.pipe';
 
 
 
@@ -172,7 +173,7 @@ declare var $: any;
     MessagelogComponent,
     SmslogComponent,
     LogoutComponent,
-
+    MyFilterPipe,
 
   ]
 })

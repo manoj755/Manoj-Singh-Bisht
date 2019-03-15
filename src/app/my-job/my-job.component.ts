@@ -77,13 +77,52 @@ export class MyJobComponent implements OnInit {
   isLoadingJobs = false;
   countRowsinMyJob = 0;
   mainprocess: any;
-  $url = 'http://www.passivereferral.com/refer/';
-  $urlapply = 'http://www.passivereferral.com/apply/';
-  constructor(private db: DBService) { }
+  $url = 'http://www.passivereferral.com/refer';
+  $urlapply = 'http://www.passivereferral.com/apply';
+
+  itemone = { jobDescription: '' };
+  candidate_id = 0;
+  currentData = {};
+  allstatusload = 0;
+  selectednodes = [];
+  status_id = 0;
+  vendorSearch: any;
+  departments = [];
+  prmSubject = '';
+  prmMessagge = '';
+  trackerno: any;
+  status_row: any;
+  managerSearch: any;
+  selectedmanager: any;
+  agreed = 0;
+  disagreed = 0;
+  constructor(public db: DBService) {
+    debugger;
+    if (db.profile.id) {
+
+    } else {
+      db.profile.id = 0;
+    }
+
+  }
 
   ngOnInit() {
     this.bindJob();
     this.loadmanager();
+
+  }
+
+
+  showjd(item) {
+
+    item.responsibilityshow = !item.responsibilityshow;
+    this.itemone = item;
+    this.itemone.jobDescription = 'hi';
+    this.db.show('addnewjob/', item.id, (response): void => {
+      this.itemone.jobDescription = response.jobDescription;
+    })
+
+
   }
 
 
@@ -223,8 +262,8 @@ export class MyJobComponent implements OnInit {
   sendCvToPanel(): void {
     if (!$('.validate').validate('#submit_cv_to_panel_status')) {
       //  $.fn.showMessage('Please fill values');
-        return;
-      }
+      return;
+    }
     const allrow = this.db.getIDs(this.db.nodetype);
 
     if (allrow.length === 0) {
@@ -291,7 +330,10 @@ export class MyJobComponent implements OnInit {
     }
 
   }
+  filteragain(): void {
+    this.jobslistlength = this.numberOfPages(this.jobslist);
 
+  }
   assignjobClickToVendor(): void {
     let selected = 0;
     let job_id = 0;
@@ -349,8 +391,8 @@ export class MyJobComponent implements OnInit {
   vendorsave(): void {
     if (!$('.validate').validate('#addvendor')) {
       //  $.fn.showMessage('Please fill values');
-        return;
-      }
+      return;
+    }
     this.db.store('vendor/', this.vendornew, (response): void => {
       if (response.d === true) {
         alert(response.msg);
@@ -397,6 +439,12 @@ export class MyJobComponent implements OnInit {
     this.filterbyJob();
   };
 
+  filterbycandidate(): void {
+
+    this.searchcandidatetext = '';
+    this.getlist();
+
+  };
   filterbyJob(): void {
 
     this.loadCandidate();
@@ -408,13 +456,13 @@ export class MyJobComponent implements OnInit {
     //
     let SelectedJob = ''
     if (this.isfirstload !== 1) {
-      // SelectedJob = FH.SelectedCheckboxWithComma(this.jobslist);
+      SelectedJob = this.db.SelectedCheckboxWithComma(this.jobslist);
     } else {
       SelectedJob = this.selectedjob;
     }
     SelectedJob = this.selectedjob;
-    //        var totalrow=this.gridApipopup.selection.getSelectedRows();
-    //             SelectedJob= FH.SelectedWithComma(totalrow,'id');
+    const totalrow = this.selectednodes;
+    SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
     this.globaljobid = SelectedJob;
 
     const Search = {
@@ -427,6 +475,7 @@ export class MyJobComponent implements OnInit {
       isinterview: this.isinterview,
     };
     this.rowData = [];
+    console.log(Search);
     this.db.list('candidatesdetailmyjob/', Search, ((response): void => {
 
 
@@ -534,12 +583,13 @@ export class MyJobComponent implements OnInit {
         job_id: job_id
       }, ((response): void => {
         const recruiterunderjoblist = response;
-        for (let k in recruiterunderjoblist) {
-          debugger;
-          for (let m in this.managers) {
-            if (recruiterunderjoblist[k].recruiter_id == this.managers[m].id) {
-              this.managers[m].selected = true;
-              break;
+        for (const k in recruiterunderjoblist) {
+          if (recruiterunderjoblist[k]) {
+            for (const m in this.managers) {
+              if (recruiterunderjoblist[k].recruiter_id === this.managers[m].id) {
+                this.managers[m].selected = true;
+                break;
+              }
             }
           }
         }
@@ -576,7 +626,7 @@ export class MyJobComponent implements OnInit {
     this.displaydd = display;
     this.currentfilter = choice;
     this.searchtermchange();
-    //this.filterbyJob();
+    // this.filterbyJob();
     if (choice === 'jobs') {
       this.getlist();
     }
@@ -593,6 +643,110 @@ export class MyJobComponent implements OnInit {
 
     }));
   };
+
+
+
+  public onRowClicked(e) {
+    if (e.event.target !== undefined) {
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
+
+
+      switch (actionType) {
+        case 'activity':
+          return this.activityclick(data);
+        case 'comment':
+          return this.onCommentClick(data);
+        case 'notes':
+          return this.onNotesClick(data);
+        case 'candidateshow':
+          return this.oncandidateshowClick(data);
+      }
+    }
+  }
+  public oncandidateshowClick(data: any) {
+
+
+    data.tempdate = new Date().getMilliseconds();
+    this.currentData = {};
+    this.currentData = data;
+  }
+
+  public onNotesClick(data: any) {
+
+    this.candidate_id = data.id;
+  }
+
+  tag(item): void {
+
+    if (item.tagged !== '10') {
+      this.db.destroy('jobtag/', item.id, (response): void => {
+        item.tagged = '10';
+      });
+    } else {
+
+      this.db.store('jobtag/', { job_id: item.id }, (response): void => {
+        item.tagged = '11';
+      });
+    }
+
+  };
+
+  public onCommentClick(data: any) {
+
+    this.allstatusload = 0;
+    debugger;
+    this.status_row = data;
+    // this.updatestatuscomponent.status_id = 22;
+    // if (entity) {
+    //   $scope.entityvar = entity;
+    // } else {
+    //   entity = $scope.entityvar;
+    // }
+    // if ($scope.allstatus) {
+    //   $scope.allstatusload = 1;
+    // } else {
+    //   $scope.allstatusload = 0;
+    // }
+
+    // debugger;
+    // if (entity.recruiter_id == null) {
+    //   $scope.showowner = true;
+    // } else {
+    //   $scope.showowner = false;
+    // }
+    // $scope.ajid = entity.ajid;
+    // $rootScope.ajid = entity.ajid;
+    // console.log(entity);
+    // $scope.currentstatusid = entity.status_id;
+    // $scope.currentstatusname = entity.display_name;
+    // db.list('csr/' + entity.status_id, { allstatus: $scope.allstatusload }, function (response) {
+    //   $("#business").hide();
+    //   $("#offerhide").hide();
+    //   $scope.statuses = response.data;
+    //   $('#commentstatus').modal('show');
+    //   //            $mdDialog.show({
+    //   //                contentElement: '#commentstatus',
+    //   //                parent: angular.element(document.body),
+    //   //                clickOutsideToClose: true,
+    //   //                fullscreen: false,
+    //   //                disableParentScroll: false
+    //   //
+    //   //            });
+    // });
+
+
+
+  }
+
+  public activityclick(data: any) {
+    this.db.show('addtojob/activity/', data.ajid, (response): void => {
+      this.activities = response;
+
+    });
+
+
+  }
 
   assignjob(): void {
     const assignjob = {
@@ -651,8 +805,10 @@ export class MyJobComponent implements OnInit {
   exportdat() {
     this.gridApi.exportDataAsCsv();
   }
+
   onSelectionChanged(event) {
-    this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
+    this.selectednodes = event.api.getSelectedNodes();
+    // this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
 
   }
 }

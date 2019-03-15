@@ -44,7 +44,7 @@ export class CallDetailComponent implements OnInit {
   jobslist: any = [];
   status_show: any = {};
   gridmyjoblist: any = {};
-  //loadmyjoblist: any={};
+  // loadmyjoblist: any={};
   showmyjoblist: any = {};
   updateid: any = {};
   lower: any;
@@ -180,8 +180,9 @@ export class CallDetailComponent implements OnInit {
     this.db.list('industry/', null,  ((response):void=> {
 
       this.industries = response;
-    })
-    );
+    }, function (response) {
+      // this.token=response.statusText;
+    });
 
     this.db.list('clientdetail/', null, ((response): void => {
       this.clientdetails = response;

@@ -67,10 +67,12 @@
 
 
       <button (click)="exportdat()">Export</button>
-      <ag-grid-angular style="width: 1500px; height: 500px;" class="ag-theme-material" [rowData]="rowData"
+      <ag-grid-angular style="width: 1500px; height: 500px;"
+      (rowClicked)="onRowClicked($event)" class="ag-theme-material" [rowData]="rowData"
         [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
         [groupSelectsChildren]="true" paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)"
         [debug]="true" [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)">
       </ag-grid-angular>
     </div>
   </div>
+  <app-update-candidate [current_data]='currentData'></app-update-candidate>
