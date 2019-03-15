@@ -98,7 +98,7 @@ export class CallDetailComponent implements OnInit {
   atjidentity: any;
   mp: any;
   jobadd: any;
-  functionalareas: [];
+  functionalareas: any;
   functionalAreaName: any;
   trackerlist: any;
   jobidforReference: any;
@@ -108,6 +108,7 @@ export class CallDetailComponent implements OnInit {
   delete: any;
   clients: any;
   industries: [];
+
   //start_date: '2000-01-01';
   //end_date: number = Date.now();
 
@@ -162,8 +163,10 @@ export class CallDetailComponent implements OnInit {
 
     this.locations = [];
     this.db.list('location', null, ((response): void => {
-      var data = response;
-      for (let j in data) {
+      const data = response;
+      for (let j in data)
+      {
+
         this.locations.push(data[j].location);
       }
     })
@@ -171,15 +174,11 @@ export class CallDetailComponent implements OnInit {
     this.db.list('functionalarea/', null, function (response) {
 
       this.functionalareas = response;
-    }, function (response) {
-      //this.token=response.statusText;
     });
 
     this.db.list('industry/', null, function (response) {
 
       this.industries = response;
-    }, function (response) {
-      //this.token=response.statusText;
     });
 
     this.db.list('clientdetail/', null, ((response): void => {
@@ -429,12 +428,12 @@ export class CallDetailComponent implements OnInit {
 
   filterhistory(): void {
     const countRowsinMyJob = 0;
-    let filterdropdown = '';
-    let process = 'all';
-    let mainprocess = 0;
-    let searchcandidatetext = '';
-    let isfirstload = 0;
-    let selectedjob = 0;
+    const filterdropdown = '';
+    const process = 'all';
+    const mainprocess = 0;
+    const searchcandidatetext = '';
+    const isfirstload = 0;
+    const selectedjob = 0;
     this.gridOptionsloadcandidatesInPopUp.columnDefs = this.columnDefs;
 
     if (searchcandidatetext.length > 0) {
@@ -1509,9 +1508,9 @@ export class CallDetailComponent implements OnInit {
 
   submitcv(download): void {
     if (download) {
-      // this.downloadcv = true;
+       //this.downloadcv = true;
     } else {
-      //this.downloadcv = false;
+      this.downloadcv = false;
 
     }
     this.db.list('tracker/', null, ((response): void => {

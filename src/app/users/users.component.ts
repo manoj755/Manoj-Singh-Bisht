@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -33,6 +34,12 @@ export class UsersComponent implements OnInit {
   private rowSelection;
   private rowGroupPanelShow;
   private pivotPanelShow;
+
+  // userForm = new FormGroup({
+  //   Name: new FormControl('', Validators.required),
+  // });
+
+
   columnDefs = [
     {
       headerName: 'Action', field: 'id', suppressMenu: 'true', suppressSorting: 'true',
@@ -46,7 +53,9 @@ export class UsersComponent implements OnInit {
     { headerName: 'mobileNo', field: 'mobileNo', sortable: 'true', filter: 'true' }
   ];
   rowData = [];
-
+  onSubmit() {
+    alert(JSON.stringify(this.user));
+  }
   constructor(public db: DBService) {
     this.defaultColDef = {
       editable: 'true',
