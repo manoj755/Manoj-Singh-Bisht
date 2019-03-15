@@ -13,6 +13,7 @@ export class CallDetailComponent implements OnInit {
   recruiter;
   displaydd = 'Job';
   private gridColumnApi;
+  pageSize: any;
 
   private autoGroupColumnDef;
   private defaultColDef;
@@ -108,14 +109,14 @@ export class CallDetailComponent implements OnInit {
   delete: any;
   clients: any;
   industries: [];
-  //start_date: '2000-01-01';
-  //end_date: number = Date.now();
+  // start_date: '2000-01-01';
+  // end_date: number = Date.now();
 
 
   childprocessnewvar: any;
   gridheader: any;
   mainprocessnewvar: any;
-  //ShowCandidates:false;
+  // ShowCandidates:false;
   entity: any = {};
   candidateinpopup: any = {};
   download: any = {};
@@ -162,18 +163,19 @@ export class CallDetailComponent implements OnInit {
 
     this.locations = [];
     this.db.list('location', null, ((response): void => {
-      var data = response;
-      for (let j in data) {
-        this.locations.push(data[j].location);
+      const data = response;
+      for (const j in data) {
+        if (data[j]) {
+          this.locations.push(data[j].location);
+        }
       }
     })
     );
-    this.db.list('functionalarea/', null, function (response) {
+    this.db.list('functionalarea/', null, (response): void => {
 
       this.functionalareas = response;
-    }, function (response) {
-      //this.token=response.statusText;
     });
+
 
     this.db.list('industry/', null, function (response) {
 
@@ -183,8 +185,8 @@ export class CallDetailComponent implements OnInit {
     });
 
     this.db.list('clientdetail/', null, ((response): void => {
-      this.clientdetails = response.data;
-      this.clients = response.data;
+      this.clientdetails = response;
+      this.clients = response;
       console.log(response);
     })
     );
@@ -193,13 +195,13 @@ export class CallDetailComponent implements OnInit {
 
   // this.status_show(): void {
   //     //'to be verified', 'correct', 'incorrect', 'not sure'
-  //     if (status == "to be verified") {
+  //     if (status == 'to be verified') {
   //         return 'fa-question-circle-o text-info';
-  //     } else if (status == "correct") {
+  //     } else if (status == 'correct') {
   //         return 'fa-thumbs-o-up text-success';
-  //     } else if (status == "incorrect") {
+  //     } else if (status == 'incorrect') {
   //         return 'fa-thumbs-o-down text-danger';
-  //     } else if (status == "not sure") {
+  //     } else if (status == 'not sure') {
   //         return 'fa-arrows-h text-alert';
   //     }
 
@@ -222,12 +224,12 @@ export class CallDetailComponent implements OnInit {
 
   // };
 
-  // this.db.list("bvvendor/", null, function (response) {
+  // this.db.list('bvvendor/', null, function (response) {
 
 
 
   //     try {
-  //         this.bvvendors = response.data;
+  //         this.bvvendors = response;
   //     } catch (e) {
   //         console.info(e);
   //     }
@@ -239,7 +241,7 @@ export class CallDetailComponent implements OnInit {
   loadmyjoblist(): void {
     this.showmyjoblist = !this.showmyjoblist;
     this.db.list('allcandidatesmyjoblist/', {}, ((response): void => {
-      this.gridmyjoblist.data = response.data;
+      this.gridmyjoblist.data = response;
     })
     );
 
@@ -266,8 +268,8 @@ export class CallDetailComponent implements OnInit {
     this.lower = min;
     this.upper = max;
     this.db.store('vendor/', this.vendornew, ((response): void => {
-      if (response.data.d == true) {
-        alert(response.data.msg);
+      if (response.d == true) {
+        alert(response.msg);
       }
     })
     );
@@ -279,7 +281,7 @@ export class CallDetailComponent implements OnInit {
     // debugger;
     this.db.list('submit_cv_to_panel_status/', {}, ((response): void => {
 
-      this.cv_to_panel = { status: response.data };
+      this.cv_to_panel = { status: response };
       $('#submit_cv_to_panel_status').modal('show');
 
 
@@ -291,8 +293,8 @@ export class CallDetailComponent implements OnInit {
   sendCvToPanel(): void {
     if (!$('.validate').validate('#mynewjob')) {
       //  $.fn.showMessage('Please fill values');
-        return;
-      }
+      return;
+    }
     const allrow = this.db.getIDs(this.db.nodetype);
 
     if (allrow.length === 0) {
@@ -334,16 +336,16 @@ export class CallDetailComponent implements OnInit {
   tag(item): void {
 
     //  debugger;
-    if (item.tagged != "10") {
+    if (item.tagged != '10') {
       this.db.destroy('jobtag/', this.item.id, ((response): void => {
-        this.item.tagged = "10";
+        this.item.tagged = '10';
       })
       );
     }
     else {
 
       this.db.store('jobtag/', { job_id: item.id }, ((response): void => {
-        this.item.tagged = "11";
+        this.item.tagged = '11';
       })
       );
 
@@ -353,15 +355,15 @@ export class CallDetailComponent implements OnInit {
   is_approved_by_manager(item): void {
 
     // debugger;
-    if (item.is_approved_by_manager != "0") {
+    if (item.is_approved_by_manager != '0') {
       this.db.store('removeapprovedbymanager/', { job_id: this.item.id }, ((response): void => {
-        this.item.is_approved_by_manager = "0";
+        this.item.is_approved_by_manager = '0';
       })
       );
     } else {
 
       this.db.store('approvedbymanager/', { job_id: this.item.id, }, ((response): void => {
-        this.item.is_approved_by_manager = "1";
+        this.item.is_approved_by_manager = '1';
       })
       );
     }
@@ -412,16 +414,16 @@ export class CallDetailComponent implements OnInit {
 
     //
 
-    if ($('#purpose').find('option:selected').attr('isinterview') == '2') {
-      $("#offerhide").show();
+    if ($('#purpose').find('option:selected').attr('isinterview') === '2') {
+      $('#offerhide').show();
     } else {
-      $("#offerhide").hide();
+      $('#offerhide').hide();
     }
 
-    if ($('#purpose').find('option:selected').attr('isinterview') == '1') {
-      $("#business").show();
+    if ($('#purpose').find('option:selected').attr('isinterview') === '1') {
+      $('#business').show();
     } else {
-      $("#business").hide();
+      $('#business').hide();
     }
 
   };
@@ -429,16 +431,16 @@ export class CallDetailComponent implements OnInit {
 
   filterhistory(): void {
     const countRowsinMyJob = 0;
-    let filterdropdown = '';
-    let process = 'all';
-    let mainprocess = 0;
-    let searchcandidatetext = '';
-    let isfirstload = 0;
-    let selectedjob = 0;
+    const filterdropdown = '';
+    const process = 'all';
+    const mainprocess = 0;
+    const searchcandidatetext = '';
+    const isfirstload = 0;
+    const selectedjob = 0;
     this.gridOptionsloadcandidatesInPopUp.columnDefs = this.columnDefs;
 
     if (searchcandidatetext.length > 0) {
-      let main = [];
+      const main = [];
       const candidatedetails = '';
       for (const i in this.candidatedetails) {
         for (const j in this.candidatedetails[i]) {
@@ -457,26 +459,28 @@ export class CallDetailComponent implements OnInit {
     }
   };
   filterpopupfunction(): void {
-    //debugger;
-    if (this.trim(this.filterpopup.length) == 0) {
+    // debugger;
+    if (this.trim(this.filterpopup.length) === 0) {
       this.gridOptionsloadcandidatesInPopUp.data = this.candidateinpopup;
     } else {
       //  debugger;
-      let dataafterfilter = [];
+      const dataafterfilter = [];
       for (const i in this.candidateinpopup) {
-        let currentdata = this.candidateinpopup[i];
-        for (const t in currentdata) {
-          const val = currentdata[t];
-          if (!isNaN(val) && val != null) {
-            try {
-              val = val.toString();
-            } catch (e) {
+        if (this.candidateinpopup[i]) {
+          let currentdata = this.candidateinpopup[i];
+          for (const t in currentdata) {
+            const val = currentdata[t];
+            if (!isNaN(val) && val != null) {
+              try {
+                val = val.toString();
+              } catch (e) {
 
+              }
             }
-          }
-          if (typeof val == 'string' && val.toLowerCase().indexOf(this.filterpopup.toLowerCase()) != -1) {
-            dataafterfilter.push(currentdata);
-            break;
+            if (typeof val == 'string' && val.toLowerCase().indexOf(this.filterpopup.toLowerCase()) != -1) {
+              dataafterfilter.push(currentdata);
+              break;
+            }
           }
         }
       }
@@ -507,7 +511,7 @@ export class CallDetailComponent implements OnInit {
       isinterview: this.isinterview,
     };
 
-    $("#conversation").on("hidden.bs.modal", function () {
+    $('#conversation').on('hidden.bs.modal', function () {
       $('#player').html('');
       // put your default event here
     });
@@ -517,24 +521,24 @@ export class CallDetailComponent implements OnInit {
       this.callconversation = entity;
       //          /  this.conversations = JSON.parse(entity.conversation);
       // $('#conversation').modal('show');
-      $('#player').html('<iframe src="' + this.http_or_https + '://api.passivereferral.com/recording/?id=' + entity.call_id + '" width="100%" height="100" style="border:none; width:300px;height:100px"></iframe>');
+      $('#player').html('<iframe src='' + this.http_or_https + '://api.passivereferral.com/recording/?id=' + entity.call_id + '' width='100%' height='100' style='border:none; width:300px;height:100px'></iframe>');
 
 
-      // this.callconversation=entity;
-      this.db.show('calldetail/', entity.call_id, ((response): void => {
-        this.conversations = JSON.parse(response.data.conversation);
-        $('#conversation').modal('show');
-      })
-      );
+        // this.callconversation=entity;
+        this.db.show('calldetail/', entity.call_id, ((response): void => {
+          this.conversations = JSON.parse(response.conversation);
+          $('#conversation').modal('show');
+        })
+        );
 
     };
 
     this.openpopup = function (id) {
-      window.open(this.http_or_https + "://api.passivereferral.com/recording/?id=" + id, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=500,width=400,height=150");
+      window.open(this.http_or_https + '://api.passivereferral.com/recording/?id=' + id, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=500,width=400,height=150');
     }
 
     this.rowData = [];
-    this.db.list("callcandidatesdetailmyjob/", Search, ((response): void => {
+    this.db.list('callcandidatesdetailmyjob/', Search, ((response): void => {
       //debugger;
       //this.gridOptionsloadcandidatesInPopUp.columnDefs = this.columnDefs;
       this.candidatedetails = response;
@@ -542,7 +546,7 @@ export class CallDetailComponent implements OnInit {
       this.gridOptionsloadcandidatesInPopUp.exporterAllDataFn = function () {
         return this.candidatedetails;
       };
-      this.candidateinpopup = response.data;
+      this.candidateinpopup = response;
     })
     );
   };
@@ -573,16 +577,21 @@ export class CallDetailComponent implements OnInit {
       }
       this.db.store('sendtracker', this.sendtracker, ((response): void => {
         if (this.download) {
-          var resumes = response.data.resumes;
-          var resumehtml = '';
+          const resumes = response.resumes;
+          let resumehtml = '';
           if (resumes.length > 0) {
-            resumehtml = '</br> <h3>Resume List</h3> <div class="list-group">';
-            for (let k in resumes) {
-              resumehtml += '<a target="_blank" class="list-group-item" href="http://api.passivereferral.com/resumes/' + resumes[k].resume + '">' + resumes[k].name + '</a>';
+            resumehtml = '</br> <h3>Resume List</h3> <div class="list - group">';
+            for (const k in resumes) {
+              if (resumes[k]) {
+                resumehtml += '<a target="_blank" class="list - group - item" '
+                  + ' href="http://api.passivereferral.com/resumes/' + resumes[k].resume
+                  + '" > ' + resumes[k].name + ' < /a>';
+              }
             }
             resumehtml += '</div>';
           }
-          this.db.addpopup('Your excel is ready.<a  href="http://api.passivereferral.com/trackers/' + r.data.excel + '">Click Here</a> to Download ' + resumehtml, 'Excel Prepared');
+          this.db.showMessage('Your excel is ready.<a  href="http://api.passivereferral.com/trackers/'
+            + response.excel + '" > Click Here < /a> to Download ' + resumehtml, 'Excel Prepared');
         } else {
           this.db.addmessageandremove('tracker sent');
         }
@@ -600,28 +609,30 @@ export class CallDetailComponent implements OnInit {
 
 
     if (this.countRowsinMyJob > 0) {
-      var totalrow = 0;
+      let totalrow = 0;
       if (this.showmyjoblist) {
         totalrow = this.gridApipopup.selection.getSelectedRows();
       } else {
         totalrow = this.gridmyjoblistApi.selection.getSelectedRows();
         this.sendtracker.trackerno = this.trackerno;
       }
-      let allrow = FH.SelectedWithComma(totalrow, 'ajid');
+      const allrow = this.db.SelectedWithComma(totalrow, 'ajid');
       this.sendtracker.atjids = allrow;
       if (this.download) {
         this.sendtracker.download = true;
       } else {
         this.sendtracker.download = false;
       }
-      this.db.store('sendtracker', this.sendtracker, function (r) {
+      this.db.store('sendtracker', this.sendtracker, (r): void => {
         if (this.download) {
-          this.db.addpopup('Your excel is ready.<a href="http://api.passivereferral.com/trackers/' + r.data.excel + '">Click Here</a> to Download', 'Excel Prepared');
+          this.db.showMessage('Your excel is ready.' +
+            '<a href="http://api.passivereferral.com/trackers/' + r.excel + '">Click Here</a> to Download'
+            , 'Excel Prepared');
         } else {
           this.db.addmessageandremove('tracker sent');
         }
-      }, function (r) {
-        if (r.errormsg != undefined) {
+      }, (r): void => {
+        if (r.errormsg !== undefined) {
           this.db.addmessageandremove(r.errormsg);
         } else {
           this.db.addmessageandremove('Some error occured');
@@ -634,8 +645,8 @@ export class CallDetailComponent implements OnInit {
 
 
   searchtermchange(): void {
-    //const displaydd = 'Jobs';
-    //const currentfilter = 'jobs';
+    // const displaydd = 'Jobs';
+    // const currentfilter = 'jobs';
     this.searchcandidatetext = '';
     this.searchcandidate = '';
     if (this.currentfilter === 'jobs') {
@@ -664,7 +675,7 @@ export class CallDetailComponent implements OnInit {
     return text;
   }
 
-  //searchtermchange();
+  // searchtermchange();
   bindJoblist(data): void {
     this.jobslist = data;
     this.currentPage = 0;
@@ -726,10 +737,10 @@ export class CallDetailComponent implements OnInit {
       //  $.fn.showMessage('Please fill values');
       return;
     }
-    this.db.list("joblistbycall/", this.item, ((response): void => {
-      this.jobslistmain = response.data;
-      //this.item=response.data;
-      this.changefilter("hascall", "hascall");
+    this.db.list('joblistbycall/', this.item, ((response): void => {
+      this.jobslistmain = response;
+      //this.item=response;
+      this.changefilter('hascall', 'hascall');
       //this.bindJoblist(this.jobslistmain);
     })
     );
@@ -825,25 +836,26 @@ export class CallDetailComponent implements OnInit {
   addtojobcandidates(): void {
     if ($('.validate').validate('#assignCandidate', true)) {
       this.addtojobmessage = '';
-      //var totalrow=this.gridApipopup.selection.getSelectedRows();
-      //var allrow= '';//FH.SelectedWithComma(totalrow,'id');//
-      var totalrow = this.gridApipopup.selection.getSelectedRows();
-      var allrow = FH.SelectedWithComma(totalrow, 'id');
-      var copyjob = {
+      // var totalrow=this.gridApipopup.selection.getSelectedRows();
+      // var allrow= '';//FH.SelectedWithComma(totalrow,'id');//
+      const totalrow = this.gridApipopup.selection.getSelectedRows();
+      const allrow = this.db.SelectedWithComma(totalrow, 'id');
+      const copyjob = {
         'candidates': allrow,
         'job': this.copycandidate.job_id,
         'manager': this.copycandidate.manager
       };
-      this.db.store('copyjob/', copyjob, ((response): void {
+      this.db.store('copyjob/', copyjob, ((response): void => {
 
 
 
         this.getlist();
-        for (let i in this.candidates) {
-          this.myjob[i] = '';
-        }
-        if (response.data.alreadyexists > 0) {
-          this.addtojobmessage = response.data.alreadyexists + ' Candidate(s) already in pipeline.';
+        // for (let i in this.candidates) {
+        //   if(this.candidates)
+        //   this.myjob[i] = '';
+        // }
+        if (response.alreadyexists > 0) {
+          this.addtojobmessage = response.alreadyexists + ' Candidate(s) already in pipeline.';
         } else {
           this.addtojobmessage = 'Assign Candidate Successfully';
 
@@ -887,12 +899,13 @@ export class CallDetailComponent implements OnInit {
         job_id: job_id
       }, ((response): void => {
         const recruiterunderjoblist = response;
-        for (let k in recruiterunderjoblist) {
-          debugger;
-          for (let m in this.managers) {
-            if (recruiterunderjoblist[k].recruiter_id == this.managers[m].id) {
-              this.managers[m].selected = true;
-              break;
+        for (const k in recruiterunderjoblist) {
+          if (recruiterunderjoblist[k]) {
+            for (const m in this.managers) {
+              if (recruiterunderjoblist[k].recruiter_id === this.managers[m].id) {
+                this.managers[m].selected = true;
+                break;
+              }
             }
           }
         }
@@ -1051,14 +1064,15 @@ export class CallDetailComponent implements OnInit {
       }
     })
     );
-    for (var t in this.cvslists) {
-
-      var data = {
-        file: this.cvslists[t].file,
-        email: this.cvslists[t].email,
-        'jobid': this.jobidcvupload
-      };
-      this.db.store('uploadcvs/', data, function (response) { });
+    for (const t in this.cvslists) {
+      if (this.cvslists[t]) {
+        const data = {
+          file: this.cvslists[t].file,
+          email: this.cvslists[t].email,
+          'jobid': this.jobidcvupload
+        };
+        this.db.store('uploadcvs/', data, function (response) { });
+      }
     }
     console.log(formData);
   };
@@ -1069,7 +1083,7 @@ export class CallDetailComponent implements OnInit {
       file: file
     }, function (response) {
       $('#showcvs').modal('show');
-      this.cvslists = response.data;
+      this.cvslists = response;
     }, function (response) {
       this.db.addmessageandremove('Please try again');
     }, function (percentage, response) {
@@ -1094,7 +1108,7 @@ export class CallDetailComponent implements OnInit {
   };
   loadmyteam(): void {
     this.db.list('manager/', null, ((response): void => {
-      this.managers = response.data;
+      this.managers = response;
       console.log(response);
     })
     );
@@ -1136,9 +1150,9 @@ export class CallDetailComponent implements OnInit {
     this.currentstatusid = entity.status_id;
     this.currentstatusname = entity.display_name;
     this.db.list('csr/' + entity.status_id, { allstatus: this.allstatusload }, ((response): void => {
-      $("#business").hide();
-      $("#offerhide").hide();
-      this.statuses = response.data;
+      $('#business').hide();
+      $('#offerhide').hide();
+      this.statuses = response;
       $('#commentstatus').modal('show');
       //            $mdDialog.show({
       //                contentElement: '#commentstatus',
@@ -1156,15 +1170,15 @@ export class CallDetailComponent implements OnInit {
   // $.fn.ShowPopUp('Please try again.', 'Status', 'sm');
   getcandidatebyclient(): void {
 
-    this.db.list("addnewjob/", {
+    this.db.list('addnewjob/', {
       clientId: this.copycandidate.client_detail_id
     }, ((response): void => {
-      this.jobslistbyclients = response.data;
+      this.jobslistbyclients = response;
     })
     );
   }
 
-  //this.getlist();
+  // this.getlist();
 
   // addNewJobSave():void {
   //   this.interviewquestion = {};
@@ -1178,7 +1192,7 @@ export class CallDetailComponent implements OnInit {
   //    // }
   //    // this.myjob.location = locationstr;
   //     this.myjob.functionalArea = this.functionalArea.functionalAreaName;
-  //     this.db.store("addnewjob/", this.myjob,  ((response):void => {
+  //     this.db.store('addnewjob/', this.myjob,  ((response):void => {
   //       this.db.addmessageandremove('Data save Successfully');
   //       this.getlist();
   //       for (let i in this.myjob) {
@@ -1191,13 +1205,13 @@ export class CallDetailComponent implements OnInit {
   // };
   // removecandidate(entity): void {
 
-  //   this.db.store("removecandidate/" + entity.ajid, {}, ((response): void => {
+  //   this.db.store('removecandidate/' + entity.ajid, {}, ((response): void => {
 
-  //     if (response.data.msg == '1') {
+  //     if (response.msg == '1') {
   //       this.loadCandidate();
   //       this.db.addmessageandremove('deleted', $('#candidatesall'));
   //     } else {
-  //       this.db.addmessageandremove("can't delete", $('#candidatesall'));
+  //       this.db.addmessageandremove('can't delete', $('#candidatesall'));
   //     }
   //   }, function () {
   //     this.db.addmessageandremove('Please try again', $('#candidatesall'));
@@ -1208,12 +1222,12 @@ export class CallDetailComponent implements OnInit {
 
   setatjidentity(entity): void {
     this.atjidentity = {};
-    //this.job = job;
+    // this.job = job;
     this.atjidentity = entity;
     $('#trackerDetailExtra').modal('show');
     this.db.list('trackerdatacustom/', { ajid: entity.ajid }, ((response): void => {
       // debugger;
-      this.trackerdatamyjob = response.data;
+      this.trackerdatamyjob = response;
     })
     );
 
@@ -1231,10 +1245,10 @@ export class CallDetailComponent implements OnInit {
 
   };
   activity(entity): void {
-    //this.job = job;
+    // this.job = job;
 
-    this.db.show("addtojob/activity/", entity.ajid, ((response): void => {
-      this.activities = response.data;
+    this.db.show('addtojob/activity/', entity.ajid, ((response): void => {
+      this.activities = response;
       $('#activity').modal('show');
       //            $mdDialog.show({
       //                contentElement: '#activity',
@@ -1253,7 +1267,7 @@ export class CallDetailComponent implements OnInit {
     //        this.jobroles = [];
     //        var code = this.functionalArea.code;
     //        if (code != null) {
-    //            code = code.replace('#', "");
+    //            code = code.replace('#', '');
     //            code = code.split('.')[0];
     //            code = parseInt(code);
     //            arrRoleload = arrRoles[code];
@@ -1270,7 +1284,7 @@ export class CallDetailComponent implements OnInit {
   //    this.maximumSalary=[];
   //    debugger;
   //    this.db.list('maximumSalary',null,function(response){
-  //        var data =response.data;
+  //        var data =response;
   //        for(i in data){
   //            i=parseInt(this.maximumSalary);
   //            this.maximumSalary.push(data[i].maximumSalary);
@@ -1287,37 +1301,36 @@ export class CallDetailComponent implements OnInit {
   // });
 
   showJob(id, $event): void {
-    //debugger;
+    // debugger;
     $event.stopPropagation();
-    //this.job = job;
+    // this.job = job;
     if (this.mp.add_new_job_show) {
       this.jobadd = false;
-      this.db.show("addnewjob/", id, ((response): void => {
+      this.db.show('addnewjob/', id, ((response): void => {
 
 
 
-        this.myjob = response.data;
+        this.myjob = response;
         try {
-          this.myjob.minimumSalary = parseInt(this.myjob.minimumSalary);
-          this.myjob.maximumSalary = parseInt(this.myjob.maximumSalary);
+          this.myjob.minimumSalary = parseInt(this.myjob.minimumSalary, 0);
+          this.myjob.maximumSalary = parseInt(this.myjob.maximumSalary, 0);
         } catch (e) {
 
         }
         if (this.myjob.tracker_id != null) {
           this.myjob.tracker_id = this.myjob.tracker_id.toString();
         }
-        this.db.list("tracker/", null, ((response): void => {
+        this.db.list('tracker/', null, ((response): void => {
 
 
           try {
-            this.trackerlist = response.data;
+            this.trackerlist = response;
             //                        if (this.trackerlist.length > 0)
             //                        {
             //                            // console.log(this.trackerlist);
             //                            this.myjob.tracker_id = this.trackerlist[0].id.toString();
             //                        }
           } catch (e) {
-            console.info(e);
           }
 
         })
@@ -1329,11 +1342,11 @@ export class CallDetailComponent implements OnInit {
         } catch (e) {
           console.log(e);
         }
-        //functionalareas this.functionalArea = this.myjob.functionalArea.toString();
+        // functionalareas this.functionalArea = this.myjob.functionalArea.toString();
         if (this.myjob.functionalArea != null) {
-          for (var i in this.functionalareas) {
-            if (this.myjob.functionalArea.toString() == this.functionalareas[i].functionalAreaName) {
-              //this.functionalArea = {"id": this.functionalareas[i].id, "functionalAreaName": this.functionalareas[i].functionalAreaName, "code": this.functionalareas[i].code, "ipAddress": this.functionalareas[i].ipAddress};
+          for (const i in this.functionalareas) {
+            if (this.myjob.functionalArea.toString() === this.functionalareas[i].functionalAreaName) {
+              // this.functionalArea = {'id': this.functionalareas[i].id, 'functionalAreaName': this.functionalareas[i].functionalAreaName, 'code': this.functionalareas[i].code, 'ipAddress': this.functionalareas[i].ipAddress};
               this.myjob.functionalArea = this.functionalareas[i];
               this.getrole();
               break;
@@ -1342,7 +1355,7 @@ export class CallDetailComponent implements OnInit {
 
           }
         }
-        //this.functionalArea=""
+        // this.functionalArea=''
         try {
           this.myjob.Industry = this.myjob.industry.toString();
           this.myjob.jobRole = this.myjob.jobRole.toString();
@@ -1350,7 +1363,7 @@ export class CallDetailComponent implements OnInit {
           console.log(e);
         }
         //
-        //changerole();
+        // changerole();
         //
         // debugger;
         $('#submitjob').modal('show');
@@ -1360,21 +1373,21 @@ export class CallDetailComponent implements OnInit {
   };
 
   changerole(): void {
-    //debugger;
+    // debugger;
     setTimeout(function () {
-      if ($('#role').val() == 'Internship') {
+      if ($('#role').val() === 'Internship') {
         $('#internship').show();
       } else {
         $('#internship').hide();
       }
 
-      if ($('#role').val() == 'Contract') {
+      if ($('#role').val() === 'Contract') {
         $('#contract').show();
       } else {
         $('#contract').hide();
       }
 
-      if ($('#role').val() == 'Freelence') {
+      if ($('#role').val() === 'Freelence') {
         $('#freelence').show();
       } else {
         $('#freelence').hide();
@@ -1385,15 +1398,14 @@ export class CallDetailComponent implements OnInit {
     // debugger;
     $event.stopPropagation();
     this.jobidforReference = id;
-    this.db.list("applicationdepartment/", null, ((response): void => {
+    this.db.list('applicationdepartment/', null, ((response): void => {
 
 
 
       try {
-        this.departments = response.data;
+        this.departments = response;
         $('#internalreference').modal('show');
       } catch (e) {
-        console.info(e);
       }
 
     })
@@ -1452,20 +1464,20 @@ export class CallDetailComponent implements OnInit {
   //     //            this.myjob.location = locationstr;
   //     //
   //     //            this.myjob.functionalArea = this.functionalArea.functionalAreaName;
-  //     this.db.update("addnewjob/", this.myjob.id, this.myjob, function (response) {
+  //     this.db.update('addnewjob/', this.myjob.id, this.myjob, function (response) {
 
-  //       this.db.addpopup('Job Updated Successfully', "Good job done !");
+  //       this.db.addpopup('Job Updated Successfully', 'Good job done !');
   //       this.cancel();
   //     }, function (response) {
   //       //this.token=response.statusText;
-  //       this.db.addpopup('Please check if you entered wrong data.', "Please try again !");
+  //       this.db.addpopup('Please check if you entered wrong data.', 'Please try again !');
 
 
   //     });
   //   }
   // };
   deletes(): void {
-    this.db.destroy("messagelogstatus/", this.delete.id, ((response): void => {
+    this.db.destroy('messagelogstatus/', this.delete.id, ((response): void => {
       console.log(response);
     })
     );
@@ -1572,8 +1584,8 @@ export class CallDetailComponent implements OnInit {
   getcandidatebyclientbyjob(): void {
     //debugger;
 
-    this.db.list("addnewjob/", { clientId: this.copycandidate.client_detail_id }, ((response): void => {
-      this.jobslistbyclients = response.data;
+    this.db.list('addnewjob/', { clientId: this.copycandidate.client_detail_id }, ((response): void => {
+      this.jobslistbyclients = response;
 
     })
     );
@@ -1594,8 +1606,8 @@ export class CallDetailComponent implements OnInit {
 
   //     console.log(response);
   //     //alert('done');
-  //     // if (response.data.alreadyexists > 0) {
-  //     //     this.addtojobmessage = response.data.alreadyexists + ' Candidate(s) already in pipeline.';
+  //     // if (response.alreadyexists > 0) {
+  //     //     this.addtojobmessage = response.alreadyexists + ' Candidate(s) already in pipeline.';
   //     // } else {
   //     //     this.addtojobmessage = 'Assign Candidate Successfully';
 
@@ -1626,12 +1638,12 @@ export class CallDetailComponent implements OnInit {
 
 
   //   if ( export_format == 'csv') {
-  //     var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+  //     var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
   //     exportdata.exporter.csvExport(this.export_row_type, this.export_column_type, myElement);
   //   } else if (this.export_format == 'pdf') {
   //     this.exportdata.exporter.pdfExport(this.export_row_type, this.export_column_type);
   //   }
-  //   export_format = "";
+  //   export_format = '';
   // };
 
 }
