@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="input-group" style="margin-top: 9px;">
                 <div class="input-group-btn  btn-raised search-panel">
                   <button type="button" class="btn  btn-raised btn-default dropdown-toggle" data-toggle="dropdown">
@@ -40,16 +40,19 @@
               </div>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
               <button type="button" class="btn  btn-raised  btn-primary" (click)='assignjobClick()'
                 style="margin-top: 9px;" ng-if='mp.btn_assign_job_to_recruiter'>Assign Job</button>
               <!--                        <button type="button" class="btn  btn-raised  btn-primary" data-toggle="modal" data-target="#myModal-5" style="margin-top: 9px;">Un-Assigned Job</button    >-->
 
-              <button type="button" class="btn  btn-raised  btn-success" (click)="loadvendor()" style="margin-top: 9px;"
+              <button type="button" class="btn  btn-raised  btn-info" (click)="loadvendor()" style="margin-top: 9px;"
                 ng-if='mp.btn_assign_job_to_vendor'>Assign Job to Vendor</button>
-              <button type="button" class="btn  btn-raised  btn-success" data-toggle="modal" (click)="openaddvendor()"
-                data-target="#addvendor" style="margin-top: 9px;" d='mp.btn_add_vendor'>Add Vendor</button>
+              <button type="button" class="btn  btn-raised  btn-danger" data-toggle="modal"
+                (click)="openaddvendor()" data-target="#addvendor" style="margin-top: 9px;"
+                d='mp.btn_add_vendor'>Add Vendor</button>
 
+              <button type="button" class="btn  btn-raised  btn-default" (click)="db.downloadFile(jobslist,'joblist')"
+                style="margin-top: 9px;" d='mp.btn_add_vendor'>CSV</button>
 
             </div>
           </div>
@@ -119,7 +122,7 @@
 
             <div class="col-md-12">
               <div class="card" (click)="selectdeselect($event,item)"
-                *ngFor="let item of jobslist | orderBy:'visibleonwebsite';  let i = index">
+                *ngFor="let item of jobslist | orderBy:'visibleonwebsite' | myfilter: searchcandidatetext;  let i = index">
                 <div class="card-header card-header-{{item.selected?'success':'info'}}">
                   <h4 class="card-title">
                     <!-- {{i}}  -->
@@ -162,29 +165,29 @@
                       <i class="fa fa-tags"></i>
                     </a>
                     <a mat-mini-fab class="" help="Show JD" href="javascript:" style='color:black; background:#ffffbe;'
-                      (click)="item.responsibilityshow=!item.responsibilityshow;">
+                      (click)="showjd(item)">
                       <i class="fa fa-bolt "></i>
                     </a>
                     <a mat-mini-fab ng-show='item.visibleonwebsite==1' class=""
-                      href="{{$url}}/{{item.slug}}/{{item.id}}/{{profile.id}}" target="_blank"
+                      href="{{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}" target="_blank"
                       style='color:red; background:white;' help='Visible on Website'>
                       <i class="fa fa-eye "></i>
                     </a>
 
                     <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
-                      href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
+                      href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
                       target="_blank">
                       <i class="fa fa-facebook "></i>
                     </a>
 
                     <a mat-mini-fab class="twitter" ng-hide="profile.isvendor=='1'"
-                      href="https://twitter.com/share?url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
+                      href="https://twitter.com/share?url={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
                       target="_blank">
                       <i class="fa fa-twitter  "></i>
                     </a>
 
                     <a mat-mini-fab class="linkedin" ng-hide="profile.isvendor=='1'"
-                      href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
+                      href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
                       target="_blank">
                       <i class="fa fa-linkedin "></i>
                     </a>
@@ -220,7 +223,7 @@
 
                   </div>
 
-                  <div class="col-md-12">
+                  <div class="col-md-6">
                     <div class='row buttonwithnumber'>
 
                       <button mat-raised-button color="primary" matBadge="{{item.allcandidate}}"
@@ -263,7 +266,7 @@
 
                   </div>
                   <div class="col-md-12" [hidden]="!item.responsibilityshow">
-                    <p class="htmlele">{{item.jobDescription}}</p>
+                    <p class="htmlele">{{itemone.jobDescription}}</p>
                   </div>
 
                 </div>
@@ -748,7 +751,8 @@
 
               <div class="col-md-6">Email
 
-                <input type="text" autocomplete="off" [(ngModel)]="vendornew.email" class="form-control e m" n="Email" />
+                <input type="text" autocomplete="off" [(ngModel)]="vendornew.email" class="form-control e m"
+                  n="Email" />
               </div>
 
 
@@ -1014,4 +1018,4 @@
 <app-add-candidate></app-add-candidate>
 <app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status>
 <app-activity [activities]="activities"></app-activity>
-<!-- <app-update-candidate [current_data]='currentData'></app-update-candidate> -->
+<app-update-candidate [current_data]='currentData'></app-update-candidate>

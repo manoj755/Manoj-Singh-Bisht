@@ -24,7 +24,9 @@ export class UpdateCandidateComponent implements OnInit {
       this.currentData.candidate_id = currentData.id;
       if (currentData && currentData.candidate_id && currentData.candidate_id > 0) {
         this.globaljobid = this.currentData.id;
+        debugger;
         this.candidateshow(currentData.candidate_id);
+        this.currentData = {};
 
       }
     }
