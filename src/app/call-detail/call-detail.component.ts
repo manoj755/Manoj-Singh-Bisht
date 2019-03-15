@@ -10,7 +10,9 @@ export class CallDetailComponent implements OnInit {
   private smsselected = {};
   private emailselected = {};
   private gridApi;
+  http_or_https = 'http';
   recruiter;
+  conversations = [];
   displaydd = 'Job';
   private gridColumnApi;
   pageSize: any;
@@ -60,7 +62,7 @@ export class CallDetailComponent implements OnInit {
   ajid: any = {};
   trackerno: any = {};
   ShowCandidates = false;
-  searchcandidatetext: any = {};
+  searchcandidatetext: any = '';
   searchcandidate: any = {};
   currentfilter: any = {};
   jobslistlength: any = {};
@@ -129,7 +131,7 @@ export class CallDetailComponent implements OnInit {
   today = new Date();
   start_date = '';
   constructor(public db: DBService) {
-    //this.start_date = formatDate(this.today, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
+    // this.start_date = formatDate(this.today, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
   }
 
   ngOnInit() {
@@ -488,6 +490,11 @@ export class CallDetailComponent implements OnInit {
       this.gridOptionsloadcandidatesInPopUp.data = dataafterfilter;
     }
   }
+
+  openpopup(id): void {
+    window.open(this.http_or_https + '://api.passivereferral.com/recording/?id='
+      + id, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=500,width=400,height=150');
+  }
   loadCandidate = function () {
 
     //
@@ -509,6 +516,8 @@ export class CallDetailComponent implements OnInit {
       selectedjob: SelectedJob,
       candidate: this.searchcandidate,
       isinterview: this.isinterview,
+      start_date: this.item.start_date,
+      end_date: this.item.end_date
     };
 
     $('#conversation').on('hidden.bs.modal', function () {
@@ -517,30 +526,13 @@ export class CallDetailComponent implements OnInit {
     });
 
 
-    this.conversation = function (entity) {
-      this.callconversation = entity;
-      //          /  this.conversations = JSON.parse(entity.conversation);
-      // $('#conversation').modal('show');
-      $('#player').html('<iframe src='' + this.http_or_https + '://api.passivereferral.com/recording/?id=' + entity.call_id + '' width='100%' height='100' style='border:none; width:300px;height:100px'></iframe>');
 
 
-        // this.callconversation=entity;
-        this.db.show('calldetail/', entity.call_id, ((response): void => {
-          this.conversations = JSON.parse(response.conversation);
-          $('#conversation').modal('show');
-        })
-        );
-
-    };
-
-    this.openpopup = function (id) {
-      window.open(this.http_or_https + '://api.passivereferral.com/recording/?id=' + id, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=500,width=400,height=150');
-    }
 
     this.rowData = [];
     this.db.list('callcandidatesdetailmyjob/', Search, ((response): void => {
-      //debugger;
-      //this.gridOptionsloadcandidatesInPopUp.columnDefs = this.columnDefs;
+      // debugger;
+      // this.gridOptionsloadcandidatesInPopUp.columnDefs = this.columnDefs;
       this.candidatedetails = response;
       this.rowData = response;
       this.gridOptionsloadcandidatesInPopUp.exporterAllDataFn = function () {
@@ -550,9 +542,25 @@ export class CallDetailComponent implements OnInit {
     })
     );
   };
-  // this.isDisabledDate = function (currentDate, mode) {
-  //   return mode === 'day' && (currentDate.getDay() === 0 || currentDate.getDay() === 6);
-  // };
+
+  conversation(entity): void {
+    this.callconversation = entity;
+    //          /  this.conversations = JSON.parse(entity.conversation);
+    // $('#conversation').modal('show');
+    $('#player').html('<iframe src="' + this.http_or_https + '://api.passivereferral.com/recording/?id=' + entity.call_id +
+      '" width="100%" height="100" style="border:none; width:300px;height:100px"></iframe>');
+
+
+    // this.callconversation=entity;
+    this.db.show('calldetail/', entity.call_id, ((response): void => {
+      this.conversations = JSON.parse(response.conversation);
+      $('#conversation').modal('show');
+    })
+    );
+
+  };
+
+
   sendtrackermsg(download): void {
 
     if (download) {
@@ -727,21 +735,29 @@ export class CallDetailComponent implements OnInit {
             data.push(this.jobslistmain[i]);
           }
         }
+      } else if (type === 'hascall') {
+        for (const i in this.jobslistmain) {
+          if (parseInt(this.jobslistmain[i].allcalledcandidate, 0) > 0) {
+            data.push(this.jobslistmain[i]);
+          }
+        }
       }
 
     this.bindJoblist(data);
   };
 
   getlist(): void {
-    if (!$('.validate').validate('#myModal')) {
-      //  $.fn.showMessage('Please fill values');
-      return;
-    }
+    // if (!$('.validate').validate('#myModal')) {
+    //   //  $.fn.showMessage('Please fill values');
+    //   return;
+    // }
+    this.item.start_date = this.db.toYYMMDD(this.item.start_date_temp);
+    this.item.end_date = this.db.toYYMMDD(this.item.end_date_temp);
     this.db.list('joblistbycall/', this.item, ((response): void => {
       this.jobslistmain = response;
-      //this.item=response;
+      // this.item=response;
       this.changefilter('hascall', 'hascall');
-      //this.bindJoblist(this.jobslistmain);
+      this.bindJoblist(this.jobslistmain);
     })
     );
   };
