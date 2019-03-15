@@ -13,6 +13,7 @@ export class InternalDatabaseComponent implements OnInit {
   sendemailmodel: any = {};
   copycandidate: any = {};
   myjob: any = {};
+  currentData = {};
   sms: any = {};
   addnewjob: any = {};
   profile: any = {};
@@ -28,7 +29,14 @@ export class InternalDatabaseComponent implements OnInit {
   private rowGroupPanelShow;
   private pivotPanelShow;
   columnDefs = [
-    { headerName: 'Candidate Name', field: 'candidateName', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
+
+    {
+      headerName: 'Candidate Name', field: 'candidateName',
+      sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true,
+      template: `<button type='button' data-action-type='candidateshow' class='btn btn-success btn-sm'>
+     Edit
+   </button>
+`   },
     { headerNmae: 'CurrentDesignation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Email', field: 'email', sortable: true, filter: true },
     { headerName: 'Qualification', field: 'qualification', sortable: true, filter: true },
@@ -54,6 +62,31 @@ export class InternalDatabaseComponent implements OnInit {
     this.loadInternalData();
   }
 
+  public onRowClicked(e) {
+    if (e.event.target !== undefined) {
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
+
+debugger;
+      switch (actionType) {
+        // case 'activity':
+        //   return this.activityclick(data);
+        // case 'comment':
+        //   return this.onCommentClick(data);
+        // case 'notes':
+        //   return this.onNotesClick(data);
+        case 'candidateshow':
+          return this.oncandidateshowClick(data);
+      }
+    }
+  }
+  public oncandidateshowClick(data: any) {
+
+    debugger;
+    data.tempdate = new Date().getMilliseconds();
+    this.currentData = {};
+    this.currentData = data;
+  }
   loadInternalData(isPager?): void {
 
     if (isPager) {

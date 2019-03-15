@@ -9,9 +9,10 @@ import { DBService } from 'app/db.service';
 export class HistoryComponent implements OnInit {
 
   title = 'app';
-  private smsselected={};
-  private emailselected={};
+  private smsselected = {};
+  private emailselected = {};
   private gridApi;
+  currentData: any;
   recruiter;
   allids = [];
   private gridColumnApi;
@@ -23,6 +24,14 @@ export class HistoryComponent implements OnInit {
   private pivotPanelShow;
   columnDefs = [
     { headerName: 'Job Name', field: 'job_name', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
+
+    {
+      headerName: 'View', field: 'candidateName',
+      sortable: false, filter: false,
+      template: `<button type='button' data-action-type='candidateshow' class='btn btn-success btn-sm'>
+     Edit
+   </button>
+`   },
     { headerName: 'Candidate Name', field: 'candidateName', sortable: true, filter: true },
     { headerName: 'Current Designation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
@@ -33,7 +42,7 @@ export class HistoryComponent implements OnInit {
     { headerName: 'Salary', field: 'currentSalary', sortable: true, filter: true },
     { headerName: 'Recruiter Name', field: 'recruitername', sortable: true, filter: true },
     { headerName: 'CV Status', field: 'cvstatus', sortable: true, filter: true },
- ];
+  ];
 
   rowData = [
   ];
@@ -57,11 +66,37 @@ export class HistoryComponent implements OnInit {
   }
 
   LoadHistory(): void {
-    this.db.list('history/', {  }, ((response): void => {
+    this.db.list('history/', {}, ((response): void => {
       this.rowData = response;
 
 
     }));
+  }
+
+  public onRowClicked(e) {
+    if (e.event.target !== undefined) {
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
+
+      debugger;
+      switch (actionType) {
+        // case 'activity':
+        //   return this.activityclick(data);
+        // case 'comment':
+        //   return this.onCommentClick(data);
+        // case 'notes':
+        //   return this.onNotesClick(data);
+        case 'candidateshow':
+          return this.oncandidateshowClick(data);
+      }
+    }
+  }
+  public oncandidateshowClick(data: any) {
+
+    debugger;
+    data.tempdate = new Date().getMilliseconds();
+    this.currentData = {};
+    this.currentData = data;
   }
   onGridReady(params) {
     this.gridApi = params.api;
