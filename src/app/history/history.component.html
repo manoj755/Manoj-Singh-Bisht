@@ -4,7 +4,7 @@
 
     <div class="row">
 
-      <app-call  [allids]='allids'></app-call>
+      <app-call [allids]='allids'></app-call>
       <app-add-to-job [allids]='allids'></app-add-to-job>
       <app-pv-get-reference [allids]='allids'></app-pv-get-reference>
 
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-     <!-- <div class="col-md-6">
+      <!-- <div class="col-md-6">
 
         <button (click)="exportdat()" class="btn btn-default btn-raised">Export</button>
 
@@ -67,11 +67,11 @@
 
 
       <button (click)="exportdat()">Export</button>
-      <ag-grid-angular style="width: 1500px; height: 500px;"
-      (rowClicked)="onRowClicked($event)" class="ag-theme-material" [rowData]="rowData"
-        [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
-        [groupSelectsChildren]="true" paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)"
-        [debug]="true" [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)">
+      <ag-grid-angular style="width: 1500px; height: 500px;" (rowClicked)="onRowClicked($event)"
+        class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
+        [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+        (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
+        (gridReady)="onGridReady($event)">
       </ag-grid-angular>
     </div>
   </div>
