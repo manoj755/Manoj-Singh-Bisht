@@ -1412,7 +1412,7 @@ export class CallDetailComponent implements OnInit {
   getinternalreferrence(): void {
     console.log(this.departments);
     const departments = [];
-    for (let k in this.departments) {
+    for (const k in this.departments) {
       if (this.departments[k].selected) {
         departments.push(this.departments[k].id);
       }
