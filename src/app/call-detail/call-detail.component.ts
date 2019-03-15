@@ -108,7 +108,7 @@ export class CallDetailComponent implements OnInit {
   prmMessagge: any;
   delete: any;
   clients: any;
-  industries: [];
+  industries: any;
   // start_date: '2000-01-01';
   // end_date: number = Date.now();
 
@@ -177,10 +177,11 @@ export class CallDetailComponent implements OnInit {
     });
 
 
-    this.db.list('industry/', null, function (response) {
+    this.db.list('industry/', null,  ((response):void=> {
 
       this.industries = response;
-    });
+    })
+    );
 
     this.db.list('clientdetail/', null, ((response): void => {
       this.clientdetails = response;
@@ -464,8 +465,9 @@ export class CallDetailComponent implements OnInit {
       //  debugger;
       const dataafterfilter = [];
       for (const i in this.candidateinpopup) {
-        if (this.candidateinpopup[i]) {
-          let currentdata = this.candidateinpopup[i];
+        if(this.candidateinpopup[i]){
+
+          const currentdata = this.candidateinpopup[i];
           for (const t in currentdata) {
             const val = currentdata[t];
             if (!isNaN(val) && val != null) {
@@ -532,7 +534,8 @@ export class CallDetailComponent implements OnInit {
     };
 
     this.openpopup = function (id) {
-      window.open(this.http_or_https + '://api.passivereferral.com/recording/?id=' + id, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=500,width=400,height=150');
+      window.open(this.http_or_https + '://api.passivereferral.com/recording/?id=' + id,
+        '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=500,width=400,height=150');
     }
 
     this.rowData = [];
@@ -560,13 +563,13 @@ export class CallDetailComponent implements OnInit {
 
     }
     if (this.countRowsinMyJob > 0) {
-      var totalrow = 0;
+      let totalrow = 0;
       if (this.showmyjoblist) {
         totalrow = this.gridApipopup.selection.getSelectedRows();
       } else {
         totalrow = this.gridmyjoblistApi.selection.getSelectedRows();
       }
-      var allrow = FH.SelectedWithComma(totalrow, 'ajid');
+      const allrow = this.db.SelectedWithComma(totalrow, 'ajid');
       this.sendtracker.atjids = allrow;
       if (this.download) {
         this.sendtracker.download = true;
@@ -1044,18 +1047,21 @@ export class CallDetailComponent implements OnInit {
       cvs: formData
     }, ((response): void => {
       const responsedata = response;
-      for (let tt in this.cvslists) {
-        let email = this.cvslists[tt].email;
-        for (var d in responsedata.alreadyexists) {
-          if (responsedata.alreadyexists[d] === email) {
-            this.cvslists[tt].statusofsubmit = 'fail';
-            break;
+      for (const tt in this.cvslists) {
+        if (this.cvslists[tt]) {
+          const email = this.cvslists[tt].email;
+          for (const d in responsedata.alreadyexists) {
+            if (responsedata.alreadyexists[d] === email) {
+              this.cvslists[tt].statusofsubmit = 'fail';
+              break;
+            }
           }
-        }
-        for (var d in responsedata.newcv) {
-          if (responsedata.newcv[d] === email) {
-            this.cvslists[tt].statusofsubmit = 'done';
-            break;
+
+          for (const d in responsedata.newcv) {
+            if (responsedata.newcv[d] === email) {
+              this.cvslists[tt].statusofsubmit = 'done';
+              break;
+            }
           }
         }
 
@@ -1519,7 +1525,7 @@ export class CallDetailComponent implements OnInit {
 
   submitcv(download): void {
     if (download) {
-       //this.downloadcv = true;
+      //this.downloadcv = true;
     } else {
       this.downloadcv = false;
 

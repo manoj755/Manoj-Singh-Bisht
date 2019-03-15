@@ -110,7 +110,7 @@
                     <!--<input type="number" min="100000" max="5000000" id="minsalary" step="10000" class="form-control e" validate  n="Minimum Experience" [(ngModel)]="myjob.minimumSalary" name="minimumSalary" placeholder="From (Min 10000)" maxlength="10" />-->
                     <label class="col-md-4" Title><b>From</b> Lakhs</label>
                     <div class="col-md-8">
-                      <ng-select class="e" id="minimumSalaryOption" (change)="updatemaxsalary()" [(ngModel)]="minimumSalarylac"
+                      <ng-select class="e" id="minimumSalaryOption" (change)="updatemaxsalary()" [(ngModel)]="myjob.minimumSalarylac"
                         name="minimumSalary">
                         <ng-option [value]='opt' *ngFor="let opt of  minimumSalaryOption">{{opt}}</ng-option>
                       </ng-select>
@@ -120,7 +120,7 @@
                     <!--<input type="number" min="100000" max="5000000" id="minsalary" step="10000" class="form-control e" validate  n="Minimum Experience" [(ngModel)]="myjob.minimumSalary" name="minimumSalary" placeholder="From (Min 10000)" maxlength="10" />-->
                     <label class="col-md-4" Title>Thousands</label>
                     <div class="col-md-8">
-                      <ng-select class="e" id="minimumSalaryOptionink" name="minimumSalary" [(ngModel)]="minimumSalarythousand">
+                      <ng-select class="e" id="minimumSalaryOptionink" name="minimumSalary" [(ngModel)]="myjob.minimumSalarythousand">
                         <ng-option [value]='opt' *ngFor="let opt of  minimumSalaryOptionink">{{opt}}</ng-option>
                       </ng-select>
                     </div>
@@ -129,7 +129,7 @@
                     <!--<input type="number"  min="{{myjob.minimumSalary}}" min="100000" id="maxsalary" max="5000000" step="10000"  class="form-control e" validate n="Maximum Experience" [(ngModel)]="myjob.maximumSalary" name="maximumSalary" placeholder="To (Max 5000000)" maxlength="10" />-->
                     <label class="col-md-4" Title><b>To</b> Lakhs</label>
                     <div class="col-md-8">
-                      <ng-select class="e"  id="maxsalary" validate n="Maximum salary" [(ngModel)]="maximumSalarylac"
+                      <ng-select class="e"  id="maxsalary" validate n="Maximum salary" [(ngModel)]="myjob.maximumSalarylac"
                         name="maximumSalary">
                         <ng-option [value]='opt' *ngFor="let opt of  maxSalaryOption" help="first select minimum value">{{opt}}
                         </ng-option>
@@ -140,7 +140,7 @@
                     <!--<input type="number"  min="{{myjob.minimumSalary}}" min="100000" id="maxsalary" max="5000000" step="10000"  class="form-control e" validate n="Maximum Experience" [(ngModel)]="myjob.maximumSalary" name="maximumSalary" placeholder="To (Max 5000000)" maxlength="10" />-->
                     <label class="col-md-4" Title>Thousands</label>
                     <div class="col-md-8">
-                      <ng-select class="e"  name="maximumSalary" [(ngModel)]="maximumSalarythousand" id="maximumSalarythousand">
+                      <ng-select class="e"  name="maximumSalary" [(ngModel)]="myjob.maximumSalarythousand" id="maximumSalarythousand">
                         <ng-option [value]='opt' *ngFor="let opt of  maximumSalaryOptionink">{{opt}}
                         </ng-option>
                       </ng-select>
@@ -345,7 +345,7 @@
 
 
 
-                      <ng-select [(ngModel)]="location" [multiple]="true">
+                      <ng-select [(ngModel)]="myjob.location" [multiple]="true">
                         <ng-option *ngFor="let location of locations ">{{location}}</ng-option>
                       </ng-select>
                     </div>

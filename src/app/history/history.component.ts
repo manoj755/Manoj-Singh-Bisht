@@ -9,11 +9,15 @@ import { DBService } from 'app/db.service';
 export class HistoryComponent implements OnInit {
 
   title = 'app';
-  private smsselected={};
-  private emailselected={};
+  private smsselected = {};
+  private emailselected = {};
   private gridApi;
-  recruiter;
+  recruiter: any;
   allids = [];
+  managers: any;
+  data: any;
+  gridOptions: any;
+  candidatedetails: any;
   private gridColumnApi;
 
   private autoGroupColumnDef;
@@ -33,7 +37,7 @@ export class HistoryComponent implements OnInit {
     { headerName: 'Salary', field: 'currentSalary', sortable: true, filter: true },
     { headerName: 'Recruiter Name', field: 'recruitername', sortable: true, filter: true },
     { headerName: 'CV Status', field: 'cvstatus', sortable: true, filter: true },
- ];
+  ];
 
   rowData = [
   ];
@@ -54,15 +58,32 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit() {
     this.LoadHistory();
+
   }
 
   LoadHistory(): void {
-    this.db.list('history/', {  }, ((response): void => {
+    this.rowData=[];
+    this.data = {};
+    if (this.recruiter) {
+      this.data = { recruiter: this.recruiter };
+
+    }
+    this.db.list('history/', this.data, ((response): void => {
       this.rowData = response;
 
 
     }));
+
+    this.db.list('manager/', null, ((response): void => {
+      this.managers = response;
+      console.log(response);
+
+    })
+    );
   }
+
+
+
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;

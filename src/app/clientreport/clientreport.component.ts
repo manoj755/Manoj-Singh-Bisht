@@ -40,6 +40,8 @@ export class ClientreportComponent implements OnInit {
   jobslistbyclients: any;
   myjob = { client_detail_id: 0 };
   clientdetails: any;
+  managers: [];
+
   gridTotalCandidate = { data: null };
   constructor(public db: DBService) { }
 
@@ -48,8 +50,25 @@ export class ClientreportComponent implements OnInit {
     this.db.list('clientdetail/', null, (response): void => {
       this.clientdetails = response;
       console.log(response);
+      this.getcandidatebyclient();
 
     });
+    this.db.list('manager/', null, (response): void => {
+      this.managers = response;
+      console.log(response);
+
+    });
+
+  //     getcandidatebyclient(): void {
+  //     this.myjob = {};
+  //     if(this.clientId){
+  //     this.myjob = { clientId: this.myjob };
+  //   }
+  //   this.db.list("addnewjob/", this.myjob, ((response): void => {
+  //     this.jobslistbyclients = response;
+  //   })
+  //   );
+  // }
     const chart = c3.generate({
       bindto: '#chart',
       data: {
