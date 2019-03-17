@@ -37,7 +37,6 @@ export class NewJobComponent implements OnInit {
   maximumSalarythousand: any;
   location: any;
   arrRoles = [];
-  functionalArea: any;
   isjobediting = false;
   current_job_id = 0;
   suggestionlist = [];
@@ -49,7 +48,7 @@ export class NewJobComponent implements OnInit {
 
   errormsgtag = '';
 
-  functionalareas = [];
+  //functionalareas = [];
   job_description_api_url = 'http://122.176.49.199:5000/jd_suggestions';
   // this.key_suggestion_api_url = 'http://122.176.49.199:5000/keyword_suggestions';
   key_suggestion_api_url = 'suggest_key_skills';
@@ -66,6 +65,8 @@ export class NewJobComponent implements OnInit {
   minimumSalaryOptionink = [];
   maximumSalaryOptionink = [];
   minexperience = [];
+  industries = [];
+  functionalareas = [];
   constructor(public db: DBService) { }
 
   ngOnInit() {
@@ -75,10 +76,26 @@ export class NewJobComponent implements OnInit {
     this.loadManagerclientdetail();
     this.applicationdepartment();
     this.settracker();
+
+    this.db.list('functionalarea/', null, (response): void => {
+
+      this.functionalareas = response;
+    });
+
+
+    this.db.list('industry/', null, ((response): void => {
+
+      this.industries = response;
+    })
+    );
+
     setTimeout(function () {
       this.jobtype();
     }, 2000);
     this.applicationdepartment();
+
+
+
   }
 
 
@@ -307,8 +324,8 @@ export class NewJobComponent implements OnInit {
   addNewJobupdate() {
     if (!$('.validate').validate('#submit_cv_to_panel_status')) {
       //  $.fn.showMessage('Please fill values');
-        return;
-      }
+      return;
+    }
     if (true) {
 
       const locations = this.location;

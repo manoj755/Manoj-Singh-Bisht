@@ -129,4 +129,40 @@ export class NavbarComponent implements OnInit {
     }
     return 'Dashboard';
   }
+  // $rootScope.lastLength = 0;
+  // $rootScope.isToDoForFirstTime = true;
+  // $rootScope.notificationload = function () {
+
+  //     db.list('getnotification/', null, function (response) {
+  //         $rootScope.notification = response.data;
+
+
+  //         var counter = 0;
+  //         for (var i in response.data)
+  //         {
+  //             if (response.data[i].difference > 72) {
+  //                 counter++;
+  //             }
+  //         }
+  //         if (counter > 0) {
+  //             if ($rootScope.isToDoForFirstTime) {
+  //                 $rootScope.addmessageandremove('<i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>  Tat for reference is 72 hours. ' + counter + ' reference(s) crossed  it. Please take action. ');
+  //                 $rootScope.isToDoForFirstTime = false;
+  //             } else
+  //             {
+
+  //                 var diff = response.data.length - $rootScope.lastLength;
+  //                 if (diff > 0) {
+  //                  //   debugger;
+  //                     $rootScope.addmessageandremove('<i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i> You have '+diff + ' new reference(s) to be screened.');
+  //                 }
+
+  //             }
+  //         }
+  //         this.lastLength = response.data.length;
+  //     }, function (response) {
+  //     });
+  //};
+
+
 }

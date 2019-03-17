@@ -121,6 +121,8 @@ export class ClientreportComponent implements OnInit {
   jobslistbyclients: any;
   myjob = { client_detail_id: 0, clientid: 0, isinterview: null, rootname: '' };
   clientdetails: any;
+  managers: [];
+
   gridTotalCandidate = { data: null };
   constructor(public db: DBService) { }
 
@@ -130,6 +132,7 @@ export class ClientreportComponent implements OnInit {
     this.db.list('clientdetail/', null, (response): void => {
       this.clientdetails = response;
       console.log(response);
+      this.getcandidatebyclient();
 
     });
 

@@ -38,6 +38,18 @@
                             <span class="d-lg-none d-md-block">Some Actions</span>
                         </p>
                     </a>
+                    <!-- <div class="dropdown-menu dropdown-menu-right d-none" aria-labelledby="navbarDropdownMenuLink">
+                      <button type="button" class="list-group-item active"> <span class="badge">{{notification.length}}</span>Notification</button>
+
+                      <span href="#" help="{{x.difference}} hour(s)" class="list-group-item  well well-sm" *ngFor="let x of notification" >
+
+                          <a  data-toggle="modal" href="#" data-target="#showreference"  (click)="loadreferrence(x.job_id)"
+                              class="Bold" > {{x.Job_title}}</a> <i  class="fa fa-star text-danger" *ngIf="x.difference>72"></i> ->
+                          <a href="#" style="color:gray; text-decoration: underline;" (click)="candidateshow(x.candiateid)">{{x.reference_name}}</a>
+                          <span class="pull-right"> (<i>{{x.date}}</i>)</span>
+                      </span>
+
+                  </div> -->
                     <div class="dropdown-menu dropdown-menu-right d-none" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="#">Mike John responded to your email</a>
                         <a class="dropdown-item" href="#">You have 5 new tasks</a>

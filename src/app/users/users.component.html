@@ -39,7 +39,7 @@
 
 
 
-          <div name="userForm" >
+          <div name="userForm" (ngSubmit)="f.userForm.valid && onSubmit()"  novalidate>
 
               <div class="row">
                   <div class="col-md-4" ng-if="profile.app_id == 0">
@@ -71,12 +71,15 @@
                   </div>
               </div><br>
               <div class="row">
-
+                <!-- formControlName="name" [ngClass]="{'is-invalid':form.get('name').touched && form.get('name').invalid}"  />
+                <div class="invalid-feedback">
+                  <div> Name is required</div> -->
 
                   <div class="col-md-4" > Name
 
-                      <input type="text" [(ngModel)]="user.name" class="form-control e" n="Name"  />
-
+                      <input type="text" [(ngModel)]="user.name" class="form-control e" n="Name" #name="ngModel"[ngClass]="{'is-invalid': name.invalid}"  required />
+                      <div class="invalid-feedback">
+                        <div> Name is required</div> </div>
 
                   </div>
                   <div class="col-md-4" > Profile picture

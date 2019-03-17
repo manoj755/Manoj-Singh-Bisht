@@ -15,6 +15,10 @@ export class HistoryComponent implements OnInit {
   currentData: any;
   recruiter;
   allids = [];
+  managers: any;
+  data: any;
+  gridOptions: any;
+  candidatedetails: any;
   private gridColumnApi;
 
   private autoGroupColumnDef;
@@ -64,14 +68,28 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit() {
     this.LoadHistory();
+
   }
 
   LoadHistory(): void {
-    this.db.list('history/', {}, ((response): void => {
+    this.rowData=[];
+    this.data = {};
+    if (this.recruiter) {
+      this.data = { recruiter: this.recruiter };
+
+    }
+    this.db.list('history/', this.data, ((response): void => {
       this.rowData = response;
 
 
     }));
+
+    this.db.list('manager/', null, ((response): void => {
+      this.managers = response;
+      console.log(response);
+
+    })
+    );
   }
 
   public onRowClicked(e) {
