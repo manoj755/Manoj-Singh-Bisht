@@ -38,7 +38,7 @@ export class ClientreportComponent implements OnInit {
 
     { 'headerName': 'Client Name', 'field': 'Client_Name', 'sortable': true, 'filter': true },
     {
-      'headerName': 'Total_Jobs', 'field': 'Total_Jobs', 'sortable': true, 'filter': true,
+      'headerName': 'Total Jobs', 'field': 'Total_Jobs', 'sortable': true, 'filter': true,
       cellRenderer: function (param) {
         return `<button type='button' data-action-type='totaljob' class='btn  btn-sm'>
      ` + param.value + `
@@ -272,7 +272,7 @@ export class ClientreportComponent implements OnInit {
     this.myjob.clientid = data.id;
     this.db.list('jobclientwise/', this.myjob, (response): void => {
       this.showjobsClientWiseCols = [
-        { 'headerName': 'title', 'field': 'job_title', 'sortable': true, 'filter': true },
+        { 'headerName': 'Title', 'field': 'job_title', 'sortable': true, 'filter': true },
         { 'headerName': 'Minimum Experience', 'field': 'minimumExperience', 'sortable': true, 'filter': true },
         { 'headerName': 'Maximum Experience', 'field': 'maximumExperience', 'sortable': true, 'filter': true },
         { 'headerName': 'Opening', 'field': 'numberOfOpening', 'sortable': true, 'filter': true },
