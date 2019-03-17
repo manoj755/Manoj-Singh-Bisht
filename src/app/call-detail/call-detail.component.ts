@@ -474,17 +474,20 @@ export class CallDetailComponent implements OnInit {
 
           const currentdata = this.candidateinpopup[i];
           for (const t in currentdata) {
-            const val = currentdata[t];
-            if (!isNaN(val) && val != null) {
-              try {
-                val = val.toString();
-              } catch (e) {
+            if (currentdata[t]) {
+              let val = currentdata[t];
+              if (!isNaN(val) && val != null) {
+                try {
+                  val = val.toString();
+                } catch (e) {
 
+                }
               }
-            }
-            if (typeof val == 'string' && val.toLowerCase().indexOf(this.filterpopup.toLowerCase()) != -1) {
-              dataafterfilter.push(currentdata);
-              break;
+
+              if (typeof val === 'string' && val.toLowerCase().indexOf(this.filterpopup.toLowerCase()) != -1) {
+                dataafterfilter.push(currentdata);
+                break;
+              }
             }
           }
         }

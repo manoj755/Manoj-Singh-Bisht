@@ -22,6 +22,7 @@ export class NewJobComponent implements OnInit {
   searchTerm = '';
   selectedmanagerlist = [];
   jobroles = [];
+  functionalArea = '';
   locations = [];
   store: any = {};
   emailselected: any = {};
