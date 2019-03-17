@@ -179,12 +179,10 @@ export class CallDetailComponent implements OnInit {
     });
 
 
-    this.db.list('industry/', null,  ((response):void=> {
+    this.db.list('industry/', null, ((response): void => {
 
       this.industries = response;
-    }, function (response) {
-      // this.token=response.statusText;
-    });
+    }));
 
     this.db.list('clientdetail/', null, ((response): void => {
       this.clientdetails = response;
@@ -472,7 +470,7 @@ export class CallDetailComponent implements OnInit {
       //  debugger;
       const dataafterfilter = [];
       for (const i in this.candidateinpopup) {
-        if(this.candidateinpopup[i]){
+        if (this.candidateinpopup[i]) {
 
           const currentdata = this.candidateinpopup[i];
           for (const t in currentdata) {
