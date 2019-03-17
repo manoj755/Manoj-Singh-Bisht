@@ -176,7 +176,14 @@ export class ClientreportComponent implements OnInit {
     }
 
     this.db.list('candidatestatuswiseall/', this.myjob, (response): void => {
-      this.candidate_filtered_cols = [{ 'headerName': 'RecruiterName', 'field': 'RecruiterName', 'sortable': true, 'filter': true }, { 'headerName': 'candidateName', 'field': 'candidateName', 'sortable': true, 'filter': true }, { 'headerName': 'email', 'field': 'email', 'sortable': true, 'filter': true }, { 'headerName': 'mobileNo', 'field': 'mobileNo', 'sortable': true, 'filter': true }, { 'headerName': 'location', 'field': 'location', 'sortable': true, 'filter': true }, { 'headerName': 'job_title', 'field': 'job_title', 'sortable': true, 'filter': true }, { 'headerName': 'Status', 'field': 'Status', 'sortable': true, 'filter': true }];// this.db.GenerateColDef(response);
+      this.candidate_filtered_cols = [
+        { 'headerName': 'Recruiter Name', 'field': 'RecruiterName', 'sortable': true, 'filter': true },
+        { 'headerName': 'Candidate Name', 'field': 'candidateName', 'sortable': true, 'filter': true },
+        { 'headerName': 'Email', 'field': 'email', 'sortable': true, 'filter': true },
+        { 'headerName': 'Mobile No', 'field': 'mobileNo', 'sortable': true, 'filter': true },
+        { 'headerName': 'Location', 'field': 'location', 'sortable': true, 'filter': true },
+        { 'headerName': 'Title', 'field': 'job_title', 'sortable': true, 'filter': true },
+        { 'headerName': 'Status', 'field': 'Status', 'sortable': true, 'filter': true }];// this.db.GenerateColDef(response);
       this.candidate_filtered = response;
       debugger;
       const Columns = [];
