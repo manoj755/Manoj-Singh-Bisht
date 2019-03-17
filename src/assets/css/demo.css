@@ -34,3 +34,5 @@
 .no{/*no*/}
 .loadingpr{ cursor: wait;}
 .cdk-overlay-container,.zindex{ z-index: 99999 !important;}
+.height500{ height: 500px !important;}
+.width80percent{ width:80% !important; max-width:80% !important;}

@@ -31,12 +31,17 @@ export class InternalDatabaseComponent implements OnInit {
   columnDefs = [
 
     {
+      headerCheckboxSelection: true, checkboxSelection: true,
+
       headerName: 'Candidate Name', field: 'candidateName',
-      sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true,
-      template: `<button type='button' data-action-type='candidateshow' class='btn btn-success btn-sm'>
-     Edit
-   </button>
-`   },
+      sortable: false, filter: false,
+      cellRenderer: function (param) {
+        return `<button type='button' data-action-type='candidateshow' class='btn  btn-sm'>
+    ` + param.value + `
+</button>
+`;
+      }
+    },
     { headerNmae: 'CurrentDesignation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Email', field: 'email', sortable: true, filter: true },
     { headerName: 'Qualification', field: 'qualification', sortable: true, filter: true },
@@ -67,7 +72,7 @@ export class InternalDatabaseComponent implements OnInit {
       const data = e.data;
       const actionType = e.event.target.getAttribute('data-action-type');
 
-debugger;
+      debugger;
       switch (actionType) {
         // case 'activity':
         //   return this.activityclick(data);
@@ -88,7 +93,7 @@ debugger;
     this.currentData = data;
   }
   loadInternalData(isPager?): void {
-
+    this.rowData = [];
     if (isPager) {
       this.isPager = true;
     } else {

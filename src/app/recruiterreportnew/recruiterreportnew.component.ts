@@ -10,6 +10,11 @@ declare var $: any;
 export class RecruiterreportnewComponent implements OnInit {
 
 
+  // grid
+  columnDefs = [];
+  rowData = [];
+  // grid
+
   gridTotalCandidatejob = {
     data: null,
 
@@ -33,6 +38,7 @@ export class RecruiterreportnewComponent implements OnInit {
   };
   gridTotalRejectedCandidate: any;
   gridTotalProcessCandidate: any;
+  managers = [];
   user: any;
   job: any;
   loaddata = false;
@@ -42,27 +48,33 @@ export class RecruiterreportnewComponent implements OnInit {
   clientreportpie: any;
   updatedd: any;
   jobslistbyclients: any;
-  myjob = { client_detail_id: 0, job_id: 0, start_date: '2000-01-01', end_date: '2019-12-06' };
+  myjob = { client_detail_id: 0, job_id: 0, manager: 0, start_date: '2000-01-01', end_date: '2019-12-12' };
   clientdetails: any;
   gridTotalCandidate = { data: null };
   constructor(private db: DBService) { }
 
   ngOnInit() {
+    this.bindmanagers();
     this.getlist();
     this.db.list('clientdetail/', null, (response): void => {
       this.clientdetails = response;
       console.log(response);
 
     });
-    const chart = c3.generate({
-      bindto: '#chart',
-      data: {
-        columns: [
-          ['data1', 30, 200, 100, 400, 150, 250],
-          ['data2', 50, 20, 10, 40, 15, 25]
-        ]
-      }
-    });
+
+  }
+  bindmanagers(): void {
+    this.db.list('manager/', null, ((response): void => {
+      this.managers = response;
+      console.log(response);
+
+    })
+    );
+  }
+  ddlchangeclient(): void {
+    alert('d');
+    this.getcandidatebyclient();
+    this.getlistmain();
   }
   clientchange(): void {
     this.getlistmain();
@@ -70,7 +82,7 @@ export class RecruiterreportnewComponent implements OnInit {
   }
 
   getlistmain(): void {
-
+    debugger;
     this.db.hl();
     $('.chartctrl').height(500);
     this.db.list('recruiterreportApi/', this.myjob, (response): void => {
@@ -196,7 +208,11 @@ export class RecruiterreportnewComponent implements OnInit {
       //            }
 
 
-      this.gridOptions.data = response;
+      if (this.columnDefs.length === 0 && response.length > 0) {
+        this.columnDefs = this.db.GenerateColDef(response);
+
+      }
+      this.rowData = response;
       this.db.sl();
 
     }, (response): void => {
@@ -204,6 +220,16 @@ export class RecruiterreportnewComponent implements OnInit {
       this.db.sl();
     });
   };
+
+
+  // grid
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+
+  }
+  // grid
 
   refreshgrid(): void {
 
@@ -430,9 +456,6 @@ export class RecruiterreportnewComponent implements OnInit {
     });
   };
 
-  onGridReady(event): void {
-
-  }
 
 
 

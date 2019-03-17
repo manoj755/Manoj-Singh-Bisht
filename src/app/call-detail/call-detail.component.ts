@@ -445,14 +445,18 @@ export class CallDetailComponent implements OnInit {
       const main = [];
       const candidatedetails = '';
       for (const i in this.candidatedetails) {
-        for (const j in this.candidatedetails[i]) {
-          const jk = this.candidatedetails[i][j];
-          console.log(jk);
-          if (this.candidatedetails[i][j] != null && this.candidatedetails[i][j].toString().toLowerCase().indexOf(angular.lowercase(this.searchcandidatetext)) != -1) {
-            main.push(this.candidatedetails[i]);
-            break;
+        if (this.candidatedetails[i]) {
+          for (const j in this.candidatedetails[i]) {
+            if (this.candidatedetails[i]) {
+              const jk = this.candidatedetails[i][j];
+              console.log(jk);
+              if (this.candidatedetails[i][j] != null
+                && this.candidatedetails[i][j].toString().toLowerCase().indexOf(this.searchcandidatetext.toLowerCase()) != -1) {
+                main.push(this.candidatedetails[i]);
+                break;
+              }
+            }
           }
-
         }
       }
       this.gridOptionsloadcandidatesInPopUp.data = main;

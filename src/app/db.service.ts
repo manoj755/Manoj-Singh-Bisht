@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { isArray, isObject } from 'util';
 import { LargeTextCellEditor } from 'ag-grid-community';
+import { json } from 'd3';
 type ICallback = (response: any) => void;
 declare var $: any;
 @Injectable({
@@ -692,5 +693,18 @@ export class DBService implements OnInit {
       }
     }
     return selectedmanager;
+  }
+  GenerateColDef(data): Array<Object> {
+    const coldef = [];
+    if (data.length > 0) {
+      data = data[0];
+    }
+    for (const col in data) {
+      if (data[col]) {
+        coldef.push({ headerName: col, field: col, sortable: true, filter: true })
+      }
+    }
+    console.log(JSON.stringify(coldef));
+    return coldef;
   }
 }
