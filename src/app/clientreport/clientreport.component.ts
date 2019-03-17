@@ -176,7 +176,7 @@ export class ClientreportComponent implements OnInit {
     }
 
     this.db.list('candidatestatuswiseall/', this.myjob, (response): void => {
-      this.candidate_filtered_cols = this.db.GenerateColDef(response);
+      this.candidate_filtered_cols = [{ 'headerName': 'RecruiterName', 'field': 'RecruiterName', 'sortable': true, 'filter': true }, { 'headerName': 'candidateName', 'field': 'candidateName', 'sortable': true, 'filter': true }, { 'headerName': 'email', 'field': 'email', 'sortable': true, 'filter': true }, { 'headerName': 'mobileNo', 'field': 'mobileNo', 'sortable': true, 'filter': true }, { 'headerName': 'location', 'field': 'location', 'sortable': true, 'filter': true }, { 'headerName': 'job_title', 'field': 'job_title', 'sortable': true, 'filter': true }, { 'headerName': 'Status', 'field': 'Status', 'sortable': true, 'filter': true }];// this.db.GenerateColDef(response);
       this.candidate_filtered = response;
       debugger;
       const Columns = [];
@@ -264,7 +264,20 @@ export class ClientreportComponent implements OnInit {
     $('#ModelshowjobsClientWise').modal('show');
     this.myjob.clientid = data.id;
     this.db.list('jobclientwise/', this.myjob, (response): void => {
-      this.showjobsClientWiseCols = this.db.GenerateColDef(response);
+      this.showjobsClientWiseCols = [
+        { 'headerName': 'title', 'field': 'job_title', 'sortable': true, 'filter': true },
+        { 'headerName': 'Minimum Experience', 'field': 'minimumExperience', 'sortable': true, 'filter': true },
+        { 'headerName': 'Maximum Experience', 'field': 'maximumExperience', 'sortable': true, 'filter': true },
+        { 'headerName': 'Opening', 'field': 'numberOfOpening', 'sortable': true, 'filter': true },
+        { 'headerName': 'Location', 'field': 'location', 'sortable': true, 'filter': true },
+        { 'headerName': 'Responsibility', 'field': 'Responsibility', 'sortable': true, 'filter': true },
+        { 'headerName': 'Role', 'field': 'jobRole', 'sortable': true, 'filter': true },
+        { 'headerName': 'Industry', 'field': 'industry', 'sortable': true, 'filter': true },
+        { 'headerName': 'Functional Area', 'field': 'functionalArea', 'sortable': true, 'filter': true },
+        { 'headerName': 'Job Status', 'field': 'job_status', 'sortable': true, 'filter': true },
+        { 'headerName': 'Start Date', 'field': 'start_date', 'sortable': true, 'filter': true },
+        { 'headerName': 'End Date', 'field': 'end_date', 'sortable': true, 'filter': true },
+        { 'headerName': 'type', 'field': 'jobtype', 'sortable': true, 'filter': true }];// this.db.GenerateColDef(response);
       this.showjobsClientWiseRows = response;
 
 
@@ -275,7 +288,13 @@ export class ClientreportComponent implements OnInit {
     $('#ModelShowCandidateTotal_Candidate').modal('show');
     this.myjob.clientid = data.id;
     this.db.list('candidateclientwise/', this.myjob, (response): void => {
-      this.GridShowCandidateTotal_Candidate_cols = this.db.GenerateColDef(response);
+      this.GridShowCandidateTotal_Candidate_cols = [
+        { 'headerName': 'Candidate', 'field': 'candidateName', 'sortable': true, 'filter': true },
+        { 'headerName': 'Title', 'field': 'job_title', 'sortable': true, 'filter': true },
+        { 'headerName': 'Status', 'field': 'RootDisplayName', 'sortable': true, 'filter': true },
+        { 'headerName': 'Name', 'field': 'name', 'sortable': true, 'filter': true },
+        { 'headerName': 'Email', 'field': 'email', 'sortable': true, 'filter': true },
+        { 'headerName': 'Mobile', 'field': 'mobileNo', 'sortable': true, 'filter': true }]; // this.db.GenerateColDef(response);
       this.GridShowCandidateTotal_Candidate = response;
 
       //    db.sl();

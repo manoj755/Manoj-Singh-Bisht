@@ -19,11 +19,8 @@
                       <option value="{{client.id}}" *ngFor="let client of clientdetails">
                         {{client.billingName}}
                       </option>
-                    </select> -->
-                    <ng-select class="form-control e"  (change)="getlistmain()" id="MinimumExperience" validate n="Minimum Experience"
-                        [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
-                        <ng-option [value]='client' *ngFor="let client of  clientdetails">{{client.billingName}}</ng-option>
-                      </ng-select>
+                    </select>
+
 
                   </div>
                 </div>
@@ -37,11 +34,8 @@
                       <option value="{{job.id}}" *ngFor="let job of jobslistbyclients" multiple="multiple">
                         {{job.job_title}}
                       </option>
-                    </select> -->
-                    <ng-select class="form-control e"  (change)="getlistmain()" id="MinimumExperience" validate n="Minimum Experience"
-                    [(ngModel)]="myjob.job_id" name="client_detail_id" multiple="true">
-                    <ng-option [value]='job' *ngFor="let job of  jobslistbyclients">{{job.job_title}}</ng-option>
-                  </ng-select>
+                    </select>
+
                   </div>
                 </div>
                 </div>
@@ -94,11 +88,7 @@
                       <option value="{{x.id}}" *ngFor="let x of managers" multiple="multiple">
                         {{x.name}}
                       </option>
-                    </select> -->
-                    <ng-select class="form-control e"  (change)="getlistmain()" id="MinimumExperience" validate n="manager"
-                    [(ngModel)]="myjob.manager" name="client_detail_id" multiple="true">
-                    <ng-option [value]='' *ngFor="let x of  managers">{{x.name}}</ng-option>
-                  </ng-select>
+                    </select>
                   </div>
                 </div>
 
