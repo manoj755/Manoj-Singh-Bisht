@@ -72,10 +72,12 @@ export class AddToJobComponent implements OnInit {
       }
       this.db.showMessage(addtojobmessage);
 
-    }), ((Response): void => {
-      this.db.showMessage('Some error occured');
     })
     );
+    // ((Response): void => {
+    //   this.db.showMessage('Some error occured');
+    // })
+    // );
 
   }
   getcandidatebyclientaddtojob(): void {
