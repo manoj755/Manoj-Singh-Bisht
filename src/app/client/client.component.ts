@@ -9,9 +9,15 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export class ClientComponent implements OnInit {
   public Editor = ClassicEditor;
   title = 'app';
-  client = { id: 0 };
+  feeslab = [];
+  client = { id: 0, feeslabtype: '', fee_slab: [] };
+  fromfeesslab = 0;
+  amt = 0;
+  newclient: any;
+
   isEdit = false;
   item: any = {};
+  tofeesslab = 0;
   stateobj = {};
   errors = {};
   isEditclientStateswiseBillingDetail = false;
@@ -69,6 +75,105 @@ export class ClientComponent implements OnInit {
   ngOnInit() {
     this.LoadData();
   }
+  isNumberorFloat(val): boolean {
+
+    val = Number(val);
+    return Number(val) === val;
+  };
+
+  addfeeslab(isupdate): void {
+    debugger;
+    const numbers = /^[0-9]+$/;
+    let lastAmount = 0;
+
+    if (isupdate === 1) {
+
+      let isPercentage = true;
+      let Type = '%';
+      if (this.client.feeslabtype === 'Fixed') {
+        isPercentage = false;
+        Type = 'Fixed';
+      }
+
+
+      if (this.isNumberorFloat(this.fromfeesslab) && this.isNumberorFloat(this.tofeesslab) && this.isNumberorFloat(this.amt)) {
+        if (this.fromfeesslab < this.tofeesslab) {
+          if (this.client.fee_slab.length > 0) {
+            for (const i in this.client.fee_slab) {
+              if (this.client.fee_slab[i]) {
+                const value = this.client.fee_slab[i];
+
+                //  alert(value.toSlab);
+                lastAmount = value.toSlab;
+              }
+            }
+          } else {
+            lastAmount = -1;
+          }
+
+          // alert(lastAmount);
+          if (this.fromfeesslab > lastAmount) {
+            // alert('done');
+            this.client.fee_slab.push({
+              fromSlab: this.fromfeesslab,
+              toSlab: this.tofeesslab, AmountorPercentage: this.amt,
+              type: Type, isPercentage: isPercentage
+            });
+
+
+          } else {
+            alert('From Fees slab should be greater than 0 and last To-Fees Slab');
+          }
+        } else {
+          alert('To Fees slab should be greater than From Fees Slab');
+        }
+      } else {
+        alert('Wrong Input Only Numbers Allow');
+      }
+
+
+
+
+
+
+    } else {
+
+      let isPercentage = true;
+      let Type = '%';
+      if (this.newclient.feeslabtype === 'Fixed') {
+        isPercentage = false;
+        Type = 'Fixed';
+      }
+
+
+      if (this.isNumberorFloat(this.fromfeesslab) && this.isNumberorFloat(this.tofeesslab) && this.isNumberorFloat(this.amt)) {
+        if (this.fromfeesslab < this.tofeesslab) {
+
+          for (const fs in this.feeslab) {
+            if (this.feeslab[fs]) {
+              const value = this.feeslab[fs];
+
+
+              lastAmount = value.to;
+            }
+          }
+          if (this.fromfeesslab > lastAmount) {
+
+            this.feeslab.push({ from: this.fromfeesslab, to: this.tofeesslab, amt: this.amt, type: Type, ispercentage: isPercentage });
+
+
+          } else {
+            alert('From Fees slab should be greater than 0 and last To-Fees Slab');
+          }
+        } else {
+          alert('To Fees slab should be greater than From Fees Slab');
+        }
+      } else {
+        alert('Wrong Input Only Numbers Allow');
+      }
+    }
+  }
+
 
   LoadData(): void {
     this.db.list('clientdetail/', {}, ((response): void => {
@@ -113,7 +218,7 @@ export class ClientComponent implements OnInit {
 
   back(): void {
     this.isEdit = false;
-    this.client = { id: 0 };
+    this.client = { id: 0, feeslabtype: '', fee_slab: [] };
   }
 
   onActionEditClick(row): void {
@@ -123,8 +228,8 @@ export class ClientComponent implements OnInit {
 
       this.isEdit = true;
       this.client = response;
-      //            for (var i in response.data) {
-      //                for (var j in response.data[i]) {
+      //            for (let i in response.data) {
+      //                for (let j in response.data[i]) {
       //                    this.gridOptions.columnDefs.push({field:j});
       //                }
       //                break;
@@ -153,7 +258,7 @@ export class ClientComponent implements OnInit {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
-      this.client = { id: 0 };
+      this.client = { id: 0, feeslabtype: '', fee_slab: [] };
 
 
     }));

@@ -768,12 +768,10 @@ export class NewJobComponent implements OnInit {
 
 
   // $.material.init();
-  addNewJobSave(myjob, location, functionalArea): void {
-    this.myjob = myjob;
+  addNewJobSave(): void {
 
-    // this.myjob.job_status='Active';
+    this.myjob.job_status = 'Active';
     this.location = location;
-    this.functionalArea = functionalArea;
     // console.log(FH.SelectedCheckbox(this.departments));
     //    if ($('.validate').validate('#addnewjobform', true)) {
     if (true) {
