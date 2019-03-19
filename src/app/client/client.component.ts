@@ -9,10 +9,16 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export class ClientComponent implements OnInit {
   public Editor = ClassicEditor;
   title = 'app';
-  client = { id: 0 };
+  feeslab = [];
+  client = { id: 0, feeslabtype: '', fee_slab: [] };
+  fromfeesslab = 0;
+  amt = 0;
+  newclient: any;
+
   isEdit = false;
   isEditstatewise = false;
   item: any = {};
+  tofeesslab = 0;
   stateobj = {};
   //gridclientStateswiseBillingDetail: any;
   states: any;
@@ -244,7 +250,7 @@ export class ClientComponent implements OnInit {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
-      this.client = { id: 0 };
+      this.client = { id: 0, feeslabtype: '', fee_slab: [] };
 
 
     }));

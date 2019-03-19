@@ -5,6 +5,8 @@
   <div class="container-fluid">
       <div class="row">
           <div class="col-12">
+              <Button class="btn btn-primary" (click)="showhide();"> grid show hide</Button>
+              <div *ngIf="ishideshow">
       <ag-grid-angular
       style="width: 1500px; height: 500px;"
       class="ag-theme-material"
@@ -26,7 +28,7 @@
 
     (rowClicked)="onRowClicked($event)"
       ></ag-grid-angular>
-
+                </div>
 
             <div class="">
           <div class="card col-md-12">
