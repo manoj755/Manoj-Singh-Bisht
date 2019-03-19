@@ -12,6 +12,8 @@ export class MessageTemplateComponent implements OnInit {
   title = 'app';
   message = { id: 0 };
   isEdit = false;
+  isscroll = false;
+  ishideshow = false;
   private smsselected = {};
   private emailselected = {};
   private gridApi;
@@ -92,7 +94,7 @@ export class MessageTemplateComponent implements OnInit {
         case 'delete':
           return this.onActionDeleteClick(data);
         case 'edit':
-          return this.onActionEditClick(data);
+          return this.onActionEditClick(data), this.showhideedit();
       }
     }
   }
@@ -114,6 +116,11 @@ export class MessageTemplateComponent implements OnInit {
 
       this.isEdit = true;
       this.message = response;
+
+      if (this.isscroll === false) {
+        window.scrollTo(0, 100);
+      }
+
       //            for (var i in response.data) {
       //                for (var j in response.data[i]) {
       //                    this.gridOptions.columnDefs.push({field:j});
@@ -142,10 +149,10 @@ export class MessageTemplateComponent implements OnInit {
   }
 
   messagesave(): void {
-  //   if (!$('.validate').validate('#messagetemp')) {
-  //     // $.fn.showMessage('Please fill values');
-  //    return;
-  //  }
+    //   if (!$('.validate').validate('#messagetemp')) {
+    //     // $.fn.showMessage('Please fill values');
+    //    return;
+    //  }
     //this.user.profilepic=this.user.profilepic[0];
     this.db.store('messagetemplate/', this.message, ((response): void => {
 
@@ -155,6 +162,20 @@ export class MessageTemplateComponent implements OnInit {
 
 
     }));
+
+  }
+  showhide(): void {
+    if (this.ishideshow == false) {
+      this.ishideshow = true;
+    }
+    else {
+      this.ishideshow = false;
+    }
+  }
+  showhideedit(): void {
+    if (this.ishideshow == false) {
+      this.ishideshow = true;
+    }
 
   }
 }

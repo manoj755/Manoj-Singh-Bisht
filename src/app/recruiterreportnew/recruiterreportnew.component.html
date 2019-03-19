@@ -1,97 +1,108 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title">Recruiter Reports</h4>
+          <p class="card-category">Filter </p>
+        </div>
+        <div class="form-horizontal" role="form">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-body">
 
-      <div class="col-md-12">
-        <div class="box box-primary">
-          <div class="box-body">
+                  <div class="box-title">
+                    <div class="form-horizontal row" role="form">
+                      <div class="form-group col-md-6">
+                        <label class="col-md-3 ">Client :</label>
+                        <div class="col-md-9">
+                          <select class="form-control e" n="Client" (change)="ddlchangeclient()"
+                            [(ngModel)]="myjob.client_detail_id">
+                            <option value="0">All</option>
+                            <option value="{{client.id}}" *ngFor="let client of clientdetails">
+                              {{client.billingName}}
+                            </option>
+                          </select>
 
-            <div class="box-title">
-              <form class="form-horizontal" role="form">
-                <div class="form-group col-md-6">
-                  <label class="col-md-3 ">Client :</label>
-                  <div class="col-md-9">
-                    <select class="form-control e" n="Client" ng-change="getlistmain(); getcandidatebyclient();"
-                      ng-model="myjob.client_detail_id" name="client_detail_id" required>
-                      <option value="0">All</option>
-                      <option value="{{client.id}}" ng-repeat="client in clientdetails">
-                        {{client.billingName}}
-                      </option>
-                    </select>
+                        </div>
+                      </div>
 
-                  </div>
-                </div>
+                      <div class="form-group col-md-6">
+                        <label class="col-md-3 ">Job List</label>
+                        <div class="col-md-9">
+                          <select class="form-control e" (change)="getlistmain()" n="Job" [(ngModel)]="myjob.job_id">
+                            <option [value]="0">All</option>
+                            <option value="{{job.id}}" *ngFor="let job of jobslistbyclients">
+                              {{job.job_title}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
 
-                <div class="form-group col-md-6">
-                  <label class="col-md-3 ">Job List</label>
-                  <div class="col-md-9">
-                    <select class="form-control e" ng-change="getlistmain()" n="Job" ng-model="myjob.job_id">
-                      <option value="0">All</option>
-                      <option value="{{job.id}}" ng-repeat="job in jobslistbyclients">
-                        {{job.job_title}}
-                      </option>
-                    </select>
-                  </div>
-                </div>
+                      <div class="form-group col-md-6">
+                        <label class="col-md-3">Date Start</label>
+                        <div class="col-md-9">
+                          <div class="controls input-append date form_date" data-date="" data-date-format="yyyy-mm-dd"
+                            data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                            <input class="form-control " (change)="getlistmain();" size="16" type="text" [value]=""
+                              readonly [(ngModel)]="myjob.start_date" placeholder="Start Date">
+                            <span class="add-on"><i class="icon-remove"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                          </div>
+                          <input type="hidden" id="dtp_input2" [value]="" /><br />
 
-                <div class="form-group col-md-6">
-                  <label class="col-md-3">Date Start</label>
-                  <div class="col-md-9">
-                    <div class="controls input-append date form_date" data-date="" data-date-format="yyyy-mm-dd"
-                      data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                      <input class="form-control " ng-change="getlistmain();" size="16" type="text" value="" readonly
-                        ng-model="myjob.start_date" placeholder="Start Date">
-                      <span class="add-on"><i class="icon-remove"></i></span>
-                      <span class="add-on"><i class="icon-th"></i></span>
+
+                        </div>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label class="col-md-3 ">End Date</label>
+                        <div class="col-md-9">
+                          <div class="controls input-append date form_date" data-date="" data-date-format="yyyy-mm-dd"
+                            data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
+                            <input class="form-control " (change)="getlistmain();" size="16" type="text" [value]=""
+                              readonly [(ngModel)]="myjob.end_date" placeholder="End Date">
+                            <span class="add-on"><i class="icon-remove"></i></span>
+                            <span class="add-on"><i class="icon-th"></i></span>
+                          </div>
+                          <input type="hidden" id="dtp_input3" [value]="" /><br />
+
+
+                        </div>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label class="col-md-3">Recruiter</label>
+                        <div class="col-md-9">
+                          <select class="form-control e" (change)="getlistmain()" n="Owner" [(ngModel)]="myjob.manager">
+                            <option value="0">All</option>
+                            <option value="{{db.profile.id}}">Self</option>
+                            <option value="{{x.id}}" *ngFor="let x of managers">
+                              {{x.name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+
+
+                      <div class="col-md-6 form-group">
+                        <div class="col-md-9 col-md-offset-3">
+
+                          <button type="submit" class="btn  btn-raised btn-block btn-primary" tar="#assignCandidate"
+                            (click)="getlistmain()">Search</button>
+                        </div>
+                      </div>
                     </div>
-                    <input type="hidden" id="dtp_input2" value="" /><br />
-
 
                   </div>
                 </div>
-                <div class="form-group col-md-6">
-                  <label class="col-md-3 ">End Date</label>
-                  <div class="col-md-9">
-                    <div class="controls input-append date form_date" data-date="" data-date-format="yyyy-mm-dd"
-                      data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
-                      <input class="form-control " ng-change="getlistmain();" size="16" type="text" value="" readonly
-                        ng-model="myjob.end_date" placeholder="End Date">
-                      <span class="add-on"><i class="icon-remove"></i></span>
-                      <span class="add-on"><i class="icon-th"></i></span>
-                    </div>
-                    <input type="hidden" id="dtp_input3" value="" /><br />
-
-
-                  </div>
-                </div>
-                <div class="form-group col-md-6">
-                  <label class="col-md-3">Recruiter</label>
-                  <div class="col-md-9">
-                    <select class="form-control e" ng-change="getlistmain()" n="Owner" ng-model="myjob.manager">
-                      <option value="0">All</option>
-                      <option value="{{profile.id}}">Self</option>
-                      <option value="{{x.id}}" ng-repeat="x in managers">
-                        {{x.name}}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-
-
-                <div class="col-md-6 form-group">
-                  <div class="col-md-9 col-md-offset-3">
-
-                    <button type="submit" class="btn  btn-raised btn-block btn-primary" tar="#assignCandidate"
-                      ng-click="getlistmain()">Search</button>
-                  </div>
-                </div>
-              </form>
-
+              </div>
             </div>
           </div>
+
         </div>
       </div>
+
       <div class="col-md-12">
 
         <div class="box box-primary">
@@ -99,24 +110,64 @@
             <div class="form-group pull-right">
               <div class="checkbox">
                 <label>
-                  <input type="checkbox" ng-model="showchart" /> Show Chart</label>
+                  <input type="checkbox" [(ngModel)]="showchart" /> Show Chart</label>
               </div>
             </div>
             <div class="clearfix"></div>
             <div ng-show="showchart">
-              <div id="clientReport"></div>
+              <div id="clientReport" class="height500"></div>
               <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
                 tar="#clientReport" style="display: block;margin-bottom: 10px;">
 
-              <div id="clientReportpie"></div>
+              <div id="clientReportpie" class="height500"></div>
               <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
                 tar="#clientReportpie" style="display: block;margin-bottom: 10px;">
 
             </div>
+            <div class="clearfix"></div>
+            <button (click)="exportdat()">Export</button>
+            <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData"
+              [columnDefs]="columnDefs" suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef"
+              [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+              (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+              [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"
+              [pagination]="true" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)">
+            </ag-grid-angular>
+            <div id="ModelShowcandidateStatusWise" class="modal fade" role="dialog">
+              <div class="modal-dialog width80percent">
 
-            <div ui-grid="gridOptions" ui-grid-selection ui-grid-pagination ui-grid-cellnav ui-grid-exporter
-              class="grid"></div>
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">{{filtertitle}} Candidate</h4> <button type="button" class="close"
+                      data-dismiss="modal">&times;</button>
 
+                  </div>
+                  <div class="modal-body">
+                    <!-- <div id="clientbarunderreviewpie3" class="height500 width700"></div>
+                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1040"
+                      h="500" tar="#clientbarunderreviewpie3" style="display: block;margin-bottom: 10px;">
+
+                    <div id="clientbarunderreview3" class="height500 width700"></div>
+                    <input type="submit" class="printview btn  btn-raised  btn-sm  " value="Print preview" w="1300"
+                      h="500" tar="#clientbarunderreview3" style="display: block;margin-bottom: 10px;"> -->
+                      <button (click)="exportdat()">Export</button>
+                    <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="candidate_filtered"
+                      [columnDefs]="candidate_filtered_cols" suppressCsvExport=false
+                      [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"
+                      [groupSelectsChildren]="true" paginationAutoPageSize='true'
+                      (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+                      [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+                      [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)"
+                      (rowClicked)="onRowClicked($event)"></ag-grid-angular>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn  btn-raised btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
             <!-- <div ng-include="'views/partialviews/allrecruiterreportpopup.php'"></div> -->
           </div>
         </div>

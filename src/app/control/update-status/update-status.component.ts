@@ -37,7 +37,9 @@ export class UpdateStatusComponent implements OnInit {
 
   ngOnInit() {
     this.loadmanagerid();
-
+    setInterval(function () {
+      this.purposechange();
+    }, 2000);
   }
 
   bindStatus(): void {
@@ -82,7 +84,21 @@ export class UpdateStatusComponent implements OnInit {
 
     });
   }
+  purposechange(): void {
+    // alert('purposechange');
+    if ($('#purpose').find('option:selected').attr('isinterview') === '2') {
+      $('#offerhide').show();
+    } else {
+      $('#offerhide').hide();
+    }
 
+    if ($('#purpose').find('option:selected').attr('isinterview') === '1') {
+      $('#business').show();
+    } else {
+      $('#business').hide();
+    }
+
+  };
 
   updatestatuscommentmyjob(showpopup): any {
     if (typeof showpopup === 'undefined') {

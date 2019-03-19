@@ -30,14 +30,15 @@ export class HistoryComponent implements OnInit {
     { headerName: 'Job Name', field: 'job_name', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true },
 
     {
-      headerName: 'View', field: 'candidateName',
+      headerName: 'Candidate Name', field: 'candidateName',
       sortable: false, filter: false,
-      template: `<button type='button' data-action-type='candidateshow' class='btn btn-success btn-sm'>
-     Edit
+      cellRenderer: function (param) {
+        return `<button type='button' data-action-type='candidateshow' class='btn  btn-sm'>
+        ` + param.value + `
    </button>
-`   },
-    { headerName: 'Candidate Name', field: 'candidateName', sortable: true, filter: true },
-    { headerName: 'Current Designation', field: 'currentDesignation', sortable: true, filter: true },
+`;
+      }},
+   { headerName: 'Current Designation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
     { headerName: 'Email', field: 'email', sortable: true, filter: true },
     { headerName: 'Location', field: 'location', sortable: true, filter: true },

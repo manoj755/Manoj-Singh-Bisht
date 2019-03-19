@@ -21,6 +21,8 @@ export class UsersComponent implements OnInit {
   location = [];
   applications = [];
   roles = [];
+  isscroll = false;
+  ishideshow = false;
 
   // usernew = {};
   private smsselected = {};
@@ -145,6 +147,9 @@ export class UsersComponent implements OnInit {
 
       this.isEdit = true;
       this.user = response;
+      if (this.isscroll === false) {
+        window.scrollTo(600, 600);
+      }
       //            for (var i in response.data) {
       //                for (var j in response.data[i]) {
       //                    this.gridOptions.columnDefs.push({field:j});
@@ -178,6 +183,14 @@ export class UsersComponent implements OnInit {
 
     }));
 
+  }
+  showhide(): void {
+    if (this.ishideshow == false) {
+      this.ishideshow = true;
+    }
+    else {
+      this.ishideshow = true;
+    }
   }
 
 

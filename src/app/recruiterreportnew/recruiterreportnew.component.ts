@@ -10,6 +10,62 @@ declare var $: any;
 export class RecruiterreportnewComponent implements OnInit {
 
 
+  // grid
+  columnDefs = [
+    { 'headerName': 'Recruiter', 'field': 'recruiter_Name', 'sortable': true, 'filter': true },
+    {
+      'headerName': 'Total Candidate', 'field': 'Total_Candidate', 'sortable': true, 'filter': true
+      ,
+      cellRenderer: function (param) {
+        return `<button type='button' data-action-type='filtered' data-root='all' class='btn  btn-sm'>
+    ` + param.value + `
+</button>
+`;
+      }
+    },
+    {
+      'headerName': 'Selected Candidate', 'field': 'selected_Candidate', 'sortable': true, 'filter': true
+      ,
+      cellRenderer: function (param) {
+        return `<button type='button' data-action-type='filtered' data-root='Selected' class='btn  btn-sm'>
+     ` + param.value + `
+</button>
+`;
+      }
+    },
+    {
+      'headerName': 'Rejected Candidate', 'field': 'Rejected_Candidate', 'sortable': true, 'filter': true
+      ,
+      cellRenderer: function (param) {
+        return `<button type='button' data-action-type='filtered' data-root='Rejected' class='btn  btn-sm'>
+     ` + param.value + `
+</button>
+`;
+      }
+    },
+    {
+      'headerName': 'In Process Candidate', 'field': 'In_Process_Candidate', 'sortable': true, 'filter': true,
+      cellRenderer: function (param) {
+        return `<button type='button'  data-action-type='filtered' data-root='In Process'   class='btn  btn-sm'>
+      ` + param.value + `
+ </button>
+`;
+      }
+    },
+
+    {
+      'headerName': 'Under Review', 'field': 'UnderReview', 'sortable': true, 'filter': true,
+      cellRenderer: function (param) {
+        return `<button type='button'  data-action-type='filtered' data-root='Under Review' ` +
+          `   class='btn  btn-sm'>
+        ` + param.value + `
+   </button>`;
+      }
+    }
+  ];
+  rowData = [];
+  // grid
+
   gridTotalCandidatejob = {
     data: null,
 
@@ -31,38 +87,166 @@ export class RecruiterreportnewComponent implements OnInit {
     data: null,
 
   };
+  filtertitle = '';
   gridTotalRejectedCandidate: any;
   gridTotalProcessCandidate: any;
+  gridColumnApi: any;
+  gridApi: any;
+  managers = [];
   user: any;
   job: any;
   loaddata = false;
   update: any;
+  allids: any;
   showchart = true;
   clientreport: any;
   clientreportpie: any;
+  candidate_filtered = [];
+  candidate_filtered_cols = [];
   updatedd: any;
   jobslistbyclients: any;
-  myjob = { client_detail_id: 0, job_id: 0, start_date: '2000-01-01', end_date: '2019-12-06' };
+  myjob = { rootname: '', client_detail_id: 0, job_id: 0, manager: 0, start_date: '2000-01-01', end_date: '2019-12-12' };
   clientdetails: any;
   gridTotalCandidate = { data: null };
   constructor(private db: DBService) { }
 
   ngOnInit() {
-    this.getlist();
+    this.bindmanagers();
+
     this.db.list('clientdetail/', null, (response): void => {
       this.clientdetails = response;
       console.log(response);
 
     });
-    const chart = c3.generate({
-      bindto: '#chart',
-      data: {
-        columns: [
-          ['data1', 30, 200, 100, 400, 150, 250],
-          ['data2', 50, 20, 10, 40, 15, 25]
-        ]
+    this.getlistmain();
+
+  }
+  public onRowClicked(e) {
+    if (e.event.target !== undefined) {
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
+      const dataroot = e.event.target.getAttribute('data-root');
+
+      switch (actionType) {
+
+        case 'filtered':
+          return this.load_filtered(data, dataroot);
+          break;
       }
+    }
+  }
+  load_filtered(row, dataroot): void {
+    this.filtertitle = dataroot;
+    $('#ModelShowcandidateStatusWise').modal('show');
+
+    this.myjob.manager = row.id;
+    this.myjob.rootname = dataroot;
+
+
+    this.db.list('candidatereqruiterstatuswiseall/', this.myjob, (response): void => {
+      this.candidate_filtered_cols = [
+        { 'headerName': 'Recruiter Name', 'field': 'RecruiterName', 'sortable': true, 'filter': true },
+        { 'headerName': 'Candidate Name', 'field': 'candidateName', 'sortable': true, 'filter': true },
+        { 'headerName': 'Email', 'field': 'email', 'sortable': true, 'filter': true },
+        { 'headerName': 'Mobile No', 'field': 'mobileNo', 'sortable': true, 'filter': true },
+        { 'headerName': 'Location', 'field': 'location', 'sortable': true, 'filter': true },
+        { 'headerName': 'Title', 'field': 'job_title', 'sortable': true, 'filter': true },
+        { 'headerName': 'Status', 'field': 'Status', 'sortable': true, 'filter': true }];// this.db.GenerateColDef(response);
+      this.candidate_filtered = response;
+      // debugger;
+      // const Columns = [];
+      // for (const i in this.candidate_filtered) {
+      //   if (Columns.length === 0) {
+      //     Columns.push([this.candidate_filtered[i].Status, 1]);
+
+      //   } else {
+      //     let isToadd = true;
+      //     for (const k in Columns) {
+      //       if (Columns[k]) {
+      //         const tempdata = Columns[k];
+      //         if (this.candidate_filtered[i].Status === tempdata[0]) {
+      //           tempdata[1] = tempdata[1] + 1;
+      //           isToadd = false;
+
+      //         }
+      //       }
+
+
+      //     }
+      //     if (isToadd) {
+      //       Columns.push([this.candidate_filtered[i].Status, 1]);
+
+      //     }
+      //     isToadd = true;
+      //   }
+      // }
+      // debugger;
+      // let clientbarunderreviewpie3 = c3.generate({
+
+      //   //x: 'x',
+      //   bindto: '#clientbarunderreviewpie3',
+      //   data: {
+
+      //     columns: Columns,
+      //     type: 'pie'
+      //   },
+      //   bar: {
+      //     width: {
+      //       ratio: 0.8 // this makes bar width 50% of length between ticks
+      //     }
+      //   },
+      //   axis: {
+      //     x: {
+      //       type: 'category',
+      //       tick: {
+      //         rotate: 75,
+      //         multiline: true
+      //       },
+      //       height: 150
+      //     }
+      //   }
+      // });
+      // let clientbarunderreview3 = c3.generate({
+      //   //x: 'x',
+      //   bindto: '#clientbarunderreview3',
+      //   data: {
+
+      //     columns: Columns,
+      //     type: 'bar'
+      //   },
+      //   bar: {
+      //     width: {
+      //       ratio: 0.8 // this makes bar width 50% of length between ticks
+      //     }
+      //   },
+      //   axis: {
+      //     x: {
+      //       type: 'category',
+      //       tick: {
+      //         rotate: 75,
+      //         multiline: true
+      //       },
+      //       height: 150
+      //     }
+      //   }
+      // });
+
+
+      //    db.sl();
     });
+  }
+  bindmanagers(): void {
+    this.db.list('manager/', null, ((response): void => {
+      this.managers = response;
+      console.log(response);
+
+    })
+    );
+  }
+  ddlchangeclient(): void {
+
+    this.getcandidatebyclient();
+    this.getlistmain();
   }
   clientchange(): void {
     this.getlistmain();
@@ -70,7 +254,7 @@ export class RecruiterreportnewComponent implements OnInit {
   }
 
   getlistmain(): void {
-
+    debugger;
     this.db.hl();
     $('.chartctrl').height(500);
     this.db.list('recruiterreportApi/', this.myjob, (response): void => {
@@ -196,7 +380,11 @@ export class RecruiterreportnewComponent implements OnInit {
       //            }
 
 
-      this.gridOptions.data = response;
+      if (this.columnDefs.length === 0 && response.length > 0) {
+        // this.columnDefs = this.db.GenerateColDef(response);
+
+      }
+      this.rowData = response;
       this.db.sl();
 
     }, (response): void => {
@@ -204,6 +392,16 @@ export class RecruiterreportnewComponent implements OnInit {
       this.db.sl();
     });
   };
+
+
+  // grid
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+
+  }
+  // grid
 
   refreshgrid(): void {
 
@@ -430,11 +628,14 @@ export class RecruiterreportnewComponent implements OnInit {
     });
   };
 
-  onGridReady(event): void {
+
+  exportdat() {
+    this.gridApi.exportDataAsCsv();
+  }
+  onSelectionChanged(event) {
+    this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
 
   }
-
-
 
 
 

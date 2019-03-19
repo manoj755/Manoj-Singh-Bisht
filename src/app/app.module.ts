@@ -76,7 +76,6 @@ import { SettingsComponent } from './settings/settings.component';
 import { UpdateCandidateComponent } from './control/update-candidate/update-candidate.component';
 import { MessagelogComponent } from './messagelog/messagelog.component';
 import { SmslogComponent } from './smslog/smslog.component';
-import { CalldetailsComponent } from './calldetails/calldetails.component';
 
 
 
