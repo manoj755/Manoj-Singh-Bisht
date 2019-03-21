@@ -8,6 +8,8 @@ declare var $: any;
   styleUrls: ['./new-job.component.scss']
 })
 export class NewJobComponent implements OnInit {
+  start_date_temp: any = new Date();
+  end_date_temp: any = new Date();
   clients: any = [];
   addtojob: any = {};
   sendemailmodel: any = {};
@@ -33,9 +35,9 @@ export class NewJobComponent implements OnInit {
   max = 5000;
   mp: any = {};
   keyskillsset: any;
-  minimumSalarythousand: any;
-  maximumSalarylac: any;
-  maximumSalarythousand: any;
+  minimumSalarythousand: any = 0;
+  maximumSalarylac: any = 0;
+  maximumSalarythousand: any = 0;
   location: any;
   arrRoles = [];
   isjobediting = false;
@@ -90,9 +92,6 @@ export class NewJobComponent implements OnInit {
     })
     );
 
-    setTimeout(function () {
-      this.jobtype();
-    }, 2000);
     this.applicationdepartment();
 
 
@@ -769,9 +768,9 @@ export class NewJobComponent implements OnInit {
 
   // $.material.init();
   addNewJobSave(): void {
-
+    debugger;
     this.myjob.job_status = 'Active';
-    this.location = location;
+
     // console.log(FH.SelectedCheckbox(this.departments));
     //    if ($('.validate').validate('#addnewjobform', true)) {
     if (true) {
@@ -783,7 +782,8 @@ export class NewJobComponent implements OnInit {
         }
       }
       this.myjob.location = locationstr;
-
+      this.myjob.start_date = this.db.toYYMMDD(this.start_date_temp);
+      this.myjob.end_date = this.db.toYYMMDD(this.end_date_temp);
       this.myjob.minimumSalary = (this.minimumSalarylac * 100000) + (this.minimumSalarythousand * 1000);
       //   =resultmin.tostring();
       this.myjob.maximumSalary = (this.maximumSalarylac * 100000) + (this.maximumSalarythousand * 1000);
