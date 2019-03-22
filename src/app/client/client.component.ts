@@ -250,7 +250,7 @@ export class ClientComponent implements OnInit {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
-      this.client = { id: 0, feeslabtype: '', fee_slab: [] };
+     // this.client = { id: 0, feeslabtype: '', fee_slab: [] };
 
 
     }));
