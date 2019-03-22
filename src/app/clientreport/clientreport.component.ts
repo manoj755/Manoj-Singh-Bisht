@@ -118,6 +118,7 @@ export class ClientreportComponent implements OnInit {
   candidate_filtered_cols = [];
   update: any;
   updatedd: any;
+  allids: any;
   jobslistbyclients: any;
   myjob = { client_detail_id: 0, clientid: 0, isinterview: null, rootname: '' };
   clientdetails: any;
@@ -704,7 +705,13 @@ export class ClientreportComponent implements OnInit {
   };
 
 
+  exportdat() {
+    this.gridApi.exportDataAsCsv();
+  }
+  onSelectionChanged(event) {
+    this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
 
+  }
 
 
 }

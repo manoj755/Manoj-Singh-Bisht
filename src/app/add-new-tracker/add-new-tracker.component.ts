@@ -16,6 +16,7 @@ export class AddNewTrackerComponent implements OnInit {
   item: any = {};
   stateobj = {};
   errors = {};
+  ishideshow = false;
   isEditclientStateswiseBillingDetail = false;
   clientStateswiseBillingDetail = {};
   private smsselected = {};
@@ -103,7 +104,7 @@ export class AddNewTrackerComponent implements OnInit {
         case 'delete':
           return this.onActionDeleteClick(data);
         case 'edit':
-          return this.onActionEditClick(data);
+          return this.onActionEditClick(data) , this.showhideedit();
       }
     }
   }
@@ -166,6 +167,20 @@ export class AddNewTrackerComponent implements OnInit {
 
 
     }));
+
+  }
+  showhide(): void {
+    if (this.ishideshow == false) {
+      this.ishideshow = true;
+    }
+    else {
+      this.ishideshow = false;
+    }
+  }
+  showhideedit(): void {
+    if (this.ishideshow == false) {
+      this.ishideshow = true;
+    }
 
   }
 

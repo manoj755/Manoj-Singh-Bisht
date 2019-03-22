@@ -1,32 +1,18 @@
 <div class="main-content">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
+        <Button class="btn btn-primary" (click)="showhide() || back();"> Add new message template</Button>
 
-            <ag-grid-angular
-            style="width: 1500px; height: 500px;"
-            class="ag-theme-material"
-            [rowData]="rowData"
-            [columnDefs]="columnDefs"
-            suppressCsvExport=false
+          <div *ngIf="ishideshow">
+        <div class="col-md-8">
 
-          [suppressRowClickSelection]="true"
-          [groupSelectsChildren]="true"
-          paginationAutoPageSize='true'
-          (selectionChanged)="onSelectionChanged($event)"
-          [debug]="true"
-          [rowSelection]="rowSelection"
-          [rowGroupPanelShow]="rowGroupPanelShow"
-          [pivotPanelShow]="pivotPanelShow"
-          [enableRangeSelection]="true"
-          [pagination]="true"
-          (gridReady)="onGridReady($event)"
 
-          (rowClicked)="onRowClicked($event)"
-            ></ag-grid-angular>
             <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Tracker Detail</h4>
+                    <p class="card-category">Add or Edit Message Templates</p>
+                    </div>
                 <div class="row" id="trackermaster">
-                    <div class="bs-example col-12"  id="messagetemp">
+                    <div class="bs-example col-md-12"  id="messagetemp">
                         <div class="form-horizontal"  id="trackertemp">
                             <div class="form-group" >
                                 <label for="" class="control-label col-md-2">Job Specific: <span help='this is customized job data, which could be different in each job' class="badge">?</span></label>
@@ -56,7 +42,7 @@
                                 <div class=" col-xs-offset-2 col-xs-10 row justify-content-center">
                                     <button type="submit" class="btn  btn-raised btn-primary validate" tar="#trackermaster" *ngIf="!isEdit" (click)="newtrackersave()">Save</button>
                                     <button type="button" class="btn  btn-raised btn-primary" tar="#channel" *ngIf="isEdit" (click)="newtrackerupdate()">Update</button>
-                                    <button type="button" class="btn  btn-raised btn-primary" tar="#channel" *ngIf="isEdit" (click)="back()">Back</button>
+                                    <button type="button" class="btn  btn-raised btn-primary" tar="#channel" *ngIf="isEdit" (click)="back()">New Deatil</button>
                                 </div>
                             </div>
 
@@ -71,7 +57,31 @@
 
         </div>
         </div>
-
       </div>
+
+        <ag-grid-angular
+        style="width: 1500px; height: 500px;"
+        class="ag-theme-material"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        suppressCsvExport=false
+
+      [suppressRowClickSelection]="true"
+      [groupSelectsChildren]="true"
+      paginationAutoPageSize='true'
+      (selectionChanged)="onSelectionChanged($event)"
+      [debug]="true"
+      [rowSelection]="rowSelection"
+      [rowGroupPanelShow]="rowGroupPanelShow"
+      [pivotPanelShow]="pivotPanelShow"
+      [enableRangeSelection]="true"
+      [pagination]="true"
+      (gridReady)="onGridReady($event)"
+
+      (rowClicked)="onRowClicked($event)"
+        ></ag-grid-angular>
+
+
+
     </div>
   </div>

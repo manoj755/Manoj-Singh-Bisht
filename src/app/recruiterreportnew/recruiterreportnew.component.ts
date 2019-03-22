@@ -97,6 +97,7 @@ export class RecruiterreportnewComponent implements OnInit {
   job: any;
   loaddata = false;
   update: any;
+  allids: any;
   showchart = true;
   clientreport: any;
   clientreportpie: any;
@@ -628,7 +629,13 @@ export class RecruiterreportnewComponent implements OnInit {
   };
 
 
+  exportdat() {
+    this.gridApi.exportDataAsCsv();
+  }
+  onSelectionChanged(event) {
+    this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
 
+  }
 
 
 

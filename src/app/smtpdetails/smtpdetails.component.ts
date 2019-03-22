@@ -13,6 +13,8 @@ export class SmtpdetailsComponent implements OnInit {
   title = 'app';
   smtp = { id: 0 };
   isEdit = false;
+  isvisible = false;
+  firstLoad = false;
   private smsselected = {};
   private emailselected = {};
   private gridApi;
@@ -96,7 +98,7 @@ export class SmtpdetailsComponent implements OnInit {
         case 'delete':
           return this.onActionDeleteClick(data);
         case 'edit':
-          return this.onActionEditClick(data);
+          return this.onActionEditClick(data), this.visibleonedit();
       }
     }
   }
@@ -113,11 +115,16 @@ export class SmtpdetailsComponent implements OnInit {
 
   onActionEditClick(row): void {
 
+
     this.isEdit = false;
     this.db.show('smtpdetail/', row.id, ((response): void => {
 
       this.isEdit = true;
       this.smtp = response;
+      if (this.firstLoad === false) {
+        window.scrollTo(0, 100);
+        //this.firstLoad = true;
+      }
       //            for (var i in response.data) {
       //                for (var j in response.data[i]) {
       //                    this.gridOptions.columnDefs.push({field:j});
@@ -161,5 +168,21 @@ export class SmtpdetailsComponent implements OnInit {
     }));
 
   }
+  // this.isvisible=false;
+  visible(): void {
+    if (this.isvisible == false) {
+      this.isvisible = true;
+    }
+    else {
+      this.isvisible = false;
+    }
+  }
+  visibleonedit(): void {
+    if (this.isvisible == false) {
+      this.isvisible = true;
+    }
+
+  }
+
 
 }

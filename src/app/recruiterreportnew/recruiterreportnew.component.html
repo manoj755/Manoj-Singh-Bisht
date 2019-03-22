@@ -125,6 +125,7 @@
 
             </div>
             <div class="clearfix"></div>
+            <button (click)="exportdat()">Export</button>
             <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData"
               [columnDefs]="columnDefs" suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef"
               [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
@@ -150,7 +151,7 @@
                     <div id="clientbarunderreview3" class="height500 width700"></div>
                     <input type="submit" class="printview btn  btn-raised  btn-sm  " value="Print preview" w="1300"
                       h="500" tar="#clientbarunderreview3" style="display: block;margin-bottom: 10px;"> -->
-
+                      <button (click)="exportdat()">Export</button>
                     <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="candidate_filtered"
                       [columnDefs]="candidate_filtered_cols" suppressCsvExport=false
                       [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"

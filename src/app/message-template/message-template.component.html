@@ -1,27 +1,11 @@
 <div class="main-content">
     <div class="container-fluid">
-      <div class="row">
-          <ag-grid-angular
-          style="width: 1500px; height: 500px;"
-          class="ag-theme-material"
-          [rowData]="rowData"
-          [columnDefs]="columnDefs"
-          suppressCsvExport=false
-          [autoGroupColumnDef]="autoGroupColumnDef"
-        [suppressRowClickSelection]="true"
-        [groupSelectsChildren]="true"
-        paginationAutoPageSize='true'
-        (selectionChanged)="onSelectionChanged($event)"
-        [debug]="true"
-        [rowSelection]="rowSelection"
-        [rowGroupPanelShow]="rowGroupPanelShow"
-        [pivotPanelShow]="pivotPanelShow"
-        [enableRangeSelection]="true"
-        [pagination]="true"
-        (gridReady)="onGridReady($event)"
+        <Button class="btn btn-primary" (click)="showhide() || back();"> Add new message template</Button>
 
-        (rowClicked)="onRowClicked($event)"
-          ></ag-grid-angular>
+      <div class="row">
+        <div *ngIf="ishideshow">
+
+
         <div class="col-12">
             <div class="card">
                 <div class="card-header card-header-danger">
@@ -95,7 +79,28 @@
             </div>
             </div>
         </div>
+</div>
+<ag-grid-angular
+style="width: 1500px; height: 500px;"
+class="ag-theme-material"
+[rowData]="rowData"
+[columnDefs]="columnDefs"
+suppressCsvExport=false
+[autoGroupColumnDef]="autoGroupColumnDef"
+[suppressRowClickSelection]="true"
+[groupSelectsChildren]="true"
+paginationAutoPageSize='true'
+(selectionChanged)="onSelectionChanged($event)"
+[debug]="true"
+[rowSelection]="rowSelection"
+[rowGroupPanelShow]="rowGroupPanelShow"
+[pivotPanelShow]="pivotPanelShow"
+[enableRangeSelection]="true"
+[pagination]="true"
+(gridReady)="onGridReady($event)"
 
+(rowClicked)="onRowClicked($event)"
+></ag-grid-angular>
       </div>
     </div>
   </div>

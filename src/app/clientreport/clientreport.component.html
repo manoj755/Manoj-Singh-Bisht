@@ -117,11 +117,11 @@
             <div class="clearfix"></div>
             <div ng-show="!showchart">
 
-              <div id="clientReport" class="height500"></div>
-              <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
+              <div id="clientReport" ></div>
+              <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="500" h="600"
                 tar="#clientReport" style="display: block;margin-bottom: 10px;">
-              <div id="clientReportpie" class="height500"></div>
-              <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
+              <div id="clientReportpie" ></div>
+              <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="500" h="600"
                 tar="#clientReportpie" style="display: block;margin-bottom: 10px;">
             </div>
 
@@ -139,6 +139,7 @@
 
                   </div>
                   <div class="modal-body">
+                      <button (click)="exportdat()">Export</button>
                     <ag-grid-angular style="height: 500px;" class="ag-theme-material"
                       [rowData]="GridShowCandidateTotal_Candidate" [columnDefs]="GridShowCandidateTotal_Candidate_cols"
                       suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef"
@@ -167,6 +168,7 @@
 
                   </div>
                   <div class="modal-body">
+                      <button (click)="exportdat()">Export</button>
                     <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="showjobsClientWiseRows"
                       [columnDefs]="showjobsClientWiseCols" suppressCsvExport=false
                       [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"
@@ -195,14 +197,14 @@
 
                   </div>
                   <div class="modal-body">
-                    <div id="clientbarunderreviewpie3" class="height500 width700"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1040"
-                      h="500" tar="#clientbarunderreviewpie3" style="display: block;margin-bottom: 10px;">
+                    <div id="clientbarunderreviewpie3" class="height200 width300"></div>
+                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="900"
+                      h="100" tar="#clientbarunderreviewpie3" style="display: block;margin-bottom: 10px;">
 
-                    <div id="clientbarunderreview3" class="height500 width700"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm  " value="Print preview" w="1300"
-                      h="500" tar="#clientbarunderreview3" style="display: block;margin-bottom: 10px;">
-
+                    <div id="clientbarunderreview3" class="height200 width700"></div>
+                    <input type="submit" class="printview btn  btn-raised  btn-sm  " value="Print preview" w="1100"
+                      h="100" tar="#clientbarunderreview3" style="display: block;margin-bottom: 10px;">
+                      <button (click)="exportdat()">Export</button>
                     <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="candidate_filtered"
                       [columnDefs]="candidate_filtered_cols" suppressCsvExport=false
                       [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"
@@ -229,14 +231,14 @@
                     <h4 class="modal-title">Interview Candidate</h4>
                   </div>
                   <div class="modal-body">
-                    <div id="clientbarunderreviewpie4"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1040"
-                      h="500" tar="#clientbarunderreviewpie4" style="display: block;margin-bottom: 10px;">
+                    <div id="clientbarunderreviewpie4" class="height200"></div>
+                    <input type="submit" class="printview btn  btn-rais0ed  btn-sm " value="Print preview" w="500"
+                      h="100" tar="#clientbarunderreviewpie4" style="display: block;margin-bottom: 10px;height: 500;width:600;">
 
-                    <div id="clientbarunderreview4"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300"
-                      h="500" tar="#clientbarunderreview4" style="display: block;margin-bottom: 10px;">
-
+                    <div id="clientbarunderreview4" class="height200"></div>
+                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="600"
+                      h="100" tar="#clientbarunderreview4" style="display: block;margin-bottom: 10px;height: 500;width:600;">
+                      <button (click)="exportdat()">Export</button>
                     <div ui-grid="gridInterview" ui-grid-selection ui-grid-pagination ui-grid-cellnav ui-grid-exporter
                       class="grid"></div>
                   </div>
@@ -258,14 +260,14 @@
                     <h4 class="modal-title">Rejected</h4>
                   </div>
                   <div class="modal-body">
-                    <div id="clientbarunderreviewpie2"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1040"
-                      h="500" tar="#clientbarunderreviewpie2" style="display: block;margin-bottom: 10px;">
+                    <div id="clientbarunderreviewpie2" ></div>
+                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="500"
+                      h="100" tar="#clientbarunderreviewpie2" style="display: block;margin-bottom: 10px;height: 500;width:600;">
 
                     <div id="clientbarunderreview2"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300"
-                      h="500" tar="#clientbarunderreview2" style="display: block;margin-bottom: 10px;">
-
+                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="600"
+                      h="100" tar="#clientbarunderreview2" style="display: block;margin-bottom: 10px;height: 500;width:600;">
+                      <button (click)="exportdat()">Export</button>
                     <div ui-grid="GridShowcandidateStatusWiseRejected" ui-grid-selection ui-grid-pagination
                       ui-grid-cellnav ui-grid-exporter class="grid"></div>
                   </div>
@@ -288,14 +290,14 @@
                   </div>
                   <div class="modal-body">
                     <div id="clientbarunderreviewpie1"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1040"
-                      h="500" tar="#clientbarunderreviewpie1" style="display: block;margin-bottom: 10px;">
+                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="500"
+                      h="100" tar="#clientbarunderreviewpie1" style="display: block;margin-bottom: 10px;height: 500;width:600;">
 
                     <div id="clientbarunderreview1"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300"
-                      h="500" tar="#clientbarunderreview1" style="display: block;margin-bottom: 10px;">
+                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="600"
+                      h="100" tar="#clientbarunderreview1" style="display: block;margin-bottom: 10px;height: 500;width:600;">
 
-
+                      <button (click)="exportdat()">Export</button>
                     <div ui-grid="GridShowcandidateStatusWiseInProcess" ui-grid-selection ui-grid-pagination
                       ui-grid-cellnav ui-grid-exporter class="grid"></div>
                   </div>
@@ -318,14 +320,14 @@
                   </div>
                   <div class="modal-body">
                     <div id="clientbarunderreviewpie"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1040"
-                      h="500" tar="#clientbarunderreviewpie" style="display: block;margin-bottom: 10px;">
+                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="500"
+                      h="100" tar="#clientbarunderreviewpie" style="display: block;margin-bottom: 10px;height: 100px;width:200px;">
 
                     <div id="clientbarunderreview"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300"
-                      h="500" tar="#clientbarunderreview" style="display: block; margin-bottom: 10px;">
+                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="600"
+                      h="100" tar="#clientbarunderreview" style="display: block; margin-bottom: 10px;height: 100px;width:200px;">
 
-
+                      <button (click)="exportdat()">Export</button>
                     <div ui-grid="GridShowcandidateStatusWiseUnderReview" ui-grid-selection ui-grid-pagination
                       ui-grid-cellnav ui-grid-exporter class="grid"></div>
                   </div>
@@ -364,6 +366,7 @@
         </div>
       </div> -->
       <div class="col-12">
+          <button (click)="exportdat()">Export</button>
         <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
           suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"
           [groupSelectsChildren]="true" paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)"

@@ -37,9 +37,7 @@ export class UpdateStatusComponent implements OnInit {
 
   ngOnInit() {
     this.loadmanagerid();
-    setInterval(function () {
-      this.purposechange();
-    }, 2000);
+
   }
 
   bindStatus(): void {
