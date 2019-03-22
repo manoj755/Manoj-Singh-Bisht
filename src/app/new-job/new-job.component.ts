@@ -9,6 +9,7 @@ declare var $: any;
 })
 export class NewJobComponent implements OnInit {
   start_date_temp: any = new Date();
+  clientsdepartment = '';
   end_date_temp: any = new Date();
   clients: any = [];
   addtojob: any = {};
@@ -62,7 +63,7 @@ export class NewJobComponent implements OnInit {
   page = 1;
 
   suggestedkeyskills = [];
-  myjob: any = { minimumExperience: 0, internshipdurationunit: 0 };
+  myjob: any = { minimumExperience: 0, internshipdurationunit: 'Month' };
   minimumSalaryOption = [];
   minimumSalarylac = 0;
   minimumSalaryOptionink = [];
@@ -73,6 +74,7 @@ export class NewJobComponent implements OnInit {
   constructor(public db: DBService) { }
 
   ngOnInit() {
+    $('select').addClass('noselect2 form-control');
     this.minimumSalaryOptionSet()
     this.updatemaxexperience();
     this.loadlocation();
@@ -180,6 +182,7 @@ export class NewJobComponent implements OnInit {
 
 
   updatemaxexperience(): void {
+    debugger;
     this.maxexperience = [];
     let j = 0;
     j = this.myjob.minimumExperience;
@@ -353,9 +356,9 @@ export class NewJobComponent implements OnInit {
       //
       //            this.myjob.functionalArea = this.functionalArea.functionalAreaName;
 
-      this.myjob.minimumSalary = (this.minimumSalarylac * 100000) + (this.minimumSalarythousand * 1000);
+      this.myjob.minimumSalary = (this.myjob.minimumSalarylac * 100000) + (this.myjob.minimumSalarythousand * 1000);
       //   =resultmin.tostring();
-      this.myjob.maximumSalary = (this.maximumSalarylac * 100000) + (this.maximumSalarythousand * 1000);
+      this.myjob.maximumSalary = (this.myjob.maximumSalarylac * 100000) + (this.myjob.maximumSalarythousand * 1000);
       //  =resultmax.tostring();
       if (this.myjob.minimumSalary > this.myjob.maximumSalary) {
         this.db.addmessageandremove('Maximum salary cannot be less then minimum salary.');
@@ -780,13 +783,17 @@ export class NewJobComponent implements OnInit {
         if (locations[j]) {
           locationstr += locations[j] + ',';
         }
+
       }
+      alert('location and keyskills');
+      locationstr = 'delhi';
+      this.myjob.keyskills = 'acb';
       this.myjob.location = locationstr;
       this.myjob.start_date = this.db.toYYMMDD(this.start_date_temp);
       this.myjob.end_date = this.db.toYYMMDD(this.end_date_temp);
-      this.myjob.minimumSalary = (this.minimumSalarylac * 100000) + (this.minimumSalarythousand * 1000);
+      this.myjob.minimumSalary = (this.myjob.minimumSalarylac * 100000) + (this.myjob.minimumSalarythousand * 1000);
       //   =resultmin.tostring();
-      this.myjob.maximumSalary = (this.maximumSalarylac * 100000) + (this.maximumSalarythousand * 1000);
+      this.myjob.maximumSalary = (this.myjob.maximumSalarylac * 100000) + (this.myjob.maximumSalarythousand * 1000);
 
       // this.myjob.functionalArea = this.functionalArea.functionalAreaName;
       const topost = this.myjob;

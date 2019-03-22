@@ -1,20 +1,19 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-
       <div class="alert alert-info col-12" *ngIf="clientdetails.length==0">
         <h2>Please Create {{clientsdepartment}}.</h2>
         <span *ngIf="mp.page_tracker">To create please <a href="#/client">click here</a></span>
         <span *ngIf="!mp.page_tracker">Please contact your manager</span>
-        .
+
       </div>
       <div class="alert alert-warning  col-12" *ngIf="trackerlist.length==0">
         <h2>Please Create Tracker.</h2><span *ngIf="mp.page_client">To create please <a href="#/tracker">click
             here</a></span>
         <span *ngIf="!mp.page_client">Please contact your manager</span>.
       </div>
-      <div class=" col-12 bg-default" *ngIf="clientdetails.length>0&& trackerlist.length>0" style=" padding-top: 20px"
-        id="addnewjobform">
+      <div class=" col-12 bg-default" [hidden]="!clientdetails.length>0&& !trackerlist.length>0"
+        style=" padding-top: 20px" id="addnewjobform">
 
 
         <div class="card">
@@ -39,12 +38,11 @@
 
                     </div>
                   </div>
-
                   <div class="form-group  col-md-6">
                     <label class="col-md-4" Manager>Manager:</label>
                     <div class="col-md-8">
                       <select n="Select a Manager" id='manager_id' [(ngModel)]="myjob.manager_id" name="manager_id">
-                        <option value="{{profile.id}}">Self</option>
+                        <option value="{{db.profile.id}}">Self</option>
                         <option value="{{manager.id}}" *ngFor="let manager of managers">
                           {{manager.name}}
                         </option>
@@ -52,19 +50,19 @@
 
                     </div>
                   </div>
+
+
+
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Manager>Tracker :</label>
                     <div class="col-md-8">
 
-                      <select d="" n=" a Tracker" id="tracker" [(ngModel)]="myjob.tracker_id">
+                      <select n=" a Tracker" id="tracker" [(ngModel)]="myjob.tracker_id">
                         <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
                         </option>
                       </select>
                     </div>
                   </div>
-
-
-
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Title>Job Title</label>
                     <div class="col-md-8">
@@ -75,6 +73,8 @@
 
                     </div>
                   </div>
+
+
                   <div class="form-group col-md-6" *ngIf="mp.can_add_skills_for_call">
                     <label class="col-md-4" Title>Primary Skill</label>
                     <div class="col-md-8">
@@ -93,6 +93,7 @@
 
                     </div>
                   </div>
+
                   <div class="form-group col-md-6" *ngIf="mp.can_add_skills_for_call">
                     <label class="col-md-4" Title>Third Skill</label>
                     <div class="col-md-8">
@@ -107,7 +108,7 @@
 
 
                   <div class="form-group col-md-6">
-                    <!--<input type="number" min="100000" max="5000000" id="minsalary" step="10000" class="form-control e" validate  n="Minimum Experience" [(ngModel)]="myjob.minimumSalary" name="minimumSalary" placeholder="From (Min 10000)" maxlength="10" />-->
+
                     <label class="col-md-4" Title><b>From</b> Lakhs</label>
                     <div class="col-md-8">
                       <select class="e" id="minimumSalaryOption" (change)="updatemaxsalary()"
@@ -126,6 +127,7 @@
                       </select>
                     </div>
                   </div>
+
                   <div class="form-group col-md-6">
 
                     <label class="col-md-4" Title><b>To</b> Lakhs</label>
@@ -138,6 +140,8 @@
                       </select>
                     </div>
                   </div>
+
+
                   <div class="form-group col-md-6">
 
                     <label class="col-md-4" Title>Thousands</label>
@@ -149,25 +153,24 @@
                       </select>
                     </div>
                   </div>
-
-
-
                   <div class="form-group col-md-6 ">
                     <div class="row">
                       <label class="col-md-4 " Industry>Hide Salary from jobseekers</label>
 
                       <div class="col-md-8">
                         <mat-checkbox [(ngModel)]='myjob.HideSalaryfromjobseekers' ng-true-value="'YES'"
-                          ng-false-value="'NO'"></mat-checkbox>
+                          ng-false-value="'NO'">
+                        </mat-checkbox>
                       </div>
                     </div>
                   </div>
+
                   <div class="form-group col-md-6"
-                    *ngIf="!mp.hide_referral_bonus || profile.disable_crowd_sourcing=='1'">
+                    *ngIf="!mp.hide_referral_bonus || db.profile.disable_crowd_sourcing=='1'">
                     <label class="col-md-4" Referral>Referral Bonus:</label>
                     <div class="col-md-8">
                       <input type="number"
-                        class="form-control e {{mp.hide_referral_bonus || profile.disable_crowd_sourcing=='1'?'':'e'}}"
+                        class="form-control e {{mp.hide_referral_bonus || db.profile.disable_crowd_sourcing=='1'?'':'e'}}"
                         min="2000" id='referralBonus' maxlength="5" validate n="Referral Bonus"
                         [(ngModel)]="myjob.referralBonus" placeholder="Bonus" name="referralBonus" />
 
@@ -175,6 +178,7 @@
                     </div>
 
                   </div>
+
                   <h4 class="col-md-12 pull-left">Experience:(In Years)</h4>
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Exprience>From Years</label>
@@ -208,11 +212,11 @@
                         <option>Internship</option>
                         <option>Contract</option>
                         <option>Freelence</option>
-
                       </select>
 
                     </div>
                   </div>
+
 
                   <div id="internshipdiv" style="display: none;" class="col-md-12">
                     <div class="form-group col-md-6">
@@ -226,33 +230,21 @@
                             <option>4</option>
                             <option>5</option>
                             <option>6</option>
-
                           </select>
 
                         </div>
                         <div class="col-md-4 " id="Responsibility">
-                          <select class="e form-control" name="internshipdurationunit" [(ngModel)]='myjob.internshipdurationunit'>
-                            <option>Month</option>
-                            <option>Weeks</option>
+                          <select class="e" [(ngModel)]='myjob.internshipdurationunit'>
+                            <option [value]="Month">Month</option>
+                            <option [value]="Weeks">Weeks</option>
                           </select>
 
                         </div>
                       </div>
                     </div>
-                    <div class="form-group col-md-6">
-                      <div class="row">
-                        <label class="col-md-4">Is Part Time Allowed</label>
-                        <div class="col-md-8">
-                          <mat-radio-group>
-                            <mat-radio-button [(ngModel)]='myjob.isparttime' value="yes">Yes</mat-radio-button>
-                            <mat-radio-button [(ngModel)]='myjob.isparttime' value="no">No</mat-radio-button>
-                          </mat-radio-group>
 
-
-                        </div>
-                      </div>
-                    </div>
                   </div>
+
                   <div id="contract" style="display: none;" class="col-md-12">
                     <div class="form-group col-md-6" id="contract">
 
@@ -285,12 +277,12 @@
 
                         </div>
                         <div class="col-md-5">
-                          <select n="a Month" id="month" [(ngModel)]='myjob.contractunit'>
-                            <option>Month</option>
-                            <option>Weeks</option>
+                          <ng-select n="a Month" id="month" [(ngModel)]='myjob.contractunit'>
+                            <ng-option>Month</ng-option>
+                            <ng-option>Weeks</ng-option>
 
 
-                          </select>
+                          </ng-select>
 
                         </div>
                       </div>
@@ -299,11 +291,11 @@
                   <div style="display: none;" class="form-group col-md-6" id="freelence">
                     <label class="col-md-4">Change Payable</label>
                     <div class="col-md-8">
-                      <mat-radio-group>
+                      <!-- <mat-radio-group>
                         <mat-radio-button [(ngModel)]='myjob.freelancepayable' value="Hourly">Hourly</mat-radio-button>
                         <mat-radio-button [(ngModel)]='myjob.freelancepayable' value="Project-Based">Project-Based
                         </mat-radio-button>
-                      </mat-radio-group>
+                      </mat-radio-group> -->
 
 
 
@@ -346,9 +338,9 @@
                     </label>
                     <div class="col-md-10">
 
+{{location}}
 
-
-                      <select [(ngModel)]="myjob.location" [multiple]="true">
+                      <select [(ngModel)]="location" [multiple]="true">
                         <option *ngFor="let location of locations ">{{location}}</option>
                       </select>
                     </div>
@@ -471,7 +463,8 @@
 
                       <div *ngIf='departments.length==0' class="alert alert-info">
                         No Department Added.<span *ngIf='mp.page_departments'> <a href="#/departments"
-                            class="btn btn-default">Click here</a> to add Department.</span>
+                            class="btn btn-default">Click
+                            here</a> to add Department.</span>
                       </div>
 
                       <span class="form-check bg-aqua text-blue " *ngFor="let department of departments">
@@ -489,6 +482,9 @@
 
                     </div>
                   </div>
+
+
+
 
 
                   <div class="form-group col-md-6">
