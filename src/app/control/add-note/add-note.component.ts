@@ -30,10 +30,10 @@ export class AddNoteComponent implements OnInit {
   }
 
   CandidateNotesave(): void {
-    if (!$('.validate').validate('#notesdetail')) {
-      //  $.fn.showMessage('Please fill values');
-        return;
-      }
+    // if (!$('.validate').validate('#notesdetail')) {
+    //   //  $.fn.showMessage('Please fill values');
+    //     return;
+    //   }
 
     this.CandidateNote.candidate_id = this.candidate_id;
     this.db.store('candidatenote/', this.CandidateNote, (response): void => {

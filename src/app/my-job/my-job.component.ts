@@ -452,7 +452,7 @@ export class MyJobComponent implements OnInit {
   };
 
   loadCandidate = function () {
-
+    debugger;
     //
     let SelectedJob = ''
     if (this.isfirstload !== 1) {
@@ -461,8 +461,8 @@ export class MyJobComponent implements OnInit {
       SelectedJob = this.selectedjob;
     }
     SelectedJob = this.selectedjob;
-    const totalrow = this.selectednodes;
-    SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
+    //const totalrow = this.selectednodes;
+    //SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
     this.globaljobid = SelectedJob;
 
     const Search = {

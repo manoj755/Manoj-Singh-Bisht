@@ -28,7 +28,7 @@ export class ClientComponent implements OnInit {
   ishideshowclient = false;
   updateid: any;
   isEditclientStateswiseBillingDetail = false;
-  clientStateswiseBillingDetail = {};
+  clientStateswiseBillingDetail = { client_detail_id: 0 };
   private smsselected = {};
   private emailselected = {};
   private gridApi;
@@ -180,11 +180,11 @@ export class ClientComponent implements OnInit {
 
   back(): void {
     this.isEdit = false;
-    this.client = { id: 0 };
+    this.client = { id: 0, feeslabtype: '', fee_slab: [] };
   }
   backstate(): void {
     this.isEditclientStateswiseBillingDetail = false;
-    this.clientStateswiseBillingDetail = { id: 0 };
+    this.clientStateswiseBillingDetail = { client_detail_id: 0 };
   }
 
   onActionEditClick(row): void {
@@ -250,12 +250,36 @@ export class ClientComponent implements OnInit {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
-     // this.client = { id: 0, feeslabtype: '', fee_slab: [] };
+      // this.client = { id: 0, feeslabtype: '', fee_slab: [] };
 
 
     }));
 
   }
+  clientStateswiseBillingDetailsave(): void {
+
+    this.clientStateswiseBillingDetail.client_detail_id = this.client.id;
+    // this.user.profilepic=this.user.profilepic[0];
+    this.db.store('clientstateswisebillingdetail/', this.clientStateswiseBillingDetail, ((response): void => {
+
+      this.db.showMessage('Added Successfully');
+      this.LoadData();
+      // this.client = { id: 0, feeslabtype: '', fee_slab: [] };
+
+
+    }));
+
+  }
+  clientStateswiseBillingDetailupdate(): void {
+    this.db.update('clientstateswisebillingdetail/', { 'client_detail_id': this.client.id },
+      this.clientStateswiseBillingDetail, ((response): void => {
+
+        this.LoadData();
+        this.db.showMessage('Updated Successfully');
+
+      }));
+  }
+
   showhideclient(x, y): void {
     if (this.ishideshowclient === false && this.isscroll === false) {
       //this.isEdit = false;

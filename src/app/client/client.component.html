@@ -248,15 +248,9 @@
             </div>
 
           </div>
-          <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
-          suppressCsvExport=false   [suppressRowClickSelection]="true"
-          (rowClicked)="onRowClicked($event)"
-          [groupSelectsChildren]="true" (selectionChanged)="onSelectionChanged($event)" [debug]="true"
-          [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
-          [enableRangeSelection]="true" (gridReady)="onGridReady($event)">
-        </ag-grid-angular>
+
                 <div id="addbilling" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog width80percent ">
 
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -315,5 +309,14 @@
 
 
 
+    </div>
+    <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
+    suppressCsvExport=false   [suppressRowClickSelection]="true"
+    (rowClicked)="onRowClicked($event)"
+    [groupSelectsChildren]="true" (selectionChanged)="onSelectionChanged($event)" [debug]="true"
+    [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+    [enableRangeSelection]="true" (gridReady)="onGridReady($event)">
+  </ag-grid-angular>
+    </div>
     </div>
   </div>
