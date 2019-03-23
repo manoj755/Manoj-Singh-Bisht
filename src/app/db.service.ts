@@ -37,7 +37,7 @@ export class DBService implements OnInit {
     this.setProfile();
   }
   setProfile(): any {
-    debugger;
+
     if (!this.profile.profilepic) {
       this.list('profile/', null, ((response): void => {
 
@@ -145,7 +145,7 @@ export class DBService implements OnInit {
   }
   public showMessage(message: any, action?: string, durationMS?: number): void {
 
-    debugger;
+
     if (isObject(message) && message.status === 0) {
       message = 'Please check your internet.';
     } else if (isObject(message) && message.status === 401) {
@@ -179,7 +179,7 @@ export class DBService implements OnInit {
 
     // $rootScope.universal_errors = [];
     // if (response.status == 422) {
-    //   debugger;
+    //
     //   for (var k in response) {
     //     var message = response[k].toString();
     //     $rootScope.universal_errors.push({ message: message, data: true });
@@ -555,7 +555,7 @@ export class DBService implements OnInit {
   }
 
   downloadFile(data: any, name?: string) {
-    debugger;
+
     if (name === null || name === undefined) {
       name = 'data';
     }
@@ -577,7 +577,7 @@ export class DBService implements OnInit {
   }
 
   getIDs(nodetype?, id?): any {
-    debugger;
+
     if (id === null || id === undefined) {
       id = 'id';
     }
@@ -594,7 +594,7 @@ export class DBService implements OnInit {
   }
 
   extractIDsData(data, id?): any {
-    debugger;
+
     if (id === null || id === undefined) {
       id = 'id';
     }
@@ -632,7 +632,7 @@ export class DBService implements OnInit {
 
   public customCellRendererFunc(params): string {
     let cellContent = '';
-    debugger;
+
     try {
 
       const id: string = params.value;
