@@ -13,8 +13,11 @@ export class ClientComponent implements OnInit {
   client = { id: 0, feeslabtype: '', fee_slab: [] };
   fromfeesslab = 0;
   amt = 0;
+  lastAmount: any;
+  angular: [];
+  isNumberorFloat: any;
   newclient: any;
-
+  isPercentage: false;
   isEdit = false;
   isEditstatewise = false;
   item: any = {};
@@ -27,8 +30,9 @@ export class ClientComponent implements OnInit {
   ishideshow = false;
   ishideshowclient = false;
   updateid: any;
+  //feeslab: any;
   isEditclientStateswiseBillingDetail = false;
-  clientStateswiseBillingDetail = { client_detail_id: 0 };
+  clientStateswiseBillingDetail = { id: 0, client_detail_id: 0 };
   private smsselected = {};
   private emailselected = {};
   private gridApi;
@@ -184,7 +188,7 @@ export class ClientComponent implements OnInit {
   }
   backstate(): void {
     this.isEditclientStateswiseBillingDetail = false;
-    this.clientStateswiseBillingDetail = { client_detail_id: 0 };
+    this.clientStateswiseBillingDetail = { id: 0, client_detail_id: 0 };
   }
 
   onActionEditClick(row): void {
@@ -271,7 +275,8 @@ export class ClientComponent implements OnInit {
 
   }
   clientStateswiseBillingDetailupdate(): void {
-    this.db.update('clientstateswisebillingdetail/', { 'client_detail_id': this.client.id },
+    this.clientStateswiseBillingDetail.client_detail_id = this.client.id;
+    this.db.update('clientstateswisebillingdetail/', this.clientStateswiseBillingDetail.id,
       this.clientStateswiseBillingDetail, ((response): void => {
 
         this.LoadData();
@@ -281,6 +286,7 @@ export class ClientComponent implements OnInit {
   }
 
   showhideclient(x, y): void {
+
     if (this.ishideshowclient === false && this.isscroll === false) {
       //this.isEdit = false;
       this.ishideshowclient = true;
@@ -302,92 +308,99 @@ export class ClientComponent implements OnInit {
 
   }
 
-  // addfeeslab(isupdate): void {
-  //   const numbers = /^[0-9]+$/;
-  //   const lastAmount = 0;
+// isNumberorFloat(val): void {
 
-  //   if (isupdate == 1) {
+//     val = this.Number(val);
+//     this.Number(val) === this.val;
+//   };
 
-  //     const isPercentage = true;
-  //     const Type = "%";
-  //     if (this.client.feeslabtype == "Fixed") {
-  //       isPercentage = false;
-  //       Type = "Fixed";
-  //     }
+  addfeeslab(isupdate): void {
+    const numbers = /^[0-9]+$/;
+    const lastAmount = 0;
 
+    if (isupdate === 1) {
 
-  //     if (this.isNumberorFloat($scope.fromfeesslab) && $scope.isNumberorFloat($scope.tofeesslab) && $scope.isNumberorFloat($scope.amt)) {
-  //       if ($scope.fromfeesslab < $scope.tofeesslab) {
-  //         if ($scope.client.fee_slab.length > 0) {
-  //           angular.forEach($
-  //             .client.fee_slab, function (value) {
-
-
-  //             //  alert(value.toSlab);
-  //             lastAmount = value.toSlab;
-
-  //           });
-  //         } else {
-  //           lastAmount = -1;
-  //         }
-
-  //         //alert(lastAmount);
-  //         if ($scope.fromfeesslab > lastAmount) {
-  //           //alert('done');
-  //           $scope.client.fee_slab.push({ fromSlab: $scope.fromfeesslab, toSlab: $scope.tofeesslab, AmountorPercentage: $scope.amt, type: Type, isPercentage: isPercentage });
+      const isPercentage = true;
+      const Type = '%';
+      if (this.client.feeslabtype === 'Fixed') {
+        this.isPercentage = false;
+        const Type = 'Fixed';
+      }
 
 
-  //         } else {
-  //           alert('From Fees slab should be greater than 0 and last To-Fees Slab');
-  //         }
-  //       } else {
-  //         alert('To Fees slab should be greater than From Fees Slab');
-  //       }
-  //     } else {
-  //       alert('Wrong Input Only Numbers Allow');
-  //     }
+      if (this.isNumberorFloat(this.fromfeesslab) && this.isNumberorFloat(this.tofeesslab) && this.isNumberorFloat(this.amt)) {
+        if (this.fromfeesslab < this.tofeesslab) {
+          if (this.client.fee_slab.length > 0) {
+            // for(
+            //   this.client.fee_slab, function (value) {
+
+
+            //     //  alert(value.toSlab);
+            //     this.lastAmount = value.toSlab;
+
+            //   });
+          } else {
+            this.lastAmount = -1;
+          }
+
+          //alert(lastAmount);
+          if (this.fromfeesslab > lastAmount) {
+            //alert('done');
+            this.client.fee_slab.push({ fromSlab: this.fromfeesslab, toSlab: this.tofeesslab, AmountorPercentage: this.amt,
+              type: Type, isPercentage: isPercentage });
+
+
+          } else {
+            alert('From Fees slab should be greater than 0 and last To-Fees Slab');
+          }
+        } else {
+          alert('To Fees slab should be greater than From Fees Slab');
+        }
+      } else {
+        alert('Wrong Input Only Numbers Allow');
+      }
 
 
 
 
 
 
-  //   } else {
+    } else {
 
-  //     var isPercentage = true;
-  //     var Type = "%";
-  //     if ($scope.newclient.feeslabtype == "Fixed") {
-  //       isPercentage = false;
-  //       Type = "Fixed";
-  //     }
-
-
-  //     if ($scope.isNumberorFloat($scope.fromfeesslab) && $scope.isNumberorFloat($scope.tofeesslab) && $scope.isNumberorFloat($scope.amt)) {
-  //       if ($scope.fromfeesslab < $scope.tofeesslab) {
-
-  //         angular.forEach($scope.feeslab, function (value) {
+      let isPercentage = true;
+      let Type = '%';
+      if (this.newclient.feeslabtype == 'Fixed') {
+        isPercentage = false;
+        Type = 'Fixed';
+      }
 
 
-  //           lastAmount = value.to;
+      if (this.isNumberorFloat(this.fromfeesslab) && this.isNumberorFloat(this.tofeesslab) && this.isNumberorFloat(this.amt)) {
+        if (this.fromfeesslab < this.tofeesslab) {
 
-  //         })
-
-  //         if ($scope.fromfeesslab > lastAmount) {
-
-  //           $scope.feeslab.push({ from: $scope.fromfeesslab, to: $scope.tofeesslab, amt: $scope.amt, type: Type, ispercentage: isPercentage });
+          // this.angular.forEach(this.feeslab, function (value) {
 
 
-  //         } else {
-  //           alert('From Fees slab should be greater than 0 and last To-Fees Slab');
-  //         }
-  //       } else {
-  //         alert('To Fees slab should be greater than From Fees Slab');
-  //       }
-  //     } else {
-  //       alert('Wrong Input Only Numbers Allow');
-  //     }
-  //   }
-  // }
+          //   this.lastAmount = value.to;
+
+          // })
+
+          if (this.fromfeesslab > this.lastAmount) {
+
+            this.feeslab.push({ from: this.fromfeesslab, to: this.tofeesslab, amt: this.amt, type: Type, ispercentage: isPercentage });
+
+
+          } else {
+            alert('From Fees slab should be greater than 0 and last To-Fees Slab');
+          }
+        } else {
+          alert('To Fees slab should be greater than From Fees Slab');
+        }
+      } else {
+        alert('Wrong Input Only Numbers Allow');
+      }
+    }
+  }
 
 
 }

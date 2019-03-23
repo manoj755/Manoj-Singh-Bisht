@@ -35,6 +35,10 @@ export class CallComponent implements OnInit {
       this.clients = response;
       console.log(this.clients);
     }));
+    this.db.list('profile/', null, ((response): void => {
+      this.profile = response;
+      console.log(this.profile);
+    }));
     this.loadmanagerid();
 
   }

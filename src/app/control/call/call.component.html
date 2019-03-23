@@ -33,7 +33,7 @@ class="modal fade">
           <label for="Jobs" class="control-label col-xs-2">Owner</label>
           <div class="col-xs-10">
             <ng-select  [(ngModel)]="addnewjob.manager">
-              <ng-option [value]="db.profile.id">Self</ng-option>
+              <ng-option [value]="profile.id">Self</ng-option>
               <ng-option [value]="x.id" *ngFor="let  x of managers">
                 {{x.name}}
               </ng-option>

@@ -44,7 +44,7 @@ export class DBService implements OnInit {
       if (response.is_ats === '0') {
         this.clientsdepartment = 'Department';
       }
-
+      debugger;
       this.profile = response;
       this.profile.profilepic = this.rooturi + 'profile/' + this.profile.profilepic;
       this.PF = response;
@@ -217,7 +217,7 @@ export class DBService implements OnInit {
         body.append(i, data[i]);
       }
     }
-    return this.http.post(req.url, body, { headers: headersfull })
+    this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -252,7 +252,7 @@ export class DBService implements OnInit {
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
 
-    return this.http.get(req.url, { headers: headersfull, params: data })
+    this.http.get(req.url, { headers: headersfull, params: data })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -291,7 +291,7 @@ export class DBService implements OnInit {
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
 
-    return this.http.get(req.url, { headers: headersfull, params: data })
+    this.http.get(req.url, { headers: headersfull, params: data })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -342,7 +342,7 @@ export class DBService implements OnInit {
     for (const i in data) {
       body.append(i, data[i]);
     }
-    return this.http.post(req.url, body, { headers: headersfull })
+    this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -390,7 +390,7 @@ export class DBService implements OnInit {
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
 
-    return this.http.get(req.url, { headers: headersfull, params: data })
+    this.http.get(req.url, { headers: headersfull, params: data })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -443,7 +443,7 @@ export class DBService implements OnInit {
       body.append(i, data[i]);
     }
 
-    return this.http.post(req.url, body, { headers: headersfull })
+    this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           if (success !== undefined) {
@@ -495,7 +495,7 @@ export class DBService implements OnInit {
       body.append(i, data[i]);
     }
 
-    return this.http.post(req.url, body, { headers: headersfull })
+    this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           if (success !== undefined) {
