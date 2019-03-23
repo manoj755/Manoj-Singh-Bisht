@@ -11,7 +11,7 @@ export class UpdateCandidateComponent implements OnInit {
   currentData: any;
   updateid = 0;
   trackerjobdata: any;
-  ProfileData: any = [];
+  ProfileData = {};
   candidate_id = 0;
   JobData: any;
   countries: any;
@@ -73,8 +73,18 @@ export class UpdateCandidateComponent implements OnInit {
       this.trackerjobdata = response;
     });
     this.db.show('candidatedetail/', id, (response): void => {
+      debugger;
+      if (response.customdata === null) {
+        // response.customdata = {};
+      } else {
+        response.customdata = JSON.parse(JSON.stringify(response.customdata));
+
+      }
       this.candidateshowdata = response;
-      this.candidateshowdata.customdata = JSON.parse(JSON.stringify(this.candidateshowdata.customdata));
+
+
+
+
       $('#candidateshow').fadeIn('1000');
       if (this.candidateshowdata.resume != null) {
         if (this.candidateshowdata.resume.indexOf('docx') === - 1) {
