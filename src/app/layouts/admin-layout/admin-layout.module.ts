@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
-//import {ReactiveFormsModule} from 'angular/forms';
+// import {ReactiveFormsModule} from 'angular/forms';
 
 // import { AngularSlickgridModule } from 'angular-slickgrid';
 // import { NgSelectModule } from '@ng-select/ng-select';
@@ -54,6 +54,7 @@ import { CallComponent } from '../../control/call/call.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { OrderModule } from 'ngx-order-pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { CandidateMyJobComponent } from '../../control/candidate-my-job/candidate-my-job.component';
 import {
   MatButtonModule,
@@ -113,6 +114,7 @@ declare var $: any;
     NgSelectModule,
     MatTabsModule,
     MatDatepickerModule,
+    NgxPaginationModule,
     AgGridModule.withComponents([
 
       CandidateMyJobComponent,

@@ -39,9 +39,12 @@
 .width80percent{ width:80% !important; max-width:80% !important;}
 .select2{ width:100% !important; max-width: 100% !important;}
 .ng-valid[required], .ng-valid.required  {
-  border-left: 5px solid #42A948; /* green */
+  border-right: 5px solid #42A948; /* green */
 }
 
 .ng-invalid:not(form)  {
-  border-left: 5px solid #a94442; /* red */
+  border-right: 5px solid #a94442; /* red */
 }
+.my-pagination /deep/ .ngx-pagination .current {
+
+  }

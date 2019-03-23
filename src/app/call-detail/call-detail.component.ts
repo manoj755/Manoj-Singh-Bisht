@@ -8,6 +8,7 @@ declare var $: any;
 })
 export class CallDetailComponent implements OnInit {
   private smsselected = {};
+  p = 1;
   private emailselected = {};
   private gridApi;
   http_or_https = 'http';
