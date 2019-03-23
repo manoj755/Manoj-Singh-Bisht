@@ -70,12 +70,17 @@ export class UpdateCandidateComponent implements OnInit {
     this.db.list('trackerjobdata', {
       'candidate_id': id
     }, (response): void => {
+      if (response.length > 0) {
+        response = response[0];
+      } else {
+        response = {};
+      }
       this.trackerjobdata = response;
     });
     this.db.show('candidatedetail/', id, (response): void => {
       debugger;
       if (response.customdata === null) {
-        // response.customdata = {};
+        response.customdata = [];
       } else {
         response.customdata = JSON.parse(JSON.stringify(response.customdata));
 

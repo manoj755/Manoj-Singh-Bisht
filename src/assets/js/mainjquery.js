@@ -8,6 +8,7 @@ function callfunction() {
     $('.asterrisk').fadeIn('1000');
     $('select').not('.noselect2').select2();
     $('select').css('width', '100%');
+    //$('.ngx-pagination li').addClass('btn  btn-raised btn-primary');
   }, 2000);
 
 }

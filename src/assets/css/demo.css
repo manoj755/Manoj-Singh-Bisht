@@ -48,3 +48,11 @@
 .my-pagination /deep/ .ngx-pagination .current {
 
   }
+  .ngx-pagination{
+    background: white;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 0 10px #aaa;
+    border-radius: 3px;
+  }
+  .ngx-pagination .current{ box-shadow: 0 0 4px #bbb; border: solid 1px white;}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { path } from 'd3';
-
+import { DBService } from '../../db.service';
 declare const $: any;
 declare interface ChildRouteInfo {
   path: string;
@@ -71,7 +71,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(private db: DBService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
