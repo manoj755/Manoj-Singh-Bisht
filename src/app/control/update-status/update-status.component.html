@@ -25,26 +25,26 @@
             <div class="form-group">
               <label class="" select="">Status:</label>
               <div class="" style="width:100%;">
-                <select id="purpose" class="form-control" (change)="purposechange()" [(ngModel)]="commentstatus.status"
+                <ng-select id="purpose" ngDefaultControl (change)="purposechange()" [(ngModel)]="commentstatus.status"
                   name="client_detail_id">
-                  <option selected="" value="{{currentstatusid}}">{{currentstatusname}}</option>
-                  <option value="{{x.id}}" [attr.isinterview]="x.isinterview" *ngFor="let x of statuses">
+                  <ng-option selected="" value="{{currentstatusid}}">{{currentstatusname}}</ng-option>
+                  <ng-option value="{{x.id}}" [attr.isinterview]="x.isinterview" *ngFor="let x of statuses">
                     {{x.DisplayName}}
-                  </option>
+                  </ng-option>
 
-                </select>
+                </ng-select>
                 <label ng-show="mp.btn_show_all_status"></label>
 
 
               </div>
               <div class="col-12">
 
-                <mat-checkbox (change)="comment()" [(ngModel)]="allstatus">Override Status</mat-checkbox>
+                <mat-checkbox ngDefaultControl (change)="comment()" [(ngModel)]="allstatus">Override Status</mat-checkbox>
               </div>
               <div class="col-12">
 
 
-                <mat-checkbox [(ngModel)]="commentstatus.noemailset">No email/sms to candidate</mat-checkbox>
+                <mat-checkbox ngDefaultControl [(ngModel)]="commentstatus.noemailset">No email/sms to candidate</mat-checkbox>
 
               </div>
             </div>
@@ -52,8 +52,8 @@
 
             <div id="business" style="display:none;">
               <div class="form-group">
-                <label class="col-md-3 col-sm-offset-2">Date</label>
-                <div class="col-md-4">
+                <label class="col-md-12">Date</label>
+                <div class="col-md-12">
 
                   <div class="input-group date" id="datetimepicker1">
                     <input type="text" ng-model="commentstatus.date" class="form-control">
@@ -68,53 +68,49 @@
               </div>
 
               <div class="form-group">
-                <label class="col-md-3 col-sm-offset-2">Location</label>
-                <div class="col-md-4">
+                <mat-form-field class="col-md-12">
 
-                  <input type="text" class="form-control" ng-model="commentstatus.location" placeholder="Location">
-
+                  <input type="text" matInput class="form-control" ng-model="commentstatus.location" placeholder="Location">
 
 
-                </div>
+
+                </mat-form-field>
 
               </div>
 
               <div class="form-group">
-                <label class="col-md-3 col-sm-offset-2">Contact Person</label>
-                <div class="col-md-4">
+                <mat-form-field  class="col-md-12">
 
-                  <input type="text" class="form-control" ng-model="commentstatus.contactperson"
+                  <input type="text" matInput class="form-control" ng-model="commentstatus.contactperson"
                     placeholder="Contact Person">
 
 
 
-                </div>
+                </mat-form-field>
 
               </div>
               <div class="form-group">
-                <label class="col-md-3 col-sm-offset-2">Interviewer</label>
-                <div class="col-md-4">
+                <mat-form-field  class="col-md-12">
 
-                  <input type="text" class="form-control" ng-model="commentstatus.Interviewer"
+                  <input type="text" matInput class="form-control" ng-model="commentstatus.Interviewer"
                     placeholder="Interviewer">
 
 
 
-                </div>
+                </mat-form-field>
 
               </div>
               <div class="form-group">
-                <label class="col-md-3 col-sm-offset-2">Mode of Interview</label>
-                <div class="col-md-4">
+                <mat-form-field  class="col-md-12">
 
-                  <input type="text" class="form-control" ng-model="commentstatus.modeofinterview"
+                  <input type="text" matInput class="form-control" ng-model="commentstatus.modeofinterview"
                     placeholder="Mode of Interview" >
 
-                </div>
+                </mat-form-field>
 
               </div>
 
-              <label class="col-md-3 col-sm-offset-5">Interview Question</label>
+              <label class="col-md-12">Interview Question</label>
               <div class="col-md-12">
 
                 <textarea class="form-control" ng-model="commentstatus.interviewquestion" style="width: 100%"
@@ -127,11 +123,10 @@
 
 
             <div class="form-group">
-              <label class="col-md-12" referral="">Comment :</label>
-              <div class="col-md-12">
-                <textarea class="form-control" [(ngModel)]="commentstatus.comment" placeholder="Comment"
+              <mat-form-field class="col-md-12">
+                <textarea matInput class="form-control" [(ngModel)]="commentstatus.comment" placeholder="Comment"
                   required=""></textarea>
-              </div>
+              </mat-form-field>
             </div>
             <div class="col-12">
               <button type="submit" class="btn  btn-raised btn-block btn-primary"

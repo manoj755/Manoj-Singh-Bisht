@@ -11,6 +11,7 @@ export class MyJobComponent implements OnInit {
   private smsselected = {};
   private emailselected = {};
   private gridApi;
+  p = 0;
   recruiter;
   displaydd = 'Job';
   private gridColumnApi;

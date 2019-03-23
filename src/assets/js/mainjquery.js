@@ -6,7 +6,7 @@ function callfunction() {
   setTimeout(function () {
     $('.e').after('<b class="asterrisk" style="color:#ff0500;display:none;position:absolute;top:0; right:-1px;" >*</b>');
     $('.asterrisk').fadeIn('1000');
-    $('select').select2();
+    $('select').not('.noselect2').select2();
     $('select').css('width', '100%');
   }, 2000);
 

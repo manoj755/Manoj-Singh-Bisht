@@ -100,29 +100,28 @@
               class="btn  btn-raised btn-primary">Tagged</a></li>
 
         </ul>
-        <div *ngIf="jobslist.length>pageSize  " class="float-right">
-          <button class="btn  btn-raised btn-info btn-sm" [disabled]="currentPage == 0"
-            (click)="currentPage=currentPage-1" style="background-color: rgb(70, 81, 99);">
-            Previous
-          </button>
-          {{currentPage+1}}/{{numberOfPages(jobslist)}}
-          <button class="btn  btn-raised btn-info btn-sm" [disabled]="currentPage >= jobslist.length/pageSize - 1"
-            (click)="currentPage=currentPage+1" style="background-color: rgb(70, 81, 99);">
-            Next
-          </button>
-        </div>
+
         <div class="clearfix"></div>
 
         <div class="box box-primary" id="#">
+            <pagination-controls     directionLinks="true"
+            autoHide="true"
+            responsive="true"
+            previousLabel="Previous"
+            nextLabel="Next"
+            screenReaderPaginationLabel="Pagination"
+            screenReaderPageLabel="page"
+            screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event"></pagination-controls>
           <mat-progress-bar mode="indeterminate" *ngIf="isLoadingJobs"></mat-progress-bar>
 
+          <div class="clearfix"></div>
 
 
           <div class="row">
 
             <div class="col-md-12">
               <div class="card" (click)="selectdeselect($event,item)"
-                *ngFor="let item of jobslist | orderBy:'visibleonwebsite' | myfilter: searchcandidatetext;  let i = index">
+                *ngFor="let item of jobslist | orderBy:'visibleonwebsite' | myfilter: searchcandidatetext  | paginate: { itemsPerPage: 10, currentPage: p };  let i = index">
                 <div class="card-header card-header-{{item.selected?'success':'info'}}">
                   <h4 class="card-title">
                     <!-- {{i}}  -->
@@ -278,6 +277,8 @@
             No Data Found
           </mat-card>
 
+
+          <div class="clearfix"></div>
         </div>
         <div class="clearfix"></div>
 

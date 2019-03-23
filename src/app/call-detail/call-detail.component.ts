@@ -8,6 +8,7 @@ declare var $: any;
 })
 export class CallDetailComponent implements OnInit {
   private smsselected = {};
+  p = 1;
   private emailselected = {};
   private gridApi;
   http_or_https = 'http';
@@ -217,7 +218,8 @@ export class CallDetailComponent implements OnInit {
   // }
   // this.setbvvendor = function () {
   //     var row = this.atjrow;
-  //     this.db.store('setbvvendor', {atj_id: row.ajid, candidate_detail_id: row.id, id: row.onboardingid, bv_vendor_id: this.bv_vendor_id}, function (response) {
+  //     this.db.store('setbvvendor', {atj_id: row.ajid, candidate_detail_id: row.id,
+  // id: row.onboardingid, bv_vendor_id: this.bv_vendor_id}, function (response) {
 
   //         alert('done');
   //     });
@@ -254,21 +256,21 @@ export class CallDetailComponent implements OnInit {
   getnotes(id): void {
     this.updateid = id;
     $('#notesdetail').modal('show');
-    //GetNotes();
+    // GetNotes();
   };
 
-  //alert('myjob');
+  // alert('myjob');
 
-  //$('.validate').validate('#addnewjobform');
-  //$('.validate').validate('#assignCandidate');
-  //$('.validate').validate('#submitjob');
+  // $('.validate').validate('#addnewjobform');
+  // $('.validate').validate('#assignCandidate');
+  // $('.validate').validate('#submitjob');
   vendorsave(): void {
-    let min = 10;
-    let max = 5000;
+    const min = 10;
+    const max = 5000;
     this.lower = min;
     this.upper = max;
     this.db.store('vendor/', this.vendornew, ((response): void => {
-      if (response.d == true) {
+      if (response.d === true) {
         alert(response.msg);
       }
     })
@@ -336,13 +338,12 @@ export class CallDetailComponent implements OnInit {
   tag(item): void {
 
     //  debugger;
-    if (item.tagged != '10') {
+    if (item.tagged !== '10') {
       this.db.destroy('jobtag/', this.item.id, ((response): void => {
         this.item.tagged = '10';
       })
       );
-    }
-    else {
+    } else {
 
       this.db.store('jobtag/', { job_id: item.id }, ((response): void => {
         this.item.tagged = '11';
@@ -355,7 +356,7 @@ export class CallDetailComponent implements OnInit {
   is_approved_by_manager(item): void {
 
     // debugger;
-    if (item.is_approved_by_manager != '0') {
+    if (item.is_approved_by_manager !== '0') {
       this.db.store('removeapprovedbymanager/', { job_id: this.item.id }, ((response): void => {
         this.item.is_approved_by_manager = '0';
       })
@@ -449,7 +450,8 @@ export class CallDetailComponent implements OnInit {
               const jk = this.candidatedetails[i][j];
               console.log(jk);
               if (this.candidatedetails[i][j] != null
-                && this.candidatedetails[i][j].toString().toLowerCase().indexOf(this.searchcandidatetext.toLowerCase()) != -1) {
+                && this.candidatedetails[i][j].toString().toLowerCase().indexOf(this.searchcandidatetext.toLowerCase()) !==
+                -1) {
                 main.push(this.candidatedetails[i]);
                 break;
               }
@@ -484,7 +486,7 @@ export class CallDetailComponent implements OnInit {
                 }
               }
 
-              if (typeof val === 'string' && val.toLowerCase().indexOf(this.filterpopup.toLowerCase()) != -1) {
+              if (typeof val === 'string' && val.toLowerCase().indexOf(this.filterpopup.toLowerCase()) !== -1) {
                 dataafterfilter.push(currentdata);
                 break;
               }
@@ -775,7 +777,7 @@ export class CallDetailComponent implements OnInit {
     this.displaydd = display;
     this.currentfilter = choice;
     this.searchtermchange();
-    //this.filterbyJob();
+    // this.filterbyJob();
     if (choice === 'jobs') {
       this.getlist();
     }
@@ -812,17 +814,17 @@ export class CallDetailComponent implements OnInit {
     }
     this.mainprocessnewvar = mainprocess;
     this.childprocessnewvar = childprocess;
-    if (childprocess == 'allcalled') {
+    if (childprocess === 'allcalled') {
       this.gridheader = 'All';
-    } else if (childprocess == 'calledinterested') {
+    } else if (childprocess === 'calledinterested') {
       this.gridheader = 'Interested';
-    } else if (childprocess == 'callednotinterested') {
+    } else if (childprocess === 'callednotinterested') {
       this.gridheader = 'Not Interested';
-    } else if (childprocess == 'callbackrequest') {
+    } else if (childprocess === 'callbackrequest') {
       this.gridheader = 'Call Back Request';
-    } else if (childprocess == 'incompletecall') {
+    } else if (childprocess === 'incompletecall') {
       this.gridheader = 'No Status';
-    } else if (childprocess == 'couldnotconnect') {
+    } else if (childprocess === 'couldnotconnect') {
       this.gridheader = 'Could not Connect';
     }
     if (jobitem != null) {
@@ -1258,7 +1260,7 @@ export class CallDetailComponent implements OnInit {
 
   };
   setatjidentitysave(trackerdatamyjob): void {
-    //this.job = job;
+    // this.job = job;
     // this.atjidentity = entity;
     $('#trackerDetailExtra').modal('show');
     // debugger;
@@ -1345,11 +1347,11 @@ export class CallDetailComponent implements OnInit {
         if (this.myjob.tracker_id != null) {
           this.myjob.tracker_id = this.myjob.tracker_id.toString();
         }
-        this.db.list('tracker/', null, ((response): void => {
+        this.db.list('tracker/', null, ((r): void => {
 
 
           try {
-            this.trackerlist = response;
+            this.trackerlist = r;
             //                        if (this.trackerlist.length > 0)
             //                        {
             //                            // console.log(this.trackerlist);
@@ -1371,7 +1373,9 @@ export class CallDetailComponent implements OnInit {
         if (this.myjob.functionalArea != null) {
           for (const i in this.functionalareas) {
             if (this.myjob.functionalArea.toString() === this.functionalareas[i].functionalAreaName) {
-              // this.functionalArea = {'id': this.functionalareas[i].id, 'functionalAreaName': this.functionalareas[i].functionalAreaName, 'code': this.functionalareas[i].code, 'ipAddress': this.functionalareas[i].ipAddress};
+              // this.functionalArea = {'id': this.functionalareas[i].id, 'functionalAreaName':
+              // this.functionalareas[i].functionalAreaName, 'code': this.functionalareas[i].code,
+              // 'ipAddress': this.functionalareas[i].ipAddress};
               this.myjob.functionalArea = this.functionalareas[i];
               this.getrole();
               break;
@@ -1546,7 +1550,7 @@ export class CallDetailComponent implements OnInit {
 
   submitcv(download): void {
     if (download) {
-      //this.downloadcv = true;
+      // this.downloadcv = true;
     } else {
       this.downloadcv = false;
 
@@ -1600,14 +1604,14 @@ export class CallDetailComponent implements OnInit {
   //     disableParentScroll: false
   //   });
   // };
-  //export data
+  // export data
 
 
 
 
 
   getcandidatebyclientbyjob(): void {
-    //debugger;
+    // debugger;
 
     this.db.list('addnewjob/', { clientId: this.copycandidate.client_detail_id }, ((response): void => {
       this.jobslistbyclients = response;

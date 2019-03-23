@@ -1,20 +1,19 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-
       <div class="alert alert-info col-12" *ngIf="clientdetails.length==0">
         <h2>Please Create {{clientsdepartment}}.</h2>
         <span *ngIf="mp.page_tracker">To create please <a href="#/client">click here</a></span>
         <span *ngIf="!mp.page_tracker">Please contact your manager</span>
-        .
+
       </div>
       <div class="alert alert-warning  col-12" *ngIf="trackerlist.length==0">
         <h2>Please Create Tracker.</h2><span *ngIf="mp.page_client">To create please <a href="#/tracker">click
             here</a></span>
         <span *ngIf="!mp.page_client">Please contact your manager</span>.
       </div>
-      <div class=" col-12 bg-default" *ngIf="clientdetails.length>0&& trackerlist.length>0" style=" padding-top: 20px"
-        id="addnewjobform">
+      <div class=" col-12 bg-default" [hidden]="!clientdetails.length>0&& !trackerlist.length>0"
+        style=" padding-top: 20px" id="addnewjobform">
 
 
         <div class="card">
@@ -29,42 +28,41 @@
                   <div class="form-group col-md-6">
                     <label class="col-md-4 " select>Select a {{clientsdepartment}}:</label>
                     <div class="col-md-8">
-                      <ng-select id="client" [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
-                        <ng-option value="{{client.id}}" *ngFor="let client of clientdetails">
+                      <select id="client" [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
+                        <option value="{{client.id}}" *ngFor="let client of clientdetails">
                           {{client.billingName}}
 
 
-                        </ng-option>
-                      </ng-select>
+                        </option>
+                      </select>
 
                     </div>
                   </div>
-
                   <div class="form-group  col-md-6">
                     <label class="col-md-4" Manager>Manager:</label>
                     <div class="col-md-8">
-                      <ng-select n="Select a Manager" id='manager_id' [(ngModel)]="myjob.manager_id" name="manager_id">
-                        <ng-option value="{{profile.id}}">Self</ng-option>
-                        <ng-option value="{{manager.id}}" *ngFor="let manager of managers">
+                      <select n="Select a Manager" id='manager_id' [(ngModel)]="myjob.manager_id" name="manager_id">
+                        <option value="{{db.profile.id}}">Self</option>
+                        <option value="{{manager.id}}" *ngFor="let manager of managers">
                           {{manager.name}}
-                        </ng-option>
-                      </ng-select>
+                        </option>
+                      </select>
 
                     </div>
                   </div>
+
+
+
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Manager>Tracker :</label>
                     <div class="col-md-8">
 
-                      <ng-select d="" n=" a Tracker" id="tracker" [(ngModel)]="myjob.tracker_id">
-                        <ng-option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
-                        </ng-option>
-                      </ng-select>
+                      <select n=" a Tracker" id="tracker" [(ngModel)]="myjob.tracker_id">
+                        <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
+                        </option>
+                      </select>
                     </div>
                   </div>
-
-
-
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Title>Job Title</label>
                     <div class="col-md-8">
@@ -75,6 +73,8 @@
 
                     </div>
                   </div>
+
+
                   <div class="form-group col-md-6" *ngIf="mp.can_add_skills_for_call">
                     <label class="col-md-4" Title>Primary Skill</label>
                     <div class="col-md-8">
@@ -93,6 +93,7 @@
 
                     </div>
                   </div>
+
                   <div class="form-group col-md-6" *ngIf="mp.can_add_skills_for_call">
                     <label class="col-md-4" Title>Third Skill</label>
                     <div class="col-md-8">
@@ -107,64 +108,68 @@
 
 
                   <div class="form-group col-md-6">
-                    <!--<input type="number" min="100000" max="5000000" id="minsalary" step="10000" class="form-control e" validate  n="Minimum Experience" [(ngModel)]="myjob.minimumSalary" name="minimumSalary" placeholder="From (Min 10000)" maxlength="10" />-->
+
                     <label class="col-md-4" Title><b>From</b> Lakhs</label>
                     <div class="col-md-8">
-                      <ng-select class="e" id="minimumSalaryOption" (change)="updatemaxsalary()" [(ngModel)]="myjob.minimumSalarylac"
-                        name="minimumSalary">
-                        <ng-option [value]='opt' *ngFor="let opt of  minimumSalaryOption">{{opt}}</ng-option>
-                      </ng-select>
+                      <select class="e" id="minimumSalaryOption" (change)="updatemaxsalary()"
+                        [(ngModel)]="myjob.minimumSalarylac" name="minimumSalary">
+                        <option [value]='opt' *ngFor="let opt of  minimumSalaryOption">{{opt}}</option>
+                      </select>
                     </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <!--<input type="number" min="100000" max="5000000" id="minsalary" step="10000" class="form-control e" validate  n="Minimum Experience" [(ngModel)]="myjob.minimumSalary" name="minimumSalary" placeholder="From (Min 10000)" maxlength="10" />-->
+
                     <label class="col-md-4" Title>Thousands</label>
                     <div class="col-md-8">
-                      <ng-select class="e" id="minimumSalaryOptionink" name="minimumSalary" [(ngModel)]="myjob.minimumSalarythousand">
-                        <ng-option [value]='opt' *ngFor="let opt of  minimumSalaryOptionink">{{opt}}</ng-option>
-                      </ng-select>
+                      <select class="e" id="minimumSalaryOptionink" name="minimumSalary"
+                        [(ngModel)]="myjob.minimumSalarythousand">
+                        <option [value]='opt' *ngFor="let opt of  minimumSalaryOptionink">{{opt}}</option>
+                      </select>
                     </div>
                   </div>
+
                   <div class="form-group col-md-6">
-                    <!--<input type="number"  min="{{myjob.minimumSalary}}" min="100000" id="maxsalary" max="5000000" step="10000"  class="form-control e" validate n="Maximum Experience" [(ngModel)]="myjob.maximumSalary" name="maximumSalary" placeholder="To (Max 5000000)" maxlength="10" />-->
+
                     <label class="col-md-4" Title><b>To</b> Lakhs</label>
                     <div class="col-md-8">
-                      <ng-select class="e"  id="maxsalary" validate n="Maximum salary" [(ngModel)]="myjob.maximumSalarylac"
+                      <select class="e" id="maxsalary" validate n="Maximum salary" [(ngModel)]="myjob.maximumSalarylac"
                         name="maximumSalary">
-                        <ng-option [value]='opt' *ngFor="let opt of  maxSalaryOption" help="first select minimum value">{{opt}}
-                        </ng-option>
-                      </ng-select>
+                        <option [value]='opt' *ngFor="let opt of  maxSalaryOption" help="first select minimum value">
+                          {{opt}}
+                        </option>
+                      </select>
                     </div>
                   </div>
+
+
                   <div class="form-group col-md-6">
-                    <!--<input type="number"  min="{{myjob.minimumSalary}}" min="100000" id="maxsalary" max="5000000" step="10000"  class="form-control e" validate n="Maximum Experience" [(ngModel)]="myjob.maximumSalary" name="maximumSalary" placeholder="To (Max 5000000)" maxlength="10" />-->
+
                     <label class="col-md-4" Title>Thousands</label>
                     <div class="col-md-8">
-                      <ng-select class="e"  name="maximumSalary" [(ngModel)]="myjob.maximumSalarythousand" id="maximumSalarythousand">
-                        <ng-option [value]='opt' *ngFor="let opt of  maximumSalaryOptionink">{{opt}}
-                        </ng-option>
-                      </ng-select>
+                      <select class="e" name="maximumSalary" [(ngModel)]="myjob.maximumSalarythousand"
+                        id="maximumSalarythousand">
+                        <option [value]='opt' *ngFor="let opt of  maximumSalaryOptionink">{{opt}}
+                        </option>
+                      </select>
                     </div>
                   </div>
-
-
-
                   <div class="form-group col-md-6 ">
                     <div class="row">
                       <label class="col-md-4 " Industry>Hide Salary from jobseekers</label>
 
                       <div class="col-md-8">
-                        <mat-checkbox [(ngModel)]='myjob.HideSalaryfromjobseekers' ng-true-value="'YES'"
-                          ng-false-value="'NO'"></mat-checkbox>
+                        <mat-checkbox ngDefaultControl [(ngModel)]='myjob.HideSalaryfromjobseekers' ng-true-value="'YES'"
+                          ng-false-value="'NO'">
+                        </mat-checkbox>
                       </div>
                     </div>
                   </div>
-                  <div class="form-group col-md-6"
-                    *ngIf="!mp.hide_referral_bonus || profile.disable_crowd_sourcing=='1'">
+
+                  <div class="form-group col-md-6"  *ngIf="!mp.hide_referral_bonus || db.profile.disable_crowd_sourcing=='1'">
                     <label class="col-md-4" Referral>Referral Bonus:</label>
                     <div class="col-md-8">
                       <input type="number"
-                        class="form-control e {{mp.hide_referral_bonus || profile.disable_crowd_sourcing=='1'?'':'e'}}"
+                        class="form-control e {{mp.hide_referral_bonus || db.profile.disable_crowd_sourcing=='1'?'':'e'}}"
                         min="2000" id='referralBonus' maxlength="5" validate n="Referral Bonus"
                         [(ngModel)]="myjob.referralBonus" placeholder="Bonus" name="referralBonus" />
 
@@ -172,15 +177,16 @@
                     </div>
 
                   </div>
+
                   <h4 class="col-md-12 pull-left">Experience:(In Years)</h4>
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Exprience>From Years</label>
                     <div class="col-md-8">
 
-                      <ng-select class="e"  (change)="updatemaxexperience()" id="MinimumExperience" validate n="Minimum Experience"
-                        [(ngModel)]="myjob.minimumExperience" name="minimumExperience">
-                        <ng-option [value]='opt' *ngFor="let opt of  minexperience">{{opt}}</ng-option>
-                      </ng-select>
+                      <select class="e" (change)="updatemaxexperience()" id="MinimumExperience" validate
+                        n="Minimum Experience" [(ngModel)]="myjob.minimumExperience" name="minimumExperience">
+                        <option value='{{opt}}' *ngFor="let opt of  minexperience">{{opt}}</option>
+                      </select>
 
                     </div>
                   </div>
@@ -188,10 +194,10 @@
                     <label class="col-md-4" Exprience>To Years</label>
                     <div class="col-md-8">
 
-                      <ng-select class="e"  id="MaxExperience" validate n="Maximum Experience"
+                      <select class="e" id="MaxExperience" validate n="Maximum Experience"
                         [(ngModel)]="myjob.maximumExperience" name="maximumExperience">
-                        <ng-option  [value]='opt' *ngFor="let opt of  maxexperience">{{opt}}</ng-option>
-                      </ng-select>
+                        <option value='{{opt}}' *ngFor="let opt of  maxexperience">{{opt}}</option>
+                      </select>
 
 
                     </div>
@@ -200,56 +206,44 @@
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Title>Job Type</label>
                     <div class="col-md-8">
-                      <ng-select class="e"  (change)="jobtype()" n="Job Type" [(ngModel)]='myjob.jobtype'>
-                        <ng-option>Full Time</ng-option>
-                        <ng-option>Internship</ng-option>
-                        <ng-option>Contract</ng-option>
-                        <ng-option>Freelence</ng-option>
-
-                      </ng-select>
+                      <select class="e" (change)="jobtype()" n="Job Type" [(ngModel)]='myjob.jobtype'>
+                        <option>Full Time</option>
+                        <option>Internship</option>
+                        <option>Contract</option>
+                        <option>Freelence</option>
+                      </select>
 
                     </div>
                   </div>
+
 
                   <div id="internshipdiv" style="display: none;" class="col-md-12">
                     <div class="form-group col-md-6">
                       <label class="col-md-4">Internship duration</label>
                       <div class="row">
                         <div class="col-md-4" id="internship">
-                          <ng-select class="e"  [(ngModel)]='myjob.internshipduration'>
-                            <ng-option>1</ng-option>
-                            <ng-option>2</ng-option>
-                            <ng-option>3</ng-option>
-                            <ng-option>4</ng-option>
-                            <ng-option>5</ng-option>
-                            <ng-option>6</ng-option>
-
-                          </ng-select>
-
-                        </div>
-                        <div class="col-md-4 " id="Responsibility">
-                          <ng-select class="e"  [(ngModel)]='myjob.internshipdurationunit'>
-                            <ng-option>Month</ng-option>
-                            <ng-option>Weeks</ng-option>
-                          </ng-select>
+                          <select class="e" [(ngModel)]='myjob.internshipduration'>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                          </select>
 
                         </div>
-                      </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                      <div class="row">
-                        <label class="col-md-4">Is Part Time Allowed</label>
-                        <div class="col-md-8">
-                          <mat-radio-group>
-                            <mat-radio-button [(ngModel)]='myjob.isparttime' value="yes">Yes</mat-radio-button>
-                            <mat-radio-button [(ngModel)]='myjob.isparttime' value="no">No</mat-radio-button>
-                          </mat-radio-group>
-
+                        <div class="col-md-4" id="Responsibility">
+                          <select class="e" [(ngModel)]='myjob.internshipdurationunit'>
+                            <option [value]="Month">Month</option>
+                            <option [value]="Weeks">Weeks</option>
+                          </select>
 
                         </div>
                       </div>
                     </div>
+
                   </div>
+
                   <div id="contract" style="display: none;" class="col-md-12">
                     <div class="form-group col-md-6" id="contract">
 
@@ -257,8 +251,8 @@
 
                       <div class="col-md-8">
                         <mat-radio-group>
-                          <mat-radio-button [(ngModel)]='myjob.contractrenewable' value="yes">Yes</mat-radio-button>
-                          <mat-radio-button [(ngModel)]='myjob.contractrenewable' value="no">No</mat-radio-button>
+                          <mat-radio-button ngDefaultControl [(ngModel)]='myjob.contractrenewable' value="yes">Yes</mat-radio-button>
+                          <mat-radio-button  ngDefaultControl [(ngModel)]='myjob.contractrenewable' value="no">No</mat-radio-button>
                         </mat-radio-group>
 
                       </div>
@@ -270,23 +264,20 @@
                       <label class="col-md-3">Contract Duration</label>
                       <div class="row">
                         <div class="col-md-4">
-                          <ng-select  n="a Contract Duration" id="Contract" [(ngModel)]='myjob.contract'>
-                            <ng-option>1</ng-option>
-                            <ng-option>2</ng-option>
-                            <ng-option>3</ng-option>
-                            <ng-option>4</ng-option>
-                            <ng-option>5</ng-option>
-                            <ng-option>6</ng-option>
-
-                          </ng-select>
+                          <select n="a Contract Duration" id="Contract" [(ngModel)]='myjob.contract'>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                          </select>
 
                         </div>
                         <div class="col-md-5">
-                          <ng-select n="a Month" id="month" [(ngModel)]='myjob.contractunit'>
+                          <ng-select n="a Month" ngDefaultControl id="month" [(ngModel)]='myjob.contractunit'>
                             <ng-option>Month</ng-option>
                             <ng-option>Weeks</ng-option>
-
-
                           </ng-select>
 
                         </div>
@@ -296,11 +287,11 @@
                   <div style="display: none;" class="form-group col-md-6" id="freelence">
                     <label class="col-md-4">Change Payable</label>
                     <div class="col-md-8">
-                      <mat-radio-group>
-                        <mat-radio-button [(ngModel)]='myjob.freelancepayable' value="Hourly">Hourly</mat-radio-button>
-                        <mat-radio-button [(ngModel)]='myjob.freelancepayable' value="Project-Based">Project-Based
+                      <!-- <mat-radio-group>
+                        <mat-radio-button ngDefaultControl [(ngModel)]='myjob.freelancepayable' value="Hourly">Hourly</mat-radio-button>
+                        <mat-radio-button ngDefaultControl [(ngModel)]='myjob.freelancepayable' value="Project-Based">Project-Based
                         </mat-radio-button>
-                      </mat-radio-group>
+                      </mat-radio-group> -->
 
 
 
@@ -322,7 +313,7 @@
                     <div class="col-md-10">
                       {{myjob.keyskills}}
 
-                      <ng-select [(ngModel)]="myjob.keyskills" [items]="suggestedkeyskills" [addTag]="true"
+                      <ng-select ngDefaultControl [(ngModel)]="myjob.keyskills" [items]="suggestedkeyskills" [addTag]="true"
                         [multiple]="true" [isOpen]="false">
                       </ng-select>
 
@@ -343,11 +334,11 @@
                     </label>
                     <div class="col-md-10">
 
+{{location}}
 
-
-                      <ng-select [(ngModel)]="myjob.location" [multiple]="true">
-                        <ng-option *ngFor="let location of locations ">{{location}}</ng-option>
-                      </ng-select>
+                      <select [(ngModel)]="location" [multiple]="true">
+                        <option *ngFor="let location of locations ">{{location}}</option>
+                      </select>
                     </div>
 
 
@@ -367,10 +358,9 @@
                     <label class="col-md-4" Industry>Industry</label>
                     <div class="col-md-8">
 
-                      <ng-select [addTag]="true" id="Industry" validate n="a Industry" [(ngModel)]="myjob.industry"
-                        name="industry_id">
-                        <ng-option *ngFor="let industry of  industries">{{industry.industryName}}</ng-option>
-                      </ng-select>
+                      <select id="Industry" validate n="a Industry" [(ngModel)]="myjob.industry" name="industry_id">
+                        <option *ngFor="let industry of  industries">{{industry.industryName}}</option>
+                      </select>
 
                     </div>
                   </div>
@@ -379,20 +369,19 @@
                     <label class="col-md-4" Functional>Functional Area</label>
                     <div class="col-md-8">
 
-                      <ng-select [addTag]="true" n="a Functional Area" id="fun" [(ngModel)]="myjob.functionalArea"
-                        (change)="getrole()" name="function_id">
-                        <ng-option *ngFor="let x of functionalareas">{{x.functionalAreaName}}</ng-option>
-                      </ng-select>
+                      <select n="a Functional Area" id="fun" [(ngModel)]="myjob.functionalArea" (change)="getrole()"
+                        name="function_id">
+                        <option *ngFor="let x of functionalareas">{{x.functionalAreaName}}</option>
+                      </select>
 
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Job_Role>Job Role</label>
                     <div class="col-md-8">
-                      <ng-select [addTag]="true" id="Role" validate n="a Job Role" name="Job_Role"
-                        [(ngModel)]="myjob.jobRole">
-                        <ng-option *ngFor="let jobrole of  jobroles">{{jobrole.val}}</ng-option>
-                      </ng-select>
+                      <select id="Role" validate n="a Job Role" name="Job_Role" [(ngModel)]="myjob.jobRole">
+                        <option *ngFor="let jobrole of  jobroles">{{jobrole.val}}</option>
+                      </select>
 
                     </div>
                   </div>
@@ -419,41 +408,23 @@
                     <div class="row">
                       <div class="col-md-6">
                         <label class=" col-md-4">Job Display From</label>
-                        <input size="16" type="date" value="" class="e form-control" id="dob" n="Start Date "
-                          [(ngModel)]="myjob.start_date">
-                        <!--<mat-form-field>
-                                          <input matInput [matDatepicker]="picker" placeholder="title">
-                                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                          <button matSuffix [matDatepickerToggle]="picker"></button>
-                                          <mat-datepicker #picker></mat-datepicker>
-                                        </mat-form-field>-->
-                        <!--  <div class="control-group">
-                                          <label class=" col-md-4">Job Display From</label>
-
-
-                                          <div class="controls input-append date form_date col-md-8" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                                              <input size="16" type="text" value="" class="e form-control"  id="dob"  n="Start Date " readonly [(ngModel)]="myjob.start_date" >
-                                              <span class="add-on"><i class="icon-remove"></i></span>
-                                              <span class="add-on"><i class="icon-th"></i></span>
-                                          </div>
-                                          <input type="hidden" id="dtp_input2" value="" /><br/>
-
-                                      </div>-->
-
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="start_date_temp" [matDatepicker]="picker"
+                            placeholder="Choose a date" class="e">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
                       </div>
                       <div class="col-md-6">
                         <label class="col-md-8">Job Display To</label>
-                        <input size="16" type="date" value="" class="e form-control" id="Dend" validate n="End Date"
-                          [(ngModel)]="myjob.end_date">
 
-                        <!--<div class="control-group">
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="end_date_temp" [matDatepicker]="picker2"
+                            placeholder="Choose a date" class="e">
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
 
-                                          <div class="controls input-append date form_date col-md-8" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
-                                              <span class="add-on"><i class="icon-remove"></i></span>
-                                              <span class="add-on"><i class="icon-th"></i></span>
-
-                                          <input type="hidden" id="dtp_input3" value="" /><br/>
-                                      </div>-->
 
                       </div>
                     </div>
@@ -472,11 +443,11 @@
                   <div class="form-group col-md-6">
                     <label class="col-md-4">Job Status</label>
                     <div class="col-md-8">
-                      <ng-select n="Status" id="jobstatus" rows="3" [(ngModel)]="myjob.job_status" name="Notes">
-                        <ng-option>Hold</ng-option>
-                        <ng-option>Active</ng-option>
-                        <ng-option ng-if="isjobediting" (click)='changefilter("Closed")'>Closed</ng-option>
-                      </ng-select>
+                      <select n="Status" id="jobstatus" rows="3" [(ngModel)]="myjob.job_status" name="Notes">
+                        <option>Hold</option>
+                        <option>Active</option>
+                        <option ng-if="isjobediting" (click)='changefilter("Closed")'>Closed</option>
+                      </select>
 
                     </div>
                   </div>
@@ -488,7 +459,8 @@
 
                       <div *ngIf='departments.length==0' class="alert alert-info">
                         No Department Added.<span *ngIf='mp.page_departments'> <a href="#/departments"
-                            class="btn btn-default">Click here</a> to add Department.</span>
+                            class="btn btn-default">Click
+                            here</a> to add Department.</span>
                       </div>
 
                       <span class="form-check bg-aqua text-blue " *ngFor="let department of departments">
@@ -496,7 +468,7 @@
 
                         <input class="form-check-input" id="exampleCheck{{$index}}" type="checkbox"
                           [(ngModel)]="department.selected">
-                        <!-- todo text -->
+
                         <label for="exampleCheck{{$index}}" class="form-check-label"> {{department.department}}</label>
                       </span>
 
@@ -506,6 +478,9 @@
 
                     </div>
                   </div>
+
+
+
 
 
                   <div class="form-group col-md-6">
@@ -518,7 +493,7 @@
 
                     <div class="col-lg-offset-2 col-md-10">
                       <button type="submit" class="btn btn-primary validate" *ngIf="!isjobediting ||jobupdate "
-                        tar="#addnewjobform" (click)="addNewJobSave(myjob, location, functionalArea)">Save</button>
+                        tar="#addnewjobform" (click)="addNewJobSave()">Save</button>
                       <div *ngIf="isjobediting===true">
                         <button type="submit" class="btn btn-primary validate" tar="#addnewjobform"
                           (click)="addNewJobupdate()">Save</button>
@@ -536,31 +511,6 @@
 
       </div>
 
-
-      <script type="text/javascript">
-
-        $('.form_date').datetimepicker({
-          language: 'fr',
-          weekStart: 1,
-          todayBtn: 1,
-          autoclose: 1,
-          todayHighlight: 1,
-          startView: 2,
-          minView: 2,
-          forceParse: 0
-        });
-
-
-      </script>
-      <script>
-        $(function () {
-
-          $('#role').change(function () {
-
-          });
-
-        });
-      </script>
 
     </div>
   </div>

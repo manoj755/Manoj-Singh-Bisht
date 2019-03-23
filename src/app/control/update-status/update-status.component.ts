@@ -84,13 +84,21 @@ export class UpdateStatusComponent implements OnInit {
   }
   purposechange(): void {
     // alert('purposechange');
-    if ($('#purpose').find('option:selected').attr('isinterview') === '2') {
+    debugger;
+    let purpose = 0;
+    for (const i in this.statuses) {
+      if (this.statuses[i].id === parseInt(this.commentstatus.status, 0)) {
+        purpose = this.statuses[i].isinterview;
+        break;
+      }
+    }
+    if ($('#purpose').find('option:selected').attr('isinterview') === '2' || purpose === 2) {
       $('#offerhide').show();
     } else {
       $('#offerhide').hide();
     }
 
-    if ($('#purpose').find('option:selected').attr('isinterview') === '1') {
+    if ($('#purpose').find('option:selected').attr('isinterview') === '1' || purpose === 1) {
       $('#business').show();
     } else {
       $('#business').hide();

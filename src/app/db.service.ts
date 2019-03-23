@@ -162,7 +162,7 @@ export class DBService implements OnInit {
       action = 'Message';
     }
     if (durationMS === undefined) {
-      durationMS = 300000;
+      durationMS = 3000;
     }
     const snackBarRef = this.snackBar.open(message, action, {
       duration: durationMS,

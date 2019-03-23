@@ -8,6 +8,9 @@ declare var $: any;
   styleUrls: ['./new-job.component.scss']
 })
 export class NewJobComponent implements OnInit {
+  start_date_temp: any = new Date();
+  clientsdepartment = '';
+  end_date_temp: any = new Date();
   clients: any = [];
   addtojob: any = {};
   sendemailmodel: any = {};
@@ -33,9 +36,9 @@ export class NewJobComponent implements OnInit {
   max = 5000;
   mp: any = {};
   keyskillsset: any;
-  minimumSalarythousand: any;
-  maximumSalarylac: any;
-  maximumSalarythousand: any;
+  minimumSalarythousand: any = 0;
+  maximumSalarylac: any = 0;
+  maximumSalarythousand: any = 0;
   location: any;
   arrRoles = [];
   isjobediting = false;
@@ -60,7 +63,7 @@ export class NewJobComponent implements OnInit {
   page = 1;
 
   suggestedkeyskills = [];
-  myjob: any = { minimumExperience: 0, internshipdurationunit: 0 };
+  myjob: any = { minimumExperience: 0, internshipdurationunit: 'Month' };
   minimumSalaryOption = [];
   minimumSalarylac = 0;
   minimumSalaryOptionink = [];
@@ -71,6 +74,7 @@ export class NewJobComponent implements OnInit {
   constructor(public db: DBService) { }
 
   ngOnInit() {
+    $('select').addClass('noselect2 form-control');
     this.minimumSalaryOptionSet()
     this.updatemaxexperience();
     this.loadlocation();
@@ -90,9 +94,6 @@ export class NewJobComponent implements OnInit {
     })
     );
 
-    setTimeout(function () {
-      this.jobtype();
-    }, 2000);
     this.applicationdepartment();
 
 
@@ -354,9 +355,9 @@ export class NewJobComponent implements OnInit {
       //
       //            this.myjob.functionalArea = this.functionalArea.functionalAreaName;
 
-      this.myjob.minimumSalary = (this.minimumSalarylac * 100000) + (this.minimumSalarythousand * 1000);
+      this.myjob.minimumSalary = (this.myjob.minimumSalarylac * 100000) + (this.myjob.minimumSalarythousand * 1000);
       //   =resultmin.tostring();
-      this.myjob.maximumSalary = (this.maximumSalarylac * 100000) + (this.maximumSalarythousand * 1000);
+      this.myjob.maximumSalary = (this.myjob.maximumSalarylac * 100000) + (this.myjob.maximumSalarythousand * 1000);
       //  =resultmax.tostring();
       if (this.myjob.minimumSalary > this.myjob.maximumSalary) {
         this.db.addmessageandremove('Maximum salary cannot be less then minimum salary.');
@@ -769,9 +770,9 @@ export class NewJobComponent implements OnInit {
 
   // $.material.init();
   addNewJobSave(): void {
-
+    debugger;
     this.myjob.job_status = 'Active';
-    this.location = location;
+
     // console.log(FH.SelectedCheckbox(this.departments));
     //    if ($('.validate').validate('#addnewjobform', true)) {
     if (true) {
@@ -781,12 +782,15 @@ export class NewJobComponent implements OnInit {
         if (locations[j]) {
           locationstr += locations[j] + ',';
         }
-      }
-      this.myjob.location = locationstr;
 
-      this.myjob.minimumSalary = (this.minimumSalarylac * 100000) + (this.minimumSalarythousand * 1000);
+      }
+      this.myjob.keyskills = 'acb';
+      this.myjob.location = locationstr;
+      this.myjob.start_date = this.db.toYYMMDD(this.start_date_temp);
+      this.myjob.end_date = this.db.toYYMMDD(this.end_date_temp);
+      this.myjob.minimumSalary = (this.myjob.minimumSalarylac * 100000) + (this.myjob.minimumSalarythousand * 1000);
       //   =resultmin.tostring();
-      this.myjob.maximumSalary = (this.maximumSalarylac * 100000) + (this.maximumSalarythousand * 1000);
+      this.myjob.maximumSalary = (this.myjob.maximumSalarylac * 100000) + (this.myjob.maximumSalarythousand * 1000);
 
       // this.myjob.functionalArea = this.functionalArea.functionalAreaName;
       const topost = this.myjob;
