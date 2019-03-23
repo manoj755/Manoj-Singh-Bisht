@@ -182,7 +182,6 @@ export class NewJobComponent implements OnInit {
 
 
   updatemaxexperience(): void {
-    debugger;
     this.maxexperience = [];
     let j = 0;
     j = this.myjob.minimumExperience;
@@ -785,8 +784,6 @@ export class NewJobComponent implements OnInit {
         }
 
       }
-      alert('location and keyskills');
-      locationstr = 'delhi';
       this.myjob.keyskills = 'acb';
       this.myjob.location = locationstr;
       this.myjob.start_date = this.db.toYYMMDD(this.start_date_temp);

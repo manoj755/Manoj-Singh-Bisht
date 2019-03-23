@@ -158,15 +158,14 @@
                       <label class="col-md-4 " Industry>Hide Salary from jobseekers</label>
 
                       <div class="col-md-8">
-                        <mat-checkbox [(ngModel)]='myjob.HideSalaryfromjobseekers' ng-true-value="'YES'"
+                        <mat-checkbox ngDefaultControl [(ngModel)]='myjob.HideSalaryfromjobseekers' ng-true-value="'YES'"
                           ng-false-value="'NO'">
                         </mat-checkbox>
                       </div>
                     </div>
                   </div>
 
-                  <div class="form-group col-md-6"
-                    *ngIf="!mp.hide_referral_bonus || db.profile.disable_crowd_sourcing=='1'">
+                  <div class="form-group col-md-6"  *ngIf="!mp.hide_referral_bonus || db.profile.disable_crowd_sourcing=='1'">
                     <label class="col-md-4" Referral>Referral Bonus:</label>
                     <div class="col-md-8">
                       <input type="number"
@@ -186,7 +185,7 @@
 
                       <select class="e" (change)="updatemaxexperience()" id="MinimumExperience" validate
                         n="Minimum Experience" [(ngModel)]="myjob.minimumExperience" name="minimumExperience">
-                        <option [value]='opt' *ngFor="let opt of  minexperience">{{opt}}</option>
+                        <option value='{{opt}}' *ngFor="let opt of  minexperience">{{opt}}</option>
                       </select>
 
                     </div>
@@ -197,7 +196,7 @@
 
                       <select class="e" id="MaxExperience" validate n="Maximum Experience"
                         [(ngModel)]="myjob.maximumExperience" name="maximumExperience">
-                        <option [value]='opt' *ngFor="let opt of  maxexperience">{{opt}}</option>
+                        <option value='{{opt}}' *ngFor="let opt of  maxexperience">{{opt}}</option>
                       </select>
 
 
@@ -233,7 +232,7 @@
                           </select>
 
                         </div>
-                        <div class="col-md-4 " id="Responsibility">
+                        <div class="col-md-4" id="Responsibility">
                           <select class="e" [(ngModel)]='myjob.internshipdurationunit'>
                             <option [value]="Month">Month</option>
                             <option [value]="Weeks">Weeks</option>
@@ -252,8 +251,8 @@
 
                       <div class="col-md-8">
                         <mat-radio-group>
-                          <mat-radio-button [(ngModel)]='myjob.contractrenewable' value="yes">Yes</mat-radio-button>
-                          <mat-radio-button [(ngModel)]='myjob.contractrenewable' value="no">No</mat-radio-button>
+                          <mat-radio-button ngDefaultControl [(ngModel)]='myjob.contractrenewable' value="yes">Yes</mat-radio-button>
+                          <mat-radio-button  ngDefaultControl [(ngModel)]='myjob.contractrenewable' value="no">No</mat-radio-button>
                         </mat-radio-group>
 
                       </div>
@@ -272,16 +271,13 @@
                             <option>4</option>
                             <option>5</option>
                             <option>6</option>
-
                           </select>
 
                         </div>
                         <div class="col-md-5">
-                          <ng-select n="a Month" id="month" [(ngModel)]='myjob.contractunit'>
+                          <ng-select n="a Month" ngDefaultControl id="month" [(ngModel)]='myjob.contractunit'>
                             <ng-option>Month</ng-option>
                             <ng-option>Weeks</ng-option>
-
-
                           </ng-select>
 
                         </div>
@@ -292,8 +288,8 @@
                     <label class="col-md-4">Change Payable</label>
                     <div class="col-md-8">
                       <!-- <mat-radio-group>
-                        <mat-radio-button [(ngModel)]='myjob.freelancepayable' value="Hourly">Hourly</mat-radio-button>
-                        <mat-radio-button [(ngModel)]='myjob.freelancepayable' value="Project-Based">Project-Based
+                        <mat-radio-button ngDefaultControl [(ngModel)]='myjob.freelancepayable' value="Hourly">Hourly</mat-radio-button>
+                        <mat-radio-button ngDefaultControl [(ngModel)]='myjob.freelancepayable' value="Project-Based">Project-Based
                         </mat-radio-button>
                       </mat-radio-group> -->
 
@@ -317,7 +313,7 @@
                     <div class="col-md-10">
                       {{myjob.keyskills}}
 
-                      <ng-select [(ngModel)]="myjob.keyskills" [items]="suggestedkeyskills" [addTag]="true"
+                      <ng-select ngDefaultControl [(ngModel)]="myjob.keyskills" [items]="suggestedkeyskills" [addTag]="true"
                         [multiple]="true" [isOpen]="false">
                       </ng-select>
 
@@ -421,7 +417,7 @@
                       </div>
                       <div class="col-md-6">
                         <label class="col-md-8">Job Display To</label>
-                        {{end_date_temp}}
+
                         <mat-form-field>
                           <input matInput [(ngModel)]="end_date_temp" [matDatepicker]="picker2"
                             placeholder="Choose a date" class="e">
