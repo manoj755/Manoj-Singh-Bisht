@@ -245,8 +245,13 @@ export class ClientreportComponent implements OnInit {
         data: {
 
           columns: Columns,
-          type: 'bar'
+          type: 'bar',
+
+          onclick: function (d, i) { console.log('onclick', d, i); },
+          onmouseover: function (d, i) { console.log('onmouseover', d, i); },
+          onmouseout: function (d, i) { console.log('onmouseout', d, i); }
         },
+
         bar: {
           width: {
             ratio: 0.8 // this makes bar width 50% of length between ticks
@@ -434,6 +439,11 @@ export class ClientreportComponent implements OnInit {
 
             columns: ColumnsPie,
             type: 'pie'
+            ,
+
+            onclick: function (d, i) { console.log('onclick', d, i); },
+            onmouseover: function (d, i) { console.log('onmouseover', d, i); },
+            onmouseout: function (d, i) { console.log('onmouseout', d, i); }
           },
           bar: {
             width: {

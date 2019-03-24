@@ -447,7 +447,9 @@ export class DBService implements OnInit {
     const body = new FormData();
 
     for (const i in data) {
-      body.append(i, data[i]);
+      if (data[i]) {
+        body.append(i, JSON.stringify(data[i]));
+      }
     }
 
     return this.http.post(req.url, body, { headers: headersfull })

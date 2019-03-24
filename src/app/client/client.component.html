@@ -1,322 +1,373 @@
 <div class="main-content">
-    <div class="container-fluid">
-      <div class="row">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <Button class="btn btn-primary" (click)="showhideclient(0,100) || back();"> Add Client</Button>
 
-            <Button class="btn btn-primary" (click)="showhideclient(0,100) || back();"> Add Client</Button>
-            <!-- <div *ngIf="ishideshow"> -->
+      </div> <!-- <div *ngIf="ishideshow"> -->
 
       <!-- </div> -->
-      <div *ngIf="ishideshow || ishideshowclient">
-            <div class="card">
-              <div class="card-header card-header-danger">
-                  <h4 class="card-title">Client Details</h4>
-                  <p class="card-category">Add or Edit Client details</p>
+      <div *ngIf="ishideshow || ishideshowclient" class="col-12">
+        <div class="card">
+          <div class="card-header card-header-danger">
+            <h4 class="card-title">Client Details</h4>
+            <p class="card-category">Add or Edit Client details</p>
+          </div>
+
+          <div class="box-title col-md-12">
+            <h2>{{clientsdepartment}}</h2>
+
+            <div class="tab-content">
+              <div class="" id="info-tab">
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label class="col-xs-3 control-label">Name</label>
+                    <div class="col-xs-9">
+                      <input type="text" class="form-control e" id="clientname" [(ngModel)]="client.billingName"
+                        name="fullName" />
+                    </div>
                   </div>
 
-            <div class="box-title col-md-12">
-                <h2>{{clientsdepartment}}</h2>
 
-                    <div class="tab-content">
-                        <div class=""   id="info-tab">
-                           <div class="row">
-                          <div class="form-group col-md-6">
-                                <label class="col-xs-3 control-label">Name</label>
-                                <div class="col-xs-9">
-                                    <input type="text" class="form-control e" id="clientname" [(ngModel)]="client.billingName" name="fullName" />
-                                </div>
-                            </div>
+                  <div class="form-group col-md-6">
+                    <label class="col-xs-3 control-label">About</label>
+                    <div class="col-xs-9">
+                      <textarea class="form-control e" maxlength="150" id="clientabout" [(ngModel)]="client.about"
+                        name="About"></textarea>
+                    </div>
+                  </div>
+                </div>
 
+                <div class="row">
+                  <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}">
+                    <label class="col-xs-3 control-label">Website</label>
+                    <div class="col-xs-9">
+                      <input type="text" class="form-control e web" id="clientWebsite" [(ngModel)]="client.website"
+                        name="Website" />
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}">
+                    <label class="col-xs-3 control-label">Address</label>
+                    <div class="col-xs-9">
+                      <input type="text" class="form-control e" id="clientAddress" [(ngModel)]="client.address"
+                        name="addr" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}">
+                    <label class="col-xs-3 control-label">Billing Period </label>
+                    <div class="col-xs-9">
+                      <input type="number" class="form-control e " id="clientbp" placeholder="in Days"
+                        [(ngModel)]="client.billing_period" name="billing_period" />
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}">
+                    <label class="col-xs-3 control-label">Invoice Currency</label>
+                    <div class="col-xs-9">
+                      <select class="form-control e" id="clientic" [(ngModel)]="client.invoice_currency"
+                        name="invoice_currency">
+                        <option>INR</option>
+                        <option>USD</option>
+                        <option>EUR</option>
 
-                            <div class="form-group col-md-6">
-                                <label class="col-xs-3 control-label">About</label>
-                                <div class="col-xs-9">
-                                    <textarea   class="form-control e" maxlength="150" id="clientabout"  [(ngModel)]="client.about" name="About"></textarea>
-                                </div>
-                            </div>
-                            </div>
-
-                            <div class="row">
-                            <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}" >
-                                <label class="col-xs-3 control-label">Website</label>
-                                <div class="col-xs-9">
-                                    <input type="text" class="form-control e web" id="clientWebsite"   [(ngModel)]="client.website"  name="Website" />
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}">
-                                <label class="col-xs-3 control-label">Address</label>
-                                <div class="col-xs-9">
-                                    <input type="text" class="form-control e" id="clientAddress"  [(ngModel)]="client.address" name="addr" />
-                                </div>
-                            </div>
-                            </div>
-                            <div class="row">
-                            <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}">
-                                <label class="col-xs-3 control-label">Billing Period </label>
-                                <div class="col-xs-9">
-                                    <input type="number" class="form-control e " id="clientbp" placeholder="in Days"  [(ngModel)]="client.billing_period" name="billing_period" />
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 {{db.profile.is_ats != '0'?'':'remove'}}">
-                                <label class="col-xs-3 control-label">Invoice Currency</label>
-                                <div class="col-xs-9">
-                                    <select class="form-control e" id="clientic"  [(ngModel)]="client.invoice_currency" name="invoice_currency" >
-                                        <option>INR</option>
-                                        <option>USD</option>
-                                        <option>EUR</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                            </div>
+                      </select>
+                    </div>
+                  </div>
+                </div>
 
 
 
-                            <div class="form-group col-md-6 hidden  {{db.profile.is_ats != '0'?'':'remove'}}">
-                                <label class="col-xs-3 control-label">Upload</label>
-                                <div class="col-xs-9">
+                <div class="form-group col-md-6 hidden  {{db.profile.is_ats != '0'?'':'remove'}}">
+                  <label class="col-xs-3 control-label">Upload</label>
+                  <div class="col-xs-9">
 
 
-                                </div>
-                            </div>
-                            <!--                                    </div>
+                  </div>
+                </div>
+                <!--                                    </div>
 
 
                                                                 <div ng-show="tabindex == 1" ng-hide="tabindex != 1" class="tab-pane active" id="address-tab">-->
-                            <div ng-show="client.fee_slab.length > 0" class=" {{db.profile.is_ats != '0'?'':'remove'}}">
-                                <div class="col-md-12">
+                <div ng-show="client.fee_slab.length > 0" class=" {{db.profile.is_ats != '0'?'':'remove'}}">
+                  <div class="col-md-12">
 
-                                    <div class="row font-light bg-light-blue" > <div class="col-md-12"> <h5>Slabs</h5></div></div>
-                                    <div class="row font-light  "  style="background: #ebeca0;">
+                    <div class="row font-light bg-light-blue">
+                      <div class="col-md-12">
+                        <h5>Slabs</h5>
+                      </div>
+                    </div>
+                    <mat-card>
+                      <div class="row font-light  ">
 
-                                        <div class="col-md-3">
-                                            From
-                                        </div>
-                                        <div class="col-md-3">
-                                            To
-                                        </div>
-                                        <div class="col-md-3">
-                                            Amount
-                                        </div>
-                                        <div class="col-md-3">
-                                            Remove
-                                        </div>
-
-
-                                    </div>
-                                    <div class="row bg-blue" style="border-bottom: solid 1px #e94640; padding: 5px 0;" *ngFor="let item of client.fee_slab">
-
-
-                                        <div class="col-md-3">
-                                            {{item.fromSlab}}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{item.toSlab}}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{item.AmountorPercentage}}   <span ng-if="item.isPercentage == 1">%</span>
-                                            <span ng-if="item.isPercentage == 0">Fixed</span>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <span ng-click="remove($index)" class="btn  btn-raised btn-default btn-xs">Remove</span>
-                                        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                    </div></div>
-                            </div>
-
-                            <div class=" {{db.profile.is_ats != '0'?'':'remove'}}">
-                                <div class="col-md-12 bg-light-blue " style="margin-top: 10px;"> <h5>Add Slab</h5></div>
-                                <div class="col-md-12  " style="padding: 20px; padding-top: 10px; margin-bottom:10px; background:#ebeca0">;
-
-                                    <div class="row">
-
-                                        <div class=" col-md-3">
-
-                                            <label>Fees From (LPA)</label>
-                                            <input type="number"  class="form-control" [(ngModel)]="fromfeesslab" name="feesslab" required/>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Fees To (LPA)</label>
-                                            <input type="number" class="form-control"  [(ngModel)]="tofeesslab" name="feesslab" required/>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Amount/Percentage</label>
-                                            <input type="text" [(ngModel)]="amt"  class="form-control" id="amount" name="feesslab3" />
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="form-group"><label>Contract Type</label>
-                                            </div>
-                                            <div class="form-group" >
-
-                                                <label class="radio-inline">
-                                                    <input name="radioGroup"  value="Percentage" [(ngModel)]="client.feeslabtype" type="radio"> %
-                                                </label>
-                                                <label class="radio-inline">
-                                                    <input name="radioGroup" value="Fixed" checked="" [(ngModel)]="client.feeslabtype" type="radio"> Fixed
-                                                </label>
-
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row">
-
-                                            <div class="col-md-12">
-                                                <button type="button" class="btn  btn-raised btn-primary btn-xs pull-right" (click)="addfeeslab(1)">Add Fee Slab</button>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row  {{db.profile.is_ats != '0'?'':'remove'}}" >
-                                <div class="col-md-4 pull-left">
-                                    <label style="margin-left:50px;">Contract Duration</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="date" class="form-control e " [(ngModel)]="client.contractDurationStart" name="contactDurationStart" md-placeholder="Start Date" required style="margin-right:50px;">
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="date" class="form-control e " [(ngModel)]="client.contractDurationEnd" name="contactDurationStart" md-placeholder="End Date" required style="margin-right:50px;">
-                                </div>
-                            </div><br>
-
-
-
-
-
-                            <div class="row">
-                            <div class="form-group col-md-6  {{db.profile.is_ats != '0'?'':'remove'}}">
-                                <label class="col-xs-3 control-label">Email:</label>
-                                <div class="col-xs-9">
-                                    <input type="text" id="clientemail"  class="form-control e m" [(ngModel)]="client.email" name="email">
-                                </div>
-                            </div>
-
-                        <div class="form-group col-md-6  {{db.profile.is_ats != '0'?'':'remove'}}">
-                            <label class="col-xs-3 control-label">Phone:</label>
-                            <div class="col-xs-9">
-                                <input type="text" id="clientmobile"  class="form-control e " [(ngModel)]="client.phone" name="number"/>
-                            </div>
+                        <div class="col-md-3">
+                          From
                         </div>
+                        <div class="col-md-3">
+                          To
+                        </div>
+                        <div class="col-md-3">
+                          Amount
+                        </div>
+                        <div class="col-md-3">
+                          Remove
+                        </div>
+
+
+                      </div>
+                    </mat-card>
+                    <mat-card [hidden]="client.fee_slab.length>0">
+                      No Fee Slab
+                    </mat-card>
+                    <mat-card *ngFor="let item of client.fee_slab">
+                      <div class="row bg-blue">
+
+
+                        <div class="col-md-3">
+                          {{item.fromSlab}}
+                        </div>
+                        <div class="col-md-3">
+                          {{item.toSlab}}
+                        </div>
+                        <div class="col-md-3">
+                          {{item.AmountorPercentage}} <span ng-if="item.isPercentage == 1">%</span>
+                          <span ng-if="item.isPercentage == 0">Fixed</span>
+                        </div>
+                        <div class="col-md-3">
+                          <span (click)="remove($index)" class="btn  btn-raised btn-default btn-xs">Remove</span>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      </div>
+                    </mat-card>
+                  </div>
+                </div>
+
+                <div class=" {{db.profile.is_ats != '0'?'':'remove'}}">
+                  <div class="col-md-12 bg-light-blue " style="margin-top: 10px;">
+                    <h5>Add Slab</h5>
+                  </div>
+                  <div class="col-md-12  "
+                    style="padding: 20px; padding-top: 10px; margin-bottom:10px; background:#ebeca0">;
+
+                    <div class="row">
+
+                      <div class=" col-md-3">
+
+                        <label>Fees From (LPA)</label>
+                        <input type="number" class="form-control" [(ngModel)]="fromfeesslab" name="feesslab" required />
+                      </div>
+                      <div class="col-md-3">
+                        <label>Fees To (LPA)</label>
+                        <input type="number" class="form-control" [(ngModel)]="tofeesslab" name="feesslab" required />
+                      </div>
+                      <div class="col-md-3">
+                        <label>Amount/Percentage</label>
+                        <input type="text" [(ngModel)]="amt" class="form-control" id="amount" name="feesslab3" />
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group"><label>Contract Type</label>
+                        </div>
+                        <div class="form-group">
+
+                          <label class="radio-inline">
+                            <input name="radioGroup" value="Percentage" [(ngModel)]="client.feeslabtype" type="radio"> %
+                          </label>
+                          <label class="radio-inline">
+                            <input name="radioGroup" value="Fixed" checked="" [(ngModel)]="client.feeslabtype"
+                              type="radio"> Fixed
+                          </label>
+
                         </div>
                       </div>
-                        <div class="form-group col-md-6 hidden  {{db.profile.is_ats != '0'?'':'remove'}}">
-                            <label class="col-xs-3 control-label">Contract:</label>
-                            <div class="col-xs-9">
 
-                            </div>
+
+                      <div class="row">
+
+                        <div class="col-md-12">
+                          <button type="button" class="btn  btn-raised btn-primary btn-xs pull-right"
+                            (click)="addfeeslab(1)">Add Fee Slab</button>
                         </div>
-                        <div ng-show="client.uploadedImage && false" class="form-group col-md-6  {{db.profile.is_ats != '0'?'':'remove'}}">
-                            <label class="col-xs-3 control-label">Logo</label>
-                            <div class="col-xs-9">
-
-                                <img src="http://api.passivereferral.com/clients/{{client.uploadedImage}}"  class="img-responsive  img-thumbnail"  alt=""/>
 
 
-                            </div>
-
-
-
-            </div>
-            <div class="form-group" style="margin-top: 15px;">
-                <div class="col-xs-10 col-xs-offset-2">
-                    <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary"  (click)="clientupdate()">Update </button>
-
-                    <button type="submit"*ngIf="!isEdit" class="btn  btn-raised btn-primary validate"  target="#addnewclient" (click)="clientsave()">Add {{clientsdepartment}}</button>
-                    <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary validate"  target="#addnewclient" (click)="isEdit = false; client = {fee_slab:[]}; ">Back</button>
-
-                    <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary validate {{db.profile.is_ats != '0'?'':'remove'}}" clientform data-toggle="modal" data-target="#addbilling"  (click)="loadstatewisedetail()">Add Billing Details</button>
-
-                    <!--<md-button class="md-raised"  (click)="clientsave()" >Submit</md-button>-->
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
+
+
+                <div class="row  {{db.profile.is_ats != '0'?'':'remove'}}">
+                  <div class="col-md-4 pull-left">
+                    <label style="margin-left:50px;">Contract Duration</label>
+                  </div>
+                  <div class="col-md-4">
+                    <input type="date" class="form-control e " [(ngModel)]="client.contractDurationStart"
+                      name="contactDurationStart" md-placeholder="Start Date" required style="margin-right:50px;">
+                  </div>
+                  <div class="col-md-4">
+                    <input type="date" class="form-control e " [(ngModel)]="client.contractDurationEnd"
+                      name="contactDurationStart" md-placeholder="End Date" required style="margin-right:50px;">
+                  </div>
+                </div><br>
+
+
+
+
+
+                <div class="row">
+                  <div class="form-group col-md-6  {{db.profile.is_ats != '0'?'':'remove'}}">
+                    <label class="col-xs-3 control-label">Email:</label>
+                    <div class="col-xs-9">
+                      <input type="text" id="clientemail" class="form-control e m" [(ngModel)]="client.email"
+                        name="email">
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6  {{db.profile.is_ats != '0'?'':'remove'}}">
+                    <label class="col-xs-3 control-label">Phone:</label>
+                    <div class="col-xs-9">
+                      <input type="text" id="clientmobile" class="form-control e " [(ngModel)]="client.phone"
+                        name="number" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group col-md-6 hidden  {{db.profile.is_ats != '0'?'':'remove'}}">
+                <label class="col-xs-3 control-label">Contract:</label>
+                <div class="col-xs-9">
+
+                </div>
+              </div>
+              <div ng-show="client.uploadedImage && false"
+                class="form-group col-md-6  {{db.profile.is_ats != '0'?'':'remove'}}">
+                <label class="col-xs-3 control-label">Logo</label>
+                <div class="col-xs-9">
+
+                  <img src="http://api.passivereferral.com/clients/{{client.uploadedImage}}"
+                    class="img-responsive  img-thumbnail" alt="" />
+
+
+                </div>
+
+
+
+              </div>
+              <div class="form-group" style="margin-top: 15px;">
+                <div class="col-xs-10 col-xs-offset-2">
+                  <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary"
+                    (click)="clientupdate()">Update </button>
+
+                  <button type="submit" *ngIf="!isEdit" class="btn  btn-raised btn-primary validate"
+                    target="#addnewclient" (click)="clientsave()">Add {{clientsdepartment}}</button>
+                  <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary validate"
+                    target="#addnewclient" (click)="isEdit = false; client = {fee_slab:[]}; ">Back</button>
+
+                  <button type="submit" *ngIf="isEdit"
+                    class="btn  btn-raised btn-primary validate {{db.profile.is_ats != '0'?'':'remove'}}" clientform
+                    data-toggle="modal" data-target="#addbilling" (click)="loadstatewisedetail()">Add Billing
+                    Details</button>
+
+                  <!--<md-button class="md-raised"  (click)="clientsave()" >Submit</md-button>-->
+                </div>
+              </div>
             </div>
 
           </div>
 
-                <div id="addbilling" class="modal fade" role="dialog">
-                    <div class="modal-dialog width80percent ">
+          <div id="addbilling" class="modal fade" role="dialog">
+            <div class="modal-dialog width80percent ">
 
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
 
-                                <h4 class="modal-title">Add Billing Details</h4><button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
+                  <h4 class="modal-title">Add Billing Details</h4><button type="button" class="close"
+                    data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
 
-                                <h1>GST No</h1>
+                  <h1>GST No</h1>
 
-                                <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="gridclientStateswiseBillingDetail" [columnDefs]="columnDefs2"
-                                suppressCsvExport=false   [suppressRowClickSelection]="true"
-                                (rowClicked)="onRowClickedState($event)"
-                                [groupSelectsChildren]="true" (selectionChanged)="onSelectionChanged($event)" [debug]="true"
-                                [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
-                                [enableRangeSelection]="true" (gridReady)="onGridReady($event)">
-                              </ag-grid-angular>
-                                <div class='col-md-12  '><h2><span *ngIf="isEditclientStateswiseBillingDetail">Edit</span><span *ngIf="!isEditclientStateswiseBillingDetail">Add</span> Client Statewise Billing Detail</h2><div class='row'><div class='col-md-6'><div class="form-group ">
-                                                <label for="state_name">State Name</label>
-                                                <select  class="form-control" [(ngModel)]="clientStateswiseBillingDetail.state_name" id="state_name" >
-                                                    <option *ngFor="let stateobj of states">{{stateobj.State}}</option>
-                                                </select>
+                  <ag-grid-angular style="height: 500px;" class="ag-theme-material"
+                    [rowData]="gridclientStateswiseBillingDetail" [columnDefs]="columnDefs2" suppressCsvExport=false
+                    [suppressRowClickSelection]="true" (rowClicked)="onRowClickedState($event)"
+                    [groupSelectsChildren]="true" (selectionChanged)="onSelectionChanged($event)" [debug]="true"
+                    [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow"
+                    [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true" (gridReady)="onGridReady($event)">
+                  </ag-grid-angular>
+                  <div class='col-md-12  '>
+                    <h2><span *ngIf="isEditclientStateswiseBillingDetail">Edit</span><span
+                        *ngIf="!isEditclientStateswiseBillingDetail">Add</span> Client Statewise Billing Detail</h2>
+                    <div class='row'>
+                      <div class='col-md-6'>
+                        <div class="form-group ">
+                          <label for="state_name">State Name</label>
+                          <select class="form-control" [(ngModel)]="clientStateswiseBillingDetail.state_name"
+                            id="state_name">
+                            <option *ngFor="let stateobj of states">{{stateobj.State}}</option>
+                          </select>
 
-                                            </div>
-                                        </div><div class='col-md-6'><div class="form-group ">
-                                                <label for="gst">Gst</label>
-                                                <input  class="form-control" maxlength='100' [(ngModel)]="clientStateswiseBillingDetail.gst" id="gst" placeholder="Gst"/>
+                        </div>
+                      </div>
+                      <div class='col-md-6'>
+                        <div class="form-group ">
+                          <label for="gst">Gst</label>
+                          <input class="form-control" maxlength='100' [(ngModel)]="clientStateswiseBillingDetail.gst"
+                            id="gst" placeholder="Gst" />
 
-                                            </div>
-                                            <!-- <div class='col-md-6'><div class="form-group ">
+                        </div>
+                        <!-- <div class='col-md-6'><div class="form-group ">
                                                 <label for="gst">Tds</label>
                                                 <input  class="form-control" maxlength='100' [(ngModel)]="clientStateswiseBillingDetail.tds" id="gst" placeholder="Gst"/>
 
                                             </div>
                                         </div> </div> <div class="form-group"> -->
-                                        <div class=" col-md-10">
-                                            <button type="submit" class="btn  btn-raised btn-primary"  *ngIf="!isEditclientStateswiseBillingDetail" (click)="clientStateswiseBillingDetailsave()">Save</button>
-                                            <button type="button" class="btn  btn-raised btn-primary" *ngIf="isEditclientStateswiseBillingDetail" (click)="clientStateswiseBillingDetailupdate()">Update</button>
-                                            <button type="button" class="btn  btn-raised btn-primary" *ngIf="isEditclientStateswiseBillingDetail" (click)="backstate()">back</button>
-                                        </div>
-                                    </div>
-                                  </div>    </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn  btn-raised btn-default" data-dismiss="modal">Close</button>
-                            </div>
+                        <div class=" col-md-10">
+                          <button type="submit" class="btn  btn-raised btn-primary"
+                            *ngIf="!isEditclientStateswiseBillingDetail"
+                            (click)="clientStateswiseBillingDetailsave()">Save</button>
+                          <button type="button" class="btn  btn-raised btn-primary"
+                            *ngIf="isEditclientStateswiseBillingDetail"
+                            (click)="clientStateswiseBillingDetailupdate()">Update</button>
+                          <button type="button" class="btn  btn-raised btn-primary"
+                            *ngIf="isEditclientStateswiseBillingDetail" (click)="backstate()">back</button>
                         </div>
-
+                      </div>
                     </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn  btn-raised btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
 
             </div>
 
+          </div>
+
         </div>
 
+
+
       </div>
-
-
-
-    </div>
-    <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
-    suppressCsvExport=false   [suppressRowClickSelection]="true"
-    (rowClicked)="onRowClicked($event)"
-    [groupSelectsChildren]="true" (selectionChanged)="onSelectionChanged($event)" [debug]="true"
-    [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
-    [enableRangeSelection]="true" (gridReady)="onGridReady($event)">
-  </ag-grid-angular>
-    </div>
+      <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
+        suppressCsvExport=false [suppressRowClickSelection]="true" (rowClicked)="onRowClicked($event)"
+        [groupSelectsChildren]="true" (selectionChanged)="onSelectionChanged($event)" [debug]="true"
+        [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+        [enableRangeSelection]="true" (gridReady)="onGridReady($event)">
+      </ag-grid-angular>
     </div>
   </div>
+</div>
