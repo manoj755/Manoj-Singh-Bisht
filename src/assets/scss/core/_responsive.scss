@@ -21,7 +21,7 @@
         top: 0px;
         height: 100vh;
         width: 230px;
-        right: 0;
+        left: 0;
         margin-right: 0 !important;
         z-index: 1032;
         visibility: visible;
@@ -279,9 +279,9 @@
   }
 }
 
-/*          Changes for small display      */
+/*          Changes for small display  change by nk     */
 
-@media (max-width: 991px){
+@media (max-width: 1400px){
 
     .form-group{
         textarea{

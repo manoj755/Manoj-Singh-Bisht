@@ -11,14 +11,14 @@
           <app-add-to-job [allids]='allids'></app-add-to-job>
           <app-pv-get-reference [allids]='allids'></app-pv-get-reference>
 
-          <div class="col-md-3 " ng-show="mp.btn_take_internal_refeference">
+          <div class="col-md-3 " *ngIf="db.mp.btn_take_internal_refeference">
             <button type="button" class="btn btn-block  btn-primary btn-md" data-toggle="modal"
               data-target="#getreferencemodal" title="Get referrence from selected candidates or send mail ">Get
               Reference/Send Mail</button>
 
 
           </div>
-          <div class="col-md-3" ng-show="mp.add_to_job_store">
+          <div class="col-md-3" *ngIf="db.mp.add_to_job_store">
 
             <button type="button" class="btn btn-block  btn-info btn-md" data-toggle="modal" data-target="#addtojob">Add
               to Job</button>
@@ -141,7 +141,7 @@
           suppressCsvExport=false   [suppressRowClickSelection]="true"
           (rowClicked)="onRowClicked($event)"
           [groupSelectsChildren]="true" (selectionChanged)="onSelectionChanged($event)" [debug]="true"
-          [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+          [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="true"
           [enableRangeSelection]="true" (gridReady)="onGridReady($event)">
         </ag-grid-angular>
       </div>

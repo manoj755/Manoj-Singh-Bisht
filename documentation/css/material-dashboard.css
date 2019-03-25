@@ -3674,7 +3674,7 @@ tbody.collapse.show {
       -ms-flex-preferred-size: auto;
           flex-basis: auto; }
     .navbar-expand-lg .navbar-toggler {
-      display: none; }
+      display: block !important; }
     .navbar-expand-lg .dropup .dropdown-menu {
       top: auto;
       bottom: 100%; } }
@@ -14630,8 +14630,8 @@ a[aria-expanded="true"] .caret,
   .cd-vertical-nav {
     display: none !important; } }
 
-/*          Changes for small display      */
-@media (max-width: 991px) {
+/*          Changes for small display    it was change from 991   */
+@media (max-width: 1400px) {
   .form-group textarea {
     padding-top: 15px; }
   .nav-open .menu-on-left .main-panel {

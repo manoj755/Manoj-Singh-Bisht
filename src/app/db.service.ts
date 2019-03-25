@@ -34,38 +34,43 @@ export class DBService implements OnInit {
     myjob: 'myjob',
   };
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
-
+    this.setProfile();
   }
   setProfile(): any {
 
+    if (!this.profile.profilepic) {
+      this.list('profile/', null, ((response): void => {
 
-    this.list('profile/', null, ((response): void => {
-
-      if (response.is_ats === '0') {
-        this.clientsdepartment = 'Department';
-      }
-      debugger;
-      this.profile = response;
-      this.profile.profilepic = this.rooturi + 'profile/' + this.profile.profilepic;
-      this.PF = response;
-      document.title = 'PR : ' + this.profile.application;
-
-    }));
-
-
-    this.list('mypermission/', null, ((response): void => {
-
-      const data = response;
-      this.mp = {};
-      if (data !== null) {
-        for (const i in data) {
-          this.mp[data[i].slug] = true;
+        if (response.is_ats === '0') {
+          this.clientsdepartment = 'Department';
         }
-      }
-    }));
+
+        this.profile = response;
+        this.profile.profilepic = this.rooturi + 'profile/' + this.profile.profilepic;
+        this.PF = response;
+        document.title = 'PR : ' + this.profile.application;
+
+      }));
+    }
+
+    if (!this.mp.mploaded) {
+      this.list('mypermission/', null, ((response): void => {
+
+        const data = response;
+        this.mp = { mploaded: true };
+        if (data !== null) {
+          for (const i in data) {
+            if (data[i]) {
+              this.mp[data[i].slug] = true;
+            }
+          }
+        }
+      }));
+      this.mp.mploaded = false;
+    }
   }
   ngOnInit() {
-    this.setProfile();
+    //  this.setProfile();
     //   if (this.profile.id == 53) {
     //     this.db.list('smsemailreport/', null, ((response): void =>  {
     //       this.smsemailreports = response;
@@ -145,6 +150,8 @@ export class DBService implements OnInit {
       message = 'Please check your internet.';
     } else if (isObject(message) && message.status === 401) {
       message = 'Please authenticate to access secured resource.';
+    } else if (isObject(message) && message.status >= 500) {
+      message = 'Error Occured';
     } else if (isObject(message) && message.status === 422) {
       message = message.error;
       const messages = [];
@@ -172,7 +179,7 @@ export class DBService implements OnInit {
 
     // $rootScope.universal_errors = [];
     // if (response.status == 422) {
-    //   debugger;
+    //
     //   for (var k in response) {
     //     var message = response[k].toString();
     //     $rootScope.universal_errors.push({ message: message, data: true });
@@ -440,7 +447,9 @@ export class DBService implements OnInit {
     const body = new FormData();
 
     for (const i in data) {
-      body.append(i, data[i]);
+      if (data[i]) {
+        body.append(i, JSON.stringify(data[i]));
+      }
     }
 
     this.http.post(req.url, body, { headers: headersfull })
@@ -548,7 +557,7 @@ export class DBService implements OnInit {
   }
 
   downloadFile(data: any, name?: string) {
-    debugger;
+
     if (name === null || name === undefined) {
       name = 'data';
     }
@@ -570,7 +579,7 @@ export class DBService implements OnInit {
   }
 
   getIDs(nodetype?, id?): any {
-    debugger;
+
     if (id === null || id === undefined) {
       id = 'id';
     }
@@ -587,7 +596,7 @@ export class DBService implements OnInit {
   }
 
   extractIDsData(data, id?): any {
-    debugger;
+
     if (id === null || id === undefined) {
       id = 'id';
     }
@@ -625,7 +634,7 @@ export class DBService implements OnInit {
 
   public customCellRendererFunc(params): string {
     let cellContent = '';
-    debugger;
+
     try {
 
       const id: string = params.value;

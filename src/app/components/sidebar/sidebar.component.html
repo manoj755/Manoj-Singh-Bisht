@@ -64,17 +64,18 @@
         </p>
       </a>
     </li>
-    <li routerLinkActive="active" class=" nav-item">
+
+    <li routerLinkActive="active" *ngIf="db.mp.page_internal_database" class=" nav-item">
       <a class="nav-link" [routerLink]="['/internaldatabase']">
         <i class="material-icons">perm_data_setting
-          </i>
+        </i>
         <p>Internal Database
         </p>
       </a>
     </li>
 
 
-    <li routerLinkActive="active" class=" nav-item">
+    <li routerLinkActive="active" *ngIf="db.mp.page_history" class=" nav-item">
       <a class="nav-link" [routerLink]="['/history']">
         <i class="material-icons">history</i>
         <p>History
@@ -83,7 +84,7 @@
     </li>
 
 
-    <li routerLinkActive="active" class=" nav-item">
+    <li routerLinkActive="active" *ngIf="db.mp.page_call" class=" nav-item">
       <a class="nav-link" [routerLink]="['/call-detail']">
         <i class="material-icons">contact_phone</i>
         <p>Call Detail
@@ -98,9 +99,10 @@
       <div class="collapse" id="jobs">
         <ul class="nav">
 
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/myjob']"><span
-                class="sidebar-normal">myjob</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/newjob']">
+          <li class="nav-item" *ngIf="db.mp.page_job" routerlinkactive="active"><a class="nav-link"
+              [routerLink]="['/myjob']"><span class="sidebar-normal">myjob</span></a></li>
+          <li class="nav-item" *ngIf="db.mp.add_new_job_store" routerlinkactive="active"><a class="nav-link"
+              [routerLink]="['/newjob']">
               <span class="sidebar-normal">New Job</span></a></li>
 
         </ul>
@@ -114,20 +116,23 @@
       <div class="collapse" id="reports">
         <ul class="nav">
 
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/clientreport']"><span
-                class="sidebar-normal">Client Report</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/recruiterreportnew']">
+          <li class="nav-item" *ngIf="db.mp.page_reports" routerlinkactive="active"><a class="nav-link"
+              [routerLink]="['/clientreport']"><span class="sidebar-normal">Client Report</span></a></li>
+          <li class="nav-item" *ngIf="db.mp.page_job_stop|| db.profile.app_id=='6'" routerlinkactive="active"><a
+              class="nav-link" [routerLink]="['/recruiterreportnew']">
               <span class="sidebar-normal">Recruiter Report </span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link"
-              [routerLink]="['/recruiter-report-newhistory']">
+          <li class="nav-item" *ngIf="db.mp.page_reports || db.profile.app_id=='6'" routerlinkactive="active"><a
+              class="nav-link" [routerLink]="['/recruiter-report-newhistory']">
               <span class="sidebar-normal">Recruiter Report history</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/jobwise']">
+          <li class="nav-item" *ngIf="db.mp.page_job_stop|| db.profile.app_id=='6'" routerlinkactive="active"><a
+              class="nav-link" [routerLink]="['/jobwise']">
               <span class="sidebar-normal">Job Wise Report</span></a></li>
 
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/client-report-full']">
+          <li class="nav-item" *ngIf="db.mp.page_job_stop|| db.profile.app_id=='6'" routerlinkactive="active"><a
+              class="nav-link" [routerLink]="['/client-report-full']">
               <span class="sidebar-normal">Client Report Full </span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link"
-              [routerLink]="['/openingclientwise']">
+          <li class="nav-item" *ngIf="db.mp.page_job_stop|| db.profile.app_id=='6'" routerlinkactive="active"><a
+              class="nav-link" [routerLink]="['/openingclientwise']">
               <span class="sidebar-normal">Opening Client Wise</span></a></li>
         </ul>
       </div>
@@ -140,18 +145,18 @@
       <div class="collapse" id="settings">
         <ul class="nav">
 
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/smtpdetails']"><span
+          <li class="nav-item" *ngIf="db.mp.smtp_details || db.profile.app_id=='6'" routerlinkactive="active"><a class="nav-link" [routerLink]="['/smtpdetails']"><span
                 class="sidebar-normal">Smtp Detail</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/candidatestatusupdate']">
+          <li class="nav-item" *ngIf="db.mp.page_candidate_status_update" routerlinkactive="active"><a class="nav-link" [routerLink]="['/candidatestatusupdate']">
               <span class="sidebar-normal">Candidate Status Update</span></a></li>
 
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/messagetemplate']">
+          <li class="nav-item"  *ngIf="db.mp.page_message_template" routerlinkactive="active"><a class="nav-link" [routerLink]="['/messagetemplate']">
               <span class="sidebar-normal">Message Templates</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/client']">
+          <li class="nav-item" *ngIf="db.mp.page_client" routerlinkactive="active"><a class="nav-link" [routerLink]="['/client']">
               <span class="sidebar-normal">Client</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/newtracker']">
+          <li class="nav-item" *ngIf="db.mp.page_tracker" routerlinkactive="active"><a class="nav-link" [routerLink]="['/newtracker']">
               <span class="sidebar-normal">Add New Tracker</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/trackers']">
+          <li class="nav-item" *ngIf="db.mp.page_tracker_master" routerlinkactive="active"><a class="nav-link" [routerLink]="['/trackers']">
               <span class="sidebar-normal">Tracker Fields</span></a></li>
         </ul>
       </div>
@@ -164,9 +169,9 @@
       <div class="collapse" id="Logs">
         <ul class="nav">
 
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/messagelog']"><span
+          <li class="nav-item" *ngIf="db.mp.page_message_log" routerlinkactive="active"><a class="nav-link" [routerLink]="['/messagelog']"><span
                 class="sidebar-normal">Message Log</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/smslog']">
+          <li class="nav-item" *ngIf="db.mp.page_sms_log" routerlinkactive="active"><a class="nav-link" [routerLink]="['/smslog']">
               <span class="sidebar-normal">SMS log</span></a></li>
 
 
@@ -181,9 +186,9 @@
       <div class="collapse" id="EmployeeReference">
         <ul class="nav">
 
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/department']"><span
+          <li class="nav-item" *ngIf="db.mp.page_departments" routerlinkactive="active"><a class="nav-link" [routerLink]="['/department']"><span
                 class="sidebar-normal">Departments</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/employeeemail']">
+          <li class="nav-item" *ngIf="db.mp.page_employee_email" routerlinkactive="active"><a class="nav-link" [routerLink]="['/employeeemail']">
               <span class="sidebar-normal">Employee Email</span></a></li>
 
 
@@ -199,9 +204,9 @@
       <div class="collapse" id="Users">
         <ul class="nav">
 
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/users']"><span
+          <li class="nav-item" *ngIf="db.mp.page_user" routerlinkactive="active"><a class="nav-link" [routerLink]="['/users']"><span
                 class="sidebar-normal">User</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/channel']">
+          <li class="nav-item" *ngIf="db.mp.page_channel" routerlinkactive="active"><a class="nav-link" [routerLink]="['/channel']">
               <span class="sidebar-normal">Channel</span></a></li>
 
 
@@ -216,9 +221,9 @@
       <div class="collapse" id="Billing">
         <ul class="nav">
 
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/billing']"><span
+          <li class="nav-item" *ngIf="db.mp.page_billing" routerlinkactive="active"><a class="nav-link" [routerLink]="['/billing']"><span
                 class="sidebar-normal">Billing</span></a></li>
-          <li class="nav-item" routerlinkactive="active"><a class="nav-link" [routerLink]="['/billing-detail']">
+          <li class="nav-item" *ngIf="db.mp.page_billing" routerlinkactive="active"><a class="nav-link" [routerLink]="['/billing-detail']">
               <span class="sidebar-normal">Billing Details</span></a></li>
 
 

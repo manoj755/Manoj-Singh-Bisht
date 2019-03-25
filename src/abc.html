@@ -242,7 +242,7 @@
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                             <i class="fa fa-exclamation-triangle"></i> <strong>Hi there !</strong> You neither created nor assigned any job yet, to start working.
 
-                            <span ng-show="mp.add_new_job_store"> Please <a href="#/newjob"   class="btn  btn-raised btn-default"  >click  here</a> to add job .</span>
+                            <span *ngIf="db.mp.add_new_job_store"> Please <a href="#/newjob"   class="btn  btn-raised btn-default"  >click  here</a> to add job .</span>
                             <span ng-hide="mp.add_new_job_store">Please contact your manager.</span>
                         </div>
                     </div>
@@ -348,11 +348,11 @@
                                                        target="_blank">
                                                         <i class="fa fa-linkedin "></i>
                                                     </a>
-                                                    <a data-toggle="modal" ng-show="mp.btn_take_internal_refeference" data-target="#internalreference" href="javascript:" (click)="GetInHourseReference(item.id, $event)"
+                                                    <a data-toggle="modal" *ngIf="db.mp.btn_take_internal_refeference" data-target="#internalreference" href="javascript:" (click)="GetInHourseReference(item.id, $event)"
                                                        class="text-danger" help='get reference internal' title='get reference internal'>
                                                         <i class="fa fa-bullhorn  "></i>
                                                     </a>
-                                                    <a href="#"   class="pull-right text-aqua" ng-show="mp.btn_upload_cv_myjobs">
+                                                    <a href="#"   class="pull-right text-aqua" *ngIf="db.mp.btn_upload_cv_myjobs">
                                                         <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)" help="Upload CVs(Excel)" class="fa fa-upload"></i>
                                                     </a>
 
@@ -947,7 +947,7 @@
 
 
 
-                                    <div class="form-group " ng-show="mp.can_add_skills_for_call">
+                                    <div class="form-group " *ngIf="db.mp.can_add_skills_for_call">
                                         <label class="col-md-3 col-sm-offset-2" Title>Primary Skill</label>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control " n="Primary Skill" id="Primary_Skill" ng-model="myjob.first_skill"
@@ -957,7 +957,7 @@
                                     </div>
 
 
-                                    <div class="form-group" ng-show="mp.can_add_skills_for_call">
+                                    <div class="form-group" *ngIf="db.mp.can_add_skills_for_call">
                                         <label class="col-md-3 col-sm-offset-2" Title>Secondary Skill</label>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control " n="Secondary Skill" id="Secondary_Skill" ng-model="myjob.second_skill"
@@ -965,7 +965,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="form-group " ng-show="mp.can_add_skills_for_call">
+                                    <div class="form-group " *ngIf="db.mp.can_add_skills_for_call">
                                         <label class="col-md-3 col-sm-offset-2" Title>Third Skill</label>
                                         <div class="col-md-6">
                                             <input type="text" class="form-control " n="Third Skill" id="Third_Skill" ng-model="myjob.third_skill"
@@ -1896,7 +1896,7 @@
                                             </option>
 
                                         </select>
-                                        <label ng-show="mp.btn_show_all_status" ><input type="checkbox" ng-change="comment()" ng-model="allstatus" />Override Status</label>
+                                        <label *ngIf="db.mp.btn_show_all_status" ><input type="checkbox" ng-change="comment()" ng-model="allstatus" />Override Status</label>
                                     <label><input type="checkbox" ng-model="commentstatus.noemail" ng-true-value="1" ng-false-value="0">No email/sms to candidate</label>
                                     </div>
                                 </div>

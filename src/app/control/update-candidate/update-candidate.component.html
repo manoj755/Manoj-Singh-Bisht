@@ -323,7 +323,7 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-md-6" *ngFor=" let data of  candidateshowdata.customdata">
+                  <div class="form-group col-md-6" *ngFor="let data of  candidateshowdata.customdata">
                     <label for="DOBd" class="control-label col-sm-4">{{data.key}}</label>
                     <div class="col-sm-7">
                       <b class="form-control">{{data.value}}</b>
@@ -355,7 +355,7 @@
                     <h3 class="text-bold text-red">{{trackerjobdataone.jobTitle}}</h3>
                   </div>
 
-                  <div class="form-group col-md-6" *ngFor=" let data of trackerjobdataone.custom_data">
+                  <div class="form-group col-md-6" *ngFor="let data of trackerjobdataone.custom_data">
                     <label for="DOBd" class="control-label col-sm-4">{{data.key}}</label>
                     <div class="col-sm-7">
                       <b class="form-control">{{data.value}}</b>
@@ -370,12 +370,12 @@
             </div>
           </mat-tab>
           <mat-tab label="CV">      <div class="well" style="position: relative;">
-            <div ng-hide="candidateshowdata.resume">
+            <div [hidden]="candidateshowdata.resume">
               <h1>No CV Found</h1>
             </div>
             <iframe
-              [attr.srouce]='"https://docs.google.com/gview?url=http://api.passivereferral.com/resumes/"+candidateshowdata.resume+"&pid=explorer&efh=false&a=v&chrome=false&embedded=true"'
-              *ngIf="candidateshowdata.resume" id="resumeview" style="border:0;" width="100%" height="800px"></iframe>
+            [src]='"https://docs.google.com/gview?url=http://api.passivereferral.com/resumes/"+candidateshowdata.resume+"&pid=explorer&efh=false&a=v&chrome=false&embedded=true"  | safe'
+              [hidden]="!candidateshowdata.resume" id="resumeview" style="border:0;" width="100%" height="800px"></iframe>
             <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;">&nbsp;</div>
           </div> </mat-tab>
 

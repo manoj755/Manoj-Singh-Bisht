@@ -99,11 +99,11 @@
                                                          target="_blank">
                                                           <i class="fa fa-linkedin "></i>
                                                       </a>
-                                                      <a  mat-mini-fab data-toggle="modal" ng-show="mp.btn_take_internal_refeference" data-target="#internalreference" href="javascript:" (click)="GetInHourseReference(item.id, $event)"
+                                                      <a  mat-mini-fab data-toggle="modal" *ngIf="db.mp.btn_take_internal_refeference" data-target="#internalreference" href="javascript:" (click)="GetInHourseReference(item.id, $event)"
                                                          class="text-danger" help='get reference internal' title='get reference internal'>
                                                           <i class="fa fa-bullhorn  "></i>
                                                       </a>
-                                                      <a  mat-mini-fab href="#"   class="pull-right text-aqua" ng-show="mp.btn_upload_cv_myjobs">
+                                                      <a  mat-mini-fab href="#"   class="pull-right text-aqua" *ngIf="db.mp.btn_upload_cv_myjobs">
                                                           <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)" help="Upload CVs(Excel)" class="fa fa-upload"></i>
                                                       </a>
 
@@ -1003,7 +1003,7 @@
                                                   </option>
 
                                               </select>
-                                              <label ng-show="mp.btn_show_all_status" ><input type="checkbox" ng-change="comment()" [(ngModel)]="allstatus" />Override Status</label>
+                                              <label *ngIf="db.mp.btn_show_all_status" ><input type="checkbox" ng-change="comment()" [(ngModel)]="allstatus" />Override Status</label>
                                           <label><input type="checkbox" [(ngModel)]="commentstatus.noemail" ng-true-value="1" ng-false-value="0">No email/sms to candidate</label>
                                           </div>
                                       </div>

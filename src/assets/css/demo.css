@@ -36,16 +36,25 @@
 .cdk-overlay-container,.zindex{ z-index: 99999 !important;}
 .height500{ height: 500px !important;}
 .width700{ height: 700px !important;}
+.charthw{ height: 500px !important; min-width: 500px !important; width: 100% !important;}
 .width80percent{ width:80% !important; max-width:80% !important;}
 .width100percent{ width:100% !important; max-width:100% !important;}
 .select2{ width:100% !important; max-width: 100% !important;}
 .ng-valid[required], .ng-valid.required  {
-  border-right: 5px solid #42A948; /* green */
+/*  border-right: 5px solid #42A948; */ /* green */
 }
 
 .ng-invalid:not(form)  {
-  border-right: 5px solid #a94442; /* red */
+ /* border-right: 5px solid #a94442; */ /* red */
 }
 .my-pagination /deep/ .ngx-pagination .current {
 
   }
+  .ngx-pagination{
+    background: white;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 0 10px #aaa;
+    border-radius: 3px;
+  }
+  .ngx-pagination .current{ box-shadow: 0 0 4px #bbb; border: solid 1px white;}
