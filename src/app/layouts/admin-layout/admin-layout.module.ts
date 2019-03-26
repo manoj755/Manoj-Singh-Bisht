@@ -55,6 +55,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { OrderModule } from 'ngx-order-pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PipesModule } from 'w-ng5';
 import { CandidateMyJobComponent } from '../../control/candidate-my-job/candidate-my-job.component';
 import {
   MatButtonModule,
@@ -71,6 +72,7 @@ import {
   MatTabsModule,
   MatBadgeModule,
   MatDatepickerModule,
+  //MatDialog
 
 
 } from '@angular/material';
@@ -116,6 +118,7 @@ declare var $: any;
     MatTabsModule,
     MatDatepickerModule,
     NgxPaginationModule,
+    PipesModule,
     AgGridModule.withComponents([
 
       CandidateMyJobComponent,

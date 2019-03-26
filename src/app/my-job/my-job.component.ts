@@ -183,9 +183,9 @@ leave(i) {
         ((r): void => {
           if (r.errormsg !== undefined) {
             this.db.addmessageandremove(r.errormsg);
-          } else {
-            this.db.addmessageandremove('Some error occured');
-          }
+          }//  else {
+          //   this.db.addmessageandremove('Some error occured');
+          // }
         }));
     } else {
       this.db.addmessageandremove('Please Select CV');

@@ -1,5 +1,4 @@
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="addtojob"
-class="modal fade">
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="addtojob" style="background-color:#fdfdf286;;" class="modal fade">
 <div class="modal-dialog" id="client">
   <div class="modal-content">
     <div class="modal-header">
@@ -9,7 +8,7 @@ class="modal fade">
     <div class="modal-body">
       <div class="form-horizontal">
         <div class="form-group">
-          <label for="Client" class="control-label col-xs-2">Client:</label>
+          <label for="Client" class="control-label col-xs-2">{{clientsdepartment}}:</label>
           <div class="col-xs-10">
             <ng-select class='e' [(ngModel)]="addtojob.client_detail_id" (change)='getcandidatebyclientaddtojob()'>
               <ng-option *ngFor="let x of clients" [value]="x.id"  >{{x.billingName}}</ng-option>
@@ -63,3 +62,6 @@ class="modal fade">
   </div>
 </div>
 </div>
+<!-- $("#addtojob").modal({
+  backdrop: false
+}); -->
