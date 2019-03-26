@@ -13,6 +13,7 @@ export class MyJobComponent implements OnInit {
   private gridApi;
   p = 0;
   recruiter;
+  allids = [];
   displaydd = 'Job';
   private gridColumnApi;
   managers = [];
@@ -54,7 +55,7 @@ export class MyJobComponent implements OnInit {
   trackerdatamyjob: any = {};
   isfilter: any;
   jobslist: any = [];
-  selectedjob: any;
+  selectedjob: any = 0;
   jobslistmain: any;
   filterdropdown = '';
   searchcandidatetext = '';
@@ -68,7 +69,7 @@ export class MyJobComponent implements OnInit {
   selectedjobunderreview: any;
   selectedjobinprocess: any;
   selectedjobselectedcandidate: any;
-  process: any;
+  process: any = 'all';
   ajid: any;
   vendors: any = [];
   selectedjobrejected: any;
@@ -77,7 +78,7 @@ export class MyJobComponent implements OnInit {
   selectedjobininterview: any;
   isLoadingJobs = false;
   countRowsinMyJob = 0;
-  mainprocess: any;
+  mainprocess: any = '0';
   $url = 'http://www.passivereferral.com/refer';
   $urlapply = 'http://www.passivereferral.com/apply';
 
@@ -99,7 +100,7 @@ export class MyJobComponent implements OnInit {
   agreed = 0;
   disagreed = 0;
   constructor(public db: DBService) {
-    debugger;
+
     if (db.profile.id) {
 
     } else {
@@ -135,20 +136,21 @@ leave(i) {
 
 
   sendtrackermsg(download): void {
-    if (!$('.validate').validate('#myModal')) {
-      //  $.fn.showMessage('Please fill values');
-      return;
+    if (!download) {
+      if (!$('.validate').validate('#myModal')) {
+        //  $.fn.showMessage('Please fill values');
+        return;
+      }
     }
-
     if (download) {
       this.download = true;
     } else {
       this.download = false;
 
     }
-    if (this.countRowsinMyJob > 0) {
+    if (this.selectednodes.length > 0) {
 
-      const allrow = this.db.getIDs(this.db.nodetype);
+      const allrow = this.db.extractIDsData(this.selectednodes, 'ajid');
 
       if (allrow.length === 0) {
         this.db.showMessage('Please select candidates');
@@ -162,6 +164,7 @@ leave(i) {
       }
       this.db.store('sendtracker', this.sendtracker, ((r): void => {
         if (this.download) {
+
           const resumes = r.resumes;
           let resumehtml = '';
           if (resumes.length > 0) {
@@ -174,8 +177,9 @@ leave(i) {
             }
             resumehtml += '</div>';
           }
-          this.db.addmessageandremove('Your excel is ready.<a  '
-            + '  href="http://api.passivereferral.com/trackers/' + r.data.excel + '">Click Here</a> to Download ' + resumehtml);
+          this.db.showDialog(`Your excel is ready.<a href="http://api.passivereferral.com/trackers/`
+          + r.excel
+          + `">Click Here</a> to Download ` + resumehtml, 'Message');
         } else {
           this.db.addmessageandremove('tracker sent');
         }
@@ -272,7 +276,8 @@ leave(i) {
       //  $.fn.showMessage('Please fill values');
       return;
     }
-    const allrow = this.db.getIDs(this.db.nodetype);
+
+    const allrow = this.db.extractIDsData(this.selectednodes, 'ajid');
 
     if (allrow.length === 0) {
       this.db.showMessage('Please select candidates');
@@ -460,7 +465,7 @@ leave(i) {
   };
 
   loadCandidate = function () {
-    debugger;
+
     //
     let SelectedJob = ''
     if (this.isfirstload !== 1) {
@@ -469,19 +474,22 @@ leave(i) {
       SelectedJob = this.selectedjob;
     }
     SelectedJob = this.selectedjob;
-    //const totalrow = this.selectednodes;
-    //SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
+    // const totalrow = this.selectednodes;
+    // SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
     this.globaljobid = SelectedJob;
-
     const Search = {
       filterdropdown: this.filterdropdown,
       process: this.process,
       mainprocess: this.mainprocess,
       searchcandidatetext: this.searchcandidatetext,
       selectedjob: SelectedJob,
-      candidate: this.searchcandidate,
-      isinterview: this.isinterview,
+      candidate: this.searchcandidate
+
     };
+    if (this.isinterview !== undefined) {
+      Search['isinterview'] = this.isinterview;
+    }
+
     this.rowData = [];
     console.log(Search);
     this.db.list('candidatesdetailmyjob/', Search, ((response): void => {
@@ -703,7 +711,7 @@ leave(i) {
   public onCommentClick(data: any) {
 
     this.allstatusload = 0;
-    debugger;
+
     this.status_row = data;
     // this.updatestatuscomponent.status_id = 22;
     // if (entity) {
@@ -717,7 +725,7 @@ leave(i) {
     //   $scope.allstatusload = 0;
     // }
 
-    // debugger;
+    //
     // if (entity.recruiter_id == null) {
     //   $scope.showowner = true;
     // } else {
@@ -816,6 +824,7 @@ leave(i) {
 
   onSelectionChanged(event) {
     this.selectednodes = event.api.getSelectedNodes();
+    this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
     // this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
 
   }

@@ -102,7 +102,7 @@ export class NewJobComponent implements OnInit {
 
 
   jobtype(): void {
-    debugger;
+
     $('#internshipdiv').hide();
     $('#contract').hide();
     $('#freelence').hide();
@@ -171,7 +171,7 @@ export class NewJobComponent implements OnInit {
 
 
   updatemaxsalary(): void {
-    debugger;
+
     let kk = 0;
     this.maxSalaryOption = [];
     kk = this.minimumSalarylac;
@@ -770,6 +770,7 @@ export class NewJobComponent implements OnInit {
 
   // $.material.init();
   addNewJobSave(): void {
+
     debugger;
     this.myjob.job_status = 'Active';
 
@@ -779,8 +780,8 @@ export class NewJobComponent implements OnInit {
       const locations = this.location;
       let locationstr = '';
       for (const j in locations) {
-        if (locations[j]) {
-          locationstr += locations[j] + ',';
+        if (locations[j].$ngOptionLabel) {
+          locationstr += locations[j].$ngOptionLabel + ',';
         }
 
       }

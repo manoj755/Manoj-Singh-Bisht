@@ -1,4 +1,5 @@
 <div class="main-content">
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
@@ -130,7 +131,7 @@
           </div>
           <div class="col-8">
             <mat-form-field class="example-full-width">
-              <input matInput placeholder="Search" type="text" [(ngModel)]="searchText" (change)="loadInternalData()" />
+              <input matInput placeholder="Search" type="text" [(ngModel)]="searchText" (keyup)="loadInternalData()" />
             </mat-form-field>
           </div>
 

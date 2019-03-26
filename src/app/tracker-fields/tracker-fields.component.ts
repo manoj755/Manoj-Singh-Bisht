@@ -195,7 +195,7 @@ export class TrackerFieldsComponent implements OnInit {
       if (this.trackermaster[k]) {
         this.tracker = this.trackermaster[k];
         if (this.tracker.selected) {
-          // debugger;
+          //
           let isExist = false;
           for (const i in this.trackerselected) {
             if (this.trackerselected[i].id === this.tracker.id) {

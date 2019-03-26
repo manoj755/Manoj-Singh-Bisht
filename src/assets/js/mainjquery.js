@@ -338,7 +338,7 @@ $(function () {
       //            });
       if (issubmit || true) {
         ISSUBMIT = issubmit;
-        debugger;
+
         var isAllValid = true;
         var arr = $(ele + ' input,' + ele + ' textarea,' + ele + ' [validate],' + ele + ' select');
         arr.each(function (index) {
@@ -450,7 +450,7 @@ $(function () {
     $('body').append('<div id="helpcontainer" class="alert " style="padding:3px 13px; background:black; color:white; position:absolute; z-index:999999999999999999999999;box-shadow: 0 0 10px #0000006b;border: solid 1px white;border-radius: 13px; display:none; margin-top:-10px;"></div>');
   }
   //    $(document).delegate(".menu-toggle", "click", function (e) {
-  //        debugger;
+  //
   //        if ($(this).hasClass('minus'))
   //        {
   //            $(this).next().hide().removeClass('show-down');

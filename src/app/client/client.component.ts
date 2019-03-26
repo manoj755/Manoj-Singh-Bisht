@@ -23,7 +23,7 @@ export class ClientComponent implements OnInit {
   item: any = {};
   tofeesslab = 0;
   stateobj = {};
-  //gridclientStateswiseBillingDetail: any;
+  // gridclientStateswiseBillingDetail: any;
   states: any;
   errors = {};
   isscroll = false;
@@ -204,7 +204,7 @@ export class ClientComponent implements OnInit {
 
   onActionEditClick(row): void {
 
-    debugger;
+
     this.isEdit = false;
     this.db.show('clientdetail/', row.id, ((response): void => {
 

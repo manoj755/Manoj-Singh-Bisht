@@ -1,15 +1,41 @@
+<div style="width: 100%; border-bottom: solid 3px white; position: fixed; top:0; left:0; z-index: 9999999999999;" id='loaderprogressbar' *ngIf="db.loaderprogressbar" >
+
+
+      <mat-progress-bar   mode="indeterminate" ></mat-progress-bar>
+
+
+
+</div>
+
+<div aria-hidden="true" style="z-index:9999999999999999;" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="messagepopup"
+class="modal fade">
+<div class="modal-dialog  modal-lg"  >
+  <div class="modal-content">
+    <div class="modal-header">
+
+      <h4 class="modal-title" id='messagetitle'>Get References/Send Mail to Candidates</h4> <button aria-hidden="true"
+        data-dismiss="modal" class="close" type="button">×</button>
+    </div>
+    <div class="modal-body" id='messagebody' >
+
+    </div>
+
+  </div>
+</div>
+</div>
+
 <div class="wrapper">
-    <div class="sidebar"  data-color="azure" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
-        <app-sidebar  ></app-sidebar>
-        <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
+  <div class="sidebar" data-color="azure" data-background-color="white" data-image="./assets/img/sidebar-1.jpg">
+    <app-sidebar></app-sidebar>
+    <div class="sidebar-background" style="background-image: url(./assets/img/sidebar-4.jpg)"></div>
+  </div>
+  <div class="main-panel">
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+    <div *ngIf="isMaps('maps')">
+      <app-footer></app-footer>
     </div>
-    <div class="main-panel"  >
-        <app-navbar  ></app-navbar>
-        <router-outlet></router-outlet>
-        <div *ngIf="isMaps('maps')">
-            <app-footer></app-footer>
-        </div>
-    </div>
+  </div>
 
 
 </div>

@@ -37,8 +37,9 @@ export class HistoryComponent implements OnInit {
         ` + param.value + `
    </button>
 `;
-      }},
-   { headerName: 'Current Designation', field: 'currentDesignation', sortable: true, filter: true },
+      }
+    },
+    { headerName: 'Current Designation', field: 'currentDesignation', sortable: true, filter: true },
     { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
     { headerName: 'Email', field: 'email', sortable: true, filter: true },
     { headerName: 'Location', field: 'location', sortable: true, filter: true },
@@ -72,7 +73,7 @@ export class HistoryComponent implements OnInit {
   }
 
   LoadHistory(): void {
-    this.rowData=[];
+    this.rowData = [];
     this.data = {};
     if (this.recruiter) {
       this.data = { recruiter: this.recruiter };
@@ -97,7 +98,7 @@ export class HistoryComponent implements OnInit {
       const data = e.data;
       const actionType = e.event.target.getAttribute('data-action-type');
 
-      debugger;
+
       switch (actionType) {
         // case 'activity':
         //   return this.activityclick(data);
@@ -112,7 +113,7 @@ export class HistoryComponent implements OnInit {
   }
   public oncandidateshowClick(data: any) {
 
-    debugger;
+
     data.tempdate = new Date().getMilliseconds();
     this.currentData = {};
     this.currentData = data;

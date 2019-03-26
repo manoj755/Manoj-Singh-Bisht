@@ -224,7 +224,7 @@
 
                                             <button mat-raised-button color="primary" matBadge="{{item.allcandidate}}"
                                             matBadgePosition="after" matBadgeColor="accent" class=" "
-                                            (click)="filterdrbytab('My Candidates', 'all', item)" data-toggle="modal"
+                                            (click)="filterdrbytab('My Candidates', 'allcalled', item)" data-toggle="modal"
                                             data-target="#candidatesall">All
                                           </button>
 
@@ -269,14 +269,7 @@
                                 </div>
                               </div>
 
-                              <pagination-controls     directionLinks="true"
-                              autoHide="true"
-                              responsive="true"
-                              previousLabel="Previous"
-                              nextLabel="Next"
-                              screenReaderPaginationLabel="Pagination"
-                              screenReaderPageLabel="page"
-                              screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event"></pagination-controls>
+
                           <mat-card [hidden]='jobslist.length>0||isLoadingJobs' >
                               No Data Found
                           </mat-card>
@@ -1230,7 +1223,6 @@
 
     </div>
   </div>
-  <app-call></app-call>
 
 <app-add-to-job></app-add-to-job>
 <app-add-note [set_candidate_id]='candidate_id'></app-add-note>

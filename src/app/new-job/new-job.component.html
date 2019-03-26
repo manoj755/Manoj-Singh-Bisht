@@ -334,11 +334,10 @@
                     </label>
                     <div class="col-md-10">
 
-{{location}}
 
-                      <select [(ngModel)]="location" [multiple]="true">
-                        <option *ngFor="let location of locations ">{{location}}</option>
-                      </select>
+                      <ng-select [(ngModel)]="location" [multiple]="true" ngDefaultControl>
+                        <ng-option *ngFor="let location of locations ">{{location}}</ng-option>
+                      </ng-select>
                     </div>
 
 
