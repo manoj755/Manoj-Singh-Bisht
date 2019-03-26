@@ -64,7 +64,7 @@ export class UpdateStatusComponent implements OnInit {
       this.commentstatus.noemail = 0;
     }
 
-    debugger;
+
     if (entity.recruiter_id == null) {
       this.showowner = true;
     } else {
@@ -84,7 +84,7 @@ export class UpdateStatusComponent implements OnInit {
   }
   purposechange(): void {
     // alert('purposechange');
-    debugger;
+
     let purpose = 0;
     for (const i in this.statuses) {
       if (this.statuses[i].id === parseInt(this.commentstatus.status, 0)) {

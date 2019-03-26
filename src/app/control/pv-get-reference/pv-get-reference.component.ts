@@ -56,12 +56,12 @@ export class PvGetReferenceComponent implements OnInit {
         return;
       }
     // this.user.profilepic=this.user.profilepic[0];
-    const allrow = this.db.getIDs(this.db.nodetype);
+    // const allrow = this.db.getIDs(this.db.nodetype);
 
     if (this.sendemail) {
 
 
-      this.myjob.prmCandidateId = allrow;
+      this.myjob.prmCandidateId = this.allids;
       this.myjob.prmTemplateId = this.emailselected.id;
       this.myjob.jobid = this.myjob.add_new_job_id;
       this.myjob.token = localStorage.Authkey;
@@ -78,7 +78,7 @@ export class PvGetReferenceComponent implements OnInit {
     }
     if (this.sendsms) {
       this.sms.prmTemplateId = this.smsselected.id;
-      this.sms.prmCandidateId = allrow;
+      this.sms.prmCandidateId = this.allids;
       this.sms.jobid = this.myjob.add_new_job_id;
       this.db.store('smsgetreference/', this.sms, ((response): void => {
 
@@ -115,7 +115,7 @@ export class PvGetReferenceComponent implements OnInit {
   };
 
   setemail(): void {
-    debugger;
+
     for (const i in this.emailmessagetemplates) {
       if (this.emailmessagetemplates[i].id === this.emailselectedid) {
         this.emailselected = this.emailmessagetemplates[i];

@@ -24,7 +24,7 @@ export class UpdateCandidateComponent implements OnInit {
       this.currentData.candidate_id = currentData.id;
       if (currentData && currentData.candidate_id && currentData.candidate_id > 0) {
         this.globaljobid = this.currentData.id;
-        debugger;
+
         this.candidateshow(currentData.candidate_id);
         this.currentData = {};
 
@@ -57,7 +57,7 @@ export class UpdateCandidateComponent implements OnInit {
       });
     }
     if (this.globaljobid > 0) {
-      debugger;
+
       this.db.list('trackerdata', {
         'candidate_id': id,
         'jobid': this.globaljobid
@@ -78,7 +78,7 @@ export class UpdateCandidateComponent implements OnInit {
       this.trackerjobdata = response;
     });
     this.db.show('candidatedetail/', id, (response): void => {
-      debugger;
+
       if (response.customdata === null) {
         response.customdata = [];
       } else {

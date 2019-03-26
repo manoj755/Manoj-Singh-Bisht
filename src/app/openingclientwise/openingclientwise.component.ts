@@ -29,7 +29,7 @@ export class OpeningclientwiseComponent implements OnInit {
         'headerName': 'Job Title', 'field': 'JobTitle', 'sortable': true, 'filter': true,
         cellRenderer: function (jt) {
 
-          debugger; return jt.data.JobTitle + '<b>b</b>';
+          return jt.data.JobTitle + '<b>b</b>';
         }
       },
       { 'headerName': 'No of Opening', 'field': 'No.Of.Opening', 'sortable': true, 'filter': true }

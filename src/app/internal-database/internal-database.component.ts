@@ -72,7 +72,7 @@ export class InternalDatabaseComponent implements OnInit {
       const data = e.data;
       const actionType = e.event.target.getAttribute('data-action-type');
 
-      debugger;
+
       switch (actionType) {
         // case 'activity':
         //   return this.activityclick(data);
@@ -87,7 +87,7 @@ export class InternalDatabaseComponent implements OnInit {
   }
   public oncandidateshowClick(data: any) {
 
-    debugger;
+
     data.tempdate = new Date().getMilliseconds();
     this.currentData = {};
     this.currentData = data;

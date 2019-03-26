@@ -184,9 +184,10 @@ export class ClientreportComponent implements OnInit {
         { 'headerName': 'Mobile No', 'field': 'mobileNo', 'sortable': true, 'filter': true },
         { 'headerName': 'Location', 'field': 'location', 'sortable': true, 'filter': true },
         { 'headerName': 'Title', 'field': 'job_title', 'sortable': true, 'filter': true },
-        { 'headerName': 'Status', 'field': 'Status', 'sortable': true, 'filter': true }];// this.db.GenerateColDef(response);
+        { 'headerName': 'Status', 'field': 'Status', 'sortable': true, 'filter': true }];
+        // this.db.GenerateColDef(response);
       this.candidate_filtered = response;
-      debugger;
+
       const Columns = [];
       for (const i in this.candidate_filtered) {
         if (Columns.length === 0) {
@@ -213,10 +214,10 @@ export class ClientreportComponent implements OnInit {
           isToadd = true;
         }
       }
-      debugger;
-      let clientbarunderreviewpie3 = c3.generate({
 
-        //x: 'x',
+      const clientbarunderreviewpie3 = c3.generate({
+
+        // x: 'x',
         bindto: '#clientbarunderreviewpie3',
         data: {
 
@@ -239,8 +240,8 @@ export class ClientreportComponent implements OnInit {
           }
         }
       });
-      let clientbarunderreview3 = c3.generate({
-        //x: 'x',
+      const clientbarunderreview3 = c3.generate({
+        // x: 'x',
         bindto: '#clientbarunderreview3',
         data: {
 
@@ -290,7 +291,8 @@ export class ClientreportComponent implements OnInit {
         { 'headerName': 'Job Status', 'field': 'job_status', 'sortable': true, 'filter': true },
         { 'headerName': 'Start Date', 'field': 'start_date', 'sortable': true, 'filter': true },
         { 'headerName': 'End Date', 'field': 'end_date', 'sortable': true, 'filter': true },
-        { 'headerName': 'type', 'field': 'jobtype', 'sortable': true, 'filter': true }];// this.db.GenerateColDef(response);
+        { 'headerName': 'type', 'field': 'jobtype', 'sortable': true, 'filter': true }];
+        // this.db.GenerateColDef(response);
       this.showjobsClientWiseRows = response;
 
 
@@ -387,7 +389,7 @@ export class ClientreportComponent implements OnInit {
       //            }
 
       Columns.push(Total_Candidate);
-      // debugger;
+      //
       Columns.push(selected_Candidate);
       Columns.push(Rejected_Candidate);
       Columns.push(In_Process_Candidate);

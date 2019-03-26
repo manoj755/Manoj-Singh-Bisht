@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from '../db.service';
+import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-my-job.component';
 declare var $: any;
 @Component({
   selector: 'app-call-detail',
@@ -11,6 +12,8 @@ export class CallDetailComponent implements OnInit {
   p = 1;
   private emailselected = {};
   private gridApi;
+  selectednodes = [];
+  allids = [];
   http_or_https = 'http';
   recruiter;
   conversations = [];
@@ -26,7 +29,7 @@ export class CallDetailComponent implements OnInit {
   columnDefs = [
     {
       headerName: 'activity', sortable: false, filter: true, headerCheckboxSelection: true, checkboxSelection: true,
-      field: 'id', cellRendererFramework: CallDetailComponent,
+      field: 'id', cellRendererFramework: CandidateMyJobComponent,
       width: 1000,
     },
 
@@ -54,7 +57,7 @@ export class CallDetailComponent implements OnInit {
   upper: any;
   ishidereference: false;
   status: any = {};
-  item: any = {};
+  item: any = { start_date_temp: new Date('2000-01-01'), end_date_temp: new Date() };
   gridOptionsloadcandidatesInPopUp: any = {};
   candidatedetails: any = {};
   FH: any = {};
@@ -280,7 +283,7 @@ export class CallDetailComponent implements OnInit {
 
 
   submit_cv_to_panel_status(): void {
-    // debugger;
+    //
     this.db.list('submit_cv_to_panel_status/', {}, ((response): void => {
 
       this.cv_to_panel = { status: response };
@@ -337,7 +340,7 @@ export class CallDetailComponent implements OnInit {
   };
   tag(item): void {
 
-    //  debugger;
+    //
     if (item.tagged !== '10') {
       this.db.destroy('jobtag/', this.item.id, ((response): void => {
         this.item.tagged = '10';
@@ -355,7 +358,7 @@ export class CallDetailComponent implements OnInit {
   };
   is_approved_by_manager(item): void {
 
-    // debugger;
+    //
     if (item.is_approved_by_manager !== '0') {
       this.db.store('removeapprovedbymanager/', { job_id: this.item.id }, ((response): void => {
         this.item.is_approved_by_manager = '0';
@@ -465,11 +468,11 @@ export class CallDetailComponent implements OnInit {
     }
   };
   filterpopupfunction(): void {
-    // debugger;
+    //
     if (this.trim(this.filterpopup.length) === 0) {
       this.gridOptionsloadcandidatesInPopUp.data = this.candidateinpopup;
     } else {
-      //  debugger;
+      //
       const dataafterfilter = [];
       for (const i in this.candidateinpopup) {
         if (this.candidateinpopup[i]) {
@@ -524,8 +527,8 @@ export class CallDetailComponent implements OnInit {
       selectedjob: SelectedJob,
       candidate: this.searchcandidate,
       isinterview: this.isinterview,
-      start_date: this.item.start_date,
-      end_date: this.item.end_date
+      start_date: this.db.toYYMMDD(this.item.start_date_temp),
+      end_date: this.db.toYYMMDD(this.item.end_date_temp)
     };
 
     $('#conversation').on('hidden.bs.modal', function () {
@@ -539,7 +542,7 @@ export class CallDetailComponent implements OnInit {
 
     this.rowData = [];
     this.db.list('callcandidatesdetailmyjob/', Search, ((response): void => {
-      // debugger;
+      //
       // this.gridOptionsloadcandidatesInPopUp.columnDefs = this.columnDefs;
       this.candidatedetails = response;
       this.rowData = response;
@@ -799,6 +802,7 @@ export class CallDetailComponent implements OnInit {
     this.searchcandidatetext = '';
   };
   filterdrbytab(mainprocess, childprocess, jobitem): void {
+    debugger;
     this.isinterview = 9;
     if (childprocess === 'isinterview') {
       childprocess = 'all';
@@ -1119,7 +1123,7 @@ export class CallDetailComponent implements OnInit {
   };
   uploadinvoicevendor(file, invoiceid): void {
     if (file != null) {
-      //  debugger;
+      //
       this.inovoicedata = {};
       this.inovoicedata.file = file;
       this.inovoicedata.invoiceid = invoiceid;
@@ -1165,7 +1169,7 @@ export class CallDetailComponent implements OnInit {
       this.allstatusload = 0;
     }
 
-    //  debugger;
+    //
     if (entity.recruiter_id == null) {
       this.showowner = true;
     } else {
@@ -1253,7 +1257,7 @@ export class CallDetailComponent implements OnInit {
     this.atjidentity = entity;
     $('#trackerDetailExtra').modal('show');
     this.db.list('trackerdatacustom/', { ajid: entity.ajid }, ((response): void => {
-      // debugger;
+      //
       this.trackerdatamyjob = response;
     })
     );
@@ -1263,7 +1267,7 @@ export class CallDetailComponent implements OnInit {
     // this.job = job;
     // this.atjidentity = entity;
     $('#trackerDetailExtra').modal('show');
-    // debugger;
+    //
     trackerdatamyjob.ajid = this.atjidentity.ajid;
     this.db.store('trackerdatacustom/', trackerdatamyjob, ((response): void => {
       this.db.addmessageandremove('Saved');
@@ -1309,7 +1313,7 @@ export class CallDetailComponent implements OnInit {
 
 
   //    this.maximumSalary=[];
-  //    debugger;
+  //
   //    this.db.list('maximumSalary',null,function(response){
   //        var data =response;
   //        for(i in data){
@@ -1328,7 +1332,7 @@ export class CallDetailComponent implements OnInit {
   // });
 
   showJob(id, $event): void {
-    // debugger;
+    //
     $event.stopPropagation();
     // this.job = job;
     if (this.mp.add_new_job_show) {
@@ -1394,7 +1398,7 @@ export class CallDetailComponent implements OnInit {
         //
         // changerole();
         //
-        // debugger;
+        //
         $('#submitjob').modal('show');
       })
       );
@@ -1402,7 +1406,7 @@ export class CallDetailComponent implements OnInit {
   };
 
   changerole(): void {
-    // debugger;
+    //
     setTimeout(function () {
       if ($('#role').val() === 'Internship') {
         $('#internship').show();
@@ -1424,7 +1428,7 @@ export class CallDetailComponent implements OnInit {
     }, 10);
   };
   GetInHourseReference(id, $event): void {
-    // debugger;
+    //
     $event.stopPropagation();
     this.jobidforReference = id;
     this.db.list('applicationdepartment/', null, ((response): void => {
@@ -1461,7 +1465,7 @@ export class CallDetailComponent implements OnInit {
     })
   };
   changechecked(item): void {
-    // debugger;
+    //
     item.selected = !item.selected;
   };
 
@@ -1611,7 +1615,7 @@ export class CallDetailComponent implements OnInit {
 
 
   getcandidatebyclientbyjob(): void {
-    // debugger;
+    //
 
     this.db.list('addnewjob/', { clientId: this.copycandidate.client_detail_id }, ((response): void => {
       this.jobslistbyclients = response;
@@ -1622,7 +1626,7 @@ export class CallDetailComponent implements OnInit {
 
   // sendcalltocandidates(): void {
 
-  //   // debugger;
+  //   //
 
   //   var totalrow = this.row.selection.getSelectedRows();
   //   var allrow = this.FH.SelectedWithComma(totalrow, 'id');
@@ -1646,6 +1650,7 @@ export class CallDetailComponent implements OnInit {
   //   );
   // }
 
+
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -1655,24 +1660,11 @@ export class CallDetailComponent implements OnInit {
   exportdat() {
     this.gridApi.exportDataAsCsv();
   }
+
   onSelectionChanged(event) {
-    this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
+    this.selectednodes = event.api.getSelectedNodes();
+    this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
+    // this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
 
   }
-
-
-
-  // export():void {
-
-
-
-  //   if ( export_format == 'csv') {
-  //     var myElement = angular.element(document.querySelectorAll('.custom-csv-link-location'));
-  //     exportdata.exporter.csvExport(this.export_row_type, this.export_column_type, myElement);
-  //   } else if (this.export_format == 'pdf') {
-  //     this.exportdata.exporter.pdfExport(this.export_row_type, this.export_column_type);
-  //   }
-  //   export_format = '';
-  // };
-
 }

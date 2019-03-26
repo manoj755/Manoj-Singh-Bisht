@@ -153,7 +153,7 @@ export class RecruiterreportnewComponent implements OnInit {
         { 'headerName': 'Title', 'field': 'job_title', 'sortable': true, 'filter': true },
         { 'headerName': 'Status', 'field': 'Status', 'sortable': true, 'filter': true }];// this.db.GenerateColDef(response);
       this.candidate_filtered = response;
-      // debugger;
+      //
       // const Columns = [];
       // for (const i in this.candidate_filtered) {
       //   if (Columns.length === 0) {
@@ -180,7 +180,7 @@ export class RecruiterreportnewComponent implements OnInit {
       //     isToadd = true;
       //   }
       // }
-      // debugger;
+      //
       // let clientbarunderreviewpie3 = c3.generate({
 
       //   //x: 'x',
@@ -254,7 +254,7 @@ export class RecruiterreportnewComponent implements OnInit {
   }
 
   getlistmain(): void {
-    debugger;
+
     this.db.hl();
     $('.chartctrl').height(500);
     this.db.list('recruiterreportApi/', this.myjob, (response): void => {

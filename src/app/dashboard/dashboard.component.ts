@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
-import { Router } from "@angular/router";
-import { DBService } from "../db.service";
+import { Router } from '@angular/router';
+import { DBService } from '../db.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,9 +23,9 @@ export class DashboardComponent implements OnInit {
   setjobandreferencetemp: any = {};
   profile: any = {};
   in_process_referrals: any = [];
-  smsmessagetemplatesforref:any=[];
-  emailmessagetemplatesforref:any=[];
-  mp:any={};
+  smsmessagetemplatesforref: any = [];
+  emailmessagetemplatesforref: any = [];
+  mp: any = {};
   constructor(private router: Router, private db: DBService) { }
   startAnimationForLineChart(chart) {
     let seq: any, delays: any, durations: any;
@@ -106,25 +106,25 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  naukriclick(url:any):void {
-    debugger;
-    this.jobportalurl = url;
-    this.db.list("addnewjob/", {clientId: this.myjob.client_detail_id}, ((response): void => {
-        this.jobslistforref = response;
+  naukriclick(url: any): void {
 
-    } )
+    this.jobportalurl = url;
+    this.db.list('addnewjob/', { clientId: this.myjob.client_detail_id }, ((response): void => {
+      this.jobslistforref = response;
+
+    })
     );
-    this.db.list("smsmessagetemplate/", null, ((response): void => { 
-        this.smsmessagetemplatesforref = response;
+    this.db.list('smsmessagetemplate/', null, ((response): void => {
+      this.smsmessagetemplatesforref = response;
     }));
-    //Email-Message-Template
-    this.db.list("emailmessagetemplate/", null,((response): void => { 
-        this.emailmessagetemplatesforref = response;
+    // Email-Message-Template
+    this.db.list('emailmessagetemplate/', null, ((response): void => {
+      this.emailmessagetemplatesforref = response;
     }));
-}
+  }
   bindNewReference(): void {
     this.db.list('in_process_referral', null, ((response): void => {
-      var datainprocess = response;
+      const datainprocess = response;
       for (var i in datainprocess) {
         datainprocess[i].diff = this.daydiff(datainprocess[i].last_action_date, this.currentdate());
       }
@@ -158,13 +158,13 @@ export class DashboardComponent implements OnInit {
     })
     );
   }
-  internaldata():void {
+  internaldata(): void {
 
     // $('').modal('show');
-};
+  };
   getnotification(): void {
     this.db.list('getnotification', null, ((response): void => {
-      this.notification =response;
+      this.notification = response;
 
     }), ((response): void => {
 

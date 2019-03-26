@@ -23,6 +23,7 @@ export class DBService implements OnInit {
 
   LoginURL = 'login';
   clientsdepartment = '';
+  loaderprogressbar = false;
   profile: any = {};
   PF: any = {};
   mp: any = {};
@@ -109,7 +110,10 @@ export class DBService implements OnInit {
     localStorage.setItem('token', this.token);
 
   }
-  public showNotification(message, from?, align?) {
+  public showNotification(message, timer?, from?, align?) {
+    if (timer == null || timer === undefined) {
+      timer = 3000;
+    }
     if (from == null || from === undefined) {
       from = 'top';
     }
@@ -118,7 +122,7 @@ export class DBService implements OnInit {
     }
     const type = ['', 'info', 'success', 'warning', 'danger'];
 
-    const color = 4;// Math.floor((Math.random() * 4) + 1);
+    const color = 4; // Math.floor((Math.random() * 4) + 1);
 
     $.notify({
       icon: 'notifications',
@@ -126,28 +130,42 @@ export class DBService implements OnInit {
 
     }, {
         type: type[color],
-        timer: 3000,
+        timer: timer,
         placement: {
           from: from,
           align: align
         },
-        template: '<div style="z-index:99999!important;" data-notify="container" class="col-xl-4 col-lg-4 col-11 zindex col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
-          '<button mat-button  type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss">  <i class="material-icons">close</i></button>' +
+        template: '<div style="z-index:99999!important;" data-notify="container" ' +
+          'class="col-xl-4 col-lg-4 col-11 zindex col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
+          '<button mat-button  type="button" aria-hidden="true" class="close mat-button" ' +
+          ' data-notify="dismiss">  <i class="material-icons">close</i></button>' +
           '<i class="material-icons" data-notify="icon">notifications</i> ' +
           '<span data-notify="title">{1}</span> ' +
-          '<span data-notify="message">{2}</span>' +
+          '<span data-notify="message">' + message + '</span>' +
           '<div class="progress" data-notify="progressbar">' +
-          '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+          '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" ' +
+          'aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
           '</div>' +
           '<a href="{3}" target="{4}" data-notify="url"></a>' +
           '</div>'
       });
+  }
+  public showDialog(messsage, title?) {
+    if (title === null || title === undefined) {
+      title = 'Message';
+    }
+    $('#messagepopup').modal('show');
+    $('#messagetitle').html(title);
+    $('#messagebody').html(messsage);
   }
   public showMessage(message: any, action?: string, durationMS?: number): void {
 
 
     if (isObject(message) && message.status === 0) {
       message = 'Please check your internet.';
+    } else if (isObject(message) && message.error && message.error.msg) {
+      message = message.error.msg;
+      this.showNotification(message);
     } else if (isObject(message) && message.status === 401) {
       message = 'Please authenticate to access secured resource.';
     } else if (isObject(message) && message.status >= 500) {
@@ -156,11 +174,13 @@ export class DBService implements OnInit {
       message = message.error;
       const messages = [];
       for (const k in message) {
-        this.showNotification(message[k]);
-        //messages.push(message[k].toString());
+        if (message[k]) {
+          this.showNotification(message[k]);
+        }
+        // messages.push(message[k].toString());
 
       }
-      message = "Please Fill values";
+      message = 'Please Fill values';
 
 
     }
@@ -194,10 +214,12 @@ export class DBService implements OnInit {
     // $rootScope.ShowLoader = true;
   }
   showloaderfunction(loader): void {
-
+    this.loaderprogressbar = true;
   }
   hideLoaderfunction(loader): void {
-
+    setTimeout(() => {
+      this.loaderprogressbar = false;
+    }, 1000);
   }
   post(url: string, data: any, success?: ICallback, fail?: ICallback, loader?): any {
 
@@ -227,6 +249,7 @@ export class DBService implements OnInit {
     return this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
+          this.hideLoaderfunction(loader);
           if (success !== undefined) {
             success(res);
           }
@@ -262,6 +285,7 @@ export class DBService implements OnInit {
     return this.http.get(req.url, { headers: headersfull, params: data })
       .subscribe(
         res => {
+          this.hideLoaderfunction(loader);
           if (success !== undefined) {
             success(res);
           }
@@ -279,7 +303,6 @@ export class DBService implements OnInit {
 
 
     //  success('avc');
-
 
     this.showloaderfunction(loader);
     let fullurl = url;
@@ -301,6 +324,7 @@ export class DBService implements OnInit {
     return this.http.get(req.url, { headers: headersfull, params: data })
       .subscribe(
         res => {
+          this.hideLoaderfunction(loader);
           if (success !== undefined) {
             success(res);
           }
@@ -308,7 +332,8 @@ export class DBService implements OnInit {
         response => {
           this.hideLoaderfunction(loader);
           this.showMessage(response);
-          if (response.status === 401 || response.status === 422 || (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
+          if (response.status === 401 || response.status === 422 ||
+            (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
             this.goToLogin(response);
           } else {
             if (fail !== undefined) {
@@ -352,6 +377,7 @@ export class DBService implements OnInit {
     return this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
+          this.hideLoaderfunction(loader);
           if (success !== undefined) {
             success(res);
           }
@@ -400,6 +426,7 @@ export class DBService implements OnInit {
     return this.http.get(req.url, { headers: headersfull, params: data })
       .subscribe(
         res => {
+          this.hideLoaderfunction(loader);
           if (success !== undefined) {
             success(res);
           }
@@ -448,13 +475,15 @@ export class DBService implements OnInit {
 
     for (const i in data) {
       if (data[i]) {
-        body.append(i, JSON.stringify(data[i]));
+        const datatemp = JSON.stringify(data[i]);
+        body.append(i, datatemp);
       }
     }
 
     return this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
+          this.hideLoaderfunction(loader);
           if (success !== undefined) {
             success(res);
           }
@@ -507,6 +536,7 @@ export class DBService implements OnInit {
     return this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
+          this.hideLoaderfunction(loader);
           if (success !== undefined) {
             success(res);
           }
@@ -656,7 +686,7 @@ export class DBService implements OnInit {
 
 
   SelectedCheckbox(obj, selected = 'selected', key = 'id'): any {
-    let selectedmanager = [];
+    const selectedmanager = [];
     for (const i in obj) {
       if (obj[i][selected] === true) {
         selectedmanager.push(obj[i][key]);

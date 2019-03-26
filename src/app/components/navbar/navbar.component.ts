@@ -53,7 +53,7 @@ export class NavbarComponent implements OnInit {
     body.classList.remove('nav-open');
   };
   sidebarToggle() {
-    debugger;
+
     // const toggleButton = this.toggleButton;
     // const body = document.getElementsByTagName('body')[0];
     const $toggle = document.getElementsByClassName('navbar-toggler')[0];
@@ -147,15 +147,18 @@ export class NavbarComponent implements OnInit {
   //         }
   //         if (counter > 0) {
   //             if ($rootScope.isToDoForFirstTime) {
-  //                 $rootScope.addmessageandremove('<i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>  Tat for reference is 72 hours. ' + counter + ' reference(s) crossed  it. Please take action. ');
+  //                 $rootScope.addmessageandremove('<i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i>
+  // Tat for reference is 72 hours. ' + counter + ' reference(s) crossed  it.
+  // Please take action. ');
   //                 $rootScope.isToDoForFirstTime = false;
   //             } else
   //             {
 
   //                 var diff = response.data.length - $rootScope.lastLength;
   //                 if (diff > 0) {
-  //                  //   debugger;
-  //                     $rootScope.addmessageandremove('<i class="fa fa-exclamation-triangle text-danger" aria-hidden="true"></i> You have '+diff + ' new reference(s) to be screened.');
+  //                  //
+  //                     $rootScope.addmessageandremove('<i class="fa fa-exclamation-triangle
+  // text-danger" aria-hidden="true"></i> You have '+diff + ' new reference(s) to be screened.');
   //                 }
 
   //             }
@@ -163,7 +166,7 @@ export class NavbarComponent implements OnInit {
   //         this.lastLength = response.data.length;
   //     }, function (response) {
   //     });
-  //};
+  // };
 
 
 }

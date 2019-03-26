@@ -29,7 +29,7 @@ import {
   MatSliderModule, MatSelectModule, MatRadioModule, MatInputModule, MatDatepickerModule,
   MatFormFieldModule, MatNativeDateModule,
   MatDialogModule, MatProgressSpinnerModule,
-  MatSnackBarModule,
+  MatSnackBarModule, MatProgressBarModule,
 } from '@angular/material';
 import {
   AgmCoreModule
@@ -112,6 +112,7 @@ import { SmslogComponent } from './smslog/smslog.component';
     MatProgressSpinnerModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatProgressBarModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
