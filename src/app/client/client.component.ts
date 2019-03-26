@@ -13,8 +13,11 @@ export class ClientComponent implements OnInit {
   client = { id: 0, feeslabtype: '', fee_slab: [] };
   fromfeesslab = 0;
   amt = 0;
+  lastAmount: any;
+  angular: [];
+  isNumberorFloat: any;
   newclient: any;
-
+  isPercentage: false;
   isEdit = false;
   isEditstatewise = false;
   item: any = {};
@@ -27,8 +30,9 @@ export class ClientComponent implements OnInit {
   ishideshow = false;
   ishideshowclient = false;
   updateid: any;
+  //feeslab: any;
   isEditclientStateswiseBillingDetail = false;
-  clientStateswiseBillingDetail = { client_detail_id: 0 };
+  clientStateswiseBillingDetail = { id: 0, client_detail_id: 0 };
   private smsselected = {};
   private emailselected = {};
   private gridApi;
@@ -185,7 +189,7 @@ export class ClientComponent implements OnInit {
   }
   backstate(): void {
     this.isEditclientStateswiseBillingDetail = false;
-    this.clientStateswiseBillingDetail = { client_detail_id: 0 };
+    this.clientStateswiseBillingDetail = { id: 0, client_detail_id: 0 };
   }
   remove(idx, isupdate): void {
 
@@ -284,7 +288,8 @@ export class ClientComponent implements OnInit {
 
   }
   clientStateswiseBillingDetailupdate(): void {
-    this.db.update('clientstateswisebillingdetail/', { 'client_detail_id': this.client.id },
+    this.clientStateswiseBillingDetail.client_detail_id = this.client.id;
+    this.db.update('clientstateswisebillingdetail/', this.clientStateswiseBillingDetail.id,
       this.clientStateswiseBillingDetail, ((response): void => {
 
         this.LoadData();
@@ -294,6 +299,7 @@ export class ClientComponent implements OnInit {
   }
 
   showhideclient(x, y): void {
+
     if (this.ishideshowclient === false && this.isscroll === false) {
       // this.isEdit = false;
       this.ishideshowclient = true;

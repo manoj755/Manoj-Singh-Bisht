@@ -246,7 +246,7 @@ export class DBService implements OnInit {
         body.append(i, data[i]);
       }
     }
-    return this.http.post(req.url, body, { headers: headersfull })
+    this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           this.hideLoaderfunction(loader);
@@ -282,7 +282,7 @@ export class DBService implements OnInit {
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
 
-    return this.http.get(req.url, { headers: headersfull, params: data })
+    this.http.get(req.url, { headers: headersfull, params: data })
       .subscribe(
         res => {
           this.hideLoaderfunction(loader);
@@ -321,7 +321,7 @@ export class DBService implements OnInit {
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
 
-    return this.http.get(req.url, { headers: headersfull, params: data })
+    this.http.get(req.url, { headers: headersfull, params: data })
       .subscribe(
         res => {
           this.hideLoaderfunction(loader);
@@ -374,7 +374,7 @@ export class DBService implements OnInit {
     for (const i in data) {
       body.append(i, data[i]);
     }
-    return this.http.post(req.url, body, { headers: headersfull })
+    this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           this.hideLoaderfunction(loader);
@@ -423,7 +423,7 @@ export class DBService implements OnInit {
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
 
-    return this.http.get(req.url, { headers: headersfull, params: data })
+    this.http.get(req.url, { headers: headersfull, params: data })
       .subscribe(
         res => {
           this.hideLoaderfunction(loader);
@@ -480,7 +480,7 @@ export class DBService implements OnInit {
       }
     }
 
-    return this.http.post(req.url, body, { headers: headersfull })
+    this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           this.hideLoaderfunction(loader);
@@ -533,7 +533,7 @@ export class DBService implements OnInit {
       body.append(i, data[i]);
     }
 
-    return this.http.post(req.url, body, { headers: headersfull })
+    this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
           this.hideLoaderfunction(loader);

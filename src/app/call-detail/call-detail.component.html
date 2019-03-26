@@ -217,6 +217,74 @@
                                           </a>
 
                                       </div>-->
+                                        </div>
+
+                                      <div class="col-md-12">
+                                        <div class='row buttonwithnumber'>
+
+                                            <button mat-raised-button color="primary" matBadge="{{item.allcandidate}}"
+                                            matBadgePosition="after" matBadgeColor="accent" class=" "
+                                            (click)="filterdrbytab('My Candidates', 'all', item)" data-toggle="modal"
+                                            data-target="#candidatesall">All
+                                          </button>
+
+                                            <button mat-raised-button color="primary" matBadge="{{item.calledinterested}}"
+                                            matBadgePosition="after" matBadgeColor="accent" class=" "
+                                            (click)="filterdrbytab('My Candidates', 'calledinterested', item)" data-toggle="modal"
+                                            data-target="#candidatesall">Interested
+                                          </button>
+
+                                            <button mat-raised-button color="primary" matBadge="{{item.callednotinterested}}"
+                                            matBadgePosition="after" matBadgeColor="accent" class=" "
+                                            (click)="filterdrbytab('My Candidates', 'callednotinterested', item)" data-toggle="modal"
+                                            data-target="#candidatesall">Not interested
+                                          </button>
+
+                                            <button mat-raised-button color="primary" matBadge="{{item.callbackrequest}}"
+                                            matBadgePosition="after" matBadgeColor="accent" class=" "
+                                            (click)="filterdrbytab('My Candidates', 'callbackrequest', item)" data-toggle="modal"
+                                            data-target="#candidatesall">Call Back Request
+                                          </button>
+
+                                            <button mat-raised-button color="primary" matBadge="{{item.tocall}}/{{item.incompletecall}}"
+                                            matBadgePosition="after" matBadgeColor="accent" class=" "
+                                            (click)="filterdrbytab('My Candidates', 'incompletecall', item)" data-toggle="modal"
+                                            data-target="#candidatesall">To call/No status
+                                          </button>
+
+                                            <button mat-raised-button color="primary" matBadge="{{item.couldnotconnect}}"
+                                            matBadgePosition="after" matBadgeColor="accent" class=" "
+                                            (click)="filterdrbytab('My Candidates', 'couldnotconnect', item)" data-toggle="modal"
+                                            data-target="#candidatesall">Could Not Connect
+                                          </button>
+                                        </div>
+
+                                      </div>
+                                      <div class="col-md-12" [hidden]="!item.responsibilityshow">
+                                        <p class="htmlele">{{item.jobDescription}}</p>
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <pagination-controls     directionLinks="true"
+                              autoHide="true"
+                              responsive="true"
+                              previousLabel="Previous"
+                              nextLabel="Next"
+                              screenReaderPaginationLabel="Pagination"
+                              screenReaderPageLabel="page"
+                              screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event"></pagination-controls>
+                          <mat-card [hidden]='jobslist.length>0||isLoadingJobs' >
+                              No Data Found
+                          </mat-card>
+
+                      </div>
+
+                      <div class="clearfix"></div>
+
                   </div>
 
                   <div class="col-md-12">

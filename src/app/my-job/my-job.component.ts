@@ -85,6 +85,7 @@ export class MyJobComponent implements OnInit {
   itemone = { jobDescription: '' };
   candidate_id = 0;
   currentData = {};
+  hoverIndex: any;
   allstatusload = 0;
   selectednodes = [];
   status_id = 0;
@@ -114,7 +115,13 @@ export class MyJobComponent implements OnInit {
 
   }
 
+  enter(i) {
+    this.hoverIndex = i;
+}
 
+leave(i) {
+    this.hoverIndex = i;
+}
   showjd(item) {
 
     item.responsibilityshow = !item.responsibilityshow;
