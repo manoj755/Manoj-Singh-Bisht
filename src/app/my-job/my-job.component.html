@@ -145,7 +145,7 @@
                       class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
                       <i class="fa fa-check"></i>
                     </span>
-                    <span class="pull-right" (mouseenter)="enter(i)" (mouseleave)="leave(i)"  ><a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                    <span class="pull-right socialdiv" (mouseenter)="enter(i)" (mouseleave)="leave(i)"  ><a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
                       href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
                       target="_blank">
                       <i class="fa fa-facebook "></i>

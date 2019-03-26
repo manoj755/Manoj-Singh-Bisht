@@ -269,7 +269,14 @@
                                 </div>
                               </div>
 
-
+                              <pagination-controls     directionLinks="true"
+                              autoHide="true"
+                              responsive="true"
+                              previousLabel="Previous"
+                              nextLabel="Next"
+                              screenReaderPaginationLabel="Pagination"
+                              screenReaderPageLabel="page"
+                              screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event"></pagination-controls>
                           <mat-card [hidden]='jobslist.length>0||isLoadingJobs' >
                               No Data Found
                           </mat-card>
