@@ -100,18 +100,18 @@
               class="btn  btn-raised btn-primary">Tagged</a></li>
 
         </ul>
-
+        <pagination-controls     directionLinks="true"
+        autoHide="true"
+        responsive="true"
+        previousLabel="Previous"
+        nextLabel="Next"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="page"
+        screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event"></pagination-controls>
         <div class="clearfix"></div>
 
         <div class="box box-primary" id="#">
-            <pagination-controls     directionLinks="true"
-            autoHide="true"
-            responsive="true"
-            previousLabel="Previous"
-            nextLabel="Next"
-            screenReaderPaginationLabel="Pagination"
-            screenReaderPageLabel="page"
-            screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event"></pagination-controls>
+
           <mat-progress-bar mode="indeterminate" *ngIf="isLoadingJobs"></mat-progress-bar>
 
           <div class="clearfix"></div>
@@ -144,10 +144,48 @@
                       ng-hide='mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
                       class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
                       <i class="fa fa-check"></i>
-                    </span></p>
+                    </span>
+                    <span class="pull-right" (mouseenter)="enter(i)" (mouseleave)="leave(i)"  ><a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                      href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
+                      target="_blank">
+                      <i class="fa fa-facebook "></i>
+                    </a>
+
+                    <a mat-mini-fab class="twitter" ng-hide="profile.isvendor=='1'"
+                      href="https://twitter.com/share?url={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
+                      target="_blank">
+                      <i class="fa fa-twitter  "></i>
+                    </a>
+
+                    <a mat-mini-fab class="linkedin" ng-hide="profile.isvendor=='1'"
+                      href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
+                      target="_blank">
+                      <i class="fa fa-linkedin "></i>
+                    </a></span>
+                    <span class="sharediv pull-right"  *ngIf="hoverIndex === i">
+                      Share for Apply : <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                        href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
+                        target="_blank">
+                        <i class="fa fa-facebook "></i>
+                      </a>
+
+                      <a class="twitter" mat-mini-fab ng-hide="profile.isvendor=='1'"
+                        href="https://twitter.com/share?url={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
+                        target="_blank">
+                        <i class="fa fa-twitter  "></i>
+                      </a>
+
+                      <a class="linkedin" mat-mini-fab ng-hide="profile.isvendor=='1'"
+                        href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
+                        target="_blank">
+                        <i class="fa fa-linkedin "></i>
+                      </a></span>
+                  </p>
+
+
                 </div>
                 <div class="card-body table-responsive">
-                  <div class="member-social pull-right col-md-6 shareparent" style="text-align: right;">
+                  <div class="member-social pull-right col-md-4 shareparent" style="text-align: right;">
 
 
                     <a mat-mini-fab class="" help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
@@ -173,7 +211,7 @@
                       <i class="fa fa-eye "></i>
                     </a>
 
-                    <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                    <!-- <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
                       href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
                       target="_blank">
                       <i class="fa fa-facebook "></i>
@@ -189,7 +227,7 @@
                       href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
                       target="_blank">
                       <i class="fa fa-linkedin "></i>
-                    </a>
+                    </a> -->
                     <a mat-mini-fab data-toggle="modal" *ngIf="db.mp.btn_take_internal_refeference"
                       data-target="#internalreference" href="javascript:"
                       (click)="GetInHourseReference(item.id, $event)" class="text-danger" help='get reference internal'
@@ -201,28 +239,11 @@
                         class="fa fa-upload"></i>
                     </a>
 
-                    <div class="sharediv">
-                      Share for Apply : <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
-                        href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
-                        target="_blank">
-                        <i class="fa fa-facebook "></i>
-                      </a>
 
-                      <a class="twitter" mat-mini-fab ng-hide="profile.isvendor=='1'"
-                        href="https://twitter.com/share?url={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
-                        target="_blank">
-                        <i class="fa fa-twitter  "></i>
-                      </a>
-
-                      <a class="linkedin" mat-mini-fab ng-hide="profile.isvendor=='1'"
-                        href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
-                        target="_blank">
-                        <i class="fa fa-linkedin "></i>
-                      </a></div>
 
                   </div>
 
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                     <div class='row buttonwithnumber'>
 
                       <button mat-raised-button color="primary" matBadge="{{item.allcandidate}}"
@@ -1007,7 +1028,14 @@
       </div>
       <!--End  Start Submit CV-->
     </div>
-
+    <pagination-controls     directionLinks="true"
+    autoHide="true"
+    responsive="true"
+    previousLabel="Previous"
+    nextLabel="Next"
+    screenReaderPaginationLabel="Pagination"
+    screenReaderPageLabel="page"
+    screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event"></pagination-controls>
   </div>
 
 </div>
