@@ -45,10 +45,10 @@ export class AddToJobComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
   addtojobcandidates(): void {
-    if (!$('.validate').validate('#addtojob')) {
-      //  $.fn.showMessage('Please fill values');
-        return;
-      }
+    // if (!$('.validate').validate('#addtojob')) {
+    //   //  $.fn.showMessage('Please fill values');
+    //     return;
+    //   }
     const allrow = this.allids;
 
     if (allrow.length === 0) {
