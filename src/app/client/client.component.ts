@@ -46,7 +46,7 @@ export class ClientComponent implements OnInit {
   columnDefs = [
     {
       headerName: 'Delete', field: 'id', suppressMenu: true,
-      suppressSorting: true,
+      suppressSorting: true, suppressHorizontalScroll: true,
       template:
         `<button type='button' data-action-type='edit'  class='btn btn-success btn-sm'>
          Edit
@@ -68,7 +68,7 @@ export class ClientComponent implements OnInit {
   columnDefs2 = [
     {
       headerName: 'Delete', field: 'id', suppressMenu: true,
-      suppressSorting: true,
+      suppressSorting: true, suppressHorizontalScroll: true,
       template:
         `<button type='button' data-action-type='editstate' class='btn btn-success btn-sm'>
          Edit
