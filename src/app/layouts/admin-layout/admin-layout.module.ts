@@ -64,6 +64,8 @@ import { OrderModule } from 'ngx-order-pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from 'w-ng5';
+// tslint:disable-next-line: max-line-length
+import { CandidateInJobsNotificationComponent } from '../../control/candidate-in-jobs-notification/candidate-in-jobs-notification.component';
 import { CandidateMyJobComponent } from '../../control/candidate-my-job/candidate-my-job.component';
 import { CandidateCallDatailsComponent } from '../../control/candidate-call-datails/candidate-call-datails.component';
 import {
@@ -138,6 +140,7 @@ declare var $: any;
     AgGridModule.withComponents([
 
       CandidateMyJobComponent,
+      CandidateInJobsNotificationComponent,
       CandidateCallDatailsComponent,
     ]),
     OrderModule,
@@ -189,6 +192,7 @@ declare var $: any;
     RecruiterreportnewComponent,
     OpeningclientwiseComponent,
     CandidateMyJobComponent,
+    CandidateInJobsNotificationComponent,
     CandidateCallDatailsComponent,
     TermsAndConditionsComponent,
 

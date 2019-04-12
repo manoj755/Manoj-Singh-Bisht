@@ -120,7 +120,7 @@
                                                           </div>
                                                       </td>
                                                       <td>
-                                                  <a  href="#" data-toggle="modal" data-target="#showreference"  (click)="loadreferrence(x.job_id)"
+                                                  <a  href="#" data-toggle="modal" data-target="#candidatesall"  (click)="loadreferrence(x.job_id)"
                                                       class="Bold" > {{x.Job_title}}</a> <i    class="fa fa-star text-danger" ng-show="x.difference>72"></i> ->
                                                   <span   style="color:gray; text-decoration: underline;" (click)="candidateshow(x)">{{x.reference_name}}</span>
                                                   <span class="pull-right"> (<i>{{x.date}}</i>)</span> </td>
@@ -295,7 +295,7 @@
               </div>
           </div>
 
-          <div class="modal fade" id="internaldata" role="dialog">
+          <div class="modal fade" id="internaldata" role="dialog" tabindex="-1">
           <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
@@ -305,7 +305,7 @@
                   <div class="modal-body bg-default">
                       <div class="row" >
                           <div class="col-md-6 col-xs-6">
-                              <a href="javascript:"   (click)="navigateUrl('internaldatabase')"  class="btn btn-block  btn-raised btn-sq-lg btn-success" >
+                              <a href="javascript:"data-target="TARGET-2" data-dismiss="modal"   (click)="navigateUrl('internaldatabase')"  class="btn btn-block  btn-raised btn-sq-lg btn-success" >
                                   <i class="fa fa-globe fa-3x"></i><br/>
                                   Database
                                   <!--<div class="info-box">-->
@@ -512,6 +512,55 @@
 
               </div>
           </div>
+
+          <div class="modal fade" id="candidatesall" role="dialog">
+            <div class="modal-dialog modal-lg" style="max-width:1100px;">
+
+
+
+              <div class="modal-content">
+                <div class="modal-header">
+
+
+                  <h4 class="modal-title">{{gridheader}} <i class='h5'>( {{jobitemselected.ClientName}} >
+                      {{jobitemselected.location}} > {{jobitemselected.job_title}})</i></h4>
+
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+
+                  <div>
+
+
+
+
+                    <div class="col-md-12">
+
+
+                      <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-material" [rowData]="rowData"
+                        [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
+                        [groupSelectsChildren]="true" paginationAutoPageSize='true'
+                        (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+                        [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+                        [enableRangeSelection]="true" [getRowHeight]='getRowHeight' [pagination]="true"
+                        (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)" (rowClicked)="onRowClicked($event)">
+                      </ag-grid-angular>
+                      <div class="clearfix clear"></div>
+                    </div>
+                    <div class="clearfix clear"></div>
+
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+
+
         <div class="row">
             <div class="col-md-4">
                 <div class="card card-chart">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import { CandidateInJobsNotificationComponent } from '../control/candidate-in-jobs-notification/candidate-in-jobs-notification.component';
 import { Router } from '@angular/router';
 import { DBService } from '../db.service';
 @Component({
@@ -10,6 +11,25 @@ import { DBService } from '../db.service';
 export class DashboardComponent implements OnInit {
 
   // new reference fields
+
+
+  private autoGroupColumnDef;
+  private defaultColDef;
+  private rowSelection;
+  private rowGroupPanelShow;
+  private pivotPanelShow;
+  columnDefs = [
+    {
+      headerName: 'activity', sortable: false, filter: true, headerCheckboxSelection: true, checkboxSelection: true,
+      field: 'id', cellRendererFramework: CandidateInJobsNotificationComponent,
+      width: 1000,
+    },
+
+  ];
+
+  rowData = [
+  ];
+
   notification_very_danger = 0;
   notification_danger = 0;
   notification_success = 0;

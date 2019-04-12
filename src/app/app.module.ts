@@ -133,6 +133,8 @@ import { CandidateCallDatailsComponent } from './control/candidate-call-datails/
 
 
 
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]
