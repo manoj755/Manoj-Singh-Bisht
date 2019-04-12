@@ -76,6 +76,8 @@ import { SettingsComponent } from './settings/settings.component';
 import { UpdateCandidateComponent } from './control/update-candidate/update-candidate.component';
 import { MessagelogComponent } from './messagelog/messagelog.component';
 import { SmslogComponent } from './smslog/smslog.component';
+import { CandidateCallDatailsComponent } from './control/candidate-call-datails/candidate-call-datails.component';
+
 
 
 
@@ -122,6 +124,8 @@ import { SmslogComponent } from './smslog/smslog.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+
+
 
 
 

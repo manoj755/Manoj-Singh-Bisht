@@ -1,0 +1,46 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <h4 class="card-title">Terms and Conditions</h4>
+                    <p class="card-category">Add or Edit Terms and Conditions</p>
+                    </div>
+                    <div class="col-md-12">
+                      <div *ngFor="let appterm of applications">
+                        <h5>{{appterm.terms_conditions}}</h5>
+
+                      </div>
+
+                    </div>
+                    <!-- <div class="col-md-12"> -->
+                        <!-- <div *ngFor="let appterm of applications">
+                          <textarea class="col-md-12">{{appterm.terms_conditions}}</textarea>
+
+                        </div> -->
+                        <!-- <form class="example-form">
+                        <mat-form-field class="example-full-width" *ngFor="let applications of applications" name="terms_conditions" [(ngModel)]="applications.terms_conditions">
+                            <textarea matInput  >{{applications.terms_conditions}}</textarea>
+                          </mat-form-field>
+                        </form> -->
+                        <div class="form-group">
+                          <label for="titile" class="control-label col-md-2">Policy</label>
+                          <div class="col-md-12" *ngFor="let appmodel of applications">
+                              <!-- <b class="text-danger">Please use lowercase for key between #valuetoreplace# otherwise value will not be replaced.</b> -->
+
+                              <!-- <ckeditor [editor]="Editor" [(ngModel)]="appmodel.terms_conditions">{{appmodel.terms_conditions}}</ckeditor> -->
+                              <app-ngx-editor  [(ngModel)]="appmodel.terms_conditions">{{appmodel.terms_conditions}}</app-ngx-editor >
+
+                          </div>
+                      </div>
+
+                       <button class="btn btn-primary col-md-6" value="submit" (click)="savetermsandcoditions()">Save</button>
+                      <!-- </div> -->
+            </div>
+
+        </div>
+    </div>
+    </div>
+    </div>

@@ -2,12 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
+import {MatIconModule} from '@angular/material/icon';
+//import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 // import {ReactiveFormsModule} from 'angular/forms';
 
 // import { AngularSlickgridModule } from 'angular-slickgrid';
 // import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { NgxEditorModule } from 'ngx-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
@@ -44,6 +49,9 @@ import { CandidatestatusupdateComponent } from '../../candidatestatusupdate/cand
 import { OpeningclientwiseComponent } from '../../openingclientwise/openingclientwise.component';
 import { MessagelogComponent } from '../../messagelog/messagelog.component';
 import { SmslogComponent } from '../../smslog/smslog.component';
+import { TermsAndConditionsComponent } from '../../terms-and-conditions/terms-and-conditions.component';
+
+
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ManagerComponent } from '../../control/manager/manager.component';
 import { AddToJobComponent } from '../../control/add-to-job/add-to-job.component';
@@ -57,6 +65,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PipesModule } from 'w-ng5';
 import { CandidateMyJobComponent } from '../../control/candidate-my-job/candidate-my-job.component';
+import { CandidateCallDatailsComponent } from '../../control/candidate-call-datails/candidate-call-datails.component';
 import {
   MatButtonModule,
   MatInputModule,
@@ -72,6 +81,9 @@ import {
   MatTabsModule,
   MatBadgeModule,
   MatDatepickerModule,
+  MatListModule,
+
+ // MatIconRegistry,
   //MatDialog
 
 
@@ -87,6 +99,7 @@ import { NotfoundComponent } from '../../notfound/notfound.component';
 import { PageNotFoundComponent } from '../../page-not-found/page-not-found.component';
 import { SettingsComponent } from '../../settings/settings.component';
 import { MyFilterPipe } from '../../shared/pipes/my-filter.pipe';
+import { FilterPipe } from '../../shared/pipes/FilterPipe.pipe';
 import { SafePipe } from '../../shared/pipes/safe.pipe';
 
 
@@ -113,20 +126,26 @@ declare var $: any;
     MatCardModule,
     MatRadioModule,
     CKEditorModule,
+    TooltipModule.forRoot(),
     MatAutocompleteModule,
     NgSelectModule,
     MatTabsModule,
     MatDatepickerModule,
     NgxPaginationModule,
+    NgxEditorModule,
     PipesModule,
+    //Ng2SearchPipeModule,
     AgGridModule.withComponents([
 
       CandidateMyJobComponent,
+      CandidateCallDatailsComponent,
     ]),
     OrderModule,
     MatBadgeModule,
     ReactiveFormsModule,
     FormsModule,
+    MatListModule,
+    MatIconModule
     // TranslateService,
     //  NgSelectModule,
   ],
@@ -170,6 +189,8 @@ declare var $: any;
     RecruiterreportnewComponent,
     OpeningclientwiseComponent,
     CandidateMyJobComponent,
+    CandidateCallDatailsComponent,
+    TermsAndConditionsComponent,
 
     PageNotFoundComponent,
     SettingsComponent,
@@ -180,7 +201,9 @@ declare var $: any;
     SmslogComponent,
     LogoutComponent,
     MyFilterPipe,
+    FilterPipe,
     SafePipe,
+
   ]
 })
 export class AdminLayoutModule { }

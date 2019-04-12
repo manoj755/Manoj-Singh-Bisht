@@ -10,7 +10,7 @@
         <div class="form-horizontal" role="form">
           <div class="row">
             <div class="form-group col-md-6">
-              <label class="col-md-3 ">{{clientsdepartment}} :</label>
+              <label class="col-md-3 ">Client :</label>
               <div class="col-md-9">
                 <select class="form-control e" multiple="multiple" n="Client" (change)="ddlchangeclient()"
                   [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
@@ -39,7 +39,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="form-group col-md-6">
+            <!-- <div class="form-group col-md-6">
               <label class="col-md-3">Date Start</label>
               <div class="col-md-9">
                 <input type="date" class="form-control " (change)="getlistmain();" size="16" type="text" value=""
@@ -53,17 +53,31 @@
                     <input type="hidden" id="dtp_input2" value="" /><br />
 
 
-                  </div>-->
+                  </div>
               </div>
-            </div>
-            <div class="form-group col-md-6">
+            </div> -->
+            <div class="col-md-4" style="margin-left: 20px;">
+            <mat-form-field>
+              <input matInput [(ngModel)]="myjob.start_date_temp" [matDatepicker]="picker" placeholder="Choose a date" class="e">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4" style="margin-left: 220px;">
+            <mat-form-field>
+              <input matInput [(ngModel)]="myjob.end_date_temp" [matDatepicker]="picker2" placeholder="Choose a date" class="e">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+            <!-- <div class="form-group col-md-6">
               <label class="col-md-3 ">End Date</label>
               <!-- <div class="col-md-9">
                     <div class="controls input-append date form_date" data-date="" data-date-format="yyyy-mm-dd"
                       data-link-field="dtp_input3" data-link-format="yyyy-mm-dd">
                       <span class="add-on"><i class="icon-remove"></i></span>
                       <span class="add-on"><i class="icon-th"></i></span>
-                    </div>-->
+                    </div>
               <div class="col-md-9">
                 <input type="date" class="form-control " (change)="getlistmain();" size="16" type="text" value=""
                   [(ngModel)]="myjob.end_date" placeholder="End Date" />
@@ -72,7 +86,7 @@
 
 
 
-            </div>
+            </div> -->
           </div>
 
           <div class="row">
@@ -197,11 +211,11 @@
 
                   </div>
                   <div class="modal-body">
-                    <div id="clientbarunderreviewpie3" class="height200 width300"></div>
+                    <div id="clientbarunderreviewpie3" class="charthw2"></div>
                     <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="900"
                       h="100" tar="#clientbarunderreviewpie3" style="display: block;margin-bottom: 10px;">
 
-                    <div id="clientbarunderreview3" class="height200 width700"></div>
+                    <div id="clientbarunderreview3" class="charthw2"></div>
                     <input type="submit" class="printview btn  btn-raised  btn-sm  " value="Print preview" w="1100"
                       h="100" tar="#clientbarunderreview3" style="display: block;margin-bottom: 10px;">
                       <button (click)="exportdat()">Export</button>
@@ -231,13 +245,13 @@
                     <h4 class="modal-title">Interview Candidate</h4>
                   </div>
                   <div class="modal-body">
-                    <div id="clientbarunderreviewpie4" class="height200"></div>
+                    <div id="clientbarunderreviewpie4" class="height200 width300"></div>
                     <input type="submit" class="printview btn  btn-rais0ed  btn-sm " value="Print preview" w="500"
-                      h="100" tar="#clientbarunderreviewpie4" style="display: block;margin-bottom: 10px;height: 500;width:600;">
+                      h="100" tar="#clientbarunderreviewpie4" style="display: block;margin-bottom: 10px;">
 
-                    <div id="clientbarunderreview4" class="height200"></div>
+                    <div id="clientbarunderreview4" class="height200 width300"></div>
                     <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="600"
-                      h="100" tar="#clientbarunderreview4" style="display: block;margin-bottom: 10px;height: 500;width:600;">
+                      h="100" tar="#clientbarunderreview4" style="display: block;margin-bottom: 10px;">
                       <button (click)="exportdat()">Export</button>
                     <div ui-grid="gridInterview" ui-grid-selection ui-grid-pagination ui-grid-cellnav ui-grid-exporter
                       class="grid"></div>
@@ -260,13 +274,13 @@
                     <h4 class="modal-title">Rejected</h4>
                   </div>
                   <div class="modal-body">
-                    <div id="clientbarunderreviewpie2" ></div>
+                    <div id="clientbarunderreviewpie2"  class="height200 width300"></div>
                     <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="500"
-                      h="100" tar="#clientbarunderreviewpie2" style="display: block;margin-bottom: 10px;height: 500;width:600;">
+                      h="100" tar="#clientbarunderreviewpie2" style="display: block;margin-bottom: 10px">
 
-                    <div id="clientbarunderreview2"></div>
+                    <div id="clientbarunderreview2" class="height200 width300"></div>
                     <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="600"
-                      h="100" tar="#clientbarunderreview2" style="display: block;margin-bottom: 10px;height: 500;width:600;">
+                      h="100" tar="#clientbarunderreview2" style="display: block;margin-bottom: 10px;">
                       <button (click)="exportdat()">Export</button>
                     <div ui-grid="GridShowcandidateStatusWiseRejected" ui-grid-selection ui-grid-pagination
                       ui-grid-cellnav ui-grid-exporter class="grid"></div>
@@ -289,13 +303,13 @@
                     <h4 class="modal-title">In Process</h4>
                   </div>
                   <div class="modal-body">
-                    <div id="clientbarunderreviewpie1"></div>
+                    <div id="clientbarunderreviewpie1" class="height200 width300"></div>
                     <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="500"
-                      h="100" tar="#clientbarunderreviewpie1" style="display: block;margin-bottom: 10px;height: 500;width:600;">
+                      h="100" tar="#clientbarunderreviewpie1" style="display: block;margin-bottom: 10px;">
 
-                    <div id="clientbarunderreview1"></div>
+                    <div id="clientbarunderreview1" class="height200 width300"></div>
                     <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="600"
-                      h="100" tar="#clientbarunderreview1" style="display: block;margin-bottom: 10px;height: 500;width:600;">
+                      h="100" tar="#clientbarunderreview1" style="display: block;margin-bottom: 10px;">
 
                       <button (click)="exportdat()">Export</button>
                     <div ui-grid="GridShowcandidateStatusWiseInProcess" ui-grid-selection ui-grid-pagination
@@ -319,13 +333,13 @@
                     <h4 class="modal-title">Under Review</h4>
                   </div>
                   <div class="modal-body">
-                    <div id="clientbarunderreviewpie"></div>
+                    <div id="clientbarunderreviewpie" class="height200 width300"></div>
                     <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="500"
-                      h="100" tar="#clientbarunderreviewpie" style="display: block;margin-bottom: 10px;height: 100px;width:200px;">
+                      h="100" tar="#clientbarunderreviewpie" style="display: block;margin-bottom: 10px;">
 
-                    <div id="clientbarunderreview"></div>
+                    <div id="clientbarunderreview" class="height200 width300"></div>
                     <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="600"
-                      h="100" tar="#clientbarunderreview" style="display: block; margin-bottom: 10px;height: 100px;width:200px;">
+                      h="100" tar="#clientbarunderreview" style="display: block; margin-bottom: 10px;">
 
                       <button (click)="exportdat()">Export</button>
                     <div ui-grid="GridShowcandidateStatusWiseUnderReview" ui-grid-selection ui-grid-pagination

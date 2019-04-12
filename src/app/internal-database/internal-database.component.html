@@ -138,12 +138,12 @@
         </div>
 
 
-        <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
-          suppressCsvExport=false   [suppressRowClickSelection]="true"
-          (rowClicked)="onRowClicked($event)"
-          [groupSelectsChildren]="true" (selectionChanged)="onSelectionChanged($event)" [debug]="true"
-          [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="true"
-          [enableRangeSelection]="true" (gridReady)="onGridReady($event)">
+        <ag-grid-angular style=" height: 500px;" (rowClicked)="onRowClicked($event)"
+        rowSelection='multiple'
+          class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
+          [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+          (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
+          (gridReady)="onGridReady($event)">
         </ag-grid-angular>
       </div>
     </div>

@@ -35,8 +35,14 @@
 .loadingpr{ cursor: wait;}
 .cdk-overlay-container,.zindex{ z-index: 99999 !important;}
 .height500{ height: 500px !important;}
-.width700{ height: 700px !important;}
-.charthw{ height: 500px !important; min-width: 500px !important; width: 100% !important;}
+.width700{ width: 700px !important;}
+.height500{max-height: 500px !important;}
+.width700{ max-width:700px !important;}
+
+.charthw{ overflow: hidden; max-height: 500px !important; height: 500px !important; min-width: 500px !important; width: 100% !important;}
+
+
+.charthw2{ overflow: hidden; max-height: 400px !important; height: 400px !important; min-width: 500px !important; width: 100% !important;}
 .width80percent{ width:80% !important; max-width:80% !important;}
 .width100percent{ width:100% !important; max-width:100% !important;}
 .select2{ width:100% !important; max-width: 100% !important;}

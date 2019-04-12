@@ -367,13 +367,11 @@ export class DBService implements OnInit {
     }
     data.token = this.getToken();
     const headersfull = new HttpHeaders();
-    headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
-    // post data missing(here you pass email and password)
-    const body = new FormData();
+    headersfull.append('Content-Type', 'application/json');
 
-    for (const i in data) {
-      body.append(i, data[i]);
-    }
+    // post data missing(here you pass email and password)
+
+    const body = this.ConvertToFormData(data,'','');
     this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
@@ -420,7 +418,8 @@ export class DBService implements OnInit {
     }
     data.token = this.getToken();
     const headersfull = new HttpHeaders();
-    headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
+    headersfull.append('Content-Type', 'application/json');
+
     // post data missing(here you pass email and password)
 
     this.http.get(req.url, { headers: headersfull, params: data })
@@ -447,8 +446,6 @@ export class DBService implements OnInit {
 
   }
 
-
-
   update(url: string, id?: any, data?: any, success?: ICallback, fail?: ICallback, loader?): any {
 
 
@@ -469,16 +466,12 @@ export class DBService implements OnInit {
     }
     data.token = this.getToken();
     const headersfull = new HttpHeaders();
-    headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
-    // post data missing(here you pass email and password)
-    const body = new FormData();
+    headersfull.append('Content-Type', 'application/json');
 
-    for (const i in data) {
-      if (data[i]) {
-        const datatemp = JSON.stringify(data[i]);
-        body.append(i, datatemp);
-      }
-    }
+    // post data missing(here you pass email and password)
+
+    const body = this.ConvertToFormData(data, '', '');
+
 
     this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
@@ -527,11 +520,7 @@ export class DBService implements OnInit {
     const headersfull = new HttpHeaders();
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
-    const body = new FormData();
-
-    for (const i in data) {
-      body.append(i, data[i]);
-    }
+    const body = this.ConvertToFormData(data, '', '');
 
     this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
@@ -555,6 +544,68 @@ export class DBService implements OnInit {
         }
       );
 
+  }
+
+  ConvertToFormData(obj, form, namespace) {
+
+    const fd = form || new FormData();
+    let formKey;
+
+    for (const property in obj) {
+      if (obj.hasOwnProperty(property)) {
+
+        if (namespace) {
+          formKey = namespace + '[' + property + ']';
+        } else {
+          formKey = property;
+        }
+
+        // if the property is an object, but not a File,
+        // use recursivity.
+        if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
+
+          this.ConvertToFormData(obj[property], fd, property);
+
+        } else {
+
+          // if it's a string or a File object
+          fd.append(formKey, obj[property]);
+        }
+
+      }
+    }
+
+    return fd;
+
+
+    /*
+        const body = new FormData();
+
+        for (const i in data) {
+          if (data[i]) {
+            if (!isArray(data[i])) {
+              body.append(i, data[i]);
+            } else {
+              const alldata = data[i];
+              let iterator = 0;
+              for (const k in alldata) {
+                if (alldata[k]) {
+                  const currow = alldata[k];
+                  for (const keycur in currow) {
+                    if (currow[keycur]) {
+
+                      body.append(i + '[' + iterator + '][' + keycur + ']', currow[keycur]);
+                    }
+                  }
+                  iterator++;
+                }
+
+
+              }
+            }
+          }
+        }
+        return body;*/
   }
 
   toYYMMDD(date) {

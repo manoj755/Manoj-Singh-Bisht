@@ -15,7 +15,7 @@ export class ClientComponent implements OnInit {
   amt = 0;
   lastAmount: any;
   angular: [];
-  isNumberorFloat: any;
+  //isNumberorFloat: any;
   newclient: any;
   isPercentage: false;
   isEdit = false;

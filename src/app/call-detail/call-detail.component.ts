@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from '../db.service';
-import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-my-job.component';
+import { CandidateCallDatailsComponent } from '../control/candidate-call-datails/candidate-call-datails.component';
+//import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-my-job.component';
 declare var $: any;
 @Component({
   selector: 'app-call-detail',
@@ -29,11 +30,12 @@ export class CallDetailComponent implements OnInit {
   columnDefs = [
     {
       headerName: 'activity', sortable: false, filter: true, headerCheckboxSelection: true, checkboxSelection: true,
-      field: 'id', cellRendererFramework: CandidateMyJobComponent,
+      field: 'id', cellRendererFramework: CandidateCallDatailsComponent,
       width: 1000,
     },
 
   ];
+
   rowData = [
   ];
   jobslistbyclients: any = [];
@@ -67,7 +69,7 @@ export class CallDetailComponent implements OnInit {
   trackerno: any = {};
   ShowCandidates = false;
   searchcandidatetext: any = '';
-  searchcandidate: any = {};
+  searchcandidate: any = '';
   currentfilter: any = {};
   jobslistlength: any = {};
   exportdata: any = {};
@@ -76,7 +78,7 @@ export class CallDetailComponent implements OnInit {
   isfilter = false;
   filter: any = {};
   jobslistmain: any = {};
-  filterdropdown: any = {};
+  filterdropdown: any = '';
   isinterview: any = {};
   filterpopup: any;
   process: any;
@@ -117,7 +119,7 @@ export class CallDetailComponent implements OnInit {
   industries: any;
   // start_date: '2000-01-01';
   // end_date: number = Date.now();
-
+  rowHeight: any;
 
   childprocessnewvar: any;
   gridheader: any;
@@ -132,8 +134,8 @@ export class CallDetailComponent implements OnInit {
   isLoadingJobs = false;
   $url = 'http://www.passivereferral.com/refer/';
   $urlapply = 'http://www.passivereferral.com/apply/';
-  today = new Date();
-  start_date = '';
+  //today = new Date();
+  //start_date = '';
   constructor(public db: DBService) {
     // this.start_date = formatDate(this.today, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
   }
@@ -540,17 +542,21 @@ export class CallDetailComponent implements OnInit {
 
 
 
-    this.rowData = [];
+    this.rowData = [this.rowHeight = 200];
+    console.log(Search);
     this.db.list('callcandidatesdetailmyjob/', Search, ((response): void => {
       //
       // this.gridOptionsloadcandidatesInPopUp.columnDefs = this.columnDefs;
       this.candidatedetails = response;
       this.rowData = response;
+
       this.gridOptionsloadcandidatesInPopUp.exporterAllDataFn = function () {
         return this.candidatedetails;
       };
       this.candidateinpopup = response;
+
     })
+
     );
   };
 

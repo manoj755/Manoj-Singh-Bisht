@@ -34,6 +34,7 @@ import { CandidatestatusupdateComponent } from 'app/candidatestatusupdate/candid
 import { MessagelogComponent } from 'app/messagelog/messagelog.component';
 import { SmslogComponent } from 'app/smslog/smslog.component';
 import { LogoutComponent } from 'app/logout/logout.component';
+import { TermsAndConditionsComponent } from '../../terms-and-conditions/terms-and-conditions.component';
 
 
 export const AdminLayoutRoutes: Routes = [
@@ -71,7 +72,10 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'messagelog', component: MessagelogComponent },
   { path: 'smslog', component: SmslogComponent },
-  { path: 'logout', component: LogoutComponent }
+  { path: 'logout', component: LogoutComponent },
+  { path: 'terms-and-conditions', component: TermsAndConditionsComponent }
+
+
 
 
 
