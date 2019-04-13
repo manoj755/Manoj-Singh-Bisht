@@ -13,6 +13,8 @@ function callfunction() {
 
 }
 $(function () {
+
+
   var newWin;
   $(document).delegate(".printview", "click", function (e) {
     e.preventDefault();
@@ -65,6 +67,14 @@ $(function () {
     return false;
   });
 
+
+  $('body').delegate('.comment_status_btn', 'click', function () {
+
+$('.comment_status_btn').removeClass('comment_status_btn_current');
+$(this).addClass('comment_status_btn_current');
+
+    //$(this).next().find('source').attr('src', $(this).attr('link'));
+  });
   $('body').delegate('.playlink', 'click', function () {
 
     $(this).parent().parent().find('.player').html('<audio controls="" autoplay><source src="' + $(this).attr('link') + '" type="audio/wav">Your browser does not support the audio element.</audio>');

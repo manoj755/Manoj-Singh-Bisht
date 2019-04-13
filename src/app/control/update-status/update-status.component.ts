@@ -18,6 +18,7 @@ export class UpdateStatusComponent implements OnInit {
   currentstatusid = 0;
   allstatus = false;
   ajid = 0;
+  currentstatusnameoption = '';
   currentstatusname = '';
   @Input()
   set set_status_row(row: any) {
@@ -82,6 +83,7 @@ export class UpdateStatusComponent implements OnInit {
 
     });
   }
+
   purposechange(): void {
     // alert('purposechange');
 
@@ -89,6 +91,7 @@ export class UpdateStatusComponent implements OnInit {
     for (const i in this.statuses) {
       if (this.statuses[i].id === parseInt(this.commentstatus.status, 0)) {
         purpose = this.statuses[i].isinterview;
+        this.currentstatusnameoption = this.statuses[i].DisplayName;
         break;
       }
     }
@@ -113,11 +116,12 @@ export class UpdateStatusComponent implements OnInit {
 
     this.commentstatus.ajid = this.current_row.ajid;
     // $scope.commentstatus.recruiterid=$scope.recruiterid;
-
+    debugger;
     this.db.store('csr/', this.commentstatus, (response): void => {
       $('#commentstatus').modal('hide');
       // $scope.filterdrbytab();
       this.commentstatus = { ajid: 0 };
+      $('.comment_status_btn_current').text(this.currentstatusnameoption);
       // $rootScope.notificationload();
       // $scope.loadCandidate();
       if (showpopup) {

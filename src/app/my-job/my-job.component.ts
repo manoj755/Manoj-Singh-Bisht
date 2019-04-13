@@ -117,11 +117,11 @@ export class MyJobComponent implements OnInit {
 
   enter(i) {
     this.hoverIndex = i;
-}
+  }
 
-leave(i) {
+  leave(i) {
     this.hoverIndex = i;
-}
+  }
   showjd(item) {
 
     item.responsibilityshow = !item.responsibilityshow;
@@ -178,8 +178,8 @@ leave(i) {
             resumehtml += '</div>';
           }
           this.db.showDialog(`Your excel is ready.<a href="http://api.passivereferral.com/trackers/`
-          + r.excel
-          + `">Click Here</a> to Download ` + resumehtml, 'Message');
+            + r.excel
+            + `">Click Here</a> to Download ` + resumehtml, 'Message');
         } else {
           this.db.addmessageandremove('tracker sent');
         }
@@ -362,22 +362,27 @@ leave(i) {
         job_id = this.jobslist[i].id;
       }
     }
+    debugger;
     if (selected === 1) {
       this.db.list('vendorunderjob/', {
         job_id: job_id
       }, ((response): void => {
+
         const vendorunderjoblist = response;
-        for (const k in vendorunderjoblist) {
-          if (vendorunderjoblist[k]) {
-            for (const m in this.vendors) {
-              if (vendorunderjoblist[k].vendor_user_id === this.vendors[m].id) {
-                this.vendors[m].selected = true;
-                break;
+        setTimeout(() => {
+          for (const k in vendorunderjoblist) {
+            if (vendorunderjoblist[k]) {
+              for (const m in this.vendors) {
+                if (vendorunderjoblist[k].vendor_user_id === this.vendors[m].id) {
+                  this.vendors[m].selected = true;
+                  break;
+                }
               }
             }
           }
-        }
-        $('#vendor').modal('show');
+
+          $('#vendor').modal('show');
+        }, 1000);
       }));
 
     } else {
@@ -765,6 +770,7 @@ leave(i) {
   }
 
   assignjob(): void {
+    debugger;
     const assignjob = {
       'managers': this.db.SelectedCheckbox(this.managers),
       'jobs': this.db.SelectedCheckbox(this.jobslist)

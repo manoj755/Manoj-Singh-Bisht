@@ -221,6 +221,30 @@ export class DBService implements OnInit {
       this.loaderprogressbar = false;
     }, 1000);
   }
+
+  buildFormData(formData, data, parentKey?) {
+    debugger;
+    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+      Object.keys(data).forEach(key => {
+        this.buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+      });
+    } else {
+
+      let value = data == null ? '' : data;
+      if (typeof data === 'string') {
+        value = value.replace(/['"]+/g, '');
+      }
+      formData.append(parentKey, value);
+    }
+  }
+
+  jsonToFormData(data) {
+    const formData = new FormData();
+
+    this.buildFormData(formData, data);
+
+    return formData;
+  }
   post(url: string, data: any, success?: ICallback, fail?: ICallback, loader?): any {
 
 
@@ -369,11 +393,9 @@ export class DBService implements OnInit {
     const headersfull = new HttpHeaders();
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
-    const body = new FormData();
+    let body = new FormData();
 
-    for (const i in data) {
-      body.append(i, data[i]);
-    }
+    body = this.jsonToFormData(data);
     this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
@@ -471,14 +493,9 @@ export class DBService implements OnInit {
     const headersfull = new HttpHeaders();
     headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
-    const body = new FormData();
+    let body = new FormData();
 
-    for (const i in data) {
-      if (data[i]) {
-        const datatemp = JSON.stringify(data[i]);
-        body.append(i, datatemp);
-      }
-    }
+    body = this.jsonToFormData(data);
 
     this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
