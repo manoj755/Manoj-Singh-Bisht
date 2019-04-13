@@ -100,7 +100,7 @@
               class="btn  btn-raised btn-primary">Tagged</a></li>
 
         </ul>
-        <pagination-controls      directionLinks="true"
+        <pagination-controls     directionLinks="true"
         autoHide="true"
         responsive="true"
         previousLabel="Previous"
@@ -198,19 +198,9 @@
                       <i class="fa fa-check"></i>
                     </a>
 
-                    <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item);toggleColor();" [ngClass]="{'test': item.tagged===11}" >
+                    <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item)">
                       <i class="fa fa-tags"></i>
                     </a>
-                    <script>
-                     $("#myDiv").on({
-        hover: function(){
-           //do on mouse hover
-        },
-        click: function(){
-            //do on mouse click
-        }
-    });
-                    </script>
                     <a mat-mini-fab class="" help="Show JD" href="javascript:" style='color:black; background:#ffffbe;'
                       (click)="showjd(item)">
                       <i class="fa fa-bolt "></i>
@@ -317,7 +307,6 @@
 
       <div class="col-12">
         <div class="row">
-          <form >
           <div class="col-md-4">
             <div class="row">
               <div class="col-md-4">
@@ -339,14 +328,13 @@
                         </div>
 
                         <div class="box-body">
-                          <input name="vendorSearch" name="something2" [hidden]="vendorSearch<=0" type="text" [(ngModel)]="vendorSearch" [ngModelOptions]="{standalone: true}" class="form-control searchassign" placeholder="Search" ngDefaultControl />
+                          <input type="text" [(ngModel)]="vendorSearch" class="form-control" placeholder="Search" />
 
 
 
-                          <mat-selection-list>
+                          <ul class="todo-list">
 
-
-                            <mat-list-option  *ngFor="let vendor of vendors | FilterPipe:'name':vendorSearch">
+                            <li *ngFor="let vendor of vendors">
 
 
                               <!-- drag handle -->
@@ -357,9 +345,9 @@
 
 
                               <!-- todo text -->
-                              <span  class="text"> {{vendor.name}}</span>
+                              <span class="text"> {{vendor.name}}</span>
                               <!-- Emphasis label -->
-                              </span>
+
                               <!-- General tools such as edit or delete-->
 
                             </li>
@@ -367,10 +355,8 @@
 
 
 
-                          </mat-selection-list>
-
+                          </ul>
                         </div>
-
                         <!-- /.box-body -->
                         <div class="box-footer clearfix no-border">
                           <button type="button" class="btn  btn-raised btn-default pull-right"
@@ -403,9 +389,8 @@
                         </div>
                         <!-- /.box-header -->
 
-                        <div class="box-body ">
-                          <!-- <mdInput [(ngModel)]="managerSearch" [ngModelOptions]="{standalone: true}" class=" searchassign" placeholder="Search" ngDefaultControl />
-                        </> -->
+                        <div class="box-body">
+                          <input type="text" [(ngModel)]="managerSearch" class="form-control" placeholder="Search" />
 
                           <ul class="todo-list">
 
@@ -429,36 +414,8 @@
 
 
 
-                      <ul>
 
-                              <li  *ngFor="let manager of managers| FilterPipe:'name':managerSearch">
-
-
-                                <!-- drag handle -->
-
-                                <!-- checkbox <input type="checkbox" ng-checked="selectedmanagerlist.indexOf(manager.id)>-1" [(ngModel)]="selectedmanager" ng-change="selectedmanagerlistset(manager.id)" value="{{manager.id}}"> -->
-
-                                <mat-checkbox   [(ngModel)]="manager.selected" value="{{manager.selected}}" name="something1" ngDefaultControl >
-
-
-                                <!-- todo text -->
-                                <span  class="text">
-                                 {{manager.name}}
-                                 </span>
-                                 </mat-checkbox>
-                                <!-- Emphasis label -->
-
-                                <!-- General tools such as edit or delete-->
-                                <!-- <div class="tools hidden">
-                                  <i class="fa fa-edit"></i>
-                                  <i class="fa fa-trash-o"></i>
-                                </div> -->
-                              </li>
-
-
-
-                            </ul>
-
+                          </ul>
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer clearfix no-border">
@@ -477,6 +434,13 @@
 
 
                 <!--unassigned pop up for vendors or recruiters-->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal-5"
+                  class="modal fade">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="box-title text-center">Assign Job</h3>
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
 
                       </div>
                       <div class="box box-primary">
@@ -524,7 +488,6 @@
               </div>
             </div>
           </div>
-          </form>
         </div>
       </div>
 

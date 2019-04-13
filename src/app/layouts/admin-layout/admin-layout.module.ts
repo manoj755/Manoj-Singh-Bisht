@@ -126,14 +126,14 @@ declare var $: any;
     MatCardModule,
     MatRadioModule,
     CKEditorModule,
-    TooltipModule.forRoot(),
+    // TooltipModule.forRoot(),
     MatAutocompleteModule,
     NgSelectModule,
     MatTabsModule,
     MatDatepickerModule,
     NgxPaginationModule,
-    NgxEditorModule,
-    PipesModule,
+    // NgxEditorModule,
+    // PipesModule,
     //Ng2SearchPipeModule,
     AgGridModule.withComponents([
 
