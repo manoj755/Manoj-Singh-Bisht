@@ -271,7 +271,7 @@
 
                               <tbody>
                                   <tr *ngFor="let in_process_referral of in_process_referrals">
-                                     <td >
+                                     <td class="referral">
                                           <h4 class="">{{in_process_referral.Last_action}} (Gap : {{in_process_referral.diff}} Days) <b class="pull-right text-"><i class="fa  fa- "></i></b></h4>
 
                                           <h5 style="width:98%;" >{{in_process_referral.job_title}} ({{in_process_referral.client_name}})</h5>
@@ -282,9 +282,9 @@
                                           <span>Referrer : {{in_process_referral.referrer_name}}</span>
                                           <span>Total Action : {{in_process_referral.total_action}}</span>
                                           <span>Last Action Date : {{in_process_referral.last_action_date}}</span>
-                                          <span class="link highlight" (click)="rootactivity(in_process_referral)">View Activity</span>
+                                          <button class="link highlight btn btn-raised btn-sm btn-info"  data-target="#activity" data-toggle="modal"  (click)="activity(in_process_referral)">View Activity</button>
 
-                                          <span  class="link highlight"  (click)="rootcomment(in_process_referral)">Change Status</span>
+                                          <button class="link highlight btn btn-raised btn-sm btn-success"  target="#commentstatus" data-toggle="modal"  (click)="onCommentClick(in_process_referral)">Change Status</button>
 
                                      </td>
                                   </tr>
@@ -567,3 +567,6 @@
     </div>
   </div>
   <app-update-candidate [current_data]='currentData'></app-update-candidate>
+  <app-activity [activities]="activities"></app-activity>
+
+  <app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status>

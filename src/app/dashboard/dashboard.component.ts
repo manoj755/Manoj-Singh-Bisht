@@ -13,9 +13,12 @@ export class DashboardComponent implements OnInit {
   notification_very_danger = 0;
   notification_danger = 0;
   notification_success = 0;
+  status_row = {};
+  allstatusload = 0;
   notification_default = 0;
   notification_warning = 0;
   notification: any = [];
+  activities = [];
   currentData: any;
   myjob: any = [];
   jobslistforref: any = [];
@@ -60,6 +63,62 @@ export class DashboardComponent implements OnInit {
 
     seq = 0;
   };
+
+
+  public activity(data: any) {
+    this.db.show('addtojob/activity/', data.ajid, (response): void => {
+      this.activities = response;
+
+    });
+
+
+  }
+  public onCommentClick(data: any) {
+
+    this.allstatusload = 0;
+
+    this.status_row = data;
+    // this.updatestatuscomponent.status_id = 22;
+    // if (entity) {
+    //   $scope.entityvar = entity;
+    // } else {
+    //   entity = $scope.entityvar;
+    // }
+    // if ($scope.allstatus) {
+    //   $scope.allstatusload = 1;
+    // } else {
+    //   $scope.allstatusload = 0;
+    // }
+
+    //
+    // if (entity.recruiter_id == null) {
+    //   $scope.showowner = true;
+    // } else {
+    //   $scope.showowner = false;
+    // }
+    // $scope.ajid = entity.ajid;
+    // $rootScope.ajid = entity.ajid;
+    // console.log(entity);
+    // $scope.currentstatusid = entity.status_id;
+    // $scope.currentstatusname = entity.display_name;
+    // db.list('csr/' + entity.status_id, { allstatus: $scope.allstatusload }, function (response) {
+    //   $("#business").hide();
+    //   $("#offerhide").hide();
+    //   $scope.statuses = response.data;
+    //   $('#commentstatus').modal('show');
+    //   //            $mdDialog.show({
+    //   //                contentElement: '#commentstatus',
+    //   //                parent: angular.element(document.body),
+    //   //                clickOutsideToClose: true,
+    //   //                fullscreen: false,
+    //   //                disableParentScroll: false
+    //   //
+    //   //            });
+    // });
+
+
+
+  }
   startAnimationForBarChart(chart) {
     let seq2: any, delays2: any, durations2: any;
 
@@ -105,7 +164,14 @@ export class DashboardComponent implements OnInit {
       return 'default';
     }
   }
+  public activityclick(data: any) {
+    this.db.show('addtojob/activity/', data.ajid, (response): void => {
+      this.activities = response;
 
+    });
+
+
+  }
   naukriclick(url: any): void {
 
     this.jobportalurl = url;

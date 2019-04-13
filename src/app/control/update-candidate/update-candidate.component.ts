@@ -11,7 +11,7 @@ export class UpdateCandidateComponent implements OnInit {
   currentData: any;
   updateid = 0;
   trackerjobdata: any;
-  ProfileData = {};
+  ProfileData = [];
   candidate_id = 0;
   JobData: any;
   countries: any;

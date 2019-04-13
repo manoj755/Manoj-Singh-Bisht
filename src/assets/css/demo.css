@@ -38,6 +38,8 @@
 .width700{ width: 700px !important;}
 .height500{max-height: 500px !important;}
 .width700{ max-width:700px !important;}
+.referral span{ width:100%; display: block;}
+.referral span.highlight{ width:50%; font-weight: bold; color:gray;}
 
 .charthw{ overflow: hidden; max-height: 500px !important; height: 500px !important; min-width: 500px !important; width: 100% !important;}
 
