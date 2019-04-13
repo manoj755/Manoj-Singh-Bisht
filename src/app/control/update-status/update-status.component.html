@@ -28,7 +28,7 @@
                 <ng-select id="purpose" ngDefaultControl (change)="purposechange()" [(ngModel)]="commentstatus.status"
                   name="client_detail_id">
                   <ng-option selected="" value="{{currentstatusid}}">{{currentstatusname}}</ng-option>
-                  <ng-option value="{{x.id}}" [attr.isinterview]="x.isinterview" *ngFor="let x of statuses">
+                  <ng-option value="{{x.id}}" [attr.isinterview]="x.isinterview " *ngFor="let x of statuses" [attr.isbotcall]="x.isbotcall">
                     {{x.DisplayName}}
                   </ng-option>
 
@@ -119,7 +119,9 @@
               </div>
 
             </div>
-
+<div class="" id="isbot" style="display:none;">
+  hello
+</div>
 
 
             <div class="form-group">

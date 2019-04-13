@@ -12,6 +12,7 @@ export class ClientreportComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
+
   gridTotalCandidatejob = {
     data: null,
 
@@ -120,7 +121,11 @@ export class ClientreportComponent implements OnInit {
   updatedd: any;
   allids: any;
   jobslistbyclients: any;
-  myjob = { client_detail_id: 0, clientid: 0, isinterview: null, rootname: '' };
+  myjob = {
+    client_detail_id: 0, clientid: 0, isinterview: null, rootname: '',
+    start_date_temp: new Date('2000-01-01'), end_date_temp: new Date(),
+    start_date: '', end_date: ''
+  };
   clientdetails: any;
   managers: [];
 
@@ -129,13 +134,17 @@ export class ClientreportComponent implements OnInit {
 
   ngOnInit() {
     this.getlistmain();
-    this.getlist();
     this.db.list('clientdetail/', null, (response): void => {
       this.clientdetails = response;
       console.log(response);
       this.getcandidatebyclient();
 
     });
+    setTimeout(() => {
+      this.getlist();
+    }, 100);
+
+
 
   }
   refreshgrid(): void {
@@ -143,6 +152,7 @@ export class ClientreportComponent implements OnInit {
 
 
   }
+
   public onRowClicked(e) {
     if (e.event.target !== undefined) {
       const data = e.data;
@@ -162,6 +172,7 @@ export class ClientreportComponent implements OnInit {
       }
     }
   }
+
   load_filtered(row, dataroot): void {
     this.filtertitle = dataroot;
     $('#ModelShowcandidateStatusWise').modal('show');
@@ -185,7 +196,7 @@ export class ClientreportComponent implements OnInit {
         { 'headerName': 'Location', 'field': 'location', 'sortable': true, 'filter': true },
         { 'headerName': 'Title', 'field': 'job_title', 'sortable': true, 'filter': true },
         { 'headerName': 'Status', 'field': 'Status', 'sortable': true, 'filter': true }];
-        // this.db.GenerateColDef(response);
+      // this.db.GenerateColDef(response);
       this.candidate_filtered = response;
 
       const Columns = [];
@@ -292,7 +303,7 @@ export class ClientreportComponent implements OnInit {
         { 'headerName': 'Start Date', 'field': 'start_date', 'sortable': true, 'filter': true },
         { 'headerName': 'End Date', 'field': 'end_date', 'sortable': true, 'filter': true },
         { 'headerName': 'type', 'field': 'jobtype', 'sortable': true, 'filter': true }];
-        // this.db.GenerateColDef(response);
+      // this.db.GenerateColDef(response);
       this.showjobsClientWiseRows = response;
 
 
@@ -340,11 +351,19 @@ export class ClientreportComponent implements OnInit {
     } else {
       this.myjob.manager_D = 0;
     }
+    // if (this.myjob.client_detail_id.length > 0){
+    // this.myjob.start_date = this.db.toYYMMDD(this.myjob.start_date);
+    // this.myjob.end_date = this.db.toYYMMDD(this.myjob.end_date);}
+    this.myjob.start_date = this.db.toYYMMDD(this.myjob.start_date_temp);
+    this.myjob.end_date = this.db.toYYMMDD(this.myjob.end_date_temp);
 
+    //  this.start_date = this.db.toYYMMDD(this.myjob.start_date);
+    //  this.end_date= this.db.toYYMMDD(this.myjob.end_date);
     this.db.list('clientreportApi/', this.myjob, (response): void => {
       let jobshow = true;
       if (this.myjob.job_id === 0) {
         jobshow = true;
+
       }
 
 
@@ -669,7 +688,8 @@ export class ClientreportComponent implements OnInit {
 
 
   getlist(): void {
-
+    this.myjob.start_date = this.db.toYYMMDD(this.myjob.start_date_temp);
+    this.myjob.end_date = this.db.toYYMMDD(this.myjob.end_date_temp);
     this.db.list('clientreportApi/', null, (response): void => {
 
 
@@ -694,7 +714,8 @@ export class ClientreportComponent implements OnInit {
 
 
   usersave(): void {
-    // this.user.profilepic=this.user.profilepic[0];
+    this.myjob.start_date = this.db.toYYMMDD(this.myjob.start_date);
+    this.myjob.end_date = this.db.toYYMMDD(this.myjob.end_date);
     this.db.store('clientreportApi/', this.user, (response): void => {
       alert('item saved');
       this.getlist();

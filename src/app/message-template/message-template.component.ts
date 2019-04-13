@@ -27,7 +27,7 @@ export class MessageTemplateComponent implements OnInit {
   columnDefs = [
     {
       headerName: 'Action', field: 'id', suppressMenu: true,
-      suppressSorting: true, width: 300,
+      suppressSorting: true, width: 350,
       template:
         `<button type='button' data-action-type='edit' class='btn btn-success btn-sm'>
          Edit
@@ -36,9 +36,10 @@ export class MessageTemplateComponent implements OnInit {
       <button type='button' data-action-type='delete' class='btn btn-danger btn-sm'>
          Delete
       </button>`},
-    { headerName: 'Template Type', field: 'templateType', sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true, width: 250, },
-    { headerName: 'Template Area', field: 'templatearea', sortable: true, filter: true, width: 250 },
-    { headerName: 'Template name', field: 'templatename', sortable: true, filter: true, width: 250 },
+    { headerName: 'Template Type', field: 'templateType', sortable: true, filter: true, headerCheckboxSelection: true,
+    checkboxSelection: true, width: 300, },
+    { headerName: 'Template Area', field: 'templatearea', sortable: true, filter: true, width: 300 },
+    { headerName: 'Template name', field: 'templatename', sortable: true, filter: true, width: 300 },
     // { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
   ];
 

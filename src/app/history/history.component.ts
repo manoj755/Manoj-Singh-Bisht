@@ -19,6 +19,7 @@ export class HistoryComponent implements OnInit {
   data: any;
   gridOptions: any;
   candidatedetails: any;
+  searchcandidatetext: [];
   private gridColumnApi;
 
   private autoGroupColumnDef;
@@ -48,6 +49,7 @@ export class HistoryComponent implements OnInit {
     { headerName: 'Salary', field: 'currentSalary', sortable: true, filter: true },
     { headerName: 'Recruiter Name', field: 'recruitername', sortable: true, filter: true },
     { headerName: 'CV Status', field: 'cvstatus', sortable: true, filter: true },
+
   ];
 
   rowData = [
@@ -69,6 +71,7 @@ export class HistoryComponent implements OnInit {
 
   ngOnInit() {
     this.LoadHistory();
+    this.filterhistory();
 
   }
 
@@ -81,6 +84,8 @@ export class HistoryComponent implements OnInit {
     }
     this.db.list('history/', this.data, ((response): void => {
       this.rowData = response;
+      this.candidatedetails = response;
+      this.gridOptions = response;
 
 
     }));
@@ -92,6 +97,27 @@ export class HistoryComponent implements OnInit {
     })
     );
   }
+
+  filterhistory(): void {
+
+    if (this.searchcandidatetext.length !== 0) {
+      const main = [];
+      for (const i in this.candidatedetails) {
+        for (const j in this.candidatedetails[i]) {
+          if (this.candidatedetails[i][j] != null && (this.candidatedetails[i][j].toString()).
+            indexOf((this.searchcandidatetext)) !== -1) {
+            main.push(this.candidatedetails[i]);
+            break;
+          }
+
+        }
+      }
+      this.rowData = main;
+    } else {
+      this.rowData = this.candidatedetails;
+    }
+  };
+
 
   public onRowClicked(e) {
     if (e.event.target !== undefined) {

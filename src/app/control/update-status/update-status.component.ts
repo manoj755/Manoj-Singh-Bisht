@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DBService } from '../../db.service';
+import { CandidateMyJobComponent } from '../../control/candidate-my-job/candidate-my-job.component';
 import { BehaviorSubject } from 'rxjs';
 declare var $: any;
 @Component({
@@ -12,6 +13,7 @@ export class UpdateStatusComponent implements OnInit {
   commentstatus: any = {};
   showowner = false;
   managers = [];
+  load: CandidateMyJobComponent;
   status_id = 0;
   current_row: any;
   entityvar: any;
@@ -73,16 +75,49 @@ export class UpdateStatusComponent implements OnInit {
     }
     this.ajid = entity.ajid;
     console.log(entity);
+    debugger;
     this.currentstatusid = entity.status_id;
     this.currentstatusname = entity.display_name;
+
     this.db.list('csr/' + entity.status_id, { allstatus: this.allstatusload }, (response): void => {
       $('#business').hide();
       $('#offerhide').hide();
+      $('#isbot').hide();
       this.statuses = response;
+      // debugger;
       $('#commentstatus').modal('show');
 
     });
   }
+
+  sendcall(entity): void {
+    if (entity && entity.botid !== null) {
+      this.entityvar = entity;
+    }
+    else {
+      entity = this.entityvar;
+    }
+    const copyjob = {
+      'candidates': entity.id,
+      'job': entity.job_id,
+      'manager': entity.recruiter_id
+    };
+    this.db.store('sendcall/', copyjob, ((response): void => {
+
+      console.log(response);
+
+      const addtojobmessage = 'Done';
+
+      this.db.showMessage(addtojobmessage);
+
+    }), ((Response): void => {
+      this.db.showMessage('Some error occured');
+    })
+    );
+  }
+
+
+
 
   purposechange(): void {
     // alert('purposechange');
@@ -106,6 +141,11 @@ export class UpdateStatusComponent implements OnInit {
     } else {
       $('#business').hide();
     }
+    if ($('#purpose').find('option:selected').attr('isbotcall') === '1' || purpose === 1) {
+      $('#isbot').show();
+    } else {
+      $('#isbot').hide();
+    }
 
   };
 
@@ -123,19 +163,79 @@ export class UpdateStatusComponent implements OnInit {
       this.commentstatus = { ajid: 0 };
       $('.comment_status_btn_current').text(this.currentstatusnameoption);
       // $rootScope.notificationload();
-      // $scope.loadCandidate();
+      this.loadCandidate();
+      this.sendcall(this.entityvar);
       if (showpopup) {
         this.db.showNotification('Status changed successfully.');
       }
     });
   };
 
+  loadCandidate = function () {
+
+    //
+    let SelectedJob = ''
+    if (this.isfirstload !== 1) {
+      SelectedJob = this.db.SelectedCheckboxWithComma(this.jobslist);
+    } else {
+      SelectedJob = this.selectedjob;
+    }
+    SelectedJob = this.selectedjob;
+    // const totalrow = this.selectednodes;
+    // SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
+    this.globaljobid = SelectedJob;
+    const Search = {
+      filterdropdown: this.filterdropdown,
+      process: this.process,
+      mainprocess: this.mainprocess,
+      searchcandidatetext: this.searchcandidatetext,
+      selectedjob: SelectedJob,
+      candidate: this.searchcandidate
+
+    };
+    if (this.isinterview !== undefined) {
+      Search['isinterview'] = this.isinterview;
+    }
+
+    this.rowData = [];
+    console.log(Search);
+    this.db.list('candidatesdetailmyjob/', Search, ((response): void => {
+
+
+      this.candidatedetails = response;
+      this.rowData = response;
+      this.gridOptionsloadcandidatesInPopUp.exporterAllDataFn = function () {
+        return this.candidatedetails;
+      };
+      this.candidateinpopup = response;
+    }));
+  };
+
+
   LoadCommentData(status_id) {
 
   }
 
 
+  //   const copyjob = {
+  //     'candidates': allrow,
+  //     'job': this.addnewjob.add_new_job_id,
+  //     'manager': this.addnewjob.manager
+  //   };
+  //   this.db.store('sendcall/', copyjob, ((response): void => {
 
+  //     console.log(response);
+
+  //     const addtojobmessage = 'Done';
+
+  //     this.db.showMessage(addtojobmessage);
+
+  //   }), ((Response): void => {
+  //     this.db.showMessage('Some error occured');
+  //   })
+  //   );
+
+  // }
 
 
   loadmanagerid(): void {

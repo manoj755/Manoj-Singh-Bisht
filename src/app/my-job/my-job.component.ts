@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from '../db.service';
 import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-my-job.component';
+import { ItemsList } from '@ng-select/ng-select/ng-select/items-list';
+//import { FilterPipe } from '../shared/pipes/FilterPipe.pipe';
 declare var $: any;
 @Component({
   selector: 'app-my-job',
   templateUrl: './my-job.component.html',
-  styleUrls: ['./my-job.component.scss']
+  styleUrls: ['./my-job.component.scss'],
+
 })
 export class MyJobComponent implements OnInit {
   private smsselected = {};
+  //public  FilterPipe1 = FilterPipe;
   private emailselected = {};
   private gridApi;
   p = 0;
@@ -17,6 +21,7 @@ export class MyJobComponent implements OnInit {
   displaydd = 'Job';
   private gridColumnApi;
   managers = [];
+  manager: any;
   private autoGroupColumnDef;
   private defaultColDef;
   private rowSelection;
@@ -81,7 +86,7 @@ export class MyJobComponent implements OnInit {
   mainprocess: any = '0';
   $url = 'http://www.passivereferral.com/refer';
   $urlapply = 'http://www.passivereferral.com/apply';
-
+  newColor = false;
   itemone = { jobDescription: '' };
   candidate_id = 0;
   currentData = {};
@@ -99,6 +104,8 @@ export class MyJobComponent implements OnInit {
   selectedmanager: any;
   agreed = 0;
   disagreed = 0;
+  searchText: any;
+  applications: any;
   constructor(public db: DBService) {
 
     if (db.profile.id) {
@@ -112,6 +119,9 @@ export class MyJobComponent implements OnInit {
   ngOnInit() {
     this.bindJob();
     this.loadmanager();
+    //this.updatestatuscommentmyjob('showpopup');
+    this.loadCandidate();
+
 
   }
 
@@ -187,9 +197,9 @@ export class MyJobComponent implements OnInit {
         ((r): void => {
           if (r.errormsg !== undefined) {
             this.db.addmessageandremove(r.errormsg);
-          } else {
-            this.db.addmessageandremove('Some error occured');
-          }
+          }//  else {
+          //   this.db.addmessageandremove('Some error occured');
+          // }
         }));
     } else {
       this.db.addmessageandremove('Please Select CV');
@@ -259,7 +269,7 @@ export class MyJobComponent implements OnInit {
       this.filterdrbytab();
       this.commentstatus = {};
 
-      this.loadCandidate();
+
       this.cancel();
       if (showpopup) {
         this.db.showMessage('Status changed successfully.');
@@ -268,7 +278,8 @@ export class MyJobComponent implements OnInit {
       if (showpopup) {
         this.db.ShowPopUp('Please try again.');
       }
-    }));
+
+    })); this.loadCandidate();
   };
 
   sendCvToPanel(): void {
@@ -698,16 +709,31 @@ export class MyJobComponent implements OnInit {
     this.candidate_id = data.id;
   }
 
+
+
+  toggleColor(item) {
+    if (item.tagged == '11') {
+      this.newColor = !this.newColor;
+    } else {
+      this.newColor = this.newColor;
+    }
+  }
+
   tag(item): void {
 
     if (item.tagged !== '10') {
       this.db.destroy('jobtag/', item.id, (response): void => {
-        item.tagged = '10';
+        item.tagged = 10;
+        this.db.showMessage('Untagged');
+
       });
+
     } else {
 
+
       this.db.store('jobtag/', { job_id: item.id }, (response): void => {
-        item.tagged = '11';
+        item.tagged = 11;
+        this.db.showMessage('Tagged');
       });
     }
 
@@ -782,6 +808,7 @@ export class MyJobComponent implements OnInit {
 
 
   unassignjob(): void {
+    debugger;
     const unassignjob = {
       'managers': this.db.SelectedCheckbox(this.managers),
       'jobs': this.db.SelectedCheckbox(this.jobslist)

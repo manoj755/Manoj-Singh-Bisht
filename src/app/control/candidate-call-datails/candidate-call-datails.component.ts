@@ -1,21 +1,22 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular/main';
 declare var $: any;
+
 @Component({
-  selector: 'app-candidate-my-job',
-  templateUrl: './candidate-my-job.component.html',
-  styleUrls: ['./candidate-my-job.component.scss']
+  selector: 'app-candidate-call-datails',
+  templateUrl: './candidate-call-datails.component.html',
+  styleUrls: ['./candidate-call-datails.component.scss']
 })
-export class CandidateMyJobComponent implements ICellRendererAngularComp {
+export class CandidateCallDatailsComponent  implements ICellRendererAngularComp {
   private params: any;
   private cubed: number;
   @Output()
-  rowdata = new EventEmitter<any>();
+  rowData = new EventEmitter<any>();
   row = { entity: null }
   myname = 'narender';
   constructor() { }
   agInit(params: any): void {
-    //debugger;
+    debugger;
     this.params = params;
     this.row.entity = this.params.data;
     this.cubed = this.params.data.value * this.params.data.value * this.params.data.value;
@@ -29,7 +30,7 @@ export class CandidateMyJobComponent implements ICellRendererAngularComp {
 
   activity(row): void {
 
-    this.rowdata.emit(row);
+    this.rowData.emit(row);
     $('#activity').modal('show');
 
   }
@@ -44,3 +45,4 @@ export class CandidateMyJobComponent implements ICellRendererAngularComp {
 
   }
 }
+

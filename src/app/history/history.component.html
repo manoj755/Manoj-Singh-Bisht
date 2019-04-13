@@ -46,6 +46,7 @@
       </div>-->
 
 
+
       <div class="form-group col-md-6">
         <div class="row">
           <label class="col-md-3">Recruiter</label>
@@ -62,13 +63,19 @@
 
 
 
-
-
       <div class="col-12">
 
-      <button (click)="exportdat()" class="btn btn-raised btn-danger">Export</button>
+        <div class="row">
+          <div class="col-2">
+                <button (click)="exportdat()" class="btn btn-raised btn-danger">Export</button>
+                </div>
+                <div class="col-10">
+                <input type="text" class="form-control"(keyup)="filterhistory()" [(ngModel)]="searchcandidatetext"  placeholder="Search..." id = "history">
+              </div>
+            </div>
 
       <ag-grid-angular style=" height: 500px;" (rowClicked)="onRowClicked($event)"
+      rowSelection='multiple'
         class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
         [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
         (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
