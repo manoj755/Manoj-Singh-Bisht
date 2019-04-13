@@ -373,22 +373,27 @@ export class MyJobComponent implements OnInit {
         job_id = this.jobslist[i].id;
       }
     }
+    debugger;
     if (selected === 1) {
       this.db.list('vendorunderjob/', {
         job_id: job_id
       }, ((response): void => {
+
         const vendorunderjoblist = response;
-        for (const k in vendorunderjoblist) {
-          if (vendorunderjoblist[k]) {
-            for (const m in this.vendors) {
-              if (vendorunderjoblist[k].vendor_user_id === this.vendors[m].id) {
-                this.vendors[m].selected = true;
-                break;
+        setTimeout(() => {
+          for (const k in vendorunderjoblist) {
+            if (vendorunderjoblist[k]) {
+              for (const m in this.vendors) {
+                if (vendorunderjoblist[k].vendor_user_id === this.vendors[m].id) {
+                  this.vendors[m].selected = true;
+                  break;
+                }
               }
             }
           }
-        }
-        $('#vendor').modal('show');
+
+          $('#vendor').modal('show');
+        }, 1000);
       }));
 
     } else {

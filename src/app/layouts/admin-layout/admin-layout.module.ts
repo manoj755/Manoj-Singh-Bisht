@@ -11,8 +11,8 @@ import {MatIconModule} from '@angular/material/icon';
 // import { NgSelectModule } from '@ng-select/ng-select';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TooltipModule } from 'ngx-bootstrap/tooltip';
-import { NgxEditorModule } from 'ngx-editor';
+// import { TooltipModule } from 'ngx-bootstrap/tooltip';
+// import { NgxEditorModule } from 'ngx-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
 import { DashboardComponent } from '../../dashboard/dashboard.component';
@@ -128,14 +128,14 @@ declare var $: any;
     MatCardModule,
     MatRadioModule,
     CKEditorModule,
-    TooltipModule.forRoot(),
+    // TooltipModule.forRoot(),
     MatAutocompleteModule,
     NgSelectModule,
     MatTabsModule,
     MatDatepickerModule,
     NgxPaginationModule,
-    NgxEditorModule,
-    PipesModule,
+    // NgxEditorModule,
+    // PipesModule,
     //Ng2SearchPipeModule,
     AgGridModule.withComponents([
 

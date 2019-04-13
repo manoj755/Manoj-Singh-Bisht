@@ -221,6 +221,30 @@ export class DBService implements OnInit {
       this.loaderprogressbar = false;
     }, 1000);
   }
+
+  buildFormData(formData, data, parentKey?) {
+    debugger;
+    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+      Object.keys(data).forEach(key => {
+        this.buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+      });
+    } else {
+
+      let value = data == null ? '' : data;
+      if (typeof data === 'string') {
+        value = value.replace(/['"]+/g, '');
+      }
+      formData.append(parentKey, value);
+    }
+  }
+
+  jsonToFormData(data) {
+    const formData = new FormData();
+
+    this.buildFormData(formData, data);
+
+    return formData;
+  }
   post(url: string, data: any, success?: ICallback, fail?: ICallback, loader?): any {
 
 
@@ -367,11 +391,11 @@ export class DBService implements OnInit {
     }
     data.token = this.getToken();
     const headersfull = new HttpHeaders();
-    headersfull.append('Content-Type', 'application/json');
-
+    headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
+    let body = new FormData();
 
-    const body = this.ConvertToFormData(data,'','');
+    body = this.jsonToFormData(data);
     this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
         res => {
@@ -466,12 +490,11 @@ export class DBService implements OnInit {
     }
     data.token = this.getToken();
     const headersfull = new HttpHeaders();
-    headersfull.append('Content-Type', 'application/json');
-
+    headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
+    let body = new FormData();
 
-    const body = this.ConvertToFormData(data, '', '');
-
+    body = this.jsonToFormData(data);
 
     this.http.post(req.url, body, { headers: headersfull })
       .subscribe(
