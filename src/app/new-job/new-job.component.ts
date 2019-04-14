@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
+import { ActivatedRoute } from '@angular/router';
 declare var $: any;
 // https://ng-select.github.io/ng-select#/tags
 @Component({
@@ -9,6 +10,7 @@ declare var $: any;
 })
 export class NewJobComponent implements OnInit {
   start_date_temp: any = new Date();
+
   clientsdepartment = '';
   end_date_temp: any = new Date();
   clients: any = [];
@@ -71,9 +73,11 @@ export class NewJobComponent implements OnInit {
   minexperience = [];
   industries = [];
   functionalareas = [];
-  constructor(public db: DBService) { }
+  constructor(public db: DBService, public route: ActivatedRoute) { }
 
   ngOnInit() {
+
+
     $('select').addClass('noselect2 form-control');
     this.minimumSalaryOptionSet()
     this.updatemaxexperience();
@@ -85,6 +89,9 @@ export class NewJobComponent implements OnInit {
     this.db.list('functionalarea/', null, (response): void => {
 
       this.functionalareas = response;
+      if (this.route.snapshot.params.id) {
+        this.showJob(this.route.snapshot.params.id);
+      }
     });
 
 
@@ -99,7 +106,6 @@ export class NewJobComponent implements OnInit {
 
 
   }
-
 
   jobtype(): void {
 

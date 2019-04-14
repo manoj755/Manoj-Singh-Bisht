@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
-import {MatIconModule} from '@angular/material/icon';
-//import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
+import { MatIconModule } from '@angular/material/icon';
+// import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // import {ReactiveFormsModule} from 'angular/forms';
 
 // import { AngularSlickgridModule } from 'angular-slickgrid';
@@ -51,6 +50,7 @@ import { MessagelogComponent } from '../../messagelog/messagelog.component';
 import { SmslogComponent } from '../../smslog/smslog.component';
 import { TermsAndConditionsComponent } from '../../terms-and-conditions/terms-and-conditions.component';
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 // import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ManagerComponent } from '../../control/manager/manager.component';
@@ -82,8 +82,7 @@ import {
   MatBadgeModule,
   MatDatepickerModule,
   MatListModule,
-
- // MatIconRegistry,
+  // MatIconRegistry,
   //MatDialog
 
 
@@ -145,7 +144,10 @@ declare var $: any;
     ReactiveFormsModule,
     FormsModule,
     MatListModule,
-    MatIconModule
+    MatIconModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
+
     // TranslateService,
     //  NgSelectModule,
   ],
