@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="alert alert-info col-12" *ngIf="clientdetails.length==0">
-        <h2>Please Create {{clientsdepartment}}.</h2>
+        <h2>Please Create {{db.clientsdepartment}}.</h2>
         <span *ngIf="mp.page_tracker">To create please <a href="#/client">click here</a></span>
         <span *ngIf="!mp.page_tracker">Please contact your manager</span>
 
@@ -26,7 +26,7 @@
               <div class="col-md-12">
                 <div class="row" role="form" name="userForm" id="mynewjob">
                   <div class="form-group col-md-6">
-                    <label class="col-md-4 " select>Select a {{clientsdepartment}}:</label>
+                    <label class="col-md-4 " select>Select a {{db.clientsdepartment}}:</label>
                     <div class="col-md-8">
                       <select id="client" [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
                         <option value="{{client.id}}" *ngFor="let client of clientdetails">
@@ -311,7 +311,6 @@
                   <div class="form-group col-md-12">
                     <label class="col-md-2" Title>Job Key Skills</label>
                     <div class="col-md-10">
-                      {{myjob.keyskills}}
 
                       <ng-select ngDefaultControl [(ngModel)]="myjob.keyskills" [items]="suggestedkeyskills" [addTag]="true"
                         [multiple]="true" [isOpen]="false">

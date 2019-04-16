@@ -9,7 +9,7 @@ class="modal fade">
     <div class="modal-body">
       <div class="form-horizontal">
         <div class="form-group">
-          <label for="Client" class="control-label col-xs-2">{{clientsdepartment}}:</label>
+          <label for="Client" class="control-label col-xs-2">{{db.clientsdepartment}}:</label>
           <div class="col-xs-10">
             <ng-select [(ngModel)]="addtojob.client_detail_id" (change)='getcandidatebyclientaddtojob()'>
               <ng-option *ngFor="let x of clients" [value]="x.id"  >{{x.billingName}}</ng-option>

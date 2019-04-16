@@ -615,7 +615,7 @@ export class NewJobComponent implements OnInit {
   loadinternationlocation(): void {
     this.locationtype = 'international';
     this.locations = [];
-    this.db.list('internationallocation', null, function (response) {
+    this.db.list('internationallocation', null, (response) => {
 
       const data = response;
       for (const j in data) {
