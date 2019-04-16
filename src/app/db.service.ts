@@ -35,9 +35,13 @@ export class DBService implements OnInit {
     history: 'history',
     myjob: 'myjob',
   };
+  http_or_https = 'http';
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
     this.setProfile();
     this.globaljobid = 0;
+    if (window.location.href.indexOf('https') !== -1) {
+      this.http_or_https = 'https';
+    }
   }
   setProfile(): any {
 

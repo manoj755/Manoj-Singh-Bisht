@@ -15,9 +15,10 @@ export class CallDetailComponent implements OnInit {
   private gridApi;
   selectednodes = [];
   allids = [];
-  http_or_https = 'http';
+
   recruiter;
-  conversations = [];
+  conversations = {};
+  conversationsobj = [];
   displaydd = 'Job';
   private gridColumnApi;
   pageSize: any;
@@ -134,8 +135,8 @@ export class CallDetailComponent implements OnInit {
   isLoadingJobs = false;
   $url = 'http://www.passivereferral.com/refer/';
   $urlapply = 'http://www.passivereferral.com/apply/';
-  //today = new Date();
-  //start_date = '';
+  // today = new Date();
+  // start_date = '';
   constructor(public db: DBService) {
     // this.start_date = formatDate(this.today, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
   }
@@ -504,8 +505,22 @@ export class CallDetailComponent implements OnInit {
     }
   }
 
+  public onRowClicked(e) {
+    if (e.event.target !== undefined) {
+      const data = e.data;
+      const actionType = e.event.target.getAttribute('data-action-type');
+
+
+      switch (actionType) {
+        case 'conversation':
+          return this.conversation(data);
+        case 'openpopup':
+          return this.openpopup(data.call_id);
+      }
+    }
+  }
   openpopup(id): void {
-    window.open(this.http_or_https + '://api.passivereferral.com/recording/?id='
+    window.open(this.db.http_or_https + '://api.passivereferral.com/recording/?id='
       + id, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=500,width=400,height=150');
   }
   loadCandidate = function () {
@@ -564,13 +579,34 @@ export class CallDetailComponent implements OnInit {
     this.callconversation = entity;
     //          /  this.conversations = JSON.parse(entity.conversation);
     // $('#conversation').modal('show');
-    $('#player').html('<iframe src="' + this.http_or_https + '://api.passivereferral.com/recording/?id=' + entity.call_id +
+    $('#player').html('<iframe src="' + this.db.http_or_https + '://api.passivereferral.com/recording/?id=' + entity.call_id +
       '" width="100%" height="100" style="border:none; width:300px;height:100px"></iframe>');
 
-
+    this.conversationsobj = [];
     // this.callconversation=entity;
     this.db.show('calldetail/', entity.call_id, ((response): void => {
+      debugger;
       this.conversations = JSON.parse(response.conversation);
+      for (const con in this.conversations) {
+        if (true) {
+          if (this.conversations['audio']) {
+            this.conversationsobj.push({
+              key: con.split('__')[0], value: this.conversations[con].text,
+              start_speaking: this.conversations[con].start_speaking,
+              end_speaking: this.conversations[con].end_speaking,
+              start_transcribe: this.conversations[con].start_transcribe,
+              end_transcribe: this.conversations[con].end_transcribe,
+              audio: this.conversations[con].audio,
+              text: this.conversations[con].text,
+              // start_speaking: this.conversations[con].start_speaking,
+              //            start_speaking: this.conversations[con].start_speaking,
+
+            })
+          } else {
+            this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con].text })
+          }
+        }
+      }
       $('#conversation').modal('show');
     })
     );
@@ -762,6 +798,7 @@ export class CallDetailComponent implements OnInit {
 
     this.bindJoblist(data);
   };
+
 
   getlist(): void {
     // if (!$('.validate').validate('#myModal')) {

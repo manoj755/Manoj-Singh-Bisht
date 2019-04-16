@@ -8,6 +8,7 @@ declare var $: any;
   styleUrls: ['./candidate-call-datails.component.scss']
 })
 export class CandidateCallDatailsComponent  implements ICellRendererAngularComp {
+
   private params: any;
   private cubed: number;
   @Output()
