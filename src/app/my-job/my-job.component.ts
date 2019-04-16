@@ -533,7 +533,7 @@ export class MyJobComponent implements OnInit {
     SelectedJob = this.selectedjob;
     // const totalrow = this.selectednodes;
     // SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
-    this.globaljobid = SelectedJob;
+    this.db.globaljobid = SelectedJob;
     const Search = {
       filterdropdown: this.filterdropdown,
       process: this.process,

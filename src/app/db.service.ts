@@ -26,6 +26,7 @@ export class DBService implements OnInit {
   loaderprogressbar = false;
   profile: any = {};
   PF: any = {};
+  globaljobid = 0;
   mp: any = {};
   private selectedNodes = [];
   nodetype: string;
@@ -36,6 +37,7 @@ export class DBService implements OnInit {
   };
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
     this.setProfile();
+    this.globaljobid = 0;
   }
   setProfile(): any {
 
