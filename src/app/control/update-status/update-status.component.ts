@@ -77,6 +77,7 @@ export class UpdateStatusComponent implements OnInit {
     console.log(entity);
     debugger;
     this.currentstatusid = entity.status_id;
+    // this.commentstatus.status = this.currentstatusid;
     this.currentstatusname = entity.display_name;
 
     this.db.list('csr/' + entity.status_id, { allstatus: this.allstatusload }, (response): void => {

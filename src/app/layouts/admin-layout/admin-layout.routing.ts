@@ -45,6 +45,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'call-detail', component: CallDetailComponent },
   { path: 'myjob', component: MyJobComponent },
   { path: 'newjob', component: NewJobComponent },
+  { path: 'editjob/:id', component: NewJobComponent },
   { path: 'clientreport', component: ClientreportComponent },
   { path: 'recruiterreportnew', component: RecruiterreportnewComponent },
   { path: 'recruiter-report-newhistory', component: RecruiterReportNewhistoryComponent },

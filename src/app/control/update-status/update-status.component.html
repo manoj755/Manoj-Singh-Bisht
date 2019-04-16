@@ -56,10 +56,8 @@
                 <div class="col-md-12">
 
                   <div class="input-group date" id="datetimepicker1">
-                    <input type="text" ng-model="commentstatus.date" class="form-control">
-                    <span class="input-group-addon">
-                      <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+                    <input type="text" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" ng-model="commentstatus.date" class="form-control">
+                    <owl-date-time #dt1></owl-date-time>
                   </div>
                   <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
 
@@ -119,9 +117,9 @@
               </div>
 
             </div>
-<div class="" id="isbot" style="display:none;">
+<!-- <div class="" id="isbot" style="display:none;">
   hello
-</div>
+</div> -->
 
 
             <div class="form-group">

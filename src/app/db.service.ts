@@ -225,7 +225,6 @@ export class DBService implements OnInit {
 
 
   buildFormData(formData, data, parentKey?) {
-    debugger;
     if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
       Object.keys(data).forEach(key => {
         this.buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);

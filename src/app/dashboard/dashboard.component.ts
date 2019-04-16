@@ -3,6 +3,8 @@ import * as Chartist from 'chartist';
 import { CandidateInJobsNotificationComponent } from '../control/candidate-in-jobs-notification/candidate-in-jobs-notification.component';
 import { Router } from '@angular/router';
 import { DBService } from '../db.service';
+import * as c3 from 'c3';
+declare var $: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -41,15 +43,109 @@ export class DashboardComponent implements OnInit {
   activities = [];
   currentData: any;
   myjob: any = [];
+  hide = false;
   jobslistforref: any = [];
   jobportalurl: any = [];
   setjobandreferencetemp: any = {};
   profile: any = {};
+  end_date_temp: any = new Date();
+  start_date_temp: any = new Date();
+
   in_process_referrals: any = [];
   smsmessagetemplatesforref: any = [];
   emailmessagetemplatesforref: any = [];
   mp: any = {};
   constructor(private router: Router, private db: DBService) { }
+  ngOnInit() {
+    this.start_date_temp.setDate(this.end_date_temp.getDate() - 1);
+    this.loadcvparse();
+    this.db.setProfile();
+    this.bindNewReference();
+    this.getnotification();
+    /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
+
+    const dataDailySalesChart: any = {
+      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+      series: [
+        [12, 17, 7, 17, 23, 18, 38]
+      ]
+    };
+
+
+
+
+    const optionsDailySalesChart: any = {
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      low: 0,
+      high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
+    }
+
+    var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
+
+    this.startAnimationForLineChart(dailySalesChart);
+
+
+    /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
+
+    const dataCompletedTasksChart: any = {
+      labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
+      series: [
+        [230, 750, 450, 300, 280, 240, 200, 190]
+      ]
+    };
+
+    const optionsCompletedTasksChart: any = {
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      low: 0,
+      high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 }
+    }
+
+    var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
+
+    // start animation for the Completed Tasks Chart - Line Chart
+    this.startAnimationForLineChart(completedTasksChart);
+
+
+
+    /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
+
+    var datawebsiteViewsChart = {
+      labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
+      series: [
+        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
+
+      ]
+    };
+    var optionswebsiteViewsChart = {
+      axisX: {
+        showGrid: false
+      },
+      low: 0,
+      high: 1000,
+      chartPadding: { top: 0, right: 5, bottom: 0, left: 0 }
+    };
+    var responsiveOptions: any[] = [
+      ['screen and (max-width: 640px)', {
+        seriesBarDistance: 5,
+        axisX: {
+          labelInterpolationFnc: function (value) {
+            return value[0];
+          }
+        }
+      }]
+    ];
+    var websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
+
+    // start animation for the Emails Subscription Chart
+    this.startAnimationForBarChart(websiteViewsChart);
+  }
+
   startAnimationForLineChart(chart) {
     let seq: any, delays: any, durations: any;
     seq = 0;
@@ -83,6 +179,7 @@ export class DashboardComponent implements OnInit {
 
     seq = 0;
   };
+
 
 
   public activity(data: any) {
@@ -124,7 +221,7 @@ export class DashboardComponent implements OnInit {
     // db.list('csr/' + entity.status_id, { allstatus: $scope.allstatusload }, function (response) {
     //   $("#business").hide();
     //   $("#offerhide").hide();
-    //   $scope.statuses = response.data;
+    //   $scope.statuses = response;
     //   $('#commentstatus').modal('show');
     //   //            $mdDialog.show({
     //   //                contentElement: '#commentstatus',
@@ -258,92 +355,69 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  navigateUrl(url: string): void {
-    this.router.navigate([url]);
-  }
-  ngOnInit() {
-    this.db.setProfile();
-    this.bindNewReference();
-    this.getnotification();
-    /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
-    const dataDailySalesChart: any = {
-      labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-      series: [
-        [12, 17, 7, 17, 23, 18, 38]
-      ]
-    };
+  cb(start, end) {
+    $('#reportrange span').html(start + ' - ' + end);
+    // load data
 
-    const optionsDailySalesChart: any = {
-      lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-      }),
-      low: 0,
-      high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
-    }
-
-    var dailySalesChart = new Chartist.Line('#dailySalesChart', dataDailySalesChart, optionsDailySalesChart);
-
-    this.startAnimationForLineChart(dailySalesChart);
-
-
-    /* ----------==========     Completed Tasks Chart initialization    ==========---------- */
-
-    const dataCompletedTasksChart: any = {
-      labels: ['12p', '3p', '6p', '9p', '12p', '3a', '6a', '9a'],
-      series: [
-        [230, 750, 450, 300, 280, 240, 200, 190]
-      ]
-    };
-
-    const optionsCompletedTasksChart: any = {
-      lineSmooth: Chartist.Interpolation.cardinal({
-        tension: 0
-      }),
-      low: 0,
-      high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-      chartPadding: { top: 0, right: 0, bottom: 0, left: 0 }
-    }
-
-    var completedTasksChart = new Chartist.Line('#completedTasksChart', dataCompletedTasksChart, optionsCompletedTasksChart);
-
-    // start animation for the Completed Tasks Chart - Line Chart
-    this.startAnimationForLineChart(completedTasksChart);
+    this.db.list('dashboardcvparsed', { 'start': start + ' 00:00', 'end': end + ' 23:59' },
+      (response) => {
 
 
 
-    /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
+        const xval = ['x'];
+        const cvval = ['cv'];
 
-    var datawebsiteViewsChart = {
-      labels: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
-      series: [
-        [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]
-
-      ]
-    };
-    var optionswebsiteViewsChart = {
-      axisX: {
-        showGrid: false
-      },
-      low: 0,
-      high: 1000,
-      chartPadding: { top: 0, right: 5, bottom: 0, left: 0 }
-    };
-    var responsiveOptions: any[] = [
-      ['screen and (max-width: 640px)', {
-        seriesBarDistance: 5,
-        axisX: {
-          labelInterpolationFnc: function (value) {
-            return value[0];
+        for (const i in response) {
+          if (true) {
+            xval.push(response[i].Name);
+            cvval.push(response[i].Cv);
           }
         }
-      }]
-    ];
-    var websiteViewsChart = new Chartist.Bar('#websiteViewsChart', datawebsiteViewsChart, optionswebsiteViewsChart, responsiveOptions);
 
-    // start animation for the Emails Subscription Chart
-    this.startAnimationForBarChart(websiteViewsChart);
+        const chart = c3.generate({
+          bindto: '#chart',
+          data: {
+            x: 'x',
+            columns: [
+              xval,
+              cvval,
+            ],
+            type: 'bar'
+          },
+          axis: {
+            x: {
+              type: 'category',
+              tick: {
+                rotate: 75,
+                multiline: false
+              },
+              height: 130
+            }
+          }
+        });
+      });
+    // load data
+  }
+
+  loadcvparse() {
+    const start = this.db.toYYMMDD(this.start_date_temp);
+    const end = this.db.toYYMMDD(this.end_date_temp);
+
+
+
+
+
+    this.cb(start, end);
+  };
+
+
+  navigateUrl(url: string): void {
+    debugger;
+    if (url === 'internaldatabase') {
+      $('#internaldata').modal('hide');
+    }
+    this.router.navigate([url]);
   }
 
   candidateshow(data): void {

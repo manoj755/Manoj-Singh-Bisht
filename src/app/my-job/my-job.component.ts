@@ -84,8 +84,8 @@ export class MyJobComponent implements OnInit {
   isLoadingJobs = false;
   countRowsinMyJob = 0;
   mainprocess: any = '0';
-  $url = 'http://www.passivereferral.com/refer';
-  $urlapply = 'http://www.passivereferral.com/apply';
+  $url = 'https://www.passivereferral.com/refer';
+  $urlapply = 'https://www.passivereferral.com/apply';
   newColor = false;
   itemone = { jobDescription: '' };
   candidate_id = 0;
@@ -106,6 +106,7 @@ export class MyJobComponent implements OnInit {
   disagreed = 0;
   searchText: any;
   applications: any;
+  jobidforReference: any;
   constructor(public db: DBService) {
 
     if (db.profile.id) {
@@ -124,6 +125,46 @@ export class MyJobComponent implements OnInit {
 
 
   }
+  GetInHourseReference(id, $event) {
+    $event.stopPropagation();
+    this.jobidforReference = id;
+    this.db.list('applicationdepartment/', null, (response) => {
+
+
+
+      try {
+        this.departments = response;
+        $('#internalreference').modal('show');
+      } catch (e) {
+
+      }
+
+    }, function (response) {
+      //$scope.token=response.statusText;
+    });
+  };
+  getinternalreferrence() {
+    // console.log($scope.departments);
+    const departments = [];
+    for (const k in this.departments) {
+      if (this.departments[k].selected) {
+        departments.push(this.departments[k].id);
+      }
+    }
+    const dataforreference = {
+      job_id: this.jobidforReference,
+      departments: departments,
+      prmMessagge: this.prmMessagge,
+      prmSubject: this.prmSubject,
+    };
+    this.db.store('internalreference', dataforreference, () => {
+      $('#internalreference').modal('hide');
+    })
+  };
+  changechecked(item) {
+
+    item.selected = !item.selected;
+  };
 
   enter(i) {
     this.hoverIndex = i;
@@ -314,7 +355,7 @@ export class MyJobComponent implements OnInit {
               };
 
               this.updatestatuscommentmyjob(false);
-              this.db.showMessage('Cv Submitted to panel.');
+              this.db.addmessageandremove('Cv Submitted to panel.');
             }
 
           }
