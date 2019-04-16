@@ -35,6 +35,31 @@ export class DashboardComponent implements OnInit {
   emailmessagetemplatesforref: any = [];
   mp: any = {};
   constructor(private router: Router, private db: DBService) { }
+  isnull(val, returns) {
+    if (val === null) {
+      return returns;
+
+    } else {
+      return val;
+    }
+  }
+  setjobandreferencetempmpfunction() {
+    if (this.db.profile != null) {
+      this.setjobandreferencetemp.current_job_id = this.isnull(this.db.profile.current_job_id, '0').toString();
+      this.setjobandreferencetemp.reference_email_template_id =
+        this.isnull(this.db.profile.reference_email_template_id, '0').toString();
+      this.setjobandreferencetemp.reference_sms_template_id =
+        this.isnull(this.db.profile.reference_sms_template_id, '0').toString();
+
+    }
+    if (this.setjobandreferencetemp.is_send_auto_email_reference_temp) {
+      this.setjobandreferencetemp.is_send_auto_email_reference = 1;
+    } else {
+      this.setjobandreferencetemp.is_send_auto_email_reference = 0;
+    }
+    this.db.store('setjobandreferencetemplate/', this.setjobandreferencetemp);
+
+  };
   ngOnInit() {
     this.start_date_temp.setDate(this.end_date_temp.getDate() - 1);
     this.loadcvparse();

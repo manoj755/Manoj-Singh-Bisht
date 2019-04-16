@@ -29,7 +29,7 @@ export class ClientComponent implements OnInit {
   ishideshow = false;
   ishideshowclient = false;
   updateid: any;
-  //feeslab: any;
+  // feeslab: any;
   isEditclientStateswiseBillingDetail = false;
   clientStateswiseBillingDetail = { id: 0, client_detail_id: 0 };
   private smsselected = {};
