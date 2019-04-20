@@ -243,6 +243,11 @@
                   </div>
                 </div>
               </div>
+              <div class="col-md-4">
+                <input type="radio" ng-if="item.is_client == 1" [(ngModel)]="client.is_client" value="1"><span>Client</span>
+                <input type="radio" ng-if="item.is_client == 0" [(ngModel)]="client.is_client" value="0" checked="" ><span>Department</span>
+
+              </div>
               <div class="form-group col-md-6 hidden  {{db.profile.is_ats != '0'?'':'remove'}}">
                 <label class="col-xs-3 control-label">Contract:</label>
                 <div class="col-xs-9">

@@ -26,7 +26,7 @@
               <div class="col-md-12">
                 <div class="row" role="form" name="userForm" id="mynewjob">
                   <div class="form-group col-md-6">
-                    <label class="col-md-4 " select>Select a {{clientsdepartment}}:</label>
+                    <label class="col-md-4 " select>Select a Client{{clientsdepartment}}:</label>
                     <div class="col-md-8">
                       <select id="client" [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
                         <option value="{{client.id}}" *ngFor="let client of clientdetails">
@@ -370,7 +370,7 @@
 
                       <select n="a Functional Area" id="fun" [(ngModel)]="myjob.functionalArea" (change)="getrole()"
                         name="function_id">
-                        <option *ngFor="let x of functionalareas">{{x.functionalAreaName}}</option>
+                        <option *ngFor="let x of functionalareas" [attr.opt]='x.code'>{{x.functionalAreaName}}</option>
                       </select>
 
                     </div>
@@ -449,6 +449,10 @@
                       </select>
 
                     </div>
+                    <div class="form-group col-md-6">
+                      <!-- <input ng-control="options" type="radio" name="is_client" [(ngModel)]="client.is_client" [value]="1"><span>Client</span> -->
+                      <input type="checkbox" ngDefaultControl [(ngModel)]="myjob.is_client"  (ngModelChange)="myjob.is_client = $event ? 1:0"> <span>is_client</span>
+                    </div>
                   </div>
                   <div class="form-group col-md-6" *ngIf='mp.btn_take_internal_refeference'>
                     <label class="col-md-4">Employee Referral</label>
@@ -467,6 +471,7 @@
 
                         <input class="form-check-input" id="exampleCheck{{$index}}" type="checkbox"
                           [(ngModel)]="department.selected">
+
 
                         <label for="exampleCheck{{$index}}" class="form-check-label"> {{department.department}}</label>
                       </span>
@@ -491,7 +496,7 @@
 
 
                     <div class="col-lg-offset-2 col-md-10">
-                      <button type="submit" class="btn btn-primary validate" *ngIf="!isjobediting ||jobupdate "
+                      <button type="submit"  class="btn btn-primary validate" *ngIf="!isjobediting ||jobupdate || !hidesavebutton"
                         tar="#addnewjobform" (click)="addNewJobSave()">Save</button>
                       <div *ngIf="isjobediting===true">
                         <button type="submit" class="btn btn-primary validate" tar="#addnewjobform"

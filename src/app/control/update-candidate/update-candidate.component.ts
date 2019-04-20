@@ -19,11 +19,12 @@ export class UpdateCandidateComponent implements OnInit {
   globaljobid = 0;
   @Input()
   set current_data(currentData: any) {
+    debugger;
     if (currentData !== undefined) {
       this.currentData = currentData;
       this.currentData.candidate_id = currentData.id;
       if (currentData && currentData.candidate_id && currentData.candidate_id > 0) {
-        this.globaljobid = this.currentData.id;
+        this.globaljobid = this.db.globaljobid;
 
         this.candidateshow(currentData.candidate_id);
         this.currentData = {};

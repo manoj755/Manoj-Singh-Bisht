@@ -26,6 +26,7 @@ export class DBService implements OnInit {
   loaderprogressbar = false;
   profile: any = {};
   PF: any = {};
+  globaljobid = 0;
   mp: any = {};
   private selectedNodes = [];
   nodetype: string;
@@ -34,8 +35,13 @@ export class DBService implements OnInit {
     history: 'history',
     myjob: 'myjob',
   };
+  http_or_https = 'http';
   constructor(private http: HttpClient, private snackBar: MatSnackBar, private router: Router) {
     this.setProfile();
+    this.globaljobid = 0;
+    if (window.location.href.indexOf('https') !== -1) {
+      this.http_or_https = 'https';
+    }
   }
   setProfile(): any {
 
@@ -233,7 +239,9 @@ export class DBService implements OnInit {
 
       let value = data == null ? '' : data;
       if (typeof data === 'string') {
-        value = value.replace(/['"]+/g, '');
+        if (value.indexOf('{') === -1) {
+          value = value.replace(/['"]+/g, '');
+        }
       }
       formData.append(parentKey, value);
     }
@@ -768,6 +776,15 @@ export class DBService implements OnInit {
       }
     }
     return selectedmanager;
+  }
+  trackerselectedcheckbox(obj, selected = 'selected', key = 'id'): any {
+    const trackerselected = [];
+    for (const i in obj) {
+      if (obj[i][selected] === true) {
+        trackerselected.push(obj[i][key]);
+      }
+    }
+    return trackerselected;
   }
   SelectedCheckboxWithComma(obj, selected = 'selected', key = 'id'): any {
     let selectedcheckbox = '';

@@ -207,7 +207,7 @@ export class MyJobComponent implements OnInit {
         this.db.showMessage('Please select candidates');
         return;
       }
-      this.sendtracker.atjids = allrow;
+      this.sendtracker.atjids = allrow.toString();
       if (this.download) {
         this.sendtracker.download = true;
       } else {
@@ -533,7 +533,7 @@ export class MyJobComponent implements OnInit {
     SelectedJob = this.selectedjob;
     // const totalrow = this.selectednodes;
     // SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
-    this.globaljobid = SelectedJob;
+    this.db.globaljobid = SelectedJob;
     const Search = {
       filterdropdown: this.filterdropdown,
       process: this.process,
