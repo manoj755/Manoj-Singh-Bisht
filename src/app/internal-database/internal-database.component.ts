@@ -33,7 +33,7 @@ export class InternalDatabaseComponent implements OnInit {
     {
       headerCheckboxSelection: true, checkboxSelection: true,
 
-      headerName: 'Candidate Name', field: 'candidateName',
+      headerName: 'Candidate Name', field: 'candidateName', width: 270,
       sortable: false, filter: false,
       cellRenderer: function (param) {
         return `<button type='button' data-action-type='candidateshow' class='btn  btn-sm'>

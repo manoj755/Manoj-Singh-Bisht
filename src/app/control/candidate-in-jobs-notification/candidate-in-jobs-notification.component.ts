@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular/main';
+import { DBService } from '../../db.service';
 declare var $: any;
 
 @Component({
@@ -10,11 +11,13 @@ declare var $: any;
 export class CandidateInJobsNotificationComponent implements ICellRendererAngularComp {
   private params: any;
   private cubed: number;
+  notificationjobs: any;
+  allreferrence: any;
   //@Output()
   //rowdata = new EventEmitter<any>();
   row = { entity: null }
   myname = 'narender';
-  constructor() { }
+  constructor(public db: DBService) { }
   agInit(params: any): void {
     //debugger;
     this.params = params;
@@ -27,6 +30,27 @@ export class CandidateInJobsNotificationComponent implements ICellRendererAngula
     this.cubed = this.params.data.value * this.params.data.value * this.params.data.value;
     return true;
   }
+
+  loadreferrence(jobid): void {
+    //alert(jobid);
+    let Search = {
+      filterdropdown: '',
+      process: 'Under Review',
+      mainprocess: 1,
+      searchcandidatetext: '',
+      selectedjob: jobid
+    };
+    this.db.list('candidatesdetailmyjob/', Search, ((response): void => {
+
+
+      this.notificationjobs = response;
+
+    })
+    );
+
+
+  };
+
 
   activity(row): void {
 

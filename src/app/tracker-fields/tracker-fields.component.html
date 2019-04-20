@@ -1,24 +1,14 @@
 <div class="main-content">
   <div class="container-fluid">
     <div class="row">
-{{rowData}} dd
-        <ag-grid-angular
-        style="height: 500px;"
-        class="ag-theme-material"
-        [rowData]="rowData"
-        [columnDefs]="columnDefs"
-        suppressCsvExport=false
-        [autoGroupColumnDef]="autoGroupColumnDef"
-      [suppressRowClickSelection]="true"
-      paginationAutoPageSize='true'
-      (selectionChanged)="onSelectionChanged($event)"
-      [debug]="true"
-      [rowSelection]="rowSelection"
-      [pagination]="true"
-      (gridReady)="onGridReady($event)"
 
-      (rowClicked)="onRowClicked($event)"
-        ></ag-grid-angular>
+<ag-grid-angular style=" height: 500px;" (rowClicked)="onRowClicked($event)"
+rowSelection='multiple'
+  class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
+  [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+  (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
+  (gridReady)="onGridReady($event)">
+</ag-grid-angular>
       <br>
       <div class="continer">
         <div class="col-md-10">
@@ -54,7 +44,7 @@
 
 
           <div class="row" id="trackermessage">
-            <div class="col-md-6">
+            <div class="col-md-12">
 
               <div class="form-horizontal">
 
@@ -65,10 +55,20 @@
 
                   <!-- Search : <input id='searchtracker' type="text" class="form-control" placeholder="Quick Search"
                     [(ngModel)]='search.display_name' /> -->
-                  <div class="clear" style="clear:both;"></div>
+                  <!-- <div class="clear" class="form-control" style="clear:both;"></div> -->
+                  <input type="text" placeholder="search"/>
+                  <!-- <input type="checkbox" *ngFor="let x of trackermaster">
+                  <span>
+                    {{x.display_name}}
+                  </span> -->
 
+
+                  <div class="col-md-12"   *ngFor="let tr of trackermaster|sort:'display_name'">
+
+                    <label><input type="checkbox" [checked]="tr.selected" (change)='tr.selected=!tr.selected' [(ngModel)]='tr.dd'>{{tr.display_name}}  <b class=" badge badge-danger" *ngIf="tr.is_job_specific=='1'">JS</b> </label>
+                </div>
                   <div class="col-md-6"> <button type="submit" class="btn  btn-raised btn-primary validate"
-                      tar="#trackermessage" (click)="trackersave()">Select</button>
+                      tar="#trackermessage" (click)="trackersave();">Select</button>
                   </div>
 
 
@@ -93,9 +93,11 @@
               <!-- note the "track by" section. this is important so that it doesn't rebuild the list -->
               <li class="list-group-item" *ngFor="let obj of trackerselected" data-index="" data-id="{{obj.id}}">
                 {{obj.display_name}} <span class="pull-right"><button type="button" (click)="removetracker(obj)"
-                    class="glyphicon glyphicon-trash"
-                    style="background-color:red;color:white;margin-right: 10px;"></button><button type="button"
-                    (click)="Edit(obj)" class="glyphicon glyphicon-pencil"></button></span>
+                    class="btn-raised"
+                    style="background-color:red;color:white;margin-right: 10px;">Remove</button>
+                    <!-- <button type="button"
+                    (click)="Edit(obj)" class="glyphicon glyphicon-pencil"></button> -->
+                  </span>
               </li>
 
             </ul>
@@ -122,7 +124,7 @@
                 <div class="form-group" id="trackermessage">
                   <label class="col-md-4">Tracker name:</label>
                   <div class="col-md-8">
-                    <!--                                                <label>{{trackermessage.display_name}}</label>-->
+                                                                   <label>{{trackermessage.display_name}}</label>
                     <input type="text" class="form-control e" id="tname" n="Tracker Name" validate
                       [(ngModel)]="trackermessage.tracker_name">
 
@@ -136,8 +138,8 @@
 
                 <div class="form-group">
                   <div class="col-md-10">
-                    <button type="button" ng-hide="isEdit" class="btn  btn-raised btn-primary validate"
-                      tar="#trackermessage" (click)="submittrackersave(obj)">Submit</button>
+                    <button type="button" *ngIf="!isEdit" class="btn  btn-raised btn-primary validate"
+                      tar="#trackermessage" (click)="submittrackersave()">Submit</button>
                     <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
                       (click)="trackerupdate(obj)">Update</button>
                     <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"

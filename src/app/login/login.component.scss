@@ -31,25 +31,30 @@
 	  width: 170px;
 	  top: -75px;
 	  border-radius: 50%;
-	  background: #c0392b;
+	  background: #eceded;
 	  padding: 10px;
 	  text-align: center;
 	}
 
 	.brand_logo {
-    height: 150px;
+    height: 160px;
     background: #eef2f5;
-	  width: 150px;
+	  width: 160px;
 	  border-radius: 60%;
 	  border: 2px solid white;
-	  padding: 0px;
+    padding: 0px;
+
 	}
-  .brand_logo img{
-   // max-height: 200px;
-      max-width: 200px;
-      height: auto;
-      object-fit: cover;
-  }
+  // .brand_logo{
+  //  // max-height: 200px;
+  //     //max-width: 200px;
+  //     //height: auto;
+  //     margin-top: 20px;
+  //     border-radius: 50px;
+  //     height: 150px;
+  //     width: 150px;
+  //     object-fit: cover;
+  // }
 	.form_container {
 	  margin-top: 100px;
 	}

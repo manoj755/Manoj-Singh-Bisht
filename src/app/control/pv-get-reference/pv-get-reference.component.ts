@@ -61,7 +61,7 @@ export class PvGetReferenceComponent implements OnInit {
     if (this.sendemail) {
 
 
-      this.myjob.prmCandidateId = this.allids;
+      this.myjob.prmCandidateId = this.allids.toString();
       this.myjob.prmTemplateId = this.emailselected.id;
       this.myjob.jobid = this.myjob.add_new_job_id;
       this.myjob.token = localStorage.Authkey;
@@ -143,7 +143,7 @@ export class PvGetReferenceComponent implements OnInit {
       return;
     }
     const copyjob = {
-      'candidates': allrow, 'job': this.addnewjob.add_new_job_id,
+      'candidates': allrow.toString(), 'job': this.addnewjob.add_new_job_id,
       'manager': this.addnewjob.manager
     };
     this.db.store('copyjob/', copyjob, ((response): void => {

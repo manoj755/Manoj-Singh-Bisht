@@ -50,6 +50,8 @@ export class DBService implements OnInit {
 
         if (response.is_ats === '0') {
           this.clientsdepartment = 'Department';
+        } else {
+          this.clientsdepartment = 'Client';
         }
 
         this.profile = response;

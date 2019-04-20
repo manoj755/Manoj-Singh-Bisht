@@ -102,6 +102,7 @@ import { SettingsComponent } from '../../settings/settings.component';
 import { MyFilterPipe } from '../../shared/pipes/my-filter.pipe';
 import { FilterPipe } from '../../shared/pipes/FilterPipe.pipe';
 import { SafePipe } from '../../shared/pipes/safe.pipe';
+import { SortPipe } from '../../shared/pipes/sort.pipe';
 
 
 
@@ -209,6 +210,7 @@ declare var $: any;
     MyFilterPipe,
     FilterPipe,
     SafePipe,
+    SortPipe,
 
   ]
 })

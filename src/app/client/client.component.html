@@ -15,7 +15,7 @@
           </div>
 
           <div class="box-title col-md-12">
-            <h2>{{clientsdepartment}}</h2>
+            <h2>{{db.clientsdepartment}}</h2>
 
             <div class="tab-content">
               <div class="" id="info-tab">
@@ -274,7 +274,7 @@
                     (click)="clientupdate()">Update </button>
 
                   <button type="submit" *ngIf="!isEdit" class="btn  btn-raised btn-primary validate"
-                    target="#addnewclient" (click)="clientsave()">Add {{clientsdepartment}}</button>
+                    target="#addnewclient" (click)="clientsave()">Add {{db.clientsdepartment}}</button>
                   <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary validate"
                     target="#addnewclient" (click)="isEdit = false; client = {fee_slab:[]}; ">Back</button>
 
@@ -367,13 +367,15 @@
 
 
       </div>
-      <ag-grid-angular style=" height: 500px;" (rowClicked)="onRowClicked($event)"
-      rowSelection='multiple'
-        class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
-        [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
-        (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
-        (gridReady)="onGridReady($event)">
-      </ag-grid-angular>
+      <div class="col-12">
+        <ag-grid-angular style=" height: 500px;" (rowClicked)="onRowClicked($event)"
+        rowSelection='multiple'
+          class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
+          [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+          (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
+          (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
+      </div>
     </div>
   </div>
 </div>

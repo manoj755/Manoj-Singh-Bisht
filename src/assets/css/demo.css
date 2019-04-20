@@ -42,7 +42,10 @@
 .referral span.highlight{ width:50%; font-weight: bold; color:gray;}
 
 .charthw{ overflow: hidden; max-height: 500px !important; height: 500px !important; min-width: 500px !important; width: 100% !important;}
-
+.owl-dateTime-dialog {
+  background-color: #fff !important;
+  border: 1px solid #000 !important;
+}
 
 .charthw2{ overflow: hidden; max-height: 400px !important; height: 400px !important; min-width: 500px !important; width: 100% !important;}
 .width80percent{ width:80% !important; max-width:80% !important;}

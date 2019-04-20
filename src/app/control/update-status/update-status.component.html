@@ -49,8 +49,14 @@
               </div>
               <div class="col-12">
 
+                <mat-label>is_client</mat-label>
+                <select  [(ngModel)]="commentstatus.is_client">
+                  <option >any</option>
+                  <option >client</option>
+                  <option >department</option>
 
-                <mat-checkbox ngDefaultControl [(ngModel)]="commentstatus.is_client">is_client</mat-checkbox>
+                </select>
+                <!-- <mat-checkbox ngDefaultControl [(ngModel)]="commentstatus.is_client">is_client</mat-checkbox> -->
 
               </div>
             </div>
