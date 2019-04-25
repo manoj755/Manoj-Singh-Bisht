@@ -65,7 +65,7 @@
                   <div class="form-group col-md-6">
                     <label for="name" class="control-label col-sm-4">Full Name</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.candidateName" id="name"
+                      <input type="text" class="form-control e" [(ngModel)]="candidateshowdata.candidateName" id="name"
                         placeholder="Enter name">
                       <a ng-show="candidateshowdata.naukri_url" target="_blank"
                         href="{{candidateshowdata.naukri_url}}">Naukri
@@ -74,30 +74,43 @@
                   </div>
 
 
-                  <div class="form-group col-md-6">
+                  <!-- <div class="form-group col-md-6">
                     <label for="gender" class="control-label col-sm-4">Gender</label>
-                    <div class="col-sm-7">
+                    <div class="col-sm-8">
                       <select class="form-control" id="gender" [(ngModel)]="candidateshowdata.gender">
                         <option value="1">Male</option>
                         <option value="2">Female</option>
 
                       </select>
                     </div>
+                  </div> -->
+                  <div class="form-group col-md-6">
+                    <mat-label for="gender" class="control-label col-sm-4">Gender:</mat-label>
+                    <div class="col-sm-8">
+                    <mat-select class="form-control" id="gender" [(ngModel)]="candidateshowdata.gender">
+                      <mat-option  value="1">
+                       Male
+                      </mat-option>
+                      <mat-option  value="2">
+                        Female
+                       </mat-option>
+                    </mat-select>
                   </div>
+                </div>
                 </div>
                 <div class="row">
 
                   <div class="form-group col-md-6">
-                    <label for="email" class="control-label col-sm-4">Current Organization</label>
+                    <label for="currentOrganization" class="control-label col-sm-4">Current Organization</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" id="currentorg"
+                      <input type="text" class="form-control " id="currentorg"
                         [(ngModel)]="candidateshowdata.currentOrganization" placeholder="Current Organization">
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="currentdesignation" class="control-label col-sm-4">Current designation</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" id="currentdesignation"
+                      <input type="text" class="form-control " id="currentdesignation"
                         [(ngModel)]="candidateshowdata.currentDesignation" placeholder="Current designation">
                     </div>
                   </div>
@@ -106,7 +119,7 @@
                   <div class="form-group col-md-6">
                     <label for="currentdesignation" class="control-label col-sm-4">Relevant Experiance</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" id="currentdesignation"
+                      <input type="text" class="form-control " id="currentdesignation"
                         [(ngModel)]="candidateshowdata.relevantExperiance" placeholder="Relevant Experiance">
                     </div>
                   </div>
@@ -114,27 +127,38 @@
                   <div class="form-group col-md-6">
                     <label for="Qualification" class="control-label col-sm-4">Qualification</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.qualification"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.qualification"
                         id="Qualification" placeholder="Qualification">
                     </div>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-md-6">
+                  <!-- <div class="form-group col-md-6">
                     <label for="Qualification" class="control-label col-sm-4">Country</label>
                     <div class="col-sm-7">
-                      <select class="form-control" [(ngModel)]="candidateshowdata.country" id="Qualification"
+                      <select class="form-control " [(ngModel)]="candidateshowdata.country" id="Qualification"
                         placeholder="Country">
                         <option *ngFor=" let x of countries" value="{{x.id}}">
                           {{x.name}} ({{x.country_code}})
                         </option>
                       </select>
                     </div>
+                  </div> -->
+                  <div class="form-group col-md-6">
+                    <mat-label for="country" class="control-label col-sm-4">Country:</mat-label>
+                    <div class="col-sm-8">
+                    <mat-select class="form-control " [(ngModel)]="candidateshowdata.country" id="country" aria-placeholder="Country">
+                      <mat-option  *ngFor=" let x of countries" value="{{x.id}}">
+                        {{x.name}} ({{x.country_code}})
+                      </mat-option>
+
+                    </mat-select>
                   </div>
+                </div>
                   <div class="form-group col-md-6">
                     <label for="Qualification" class="control-label col-sm-4">State</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.state" id="Qualification"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.state" id="Qualification"
                         placeholder="State">
                     </div>
                   </div>
@@ -143,14 +167,14 @@
                   <div class="form-group col-md-6">
                     <label for="Qualification" class="control-label col-sm-4">City</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.city" id="Qualification"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.city" id="city"
                         placeholder="City">
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="location" class="control-label col-sm-4">Current Location</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.location" id="location"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.location" id="location"
                         placeholder="CurrentLocation">
                     </div>
                   </div>
@@ -159,14 +183,14 @@
                   <div class="form-group col-md-6">
                     <label for="preferedlocation" class="control-label col-sm-4">Prefered Location</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.preferredLocation"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.preferredLocation"
                         id="preferelocation" placeholder="prefered Location">
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="Salary" class="control-label col-sm-4">Current Salary</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.currentSalary" id="Salary"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.currentSalary" id="Salary"
                         placeholder="Current Salary">
                     </div>
                   </div>
@@ -182,7 +206,7 @@
                   <div class="form-group col-md-6">
                     <label for="Mobile" class="control-label col-sm-4">Phone Number</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.phoneNo" id="mobile"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.phoneNo" id="mobile"
                         placeholder="Phone Number">
                     </div>
                   </div>
@@ -191,14 +215,14 @@
                   <div class="form-group col-md-6">
                     <label for="Mobile" class="control-label col-sm-4">Mobile</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.mobileNo" id="mobile"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.mobileNo" id="mobile"
                         placeholder="Enter the Mobile">
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="Mobile" class="control-label col-sm-4">Notice Period</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.noticePeriod" id="mobile"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.noticePeriod" id="mobile"
                         placeholder="Notice Period">
                     </div>
                   </div>
@@ -207,14 +231,14 @@
                   <div class="form-group col-md-6">
                     <label for="Mobile" class="control-label col-sm-4">Nationality</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.nationality" id="mobile"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.nationality" id="nationality"
                         placeholder="Nationality">
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="Mobile" class="control-label col-sm-4">Visa Type</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.visaType" id="mobile"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.visaType" id="visaType"
                         placeholder="Visa Type">
                     </div>
                   </div>
@@ -223,7 +247,7 @@
                   <div class="form-group col-md-6">
                     <label for="Mobile" class="control-label col-sm-4">Remark</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.remark" id="mobile"
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.remark" id="remark"
                         placeholder="Remark">
                     </div>
                   </div>
@@ -232,7 +256,7 @@
                     <label for="Mobile" class="control-label col-sm-4">Ovarall Experiance</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control" [(ngModel)]="candidateshowdata.ovarallExperiance"
-                        id="mobile" placeholder="Ovarall Experiance">
+                        id="ovarallExperiance" placeholder="Ovarall Experiance">
                     </div>
                   </div>
                 </div>
@@ -240,14 +264,14 @@
                   <div class="form-group col-md-6">
                     <label for="Mobile" class="control-label col-sm-4">Address</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.address" id="mobile"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.address" id="address"
                         placeholder="Address">
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="email" class="control-label col-sm-4">Email</label>
                     <div class="col-sm-7">
-                      <input type="email" class="form-control" [(ngModel)]="candidateshowdata.email" id="emailcandidate"
+                      <input type="email" class="form-control " [(ngModel)]="candidateshowdata.email" id="email"
                         placeholder="Enter the Email">
                     </div>
                   </div>
@@ -257,14 +281,14 @@
                   <div class="form-group col-md-6">
                     <label for="Pan No" class="control-label col-sm-4">Pan No</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.panNo" id="Function"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.panNo" id="panNo"
                         placeholder="Enter the Pan No">
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="industry" class="control-label col-sm-4">Industry Type</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.industryType" id="Function"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.industryType" id="industryType"
                         placeholder="Industry Type">
                     </div>
                   </div>
@@ -273,14 +297,14 @@
                   <div class="form-group col-md-6">
                     <label for="function" class="control-label col-sm-4">Functional Area</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.functionalArea"
-                        id="Function" placeholder="Functional Area">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.functionalArea"
+                        id="functionalArea" placeholder="Functional Area">
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="DOB" class="control-label col-sm-4">Date of Birth</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.dob" id="DOB"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.dob" id="DOB"
                         placeholder="DOB">
                     </div>
                   </div>
@@ -289,47 +313,48 @@
                   <div class="form-group col-md-6">
                     <label for="keyskill" class="control-label col-sm-4">Key Skills:</label>
                     <div class="col-sm-7">
-                      <textarea class="form-control" [(ngModel)]="candidateshowdata.skillSet" id="keyskill"
+                      <textarea class="form-control " [(ngModel)]="candidateshowdata.skillSet" id="keyskill"
                         placeholder="Key Skills">
                         </textarea>
                     </div>
                   </div>
 
-
-                  <div class="form-group col-md-6">
+                  <div class="form-group col-md-6 hidden">
+                      <label for="function" class="control-label col-sm-4">Source</label>
+                      <div class="col-sm-7">
+                        <input type="text" class="form-control" [(ngModel)]="candidateshowdata.source" id="source"
+                          placeholder="Source">
+                      </div>
+                    </div>
+                  <!-- <div class="form-group col-md-6">
                     <label for="function" class="control-label col-sm-4">Function</label>
                     <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.function" id="Function"
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.function" id="Function"
                         placeholder="function">
                     </div>
-                  </div>
+                  </div> -->
                 </div>
                 <div class="row">
 
-                  <div class="form-group col-md-6 hidden">
-                    <label for="function" class="control-label col-sm-4">Source</label>
-                    <div class="col-sm-7">
-                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.source" id="Function"
-                        placeholder="Source">
-                    </div>
-                  </div>
+
 
                   <div class="form-group col-md-6">
                     <label for="DOB" class="control-label col-sm-4">Resume</label>
                     <div class="col-sm-7">
-                      <iframe class="form-control" style="border:0; height: 45px; overflow: hidden;"
-                        id="uploadResumeupdate"></iframe>
+                      <input class="form-control" style="border:0; height: 45px; overflow: hidden;"
+                        id="uploadResumeupdate" />
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="form-group col-md-6" *ngFor="let data of  candidateshowdata.customdata">
+                <div class="form-group col-md-6" *ngFor="let data of  candidateshowdata.customdata">
                     <label for="DOBd" class="control-label col-sm-4">{{data.key}}</label>
                     <div class="col-sm-7">
                       <b class="form-control">{{data.value}}</b>
 
                     </div>
                   </div>
+                <div class="row">
+
 
 
 

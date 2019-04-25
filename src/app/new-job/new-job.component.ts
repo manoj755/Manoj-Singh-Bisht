@@ -16,6 +16,7 @@ export class NewJobComponent implements OnInit {
   end_date_temp: any = new Date();
   clients: any = [];
   addtojob: any = {};
+  myjoblist: [];
   sendemailmodel: any = {};
   copycandidate: any = {};
   sms: any = {};
@@ -63,7 +64,7 @@ export class NewJobComponent implements OnInit {
   maxexperience: any;
   filter: any;
   maxSalaryOption = [];
-
+  searchcandidate = '';
   page = 1;
 
   suggestedkeyskills = [];
@@ -774,7 +775,15 @@ export class NewJobComponent implements OnInit {
     });
   }
 
+  // getlist(): void {
 
+  //   this.db.list('joblist/', {
+  //     'candidate': this.searchcandidate
+  //   }, ((response): void => {
+  //     this.myjoblist = response;
+  //     //this.bindJoblist(this.jobslistmain);
+  //   }));
+  // };
 
 
   // $.material.init();

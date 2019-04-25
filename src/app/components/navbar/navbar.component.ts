@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   private listTitles: any[];
   location: Location;
   mobile_menu_visible: any = 0;
+  hidedashboard = false;
   private toggleButton: any;
   private sidebarVisible: boolean;
 
@@ -33,6 +34,7 @@ export class NavbarComponent implements OnInit {
         this.mobile_menu_visible = 0;
       }
     });
+    this.getTitle();
   }
 
   sidebarOpen() {
@@ -128,7 +130,7 @@ export class NavbarComponent implements OnInit {
         return this.listTitles[item].title;
       }
     }
-    return 'Dashboard';
+    return 'Dashboard' + '' + (this.hidedashboard = true);
   }
   // $rootScope.lastLength = 0;
   // $rootScope.isToDoForFirstTime = true;

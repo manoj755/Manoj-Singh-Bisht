@@ -2,9 +2,11 @@
     <div class="container-fluid">
 
       <div class="navbar-wrapper">
-          <a class="navbar-brand" href="#">{{getTitle()}}
+          <a class="nav-link"  [routerLink]="['/dashboard']">
+            <!-- <h4>Dashboard</h4> -->
+            <i class="material-icons">account_balance</i>
 
-          </a>
+          </a>{{getTitle()}}
         </div>
         <button mat-raised-button style="display: block;" class="navbar-toggler" type="button" (click)="sidebarToggle()">
             <span class="sr-only">Toggle navigation</span>

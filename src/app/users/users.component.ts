@@ -20,6 +20,7 @@ export class UsersComponent implements OnInit {
   channel = [];
   location = [];
   applications = [];
+  users: any;
   roles = [];
   isscroll = false;
   ishideshow = false;
@@ -31,6 +32,7 @@ export class UsersComponent implements OnInit {
   private gridColumnApi;
   ProfileTabs: any;
   updateprofie: any;
+  appid: any;
   private autoGroupColumnDef;
   private defaultColDef;
   private rowSelection;
@@ -81,6 +83,8 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.LoadData();
+    this.changerole(this.appid);
+    this.loadmanager();
   }
   changepasswordfun(): void { }
   LoadData(): void {
@@ -89,12 +93,12 @@ export class UsersComponent implements OnInit {
     }));
 
     //list
-    this.db.list('country/', null, ((response): void => {
+    this.db.list('master/country/', null, ((response): void => {
       this.countries = response;
     }));
-    this.db.list('gender/', null, ((response): void => {
-      this.genders = response;
-    }));
+    // this.db.list('gender/', null, ((response): void => {
+    //   this.genders = response;
+    // }));
     this.db.list('channel/', null, ((response): void => {
       this.channel = response;
     }));
@@ -128,7 +132,7 @@ export class UsersComponent implements OnInit {
         case 'delete':
           return this.onActionDeleteClick(data);
         case 'edit':
-          return this.onActionEditClick(data);
+          return this.onActionEditClick(data), this.showhideedit();
       }
     }
   }
@@ -148,7 +152,7 @@ export class UsersComponent implements OnInit {
       this.isEdit = true;
       this.user = response;
       if (this.isscroll === false) {
-        window.scrollTo(600, 600);
+        window.scrollTo(0, 100);
       }
       //            for (var i in response.data) {
       //                for (var j in response.data[i]) {
@@ -184,14 +188,41 @@ export class UsersComponent implements OnInit {
     }));
 
   }
-  showhide(): void {
-    if (this.ishideshow == false) {
-      this.ishideshow = true;
-    }
-    else {
-      this.ishideshow = true;
+
+  changerole(appid): void {
+    debugger;
+    // tslint:disable-next-line: radix
+    this.appid = parseInt(appid);
+    if (this.appid !== 0) {
+
+      this.db.list('data/users', { app_id: this.appid }, ((response): void => {
+        this.users = response;
+      })
+      );
     }
   }
 
+  loadmanager(): void {
+    const appid = document.getElementById('usersapp');
+    this.db.list('data/users', { app_id: appid }, ((response): void => {
+      this.users = response;
+    })
+    );
+  }
 
+
+  showhide(): void {
+    if (this.ishideshow === false) {
+      this.ishideshow = true;
+    }
+else {
+      this.ishideshow = false;
+    }
+  }
+
+  showhideedit(): void {
+    if (this.ishideshow === false) {
+      this.ishideshow = true;
+    }
+  }
 }

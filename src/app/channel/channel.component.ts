@@ -35,12 +35,12 @@ export class ChannelComponent implements OnInit {
   private pivotPanelShow;
   columnDefs = [
     {
-      headerName: 'Action', field: 'id', suppressMenu: 'true', suppressSorting: 'true',
+      headerName: 'Action', width: 420, field: 'id', suppressMenu: 'true', suppressSorting: 'true',
       template: `<button type='button' data-action-type='edit' class='btn btn-success btn-sm'>Edit</button>
    <button type='button' data-action-type='delete' class='btn btn-danger btn-sm'>delete</button>`
     },
-    { headerName: 'Channel Name', field: 'display_name', sortable: 'true', filter: 'true' },
-    { headerName: 'Login ID', field: 'user_name', sortable: 'true', filter: 'true' },
+    { headerName: 'Channel Name', width: 420, field: 'display_name', sortable: 'true', filter: 'true' },
+    { headerName: 'Login ID', width: 420, field: 'user_name', sortable: 'true', filter: 'true' },
   ];
   rowData = [];
 

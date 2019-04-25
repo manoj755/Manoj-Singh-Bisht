@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 declare var $: any;
 @Component({
@@ -20,7 +21,8 @@ export class TrackerFieldsComponent implements OnInit {
   trackerdata: any;
   //public rowdata = [{ 1: 3 }, { 3: 3 }];
   tracker: any;
-  search = { display_name: 'ac' };
+  search: {};
+  hidecheckbox= false;
   private smsselected = {};
   private emailselected = {};
   private gridApi;
@@ -119,6 +121,11 @@ export class TrackerFieldsComponent implements OnInit {
     this.getlist()
   }
 
+
+  show():void{
+    this.hidecheckbox = true;
+  }
+
   back(): void {
     this.isEdit = false;
     this.trackermessage = {};
@@ -146,7 +153,8 @@ export class TrackerFieldsComponent implements OnInit {
       if (tracker_data[k]) {
         for (const j in this.trackermaster) {
 
-          if (tracker_data[k] === this.trackermaster[j].id) {
+          // tslint:disable-next-line: triple-equals
+          if (tracker_data[k] == this.trackermaster[j].id) {
             this.trackerselected.push(this.trackermaster[j]);
             break;
           }
@@ -173,6 +181,10 @@ export class TrackerFieldsComponent implements OnInit {
     }
 
   };
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.trackerselected, event.previousIndex, event.currentIndex);
+  }
+
   trackersuggest(): void {
     if (!$('#searchtracker').hasClass('loaded')) {
 
@@ -302,6 +314,7 @@ export class TrackerFieldsComponent implements OnInit {
 
         this.db.addmessageandremove('Added Successfully');
         this.getlist();
+        this. ngOnInit();
 
 
 
@@ -340,6 +353,7 @@ export class TrackerFieldsComponent implements OnInit {
 
       this.getlist();
       this.db.addmessageandremove('Updated Successfully');
+      this. ngOnInit();
 
     }));
   }

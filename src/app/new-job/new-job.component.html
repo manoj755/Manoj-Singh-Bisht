@@ -27,6 +27,7 @@
                 <div class="row" role="form" name="userForm" id="mynewjob">
                   <div class="form-group col-md-6">
                     <label class="col-md-4 " select>Select a {{db.clientsdepartment}}:</label>
+
                     <div class="col-md-8">
                       <select id="client" [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
                         <option value="{{client.id}}" *ngFor="let client of clientdetails">
@@ -403,7 +404,7 @@
                   <div class="form-group col-md-12">
 
 
-                    <div class="row">
+                    <!-- <div class="row">
                       <div class="col-md-6">
                         <label class=" col-md-4">Job Display From</label>
                         <mat-form-field>
@@ -425,7 +426,7 @@
 
 
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                   <div class="form-group col-md-6">
                     <label class="col-md-4" JD>Notes</label>
@@ -448,11 +449,26 @@
                       </select>
 
                     </div>
-                    <div class="form-group col-md-6">
+                    <!-- <div class="form-group col-md-6"> -->
                       <!-- <input ng-control="options" type="radio" name="is_client" [(ngModel)]="client.is_client" [value]="1"><span>Client</span> -->
-                      <input type="checkbox" ngDefaultControl [(ngModel)]="myjob.is_client"  (ngModelChange)="myjob.is_client = $event ? 1:0"> <span>is_client</span>
-                    </div>
+                      <!-- <input type="checkbox" ngDefaultControl [(ngModel)]="myjob.is_client"  (ngModelChange)="myjob.is_client = $event ? 1:0"> <span>is_client</span>
+                    </div> -->
+
                   </div>
+                  <div class="form-group col-md-6">
+                      <label class="col-md-4">Client/Department</label>
+                      <!-- <mat-form-field> -->
+                          <div class="col-md-8">
+                      <select matNativeControl  [(ngModel)]="myjob.is_client">
+                        <!-- <option >any</option> -->
+                        <option value="'1'">client</option>
+                        <option value="'0'">department</option>
+
+                      </select>
+                      </div>
+                      <!-- <mat-checkbox ngDefaultControl [(ngModel)]="commentstatus.is_client">is_client</mat-checkbox> -->
+                    <!-- </mat-form-field> -->
+                    </div>
                   <div class="form-group col-md-6" *ngIf='mp.btn_take_internal_refeference'>
                     <label class="col-md-4">Employee Referral</label>
                     <div class="col-md-8">
@@ -500,6 +516,8 @@
                       <div *ngIf="isjobediting===true">
                         <button type="submit" class="btn btn-primary validate" tar="#addnewjobform"
                           (click)="addNewJobupdate()">Save</button>
+                          <button type="submit"  class="btn btn-primary validate"
+                        tar="#addnewjobform" (click)="addNewJobSave()">Clonejob</button>
 
                       </div>
 

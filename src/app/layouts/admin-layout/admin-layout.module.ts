@@ -3,6 +3,8 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 import { MatIconModule } from '@angular/material/icon';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // import {ReactiveFormsModule} from 'angular/forms';
 
@@ -134,6 +136,7 @@ declare var $: any;
     MatTabsModule,
     MatDatepickerModule,
     NgxPaginationModule,
+    DragDropModule,
     // NgxEditorModule,
     // PipesModule,
     //Ng2SearchPipeModule,

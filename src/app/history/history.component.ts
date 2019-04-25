@@ -48,7 +48,7 @@ export class HistoryComponent implements OnInit {
     { headerName: 'Overall Experience', field: 'ovarallExperiance', sortable: true, filter: true },
     { headerName: 'Salary', field: 'currentSalary', sortable: true, filter: true },
     { headerName: 'Recruiter Name', field: 'recruitername', sortable: true, filter: true },
-    { headerName: 'CV Status', field: 'cvstatus', sortable: true, filter: true },
+    //{ headerName: 'CV Status', field: 'cvstatus', sortable: true, filter: true },
 
   ];
 
@@ -72,9 +72,19 @@ export class HistoryComponent implements OnInit {
   ngOnInit() {
     this.LoadHistory();
     this.filterhistory();
+    this.loadalert();
+
+
+
 
   }
-
+loadalert(): void {
+  const allrow = this.allids;
+  if (allrow.length === 0) {
+    this.db.showMessage('Please select candidates');
+    return;
+  }
+}
   LoadHistory(): void {
     this.rowData = [];
     this.data = {};

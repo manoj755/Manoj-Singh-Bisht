@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { PARAMETERS } from '@angular/core/src/util/decorators';
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
@@ -14,6 +15,8 @@ export class ClientComponent implements OnInit {
   fromfeesslab = 0;
   amt = 0;
   lastAmount: any;
+  department:{};
+  hideclient: false;
   angular: [];
   newclient: any;
   isPercentage: false;
@@ -28,6 +31,8 @@ export class ClientComponent implements OnInit {
   isscroll = false;
   ishideshow = false;
   ishideshowclient = false;
+  showdepartment = false;
+  showclient = true;
   updateid: any;
   // feeslab: any;
   isEditclientStateswiseBillingDetail = false;
@@ -61,8 +66,18 @@ export class ClientComponent implements OnInit {
     { headerName: 'About', field: 'about', sortable: true, filter: true },
     { headerName: 'Website', field: 'website', sortable: true, filter: true },
     { headerName: 'Address', field: 'address', sortable: true, filter: true },
-    { headerName: 'Billing Period', field: 'billing_period', sortable: true, filter: true },
-    { headerName: 'Invoice Currency', field: 'invoice_currency', sortable: true, filter: true },
+    {
+      headerName: 'Client/Department', field: 'is_client',
+      valueGetter: function (params) {
+        if (params.data.is_client === 1) {
+          return 'Client';
+        } else {
+          return 'Department';
+        }
+      },
+      sortable: true, filter: true
+    },
+    // { headerName: 'Invoice Currency', field: 'invoice_currency', sortable: true, filter: true },
   ];
   columnDefs2 = [
     {
@@ -108,6 +123,22 @@ export class ClientComponent implements OnInit {
     this.LoadData();
     this.loadstatewisedetail();
   }
+
+  public showdepartmentfun(event): void {
+    debugger;
+    const newval = event.target.value;
+    if (newval === 0) {
+    //if (this.showdepartment === false) {
+      this.showdepartment = true;
+      this.showclient = false
+    //}
+  }
+    else {
+      this.showclient = true
+    }
+  }
+
+
   loadstatewisedetail(): void {
     this.db.list('state', null, ((response): void => {
       this.states = response;
@@ -260,7 +291,9 @@ export class ClientComponent implements OnInit {
   }
 
   clientsave(): void {
-
+// if(this.hideclient === false){
+// this.client.is_client = '1';
+// }
     // this.user.profilepic=this.user.profilepic[0];
     this.db.store('clientdetail/', this.client, ((response): void => {
 
@@ -272,6 +305,19 @@ export class ClientComponent implements OnInit {
     }));
 
   }
+  // departmentsave(): void {
+
+  //   // this.user.profilepic=this.user.profilepic[0];
+  //   this.db.store('departmentsave/', this.client, ((response): void => {
+
+  //     this.db.showMessage('Added Successfully');
+  //     this.LoadData();
+  //     // this.client = { id: 0, feeslabtype: '', fee_slab: [] };
+
+
+  //   }));
+
+  // }
   clientStateswiseBillingDetailsave(): void {
 
     this.clientStateswiseBillingDetail.client_detail_id = this.client.id;

@@ -1,6 +1,6 @@
 <div class="main-content">
     <div class="container-fluid">
-        <Button class="btn btn-primary" (click)="showhide() || back();"> Add new Tracker</Button>
+        <Button class="btn btn-primary" (click)="showhide() || back();"> Add Tracker Field</Button>
 
           <div *ngIf="ishideshow" class="width100percent">
         <div class="col-md-12">
@@ -18,7 +18,7 @@
                                 <label for="" class="control-label col-md-2">Job Specific: <span help='this is customized job data, which could be different in each job' class="badge">?</span></label>
                                 <div class="col-md-6">
                                     <div class="checkbox ">
-                                        <mat-checkbox  [(ngModel)]="newtracker.is_job_specific"> </mat-checkbox>
+                                        <mat-checkbox  [(ngModel)] ="newtracker.is_job_specific" (ngModelChange)="newtracker.is_job_specific = $event ? 1:0" > </mat-checkbox>
                                     </div>
                                 </div>
                             </div>

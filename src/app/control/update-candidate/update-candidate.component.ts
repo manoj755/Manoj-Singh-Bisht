@@ -7,7 +7,7 @@ declare var $: any;
   styleUrls: ['./update-candidate.component.scss']
 })
 export class UpdateCandidateComponent implements OnInit {
-
+  fileToUpload: File = null;
   currentData: any;
   updateid = 0;
   trackerjobdata: any;
@@ -15,6 +15,7 @@ export class UpdateCandidateComponent implements OnInit {
   candidate_id = 0;
   JobData: any;
   countries: any;
+  hidetracker = false;
   candidateshowdata = { customdata: [], resume: '', html: '', htmlurl: '' };
   globaljobid = 0;
   @Input()

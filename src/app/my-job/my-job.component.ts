@@ -173,15 +173,15 @@ export class MyJobComponent implements OnInit {
   leave(i) {
     this.hoverIndex = i;
   }
-  showjd(item) {
-
+  showjd(item): void {
+debugger;
     item.responsibilityshow = !item.responsibilityshow;
     this.itemone = item;
     this.itemone.jobDescription = 'hi';
-    this.db.show('addnewjob/', item.id, (response): void => {
+    this.db.show('addnewjob/', item.id, ((response): void => {
       this.itemone.jobDescription = response.jobDescription;
     })
-
+    );
 
   }
 
@@ -720,6 +720,7 @@ export class MyJobComponent implements OnInit {
       this.managers = response;
 
 
+
     }));
   };
 
@@ -770,7 +771,7 @@ export class MyJobComponent implements OnInit {
 
     if (item.tagged !== '10') {
       this.db.destroy('jobtag/', item.id, (response): void => {
-        item.tagged = 10;
+        item.tagged = '10';
         this.db.showMessage('Untagged');
 
       });
@@ -779,7 +780,7 @@ export class MyJobComponent implements OnInit {
 
 
       this.db.store('jobtag/', { job_id: item.id }, (response): void => {
-        item.tagged = 11;
+        item.tagged = '11';
         this.db.showMessage('Tagged');
       });
     }
@@ -850,6 +851,7 @@ export class MyJobComponent implements OnInit {
     };
     this.db.store('assignjob/', assignjob, ((response): void => {
       console.log(response);
+      this.db.addmessageandremove('job successfully asssign');
     }));
   };
 
@@ -862,6 +864,7 @@ export class MyJobComponent implements OnInit {
     };
     this.db.store('unassignjob/', unassignjob, ((response): void => {
       console.log(response);
+      this.db.addmessageandremove('job successfully unasssign');
 
 
     }));

@@ -19,6 +19,7 @@ export class UpdateStatusComponent implements OnInit {
   entityvar: any;
   currentstatusid = 0;
   allstatus = false;
+  jobid: any[];
   ajid = 0;
   currentstatusnameoption = '';
   currentstatusname = '';
@@ -80,7 +81,7 @@ export class UpdateStatusComponent implements OnInit {
     // this.commentstatus.status = this.currentstatusid;
     this.currentstatusname = entity.display_name;
 
-    this.db.list('csr/' + entity.status_id, { allstatus: this.allstatusload }, (response): void => {
+    this.db.list('csr/' + entity.status_id, { allstatus: this.allstatusload, jobid: entity.jobid }, (response): void => {
       $('#business').hide();
       $('#offerhide').hide();
       $('#isbot').hide();
@@ -91,31 +92,31 @@ export class UpdateStatusComponent implements OnInit {
     });
   }
 
-  sendcall(entity): void {
-    if (entity && entity.botid !== null) {
-      this.entityvar = entity;
-    }
-    else {
-      entity = this.entityvar;
-    }
-    const copyjob = {
-      'candidates': entity.id,
-      'job': entity.job_id,
-      'manager': entity.recruiter_id
-    };
-    this.db.store('sendcall/', copyjob, ((response): void => {
+  // sendcall(entity): void {
+  //   if (entity && entity.botid !== null) {
+  //     this.entityvar = entity;
+  //   }
+  //   else {
+  //     entity = this.entityvar;
+  //   }
+  //   const copyjob = {
+  //     'candidates': entity.id,
+  //     'job': entity.job_id,
+  //     'manager': entity.recruiter_id
+  //   };
+  //   this.db.store('sendcall/', copyjob, ((response): void => {
 
-      console.log(response);
+  //     console.log(response);
 
-      const addtojobmessage = 'Done';
+  //     const addtojobmessage = 'Done';
 
-      this.db.showMessage(addtojobmessage);
+  //     this.db.showMessage(addtojobmessage);
 
-    }), ((Response): void => {
-      this.db.showMessage('Some error occured');
-    })
-    );
-  }
+  //   }), ((Response): void => {
+  //     this.db.showMessage('Some error occured');
+  //   })
+  //   );
+  // }
 
 
 
@@ -165,7 +166,7 @@ export class UpdateStatusComponent implements OnInit {
       $('.comment_status_btn_current').text(this.currentstatusnameoption);
       // $rootScope.notificationload();
       this.loadCandidate();
-      this.sendcall(this.entityvar);
+      //this.sendcall(this.entityvar);
       if (showpopup) {
         this.db.showNotification('Status changed successfully.');
       }

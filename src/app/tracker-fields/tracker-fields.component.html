@@ -10,9 +10,9 @@ rowSelection='multiple'
   (gridReady)="onGridReady($event)">
 </ag-grid-angular>
       <br>
-      <div class="continer">
-        <div class="col-md-10">
-          <div class="wizard">
+      <!-- <div class="continer"> -->
+        <!-- <div class="col-md-12"> -->
+          <!-- <div class="wizard">
             <div class="wizard-inner">
               <div class="connecting-line"></div>
               <ul class="nav nav-tabs" role="tablist">
@@ -40,9 +40,9 @@ rowSelection='multiple'
               </ul>
             </div>
 
-          </div>
+          </div> -->
 
-
+          <div class="continer">
           <div class="row" id="trackermessage">
             <div class="col-md-12">
 
@@ -53,21 +53,26 @@ rowSelection='multiple'
                   <h4>Select Tracker Fields:</h4>
 
 
-                  <!-- Search : <input id='searchtracker' type="text" class="form-control" placeholder="Quick Search"
-                    [(ngModel)]='search.display_name' /> -->
+                  Search : <input id='searchtracker' type="text" class="form-control" placeholder="Quick Search"
+                    [(ngModel)]='search' (click)="show();"/>
                   <!-- <div class="clear" class="form-control" style="clear:both;"></div> -->
-                  <input type="text" placeholder="search"/>
+                  <!-- <input type="text" placeholder="search"/> -->
                   <!-- <input type="checkbox" *ngFor="let x of trackermaster">
                   <span>
                     {{x.display_name}}
                   </span> -->
+                  <div class="clearfix" style="clear:both;"></div>
+                  <div class="card" style="padding:40px;">
+<div class="row">
+                  <div class="col-md-3" style="margin-top:0px;"   *ngFor="let tr of trackermaster|sort:'display_name'|FilterPipe:'display_name':search" ngDefaultControl>
 
 
-                  <div class="col-md-12"   *ngFor="let tr of trackermaster|sort:'display_name'">
-
-                    <label><input type="checkbox" [checked]="tr.selected" (change)='tr.selected=!tr.selected' [(ngModel)]='tr.dd'>{{tr.display_name}}  <b class=" badge badge-danger" *ngIf="tr.is_job_specific=='1'">JS</b> </label>
-                </div>
-                  <div class="col-md-6"> <button type="submit" class="btn  btn-raised btn-primary validate"
+                    <label ><input class="" type="checkbox" [checked]="tr.selected"  (change)='tr.selected=!tr.selected' [(ngModel)]='tr.dd'>{{tr.display_name}}  <b class=" badge badge-danger" *ngIf="tr.is_job_specific=='1'">JS</b> </label>
+                <!-- </div> -->
+                  </div>
+                  </div>
+                  </div>
+                  <div class="col-md-12"> <button type="submit" class="btn  btn-raised btn-primary validate"
                       tar="#trackermessage" (click)="trackersave();">Select</button>
                   </div>
 
@@ -80,27 +85,38 @@ rowSelection='multiple'
 
               </div>
             </div>
-          </div>
-        </div>
+          <!-- </div> -->
+        <!-- </div> -->
       </div>
+    </div>
       <div class="col-md-12">
 
 
         <div class="panel panel-success">
           <div class="panel-heading">Selected Fields of Panel</div>
           <div class="panel-body">
-            <ul id="my-sort" class="sortable list-group" >
+            <!-- <ul id="my-sort" class="sortable list-group" > -->
               <!-- note the "track by" section. this is important so that it doesn't rebuild the list -->
-              <li class="list-group-item" *ngFor="let obj of trackerselected" data-index="" data-id="{{obj.id}}">
-                {{obj.display_name}} <span class="pull-right"><button type="button" (click)="removetracker(obj)"
+              <!-- <li class="list-group-item" *ngFor="let obj of trackerselected" data-index="" data-id="{{obj.id}}"> -->
+                <!-- {{obj.display_name}} <span class="pull-right"><button type="button" (click)="removetracker(obj)" -->
+                    <!-- class="btn-raised" -->
+                    <!-- style="background-color:red;color:white;margin-right: 10px;">Remove</button> -->
+                    <!-- <button type="button"
+                    (click)="Edit(obj)" class="glyphicon glyphicon-pencil"></button> -->
+                  <!-- </span> -->
+              <!-- </li> -->
+
+            <!-- </ul> -->
+            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let obj of trackerselected" cdkDrag> {{obj.display_name}}
+                <span class="pull-right"><button type="button" (click)="removetracker(obj)"
                     class="btn-raised"
                     style="background-color:red;color:white;margin-right: 10px;">Remove</button>
                     <!-- <button type="button"
                     (click)="Edit(obj)" class="glyphicon glyphicon-pencil"></button> -->
-                  </span>
-              </li>
-
-            </ul>
+                </span>
+              </div>
+            </div>
             <div class="alert alert-info" *ngIf='trackerselected.length===0'>Please select tracker fields and click
               select button !</div>
           </div>
@@ -139,7 +155,7 @@ rowSelection='multiple'
                 <div class="form-group">
                   <div class="col-md-10">
                     <button type="button" *ngIf="!isEdit" class="btn  btn-raised btn-primary validate"
-                      tar="#trackermessage" (click)="submittrackersave()">Submit</button>
+                      tar="#trackermessage" (click)="submittrackersave()" >Submit</button>
                     <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
                       (click)="trackerupdate(obj)">Update</button>
                     <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
