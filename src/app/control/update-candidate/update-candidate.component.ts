@@ -119,4 +119,16 @@ export class UpdateCandidateComponent implements OnInit {
     });
   }
 
+  uploadresume(files: FileList) {
+    debugger;
+    const fileToUpload: any[] = [];
+    fileToUpload.push({ 'filekey': 'resume', 'file': files.item(0) });
+    this.db.storeupload('candidatedetail/update/' + this.updateid, null, (re) => {
+      this.db.showNotification('Resume Uploaded');
+      $('#uploadresume').modal('hide');
+    }, (re) => {
+      this.db.showNotification('uploaded'); $('#uploadresume').modal('hide');
+    }, null, fileToUpload);
+  }
+
 }

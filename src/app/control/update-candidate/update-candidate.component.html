@@ -24,7 +24,7 @@
                 <div class="row">
                   <h4>Tracker Fields</h4>
 
-                  <div class="form-group col-md-6" *ngFor=" let pdata of ProfileData">
+                  <div class="form-group col-md-6" *ngFor="let pdata of ProfileData">
                     <label for="name" class="control-label col-sm-4 text-info">{{pdata.display_name}}</label>
                     <div class="col-sm-7">
                       <input type="text" class="form-control" [(ngModel)]="pdata.value" id="name"
@@ -322,7 +322,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                   <div class="form-group col-md-6" *ngFor="let data of  candidateshowdata.customdata">
                     <label for="DOBd" class="control-label col-sm-4">{{data.key}}</label>
                     <div class="col-sm-7">
@@ -336,7 +336,7 @@
 
 
 
-                </div>
+                </div> -->
                 <div class="row">
                   <div class=" col-md-6">
 
@@ -346,6 +346,8 @@
                   <div class="  col-md-6">
                     <button type="submit" class="btn  btn-raised btn-primary"
                       (click)="updatecandidate()">Update</button>
+                      <button type="submit" data-target="#uploadresume" data-toggle="modal"  class="btn  btn-raised btn-primary"
+                      >Upload CV</button>
                   </div>
 
                 </div>
@@ -389,3 +391,43 @@
   </div>
 </div>
 <app-add-note [set_candidate_id]='candidate_id'></app-add-note>
+
+
+
+
+
+
+<div id="uploadresume" class="modal fade" style="z-index:2000" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title">Upload Resume</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="media">
+          <div class="row">
+            <div class="col-12">
+                <input type="file"
+                id="file"
+                (change)="uploadresume($event.target.files)">
+
+            </div>
+
+        </div>
+
+
+
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+</div>

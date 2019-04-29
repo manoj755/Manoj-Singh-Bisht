@@ -378,6 +378,68 @@ export class DBService implements OnInit {
       );
 
   }
+  storeupload(url: string, data?: any, success?: ICallback, fail?: ICallback, loader?, fileToUpload?: any[]): any {
+
+
+    //  success('avc');
+
+
+    this.showloaderfunction(loader);
+    let fullurl = url;
+    if (url.indexOf('http') === - 1) {
+      fullurl = this.ServiceURL + url + '?token=' + this.getToken();
+    }
+    const req = {
+      method: 'post',
+      url: fullurl
+    };
+    if (data === undefined || data === null) {
+      data = {};
+    }
+    data.token = this.getToken();
+    const headersfull = new HttpHeaders();
+    headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
+    // post data missing(here you pass email and password)
+    let body = new FormData();
+
+    body = this.jsonToFormData(data);
+    if (fileToUpload != null) {
+      for (const i in fileToUpload) {
+        if (fileToUpload[i]) {
+          let filekey = 'file';
+          if (fileToUpload[i].filekey) {
+            filekey = fileToUpload[i].filekey;
+          }
+
+          body.append(filekey, fileToUpload[i].file, fileToUpload[i].file.name);
+        }
+
+      }
+    }
+    this.http.post(req.url, body, { headers: headersfull })
+      .subscribe(
+        res => {
+          this.hideLoaderfunction(loader);
+          if (success !== undefined) {
+            success(res);
+          }
+        },
+        response => {
+          this.hideLoaderfunction(loader);
+          this.showMessage(response);
+          if (response.status === 401 || (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
+            this.goToLogin(response);
+          } else {
+            if (fail !== undefined) {
+
+              fail(response);
+            }
+          }
+        }
+      );
+
+  }
+
 
 
   store(url: string, data?: any, success?: ICallback, fail?: ICallback, loader?): any {
