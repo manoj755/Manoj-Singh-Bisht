@@ -207,7 +207,7 @@ export class MyJobComponent implements OnInit {
         this.db.showMessage('Please select candidates');
         return;
       }
-      this.sendtracker.atjids = allrow;
+      this.sendtracker.atjids = allrow.toString();
       if (this.download) {
         this.sendtracker.download = true;
       } else {
@@ -355,7 +355,7 @@ export class MyJobComponent implements OnInit {
               };
 
               this.updatestatuscommentmyjob(false);
-              this.db.showMessage('Cv Submitted to panel.');
+              this.db.addmessageandremove('Cv Submitted to panel.');
             }
 
           }

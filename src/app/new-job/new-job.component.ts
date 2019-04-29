@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { ActivatedRoute } from '@angular/router';
+import { arrRoles } from './arrRoles';
 declare var $: any;
 // https://ng-select.github.io/ng-select#/tags
 @Component({
@@ -20,6 +21,7 @@ export class NewJobComponent implements OnInit {
   sms: any = {};
   addnewjob: any = {};
   departments = [];
+  hidesavebutton = false;
   status = '  ';
 
   trackerlist = [];
@@ -76,7 +78,7 @@ export class NewJobComponent implements OnInit {
   constructor(public db: DBService, public route: ActivatedRoute) { }
 
   ngOnInit() {
-
+    this.arrRoles = arrRoles;
 
     $('select').addClass('noselect2 form-control');
     this.minimumSalaryOptionSet()
@@ -313,6 +315,7 @@ export class NewJobComponent implements OnInit {
   };
 
   getrole(): void {
+    debugger;
     let code = $('#fun option:selected').attr('opt');
     // let code = this.functionalArea.code;
     if (code != null) {
@@ -813,6 +816,7 @@ export class NewJobComponent implements OnInit {
       } else {
         this.db.store('addnewjob/', topost, (response): void => {
           this.db.addmessageandremove('Data save Successfully');
+          this.hidesavebutton = true;
           for (const i in this.myjob) {
             if (this.myjob[i]) {
               this.myjob[i] = '';

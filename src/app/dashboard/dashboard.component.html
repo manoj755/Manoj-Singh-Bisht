@@ -16,7 +16,7 @@
           <div class="card-footer">
             <div class="stats">
               <i class="material-icons text-danger">warning</i>
-              <a href="#pablo">Your Database</a>
+              <a href="internaldatabase">Your Database</a>
             </div>
           </div>
         </div>
@@ -619,7 +619,25 @@
 
       </div>
     </div>
-
+    <div class="modal fade" id="showreference" role="dialog">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Reference</h4>
+              </div>
+              <div class="modal-body">
+               <!-- <p>This is a large modal.</p> -->
+                  <div>
+                      <div ui-grid="notificationjobs" ui-grid-selection ui-grid-pagination  ui-grid-cellnav ui-grid-exporter class="grid"></div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default  btn-raised" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
 
     <div class="row d-none">
       <div class="col-md-4">
@@ -671,6 +689,10 @@
           </div>
         </div>
       </div>
+
+
+
+
     </div>
 
   </div>

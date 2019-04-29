@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import { CandidateInJobsNotificationComponent } from '../control/candidate-in-jobs-notification/candidate-in-jobs-notification.component';
 import { Router } from '@angular/router';
 import { DBService } from '../db.service';
 import * as c3 from 'c3';
@@ -12,6 +13,25 @@ declare var $: any;
 export class DashboardComponent implements OnInit {
 
   // new reference fields
+
+
+  private autoGroupColumnDef;
+  private defaultColDef;
+  private rowSelection;
+  private rowGroupPanelShow;
+  private pivotPanelShow;
+  columnDefs = [
+    {
+      headerName: 'activity', sortable: false, filter: true, headerCheckboxSelection: true, checkboxSelection: true,
+      field: 'id', cellRendererFramework: CandidateInJobsNotificationComponent,
+      width: 1000,
+    },
+
+  ];
+
+  rowData = [
+  ];
+
   notification_very_danger = 0;
   notification_danger = 0;
   notification_success = 0;
@@ -23,6 +43,7 @@ export class DashboardComponent implements OnInit {
   activities = [];
   currentData: any;
   myjob: any = [];
+  hide = false;
   jobslistforref: any = [];
   jobportalurl: any = [];
   setjobandreferencetemp: any = {};
@@ -36,7 +57,7 @@ export class DashboardComponent implements OnInit {
   mp: any = {};
   constructor(private router: Router, private db: DBService) { }
   isnull(val, returns) {
-    if (val === null) {
+    if (val === null || val === undefined) {
       return returns;
 
     } else {
@@ -44,8 +65,10 @@ export class DashboardComponent implements OnInit {
     }
   }
   setjobandreferencetempmpfunction() {
+
     if (this.db.profile != null) {
-      this.setjobandreferencetemp.current_job_id = this.isnull(this.db.profile.current_job_id, '0').toString();
+      this.setjobandreferencetemp.current_job_id =
+        this.isnull(this.isnull(this.setjobandreferencetemp.current_job_id, '0'), '0').toString();
       this.setjobandreferencetemp.reference_email_template_id =
         this.isnull(this.db.profile.reference_email_template_id, '0').toString();
       this.setjobandreferencetemp.reference_sms_template_id =
@@ -57,6 +80,7 @@ export class DashboardComponent implements OnInit {
     } else {
       this.setjobandreferencetemp.is_send_auto_email_reference = 0;
     }
+    console.log(this.setjobandreferencetemp);
     this.db.store('setjobandreferencetemplate/', this.setjobandreferencetemp);
 
   };
@@ -74,6 +98,9 @@ export class DashboardComponent implements OnInit {
         [12, 17, 7, 17, 23, 18, 38]
       ]
     };
+
+
+
 
     const optionsDailySalesChart: any = {
       lineSmooth: Chartist.Interpolation.cardinal({
@@ -180,6 +207,7 @@ export class DashboardComponent implements OnInit {
 
     seq = 0;
   };
+
 
 
   public activity(data: any) {
