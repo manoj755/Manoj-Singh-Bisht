@@ -4,6 +4,16 @@ import { CommonModule } from '@angular/common';
 import { AgGridModule } from 'ag-grid-angular';
 import { MatIconModule } from '@angular/material/icon';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { FileUploadModule } from 'ng2-file-upload';
+//import { MatFileUploadModule } from 'angular-material-fileupload';
+//import { BrowserModule } from '@angular/platform-browser';
+
+
+// import { TagsInputModule } from 'ngx-tags-input/dist';
+//import {MatChipsModule} from '@angular/material';
+import {MatChipsModule} from '@angular/material/chips';
+
+
 
 // import { Ng2SearchPipeModule } from 'ng2-search-filter';
 // import {ReactiveFormsModule} from 'angular/forms';
@@ -130,6 +140,9 @@ declare var $: any;
     MatCardModule,
     MatRadioModule,
     CKEditorModule,
+    FileUploadModule,
+    //MatFileUploadModule,
+    //BrowserModule,
     // TooltipModule.forRoot(),
     MatAutocompleteModule,
     NgSelectModule,
@@ -137,6 +150,8 @@ declare var $: any;
     MatDatepickerModule,
     NgxPaginationModule,
     DragDropModule,
+    // TagsInputModule,
+    MatChipsModule,
     // NgxEditorModule,
     // PipesModule,
     //Ng2SearchPipeModule,

@@ -431,6 +431,54 @@ export class DBService implements OnInit {
 
   }
 
+  upload(url: string, data?: any, success?: ICallback, fail?: ICallback, loader?): any {
+
+
+    //  success('avc');
+
+
+    this.showloaderfunction(loader);
+    let fullurl = url;
+    if (url.indexOf('http') === - 1) {
+      fullurl = this.ServiceURL + url + '?token=' + this.getToken();
+    }
+    const req = {
+      method: 'post',
+      url: fullurl
+    };
+    if (data === undefined) {
+      data = {};
+    }
+    data.token = this.getToken();
+    const headersfull = new HttpHeaders();
+    headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
+    // post data missing(here you pass email and password)
+    let body = new FormData();
+
+    body = this.jsonToFormData(data);
+    this.http.post(req.url, body, { headers: headersfull })
+      .subscribe(
+        res => {
+          this.hideLoaderfunction(loader);
+          if (success !== undefined) {
+            success(res);
+          }
+        },
+        response => {
+          this.hideLoaderfunction(loader);
+          this.showMessage(response);
+          if (response.status === 401 || (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
+            this.goToLogin(response);
+          } else {
+            if (fail !== undefined) {
+
+              fail(response);
+            }
+          }
+        }
+      );
+
+  }
 
   show(url: string, id?: any, success?: ICallback, fail?: ICallback, loader?): any {
 

@@ -49,6 +49,7 @@ export class MyJobComponent implements OnInit {
   childprocessnewvar: any;
   gridheader: any;
   mainprocessnewvar: any;
+  jobidjd: any;
   vendornew: any = {};
   sendtracker: any = {};
   jobslistlength: any;
@@ -75,6 +76,7 @@ export class MyJobComponent implements OnInit {
   selectedjobinprocess: any;
   selectedjobselectedcandidate: any;
   process: any = 'all';
+  hidejd = false;
   ajid: any;
   vendors: any = [];
   selectedjobrejected: any;
@@ -174,12 +176,22 @@ export class MyJobComponent implements OnInit {
     this.hoverIndex = i;
   }
   showjd(item): void {
-debugger;
+    debugger;
+
     item.responsibilityshow = !item.responsibilityshow;
+    // if (this.hidejd === false) {
+    //   this.hidejd = true;
+    // }
+    // else {
+
+    // }
     this.itemone = item;
     this.itemone.jobDescription = 'hi';
     this.db.show('addnewjob/', item.id, ((response): void => {
       this.itemone.jobDescription = response.jobDescription;
+      this.jobidjd = response;
+     // this.hidejd = false;
+     //item.responsibilityshow === item.responsibilityshow;
     })
     );
 

@@ -1,5 +1,9 @@
-import { Component, OnInit, Input, Pipe } from '@angular/core';
+import { Component, OnInit, Input, Pipe, EventEmitter } from '@angular/core';
 import { DBService } from 'app/db.service';
+import { FileUploader, FileLikeObject } from 'ng2-file-upload';
+import { FormGroup, FormControl } from '@angular/forms';
+const URL = 'https://localhost:4200/';
+
 declare var $: any;
 @Component({
   selector: 'app-update-candidate',
@@ -18,6 +22,34 @@ export class UpdateCandidateComponent implements OnInit {
   hidetracker = false;
   candidateshowdata = { customdata: [], resume: '', html: '', htmlurl: '' };
   globaljobid = 0;
+
+
+  uploadForm = new FormGroup({
+    file1: new FormControl()
+  });
+  filedata: any;
+  fileEvent(e) {
+    this.filedata = e.target.files[0];
+    console.log(e);
+  }
+  onSubmit() {
+    let formdata = new FormData();
+    console.log(this.uploadForm)
+    formdata.append("avatar", this.filedata);
+    this.db
+      .post("http://api.passivereferral.com/public/", formdata, ((response): void => {
+
+      })
+      );
+  }
+
+
+  public onFileSelected(event: EventEmitter<File[]>) {
+    const file: File = event[0];
+    console.log(file);
+
+  }
+
   @Input()
   set current_data(currentData: any) {
     debugger;

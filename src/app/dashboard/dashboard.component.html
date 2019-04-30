@@ -2,15 +2,15 @@
   <div class="container-fluid">
     <div class="row pointer">
 
-      <div class="col-lg-3 col-md-6 col-sm-6" data-target="#internaldata" data-toggle="modal">
+      <div class="col-lg-3 col-md-6 col-sm-6" data-target="#internaldata" *ngIf="!db.profile.isvendor=='1'" data-toggle="modal">
         <div class="card card-stats">
           <div class="card-header card-header-warning card-header-icon">
             <div class="card-icon">
               <i class="material-icons">content_copy</i>
             </div>
-            <p class="card-category">Browse</p>
-            <h3 class="card-title">Cv
-              <small>Bank</small>
+            <!-- <p class="card-category">Browse</p> -->
+            <h3 class="card-title">Browse
+              <small>Candidate</small>
             </h3>
           </div>
           <div class="card-footer">
@@ -21,14 +21,14 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-6" (click)="navigateUrl('history')">
+      <div class="col-lg-3 col-md-6 col-sm-6" *ngIf="!db.profile.isvendor=='1'" (click)="navigateUrl('history')">
         <div class="card card-stats">
           <div class="card-header card-header-success card-header-icon">
             <div class="card-icon">
               <i class="material-icons">store</i>
             </div>
-            <p class="card-category">History</p>
-            <h3 class="card-title">Browse</h3>
+            <!-- <p class="card-category">History</p> -->
+            <h3 class="card-title">History</h3>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -43,8 +43,8 @@
             <div class="card-icon">
               <i class="material-icons">info_outline</i>
             </div>
-            <p class="card-category">My Jobs</p>
-            <h3 class="card-title">Job List</h3>
+            <p class="card-category">Job List</p>
+            <h3 class="card-title">My Jobs</h3>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -53,14 +53,14 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-6" (click)="navigateUrl('billing')">
+      <div class="col-lg-3 col-md-6 col-sm-6" *ngIf="db.mp.page_billing " (click)="navigateUrl('billing')">
         <div class="card card-stats">
           <div class="card-header card-header-info card-header-icon">
             <div class="card-icon">
               <i class="fa fa-money"></i>
             </div>
-            <p class="card-category">Billing</p>
-            <h3 class="card-title">Go</h3>
+            <!-- <p class="card-category">Billing</p> -->
+            <h3 class="card-title">Billing</h3>
           </div>
           <div class="card-footer">
             <div class="stats">
@@ -73,7 +73,7 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-6 col-md-12">
+      <div class="col-lg-6 col-md-12" *ngIf="db.mp.new_reference">
         <div class="card">
           <div class="card-header card-header-tabs card-header-primary">
             <div class="nav-tabs-navigation">
@@ -276,7 +276,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6 col-md-12" ng-if="db.mp.referenceall">
+      <div class="col-lg-6 col-md-12" *ngIf="db.mp.referenceall ">
         <div class="card">
           <div class="card-header card-header-warning">
             <h4 class="card-title">Reference </h4>
@@ -310,7 +310,7 @@
                     <button class="link highlight btn btn-raised btn-sm btn-info" data-target="#activity"
                       data-toggle="modal" (click)="activity(in_process_referral)">View Activity</button>
 
-                    <button class="link highlight btn btn-raised btn-sm btn-success" target="#commentstatus"
+                    <button class="link highlight btn btn-raised btn-sm btn-success" data-target="#commentstatus"
                       data-toggle="modal" (click)="onCommentClick(in_process_referral)">Change Status</button>
 
                   </td>
@@ -333,7 +333,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6 col-md-12" ng-if="db.mp.dashboard_suggestion">
+      <div class="col-lg-6 col-md-12" *ngIf="db.mp.dashboard_suggestion">
         <div class="card">
           <div class="card-header card-header-success">
             <h4 class="card-title">Suggestion </h4>
@@ -346,7 +346,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!db.profile.isvendor=='1'">
       <div class="card">
         <div class="card-header card-header-tabs card-header-info">
           <h4 class="card-title">Cv Parsed </h4>
@@ -355,7 +355,7 @@
         <div class="card-body">
 
 
-<div class="row">
+<div class="row" >
           <div class="col-md-4">
             <mat-form-field>
               <input matInput [(ngModel)]="start_date_temp" [matDatepicker]="picker" placeholder="Choose a date"
@@ -562,7 +562,7 @@
 
           </div>
           <div class="modal-body">
-            <div class="col-md-12 col-sm-6 col-xs-12" ng-if="db.mp.option_to_send_email">
+            <div class="col-md-12 col-sm-6 col-xs-12" *ngIf="db.mp.option_to_send_email">
               <div class="form-group">
 
 

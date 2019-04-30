@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { ActivatedRoute } from '@angular/router';
 import { arrRoles } from './arrRoles';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {MatChipInputEvent} from '@angular/material';
 declare var $: any;
 // https://ng-select.github.io/ng-select#/tags
 @Component({
@@ -76,6 +78,12 @@ export class NewJobComponent implements OnInit {
   minexperience = [];
   industries = [];
   functionalareas = [];
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+
   constructor(public db: DBService, public route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -109,6 +117,33 @@ export class NewJobComponent implements OnInit {
 
 
   }
+
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.myjob.keyskills.push({name: value.trim()});
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  // remove(fruit: keyskills): void {
+  //   const index = this.myjob.keyskills.indexOf(fruit);
+
+  //   if (index >= 0) {
+  //     this.myjob.keyskills.splice(index, 1);
+  //   }
+  // }
+
+
+
 
   jobtype(): void {
 
@@ -475,7 +510,7 @@ export class NewJobComponent implements OnInit {
     }, 5000);
   }
   loadkeyskills(newValue, istext, keyskill): void {
-
+debugger;
     if (this.myjob.keyskills === undefined) {
       this.myjob.keyskills = '';
     }
@@ -525,7 +560,7 @@ export class NewJobComponent implements OnInit {
                     if (currentlastval !== '' && currentlastval !== currentval) {
                       isfound = false;
 
-                    } else if (currentlastval !== '' && currentlastval === currentval) {
+                    } else if (  currentlastval !== '' && currentlastval === currentval) {
                       isfound = true;
                       break;
 
@@ -582,12 +617,13 @@ export class NewJobComponent implements OnInit {
   }
 
   setkeyskills() {
+    debugger;
     setTimeout(function () {
 
-      this.myjob.keyskillsdemo = [];
+      this.myjob.keyskills = [];
       for (const i in this.keyskillsset) {
         if (this.keyskillsset[i]) {
-          this.myjob.keyskillsdemo.push(this.keyskillsset[i].text);
+          this.myjob.keyskills.push(this.keyskillsset[i].text);
         }
       }
       this.myjob.keyskills = this.myjob.keyskillsdemo.toString();

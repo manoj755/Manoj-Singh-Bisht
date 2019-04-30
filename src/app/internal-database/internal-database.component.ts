@@ -36,9 +36,9 @@ export class InternalDatabaseComponent implements OnInit {
       headerName: 'Candidate Name', field: 'candidateName', width: 270,
       sortable: false, filter: false,
       cellRenderer: function (param) {
-        return `<button type='button' data-action-type='candidateshow' class='btn  btn-sm'>
+        return `<span><button type='button' data-action-type='candidateshow' class='btn  btn-sm'>
     ` + param.value + `
-</button>
+</button></span>
 `;
       }
     },
@@ -68,6 +68,7 @@ export class InternalDatabaseComponent implements OnInit {
   }
 
   public onRowClicked(e) {
+    debugger;
     if (e.event.target !== undefined) {
       const data = e.data;
       const actionType = e.event.target.getAttribute('data-action-type');
@@ -86,7 +87,7 @@ export class InternalDatabaseComponent implements OnInit {
     }
   }
   public oncandidateshowClick(data: any) {
-
+debugger;
 
     data.tempdate = new Date().getMilliseconds();
     this.currentData = {};
@@ -118,6 +119,7 @@ export class InternalDatabaseComponent implements OnInit {
     }));
   }
   onGridReady(params) {
+    debugger;
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
@@ -127,7 +129,7 @@ export class InternalDatabaseComponent implements OnInit {
     this.gridApi.exportDataAsCsv();
   }
   onSelectionChanged(event) {
-
+debugger;
     this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
 
 

@@ -23,12 +23,12 @@
             </div>
             <div class="col-md-3">
               <a mat-mini-fab href="javascript:" help='Add to Job' data-target='#addtojob' data-toggle='modal'
-                ng-if="mp.add_to_job_store" (click)="loadalert();" class="icouser"><i class="fa fa-user-plus"></i></a></div>
+                *ngIf="mp.add_to_job_store" (click)="loadalert();" class="icouser"><i class="fa fa-user-plus"></i></a></div>
             <div class="col-md-3" *ngIf="db.mp.btn_take_internal_refeference"><a mat-mini-fab href=""
                 help='Get Reference' data-toggle="modal" data-target="#getreferencemodal" class="icohandshake"><i
                   class="fa fa-handshake-o"></i></a></div>
             <div class="col-md-3"><a mat-mini-fab href="javascript:" help='call' data-target='#calldiv'
-                data-toggle='modal' ng-if="mp.btn_can_call" class="icocall"><i class="fa fa-phone"></i></a></div>
+                data-toggle='modal' *ngIf="db.mp.btn_can_call" class="icocall"><i class="fa fa-phone"></i></a></div>
           </div>
 
 

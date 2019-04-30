@@ -42,17 +42,17 @@
             </div>
             <div class="col-md-12">
               <button type="button" class="btn  btn-raised  btn-primary" (click)='assignjobClick()'
-                style="margin-top: 9px;" ng-if='mp.btn_assign_job_to_recruiter'>Assign Job</button>
+                style="margin-top: 9px;" *ngIf='db.mp.btn_assign_job_to_recruiter'>Assign Job</button>
               <!--                        <button type="button" class="btn  btn-raised  btn-primary" data-toggle="modal" data-target="#myModal-5" style="margin-top: 9px;">Un-Assigned Job</button    >-->
 
               <button type="button" class="btn  btn-raised  btn-info" (click)="loadvendor()" style="margin-top: 9px;"
-                ng-if='mp.btn_assign_job_to_vendor'>Assign Job to Vendor</button>
+                *ngIf='db.mp.btn_assign_job_to_vendor'>Assign Job to Vendor</button>
               <button type="button" class="btn  btn-raised  btn-danger" data-toggle="modal"
                 (click)="openaddvendor()" data-target="#addvendor" style="margin-top: 9px;"
-                d='mp.btn_add_vendor'>Add Vendor</button>
+                *ngIf='db.mp.btn_add_vendor'>Add Vendor</button>
 
               <button type="button" class="btn  btn-raised  btn-default" (click)="db.downloadFile(jobslist,'joblist')"
-                style="margin-top: 9px;" d='mp.btn_add_vendor'>CSV</button>
+                style="margin-top: 9px;" *ngIf='db.mp.btn_add_vendor'>CSV</button>
 
             </div>
           </div>
@@ -76,31 +76,31 @@
 
           <span *ngIf="db.mp.add_new_job_store"> Please <a href="#/newjob" class="btn  btn-raised btn-default">click
               here</a> to add job .</span>
-          <span ng-hide="mp.add_new_job_store">Please contact your manager.</span>
+          <span *ngIf="db.mp.add_new_job_store">Please contact your manager.</span>
         </div>
       </div>
       <div style="margin-top:20px;" class="col-md-12">
 
 
         <ul class="nav nav-tabs showloader pull-left  ">
-          <li class="active"><a data-toggle="tab" href="#" (click)='changefilter("Active","job_status")'
+          <li class="active" *ngIf="!db.profile.isvendor=='1'"><a data-toggle="tab" href="#" (click)='changefilter("Active","job_status")'
               class="btn  btn-raised btn-primary">Active</a></li>
-          <li><a href="#" data-toggle="tab" (click)='changefilter("Hold","job_status")'
+          <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" (click)='changefilter("Hold","job_status")'
               class="btn  btn-raised btn-primary">Hold</a></li>
-          <li><a href="#" data-toggle="tab" (click)='changefilter(1,"website")'
+          <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" (click)='changefilter(1,"website")'
               class="btn  btn-raised btn-primary">Visible on Website</a></li>
-          <li><a href="#" data-toggle="tab" (click)='changefilter("Closed","job_status")'
+          <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" (click)='changefilter("Closed","job_status")'
               class="btn  btn-raised btn-primary">Closed</a></li>
-          <li><a href="#" data-toggle="tab" style="background:#ddf295; color:#251e22;"
+          <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" style="background:#ddf295; color:#251e22;"
               (click)='changefilter("Interview","interview")' class="btn  btn-raised btn-primary">Interview</a></li>
 
-          <li><a href="#" data-toggle="tab" (click)='changefilter("All","job_status")'
+          <li ><a href="#" data-toggle="tab" (click)='changefilter("All","job_status")'
               class="btn  btn-raised btn-primary">All</a></li>
           <li><a href="#" data-toggle="tab" (click)='changefilter("Tagged","tagged")'
               class="btn  btn-raised btn-primary">Tagged</a></li>
 
         </ul>
-        <button class="btn btn-raised pull-right" [routerLink]="['/newjob']"><i class="material-icons">add_to_photos</i>Add New Job</button>
+        <button *ngIf="!db.profile.isvendor=='1'" class="btn btn-raised pull-right" [routerLink]="['/newjob']"><i class="material-icons">add_to_photos</i>Add New Job</button>
         <pagination-controls     directionLinks="true"
         autoHide="true"
         responsive="true"
@@ -142,41 +142,41 @@
 
                     <span style='padding-left:10px; display:inline-block;'>
                       <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
-                      ng-hide='mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
+                      *ngIf='db.mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
                       class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
                       <i class="fa fa-check"></i>
                     </span>
-                    <span class="pull-right socialdiv" (mouseenter)="enter(i)" (mouseleave)="leave(i)"  ><a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                    <span class="pull-right socialdiv" (mouseenter)="enter(i)" (mouseleave)="leave(i)"  ><a mat-mini-fab class="facebook" *ngIf="!db.profile.isvendor=='1'"
                       href="https://www.facebook.com/sharer/sharer.php?u={{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
                       target="_blank">
                       <i class="fa fa-facebook "></i>
                     </a>
 
-                    <a mat-mini-fab class="twitter" ng-hide="profile.isvendor=='1'"
+                    <a mat-mini-fab class="twitter" *ngIf="!db.profile.isvendor=='1'"
                       href="https://twitter.com/share?url={{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
                       target="_blank">
                       <i class="fa fa-twitter  "></i>
                     </a>
 
-                    <a mat-mini-fab class="linkedin" ng-hide="profile.isvendor=='1'"
+                    <a mat-mini-fab class="linkedin" *ngIf="!db.profile.isvendor=='1'"
                       href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
                       target="_blank">
                       <i class="fa fa-linkedin "></i>
                     </a></span>
                     <span class="sharediv pull-right"  *ngIf="hoverIndex === i">
-                      Share for Apply : <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                      Share for Apply : <a mat-mini-fab class="facebook" *ngIf="!db.profile.isvendor=='1'"
                         href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}/{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
                         target="_blank">
                         <i class="fa fa-facebook "></i>
                       </a>
 
-                      <a class="twitter" mat-mini-fab ng-hide="profile.isvendor=='1'"
+                      <a class="twitter" mat-mini-fab *ngIf="!db.profile.isvendor=='1'"
                         href="https://twitter.com/share?url={{$urlapply}}/{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
                         target="_blank">
                         <i class="fa fa-twitter  "></i>
                       </a>
 
-                      <a class="linkedin" mat-mini-fab ng-hide="profile.isvendor=='1'"
+                      <a class="linkedin" mat-mini-fab *ngIf="!db.profile.isvendor=='1'"
                         href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}/{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
                         target="_blank">
                         <i class="fa fa-linkedin "></i>
@@ -189,12 +189,12 @@
                   <div class="member-social pull-right col-md-4 shareparent" style="text-align: right;">
 
 
-                    <a mat-mini-fab class="" help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
+                    <a mat-mini-fab class="" *ngIf="!db.profile.isvendor=='1'"  help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
                       <i class="fa fa-share-square-o"></i>
                     </a>
                     <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
 
-                    <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager' title="Approve by Manager"
+                    <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager' *ngIf="!db.profile.isvendor=='1'" title="Approve by Manager"
                       href="javascript:" (click)="is_approved_by_manager(item)">
                       <i class="fa fa-check"></i>
                     </a>
@@ -203,11 +203,11 @@
 
                       <i class="fa fa-tags"></i>
                     </a>
-                    <a mat-mini-fab class="" help="Show JD" href="javascript:" style='color:black; background:#ffffbe;'
+                    <a mat-mini-fab class="" help="Show JD" *ngIf="!db.profile.isvendor=='1'" href="javascript:" style='color:black; background:#ffffbe;'
                       (click)="showjd(item)">
                       <i class="fa fa-bolt "></i>
                     </a>
-                    <a mat-mini-fab ng-show='item.visibleonwebsite==1' class=""
+                    <a mat-mini-fab *ngIf='item.visibleonwebsite==1' class=""
                       href="{{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}" target="_blank"
                       style='color:red; background:white;' help='Visible on Website'>
                       <i class="fa fa-eye "></i>
@@ -287,7 +287,7 @@
                     </div>
 
                   </div>
-                  <div class="col-md-12" [hidden]="!item.responsibilityshow">
+                  <div class="col-md-12" [hidden]="!item.responsibilityshow && item.responsibilityshow !=='1'">
                     <p class="">{{itemone.jobDescription}}</p>
                   </div>
 
@@ -362,7 +362,7 @@
                         <!-- /.box-body -->
                         <div class="box-footer clearfix no-border">
                           <button type="button" class="btn  btn-raised btn-default pull-right"
-                            (click)="assignjobtovendor()"> Assign Job</button>
+                            (click)="assignjobtovendor()"   > Assign Job</button>
                           <button type="button" class="btn  btn-raised btn-default pull-right"
                             (click)="unassignjobtovendor()" title="selected vendor will be removed from job">Un-Assign
                             Job</button>

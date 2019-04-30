@@ -30,14 +30,14 @@
           <app-add-candidate></app-add-candidate>
           <div class=" col-md-3 validate">
             <a class="btn btn-default btn-block" href="" data-toggle="modal" help='Add Candidate'
-              data-target="#addcandidate" ng-if="mp.candidate_detail_store">
+              data-target="#addcandidate" *ngIf="db.mp.candidate_detail_store">
               Add Candidate
             </a>
 
           </div>
           <div class='col-md-3'>
             <a mat-fab href="javascript:" help='call' data-target='#calldiv' data-toggle='modal'
-              ng-if="mp.btn_can_call">
+              *ngIf="db.mp.btn_can_call">
               <i class="fa fa-phone fa-2x"></i>
 
             </a>
@@ -63,7 +63,7 @@
                         <div class="col-xs-8">
                           <select class="form-control e" n="Client" ng-change="getcandidatebyclient(true)"
                             [(ngModel)]="copycandidate.client_detail_id" name="client_detail_id" required>
-                            <option value="{{x.id}}" *ngFor="let  xof clients">{{x.billingName}}</option>
+                            <option value="{{x.id}}" *ngFor="let x of clients">{{x.billingName}}</option>
                           </select>
                         </div>
                       </div>
@@ -143,7 +143,7 @@
           class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
           [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
           (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
-          (gridReady)="onGridReady($event)">
+          (gridReady)="onGridReady($event)"  suppressCellFlash="true" enableCellChangeFlash="true">
         </ag-grid-angular>
       </div>
     </div>

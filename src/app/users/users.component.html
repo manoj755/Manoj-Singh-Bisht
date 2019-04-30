@@ -21,7 +21,7 @@
                 <div name="userForm" (ngSubmit)="f.userForm.valid && onSubmit()"  novalidate>
 
                     <div class="row">
-                        <div class="col-md-4" >
+                        <div class="col-md-4" ng-if="profile.app_id == 0">
                             Application
                             <select class="form-control" id="usersapp" [(ngModel)]="user.app_id"  (onclick)="loadmanager();" ngDefaultControl>
                                 <option *ngFor="let app of applications" value="{{app.id}}">
