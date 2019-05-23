@@ -20,6 +20,9 @@
   will-change: box-shadow, transform;
   @include undo-bs-tab-focus();
 
+  .mat-raised-button.btn:active{
+    background-color: blue !important;
+  }
   //--
   // Colors
   @include bmd-raised-button-color();
@@ -216,6 +219,7 @@
   .mat-raised-button.btn,
   .mat-raised-button.btn:active,
   .btn-group {
+   // background:blue;
     margin: 0;
   }
 

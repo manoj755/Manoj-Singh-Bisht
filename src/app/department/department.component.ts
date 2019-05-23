@@ -42,13 +42,13 @@ export class DepartmentComponent implements OnInit {
          Delete
       </button>`},
     {
-      headerName: 'department', field: 'department', sortable: true, filter: true, headerCheckboxSelection: true,
+      headerName: 'department', field: 'department', sortable: true, filter: true, headerCheckboxSelection: true, width: 300,
       checkboxSelection: true
     },
 
-    { headerName: 'Created at', field: 'created_at', sortable: true, filter: true },
-    { headerName: 'Updated at', field: 'updated_at', sortable: true, filter: true },
-    { headerName: 'IP Address', field: 'ipAddress', sortable: true, filter: true },
+    { headerName: 'Created at', field: 'created_at', sortable: true, filter: true, width: 250 },
+    { headerName: 'Updated at', field: 'updated_at', sortable: true, filter: true, width: 250 },
+    { headerName: 'IP Address', field: 'ipAddress', sortable: true, filter: true, width: 250 },
   ];
 
   rowData = [
@@ -109,6 +109,15 @@ export class DepartmentComponent implements OnInit {
   }
 
   public onActionDeleteClick(data: any) {
+    debugger;
+    if (confirm('Are you sure?')) {
+      this.db.destroy('applicationdepartment/', data.id, ((response): void => {
+        this.db.addmessageandremove('deleted');
+        //this.LoadData();
+      })
+      );
+
+    }
     console.log('View action clicked', data);
   }
 
@@ -140,10 +149,10 @@ export class DepartmentComponent implements OnInit {
   };
 
   departmentupdate(): void {
-  //   if (!$('.validate').validate('#trackermaster')) {
-  //     // $.fn.showMessage('Please fill values');
-  //    return;
-  //  }
+    //   if (!$('.validate').validate('#trackermaster')) {
+    //     // $.fn.showMessage('Please fill values');
+    //    return;
+    //  }
     this.db.update('applicationdepartment/', this.department.id, this.department, ((response): void => {
 
       this.LoadData();
@@ -153,10 +162,10 @@ export class DepartmentComponent implements OnInit {
   }
 
   departmentsave(): void {
-// if (!$('.validate').validate('#trackermaster')) {
-//       // $.fn.showMessage('Please fill values');
-//      return;
-//    }
+    // if (!$('.validate').validate('#trackermaster')) {
+    //       // $.fn.showMessage('Please fill values');
+    //      return;
+    //    }
     //this.user.profilepic=this.user.profilepic[0];
     this.db.store('applicationdepartment/', this.department, ((response): void => {
 

@@ -36,10 +36,22 @@ export class MessageTemplateComponent implements OnInit {
       <button type='button' data-action-type='delete' class='btn btn-danger btn-sm'>
          Delete
       </button>`},
-    { headerName: 'Template Type', field: 'templateType', sortable: true, filter: true, headerCheckboxSelection: true,
-    checkboxSelection: true, width: 300, },
-    { headerName: 'Template Area', field: 'templatearea', sortable: true, filter: true, width: 300 },
-    { headerName: 'Template name', field: 'templatename', sortable: true, filter: true, width: 300 },
+    {
+      headerName: 'Template Type', field: 'templateType', sortable: true, filter: true, headerCheckboxSelection: true,
+      checkboxSelection: true, width: 250,
+    },
+    { headerName: 'Template Area', field: 'templatearea', sortable: true, filter: true, width: 220 },
+    { headerName: 'Template name', field: 'templatename', sortable: true, filter: true, width: 220 },
+    {
+      headerName: 'Template For', field: 'is_client', width: 220,
+      valueGetter: function (params) {
+        if (params.data.is_client === 1) {
+          return 'Client';
+        } else {
+          return 'Department';
+        }
+      }
+    }
     // { headerName: 'Current Organization', field: 'currentOrganization', sortable: true, filter: true },
   ];
 
@@ -101,7 +113,15 @@ export class MessageTemplateComponent implements OnInit {
   }
 
   public onActionDeleteClick(data: any) {
-    console.log('View action clicked', data);
+    debugger;
+      if (confirm('Are you sure?')) {
+    this.db.destroy('messagetemplate/', data.id, ((response): void => {
+      this.db.addmessageandremove('deleted');
+      this.LoadData();
+    })
+    );
+      }
+    //console.log('View action clicked', data);
   }
 
 

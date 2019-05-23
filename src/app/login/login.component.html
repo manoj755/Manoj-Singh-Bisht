@@ -60,7 +60,7 @@
                     </div>
                   </div>
                   <div class="d-flex justify-content-center form_container">
-                    <form>
+                    <form >
                       <div class="input-group mb-5">
                         <div class="input-group-append">
                           <span class="input-group-text"><i class="material-icons">
@@ -68,7 +68,7 @@
                               </i>
                               </span>
                         </div>
-                        <input  matInput placeholder="Username"  name='username' required [(ngModel)]="loginData.username" type="text" class="form-control input_user" value="">
+                        <input placeholder="Username"  name='username' required [(ngModel)]="loginData.username" type="text" class="form-control input_user" value="" ngDefaultControl />
                       </div>
                       <div class="input-group mb-5">
                         <div class="input-group-append">
@@ -76,11 +76,11 @@
                               vpn_key
                               </i></span>
                         </div>
-                        <input matInput placeholder="Password" name="password" required [(ngModel)]="loginData.password" type="password" class="form-control input_pass " value="">
+                        <input  placeholder="Password" name="password" required [(ngModel)]="loginData.password" type="password" class="form-control input_pass " value="" ngDefaultControl />
                       </div>
                       <div class="form-group">
                         <div class="custom-control custom-checkbox">
-                            <mat-checkbox [(ngModel)]="loginData.remember" >Remember me!</mat-checkbox>
+                            <mat-checkbox [(ngModel)]="loginData.remember" ngDefaultControl>Remember me!</mat-checkbox>
                         </div>
                       </div>
                     </form>
@@ -94,14 +94,15 @@
 
                       </div>
                   <div class="d-flex justify-content-center mt-3 login_container">
-                    <button type="button" name="button"  (click)="login()" class="btn login_btn">Login</button>
+                    <input type="submit" name="button" (keydown)="onKeydown($event)"  class="btn login_btn" ngDefaultControl value="Login">
+                    <!-- <button type="button" name="button" [hidden]="hidebutton"  (keyup.enter)="login()" class="btn login_btn" ngDefaultControl>Login</button> -->
                   </div>
                   <div class="mt-4">
                     <!-- <div class="d-flex justify-content-center links">
                       Don't have an account? <a href="#" class="ml-2">Sign Up</a>
                     </div> -->
                     <div class="d-flex justify-content-center links">
-                      <a href="#">Forgot your password?</a>
+                      <a href="#" data-toggle="modal" data-target="#myStaticDialog">Forgot your password?</a>
                     </div>
                   </div>
                 </div>
@@ -110,7 +111,7 @@
 
 
             <!-- <div class="md-dialog-container" style="width: 50%; left: 300px;"  id="myStaticDialog">
-              <md-dialog>
+
 
 
                   <div class="col-md-12">
@@ -143,10 +144,134 @@
                       </div>
                   </div>
 
-              </md-dialog>
+
 
 
           </div> -->
+
+          <div id="myStaticDialog" class="modal fade" style="z-index:2000" role="dialog">
+            <div class="modal-dialog modal-sm width50percent" >
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                <div class="modal-header">
+
+                  <!-- <h4 style="margin-left:100px;"></h4> -->
+                  <!-- <h4 class="modal-title text-center">Forgot Password</h4> -->
+                  <h3 class="text-center" style="margin-left:120px;margin-top:0px;"><i class="fa fa-lock fa-2x">Forgot Password</i></h3>
+
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Email/Mobile Number</p>
+                  <form ng-cloak>
+                    <fieldset>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+
+                                <input type="text" [(ngModel)]="fp.emailormobile" name="emailormobile" class="form-control ng-pristine ng-untouched ng-valid ng-valid-email" aria-invalid="false">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" (click)="ForgetPassword();" class="btn btn-blue btn-info btn-wd btn-md">Send</button>
+                        </div>
+                    </fieldset>
+                </form>
+                </div>
+
+              </div>
+
+
+
+            </div>
+          </div>
+
+          <div id="otp" class="modal fade" style="z-index:2000" role="dialog">
+              <div class="modal-dialog modal-sm width50percent" >
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <div class="modal-header">
+
+                      <h3  style="margin-left:120px;margin-top:0px;"><i class="fa fa-location-arrow fa-2x">OTP</i></h3>
+                      <!-- <h2 class="text-center">OTP</h2> -->
+
+
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                      <p>Enter Otp</p>
+                      <form ng-cloak>
+                          <fieldset>
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <span class="input-group-addon"><i class="fa fa-share"></i></span>
+
+                                      <input type="text" [(ngModel)]="otp.otp" name="otp" class="form-control ng-pristine ng-untouched ng-valid ng-valid-email" aria-invalid="false" placeholder="OTP">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <button type="submit" (click)="checkotp()"class="btn btn-blue btn-info btn-wd btn-md">Confirm OTP</button>
+                              </div>
+                          </fieldset>
+                      </form>
+                  </div>
+
+                </div>
+
+
+
+              </div>
+
+          </div>
+
+              <div id="changepassword" class="modal fade" style="z-index:2000" role="dialog">
+                  <div class="modal-dialog modal-sm width50percent" >
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                      <div class="modal-header">
+
+                          <h3><i class="fa fa-lock fa-4x"></i></h3>
+                                            <h2 class="text-center">Change Password:</h2>
+
+
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                          <!-- <p>Email/Mobile Number</p> -->
+                          <form ng-cloak>
+                              <fieldset>
+                                  <div class="form-group">
+                                      <div class="input-group">
+                                          <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+
+                                          <input type="password" [(ngModel)]="resetpassword.newpassword" name="newpassword" class="form-control ng-pristine ng-untouched ng-valid ng-valid-email" aria-invalid="false" placeholder="Password">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <div class="input-group">
+                                          <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+
+                                          <input type="password" [(ngModel)]="resetpassword.confirmpassword" class="form-control ng-pristine ng-untouched ng-valid ng-valid-email" aria-invalid="false" placeholder="Confirm Password">
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
+                                      <button type="button" (click)="changepasswordFN()"class="btn btn-blue btn-info btn-wd btn-md">Change Password</button>
+                                  </div>
+                              </fieldset>
+                          </form>
+
+                      </div>
+
+                    </div>
+
+
+
+
+                </div>
+              </div>
 
       </div>
   </div>

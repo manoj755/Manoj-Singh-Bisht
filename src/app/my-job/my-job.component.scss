@@ -18,8 +18,12 @@
 .test {
   background-color: green;
 }
-
-
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+.redClass
+{ background-color: rgb(27, 160, 9) ;}
 
 .searchassign {
   width:700px;
@@ -32,3 +36,24 @@
 	//transform: translate(-50%,-5o%);
 	text-align:center;
 }
+.btn-activecolor{
+  background-color: #9c27b0;
+}
+.btn-activecolor:active{
+  background: rgb(166, 167, 166)!important;
+}
+.btn-activecolor:focus{
+  background: rgb(166, 167, 166)!important;
+}
+
+// .green {
+//   background-color: #9c27b0;
+// }
+
+// .red {
+//   background-color:  rgb(166, 167, 166)!important;
+// }
+// // .success {
+//   background-color: green;
+//   color: #fff;
+// }

@@ -110,9 +110,16 @@ export class AddNewTrackerComponent implements OnInit {
   }
 
   public onActionDeleteClick(data: any) {
+    debugger;
+    if (confirm('Are you sure?')) {
+      this.db.destroy('trackermaster/', data.id, ((response): void => {
+        this.db.addmessageandremove('deleted');
+        //this.LoadData();
+      })
+      );
     console.log('View action clicked', data);
   }
-
+  }
 
   back(): void {
     this.isEdit = false;

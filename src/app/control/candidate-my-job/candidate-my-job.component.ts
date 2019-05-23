@@ -10,12 +10,13 @@ export class CandidateMyJobComponent implements ICellRendererAngularComp {
   private params: any;
   private cubed: number;
   @Output()
+  debugger;
   rowdata = new EventEmitter<any>();
   row = { entity: null }
   myname = 'narender';
   constructor() { }
   agInit(params: any): void {
-    //debugger;
+    debugger;
     this.params = params;
     this.row.entity = this.params.data;
     this.cubed = this.params.data.value * this.params.data.value * this.params.data.value;

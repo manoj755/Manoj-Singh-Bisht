@@ -14,7 +14,7 @@
       <div class="logo-img " hidden='ture'>
         <img src="/assets/img/angular2-logo-red.png" />
       </div>
-      <i class="simple-text" style="text-align:center;">{{db.profile.name}}</i>
+      <i class="simple-text" style="text-align:center;"><span style="color:green;size:50px;">.</span>{{db.profile.name}}</i>
   <!-- <i class="material-icons" style="color:green;">adjust<span class=" simple-text"></span></i> -->
 
 
@@ -110,7 +110,7 @@
     </li>
 
 
-    <li routerLinkActive="active" *ngIf="db.mp.page_call ||!db.profile.isvendor=='1'" class=" nav-item">
+    <li routerLinkActive="active" *ngIf="db.mp.page_call && !db.profile.isvendor=='1'" class=" nav-item">
       <a class="nav-link" [routerLink]="['/call-detail']">
         <i class="material-icons">contact_phone</i>
         <p>Call Detail
@@ -179,7 +179,7 @@
           <li class="nav-item"  *ngIf="db.mp.page_message_template" routerlinkactive="active"><a class="nav-link" [routerLink]="['/messagetemplate']">
               <span class="sidebar-normal">Message Templates</span></a></li>
           <li class="nav-item" *ngIf="db.mp.page_client" routerlinkactive="active"><a class="nav-link" [routerLink]="['/client']">
-              <span class="sidebar-normal">Client</span></a></li>
+              <span class="sidebar-normal">Client/Department</span></a></li>
           <li class="nav-item" *ngIf="db.mp.page_tracker" routerlinkactive="active"><a class="nav-link" [routerLink]="['/newtracker']">
               <span class="sidebar-normal">Tracker Fields </span></a></li>
           <li class="nav-item" *ngIf="db.mp.page_tracker_master" routerlinkactive="active"><a class="nav-link" [routerLink]="['/trackers']">
@@ -239,7 +239,7 @@
         </ul>
       </div>
     </li>
-    <li class="nav-item" routerlinkactive="active" *ngIf="!db.profile.isvendor=='1' || db.mp.page_billing">
+    <li class="nav-item" routerlinkactive="active" *ngIf="!db.profile.isvendor=='1' && db.mp.page_billing">
       <a class="nav-link" data-toggle="collapse" href="#Billing"><i class="material-icons">money</i>
         <p>Billing<b class="caret"></b></p>
       </a>

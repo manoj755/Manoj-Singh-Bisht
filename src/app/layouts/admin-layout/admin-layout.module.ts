@@ -68,6 +68,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { ManagerComponent } from '../../control/manager/manager.component';
 import { AddToJobComponent } from '../../control/add-to-job/add-to-job.component';
 import { AddCandidateComponent } from '../../control/add-candidate/add-candidate.component';
+import { AddCandidateMyjobComponent } from '../../control/add-candidate-myjob/add-candidate-myjob.component';
 import { MyTeamComponent } from '../../control/my-team/my-team.component';
 import { PvGetReferenceComponent } from '../../control/pv-get-reference/pv-get-reference.component';
 import { CallComponent } from '../../control/call/call.component';
@@ -201,6 +202,7 @@ declare var $: any;
     UpdateStatusComponent,
     ActivityComponent,
     AddCandidateComponent,
+    AddCandidateMyjobComponent,
     MyTeamComponent,
     PvGetReferenceComponent,
     CallComponent,

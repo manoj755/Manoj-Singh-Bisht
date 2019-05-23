@@ -206,6 +206,14 @@ export class ClientComponent implements OnInit {
     }
   }
   public onActionDeleteClick(data: any) {
+    debugger;
+      if (confirm('Are you sure?')) {
+    this.db.destroy('clientdetail/', data.id, ((response): void => {
+this.db.addmessageandremove('deleted');
+this.LoadData();
+    })
+    );
+      }
     console.log('View action clicked', data);
   }
   public onActionDeleteClickStates(data: any) {

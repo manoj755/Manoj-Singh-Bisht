@@ -329,7 +329,17 @@
             <p class="card-category">Comming Interview</p>
           </div>
           <div class="card-body" style="height: 500px;">
-            No Data
+                        <div class="list-group" >
+                                        <div *ngFor="let x of getinterviewschedules">
+
+                                            <mat-card class="list-group-item" data-toggle="modal" data-target=".bs-example-modal-md" data-dismiss="modal">
+                                                <b>{{x.recruiter_name}}</b> scheduled <span class="text text-aqua"  class="text-danger">{{x.candidatename}}'s Interview</span> for  {{x.job_title}}
+                                                <span class="badge">{{x.reminderDate}}</span>
+                                            </mat-card>
+                                        </div>
+
+
+                                    </div>
           </div>
         </div>
       </div>
@@ -340,7 +350,26 @@
             <p class="card-category">On Tagged job</p>
           </div>
           <div class="card-body table-responsive" style="height: 500px;">
-            No Suggestion
+           <div class="list-group"  *ngFor="let getsuggestion of getsuggestions">
+
+                                        <mat-card type="button"  data-toggle="modal" data-target=".bs-example-modal-md" data-dismiss="modal">
+
+                                            <!-- <span class="handle ui-sortable-handle pull-left">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </span> -->
+                                            <span class="text text-danger Bold pull-left" >{{getsuggestion.job_title}}</span>
+                                            matched with   <span class="badge"> {{getsuggestion.matchedcandidates}} </span> candidates.
+                                        </mat-card>
+
+
+
+                                    </div>
+
+
+
+
+                                    <div class="text-danger "  ng-show="getsuggestions.length==0">No Data</div>
           </div>
         </div>
       </div>
@@ -566,16 +595,16 @@
               <div class="form-group">
 
 
-                <mat-form-field>
-                  <mat-select [(ngModel)]="setjobandreferencetemp.current_job_id" placeholder="Select Job">
+                <!-- <mat-form-field> -->
+                  <ng-select [(ngModel)]="setjobandreferencetemp.current_job_id" placeholder="Select Job">
 
-                    <mat-option value="{{job.id}}" *ngFor="let  job of jobslistforref">{{job.job_title}}
-                      ({{job.id}})({{job.ClientName}}) </mat-option>
-                  </mat-select>
-                </mat-form-field>
+                    <ng-option value="{{job.id}}" *ngFor="let  job of jobslistforref">{{job.job_title}}
+                      ({{job.id}})({{job.ClientName}})<span *ngIf="job.is_client=='0'">(Department)</span> <span *ngIf="job.is_client=='1'">(Client)</span>  </ng-option>
+                  </ng-select>
+                <!-- </mat-form-field> -->
               </div>
               <div class="clearfix"
-                *ngIf="profile.disable_crowd_sourcing!='1' &&(setjobandreferencetemp.reference_email_template_id=='0' || setjobandreferencetemp.reference_sms_template_id=='0')">
+                *ngIf="profile.disable_crowd_sourcing !== '1' &&(setjobandreferencetemp.reference_email_template_id=='0' || setjobandreferencetemp.reference_sms_template_id=='0')">
                 <div class="form-group ">
                   <select [(ngModel)]="setjobandreferencetemp.reference_email_template_id"
                     title="Email Template for reference" class="form-control">
@@ -601,7 +630,7 @@
           <div class="clearfix"></div>
           <div class="modal-footer">
 
-            <div class="checkbox" ng-show="profile.disable_crowd_sourcing!='1'">
+            <div class="checkbox" *ngIf="db.profile.disable_crowd_sourcing != '1'">
               <mat-checkbox [(ngModel)]="setjobandreferencetemp.is_send_auto_email_reference_temp">Enable #Crowdsourcing (All
                 integrated job partal)</mat-checkbox>
 

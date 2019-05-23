@@ -77,6 +77,7 @@ import { UpdateCandidateComponent } from './control/update-candidate/update-cand
 import { MessagelogComponent } from './messagelog/messagelog.component';
 import { SmslogComponent } from './smslog/smslog.component';
 import { CandidateCallDatailsComponent } from './control/candidate-call-datails/candidate-call-datails.component';
+import { AddCandidateMyjobComponent } from './control/add-candidate-myjob/add-candidate-myjob.component';
 
 
 
@@ -124,6 +125,7 @@ import { CandidateCallDatailsComponent } from './control/candidate-call-datails/
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+
 
 
 

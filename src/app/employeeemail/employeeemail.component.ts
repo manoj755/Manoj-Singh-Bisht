@@ -115,6 +115,15 @@ export class EmployeeemailComponent implements OnInit {
   }
 
   public onActionDeleteClick(data: any) {
+    debugger;
+    if (confirm('Are you sure?')) {
+      this.db.destroy('employeeemail/', data.id, ((response): void => {
+        this.db.addmessageandremove('deleted');
+        //this.LoadData();
+      })
+      );
+
+    }
     console.log('View action clicked', data);
   }
 

@@ -22,7 +22,7 @@ export class TrackerFieldsComponent implements OnInit {
   //public rowdata = [{ 1: 3 }, { 3: 3 }];
   tracker: any;
   search: {};
-  hidecheckbox= false;
+  hidecheckbox = false;
   private smsselected = {};
   private emailselected = {};
   private gridApi;
@@ -69,7 +69,15 @@ export class TrackerFieldsComponent implements OnInit {
     }
   }
   public onActionDeleteClick(data: any) {
-    console.log('View action clicked', data);
+    debugger;
+    if (confirm('Are you sure?')) {
+      this.db.destroy('tracker/', data.id, ((response): void => {
+        this.db.addmessageandremove('deleted');
+        //this.LoadData();
+      })
+      );
+      console.log('View action clicked', data);
+    }
   }
   onActionEditClick(row): void {
 
@@ -122,7 +130,7 @@ export class TrackerFieldsComponent implements OnInit {
   }
 
 
-  show():void{
+  show(): void {
     this.hidecheckbox = true;
   }
 
@@ -314,7 +322,7 @@ export class TrackerFieldsComponent implements OnInit {
 
         this.db.addmessageandremove('Added Successfully');
         this.getlist();
-        this. ngOnInit();
+        this.ngOnInit();
 
 
 
@@ -353,7 +361,7 @@ export class TrackerFieldsComponent implements OnInit {
 
       this.getlist();
       this.db.addmessageandremove('Updated Successfully');
-      this. ngOnInit();
+      this.ngOnInit();
 
     }));
   }

@@ -28,8 +28,8 @@
                         <div class="tab-content">
                           <div class="" id="info-tab">
                             <div class="form-group col-md-6">
-                              <mat-label>Choose Client</mat-label>
-                              <!-- <mat-form-field> -->
+                              <mat-label>Choose Type</mat-label>
+                             <mat-form-field>
 
                               <select matNativeControl  name="is_client" id="is_client" [(ngModel)]="client.is_client" >
                                 <!-- <option >any</option> -->
@@ -38,7 +38,7 @@
 
                               </select>
                               <!-- <mat-checkbox ngDefaultControl [(ngModel)]="commentstatus.is_client">is_client</mat-checkbox> -->
-                            <!-- </mat-form-field> -->
+                            </mat-form-field>
                             </div>
 
                             <div class="row">
@@ -152,8 +152,8 @@
                                       {{item.toSlab}}
                                     </div>
                                     <div class="col-md-3">
-                                      {{item.AmountorPercentage}} <span ng-if="item.isPercentage == 1">%</span>
-                                      <span ng-if="item.isPercentage == 0">Fixed</span>
+                                      {{item.AmountorPercentage}} <span *ngIf="item.isPercentage == 1">%</span>
+                                      <span *ngIf="item.isPercentage == 0">Fixed</span>
                                     </div>
                                     <div class="col-md-3">
                                       <span (click)="remove($index)" class="btn  btn-raised btn-default btn-xs">Remove</span>
@@ -266,7 +266,7 @@
                             </div>
                           </div>
 
-                          <div class="form-group col-md-6 hidden  {{db.profile.is_ats != '0'?'':'remove'}}">
+                          <!-- <div class="form-group col-md-6 hidden  {{db.profile.is_ats != '0'?'':'remove'}}">
                             <label class="col-xs-3 control-label">Contract:</label>
                             <div class="col-xs-9">
 
@@ -285,7 +285,7 @@
 
 
 
-                          </div>
+                          </div> -->
                           <div class="form-group" style="margin-top: 15px;">
                             <div class="col-xs-10 col-xs-offset-2">
                               <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary"
@@ -391,7 +391,7 @@
             <ng-template matTabContent>
               <div class="card col-md-12">
                   <div class="form-group col-md-6">
-                      <mat-label>Choose Department</mat-label>
+                      <mat-label>Choose Type</mat-label>
                       <mat-form-field>
 
                       <select matNativeControl  [(ngModel)]="client.is_client">
@@ -426,7 +426,7 @@
                           (click)="clientupdate()">Update </button>
 
                         <button type="submit" *ngIf="!isEdit" class="btn  btn-raised btn-primary validate"
-                          target="#addnewclient" (click)="clientsave()">Add {{db.clientsdepartment}}</button>
+                          target="#addnewclient" (click)="clientsave()">Add Department</button>
                         <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary validate"
                           target="#addnewclient" (click)="isEdit = false; client = {fee_slab:[]}; ">Back</button>
 

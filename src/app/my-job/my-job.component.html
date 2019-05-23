@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
 
-    <nav class="navbar" ng-show="showmyjoblist">
+    <nav class="navbar" >
       <div class="container-fluid">
         <div class="navbar-header">
           <div class="row">
@@ -83,21 +83,21 @@
 
 
         <ul class="nav nav-tabs showloader pull-left  ">
-          <li class="active" *ngIf="!db.profile.isvendor=='1'"><a data-toggle="tab" href="#" (click)='changefilter("Active","job_status")'
-              class="btn  btn-raised btn-primary">Active</a></li>
+          <li *ngIf="!db.profile.isvendor=='1'"><a  data-toggle="tab" href="#" (click)='changefilter("Active","job_status")'
+              class="btn  btn-activecolor hightlighted_keyword">Active</a></li>
           <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" (click)='changefilter("Hold","job_status")'
-              class="btn  btn-raised btn-primary">Hold</a></li>
+              class="btn  btn-activecolor hightlighted_keyword">Hold</a></li>
           <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" (click)='changefilter(1,"website")'
-              class="btn  btn-raised btn-primary">Visible on Website</a></li>
+              class="btn   btn-activecolor hightlighted_keyword">Visible on Website</a></li>
           <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" (click)='changefilter("Closed","job_status")'
-              class="btn  btn-raised btn-primary">Closed</a></li>
+              class="btn   btn-activecolor hightlighted_keyword">Closed</a></li>
           <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" style="background:#ddf295; color:#251e22;"
-              (click)='changefilter("Interview","interview")' class="btn  btn-raised btn-primary">Interview</a></li>
+              (click)='changefilter("Interview","interview")' class="btn  btn-activecolor hightlighted_keyword">Interview</a></li>
 
           <li ><a href="#" data-toggle="tab" (click)='changefilter("All","job_status")'
-              class="btn  btn-raised btn-primary">All</a></li>
+              class="btn  btn-activecolor">All</a></li>
           <li><a href="#" data-toggle="tab" (click)='changefilter("Tagged","tagged")'
-              class="btn  btn-raised btn-primary">Tagged</a></li>
+              class="btn  btn-activecolor" [ngClass]="'btn-activecolor'">Tagged</a></li>
 
         </ul>
         <button *ngIf="!db.profile.isvendor=='1'" class="btn btn-raised pull-right" [routerLink]="['/newjob']"><i class="material-icons">add_to_photos</i>Add New Job</button>
@@ -131,17 +131,20 @@
 
                       <span itemprop="title" class="title_in" style="margin-right:2px;">
 
-                        <span class="hightlighted_keyword"> {{item.job_title}} </span>
+                        <span class="hightlighted_keyword"> {{item.job_title}} </span>  <span>( Job ID : {{item.category_code}}{{item.id}} )</span>
 
                       </span>
                     </a> </h4>
                   <p class="card-category">
-                    <span>( Job ID : {{item.category_code}}{{item.id}} )</span>
 
-                    <span itemtype="#" help='Client'>{{item.ClientName}} </span>
 
-                    <span style='padding-left:10px; display:inline-block;'>
-                      <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
+                    <span itemtype="#" help='Client'> </span>
+                    <span>Location:{{item.location}}</span>
+                    <span style="margin-left:10px;">Experience:{{item.minimumExperience}}-{{item.maximumExperience}}Years,</span>
+                    <span style="margin-left:10px;">Salary:{{item.minimumSalary/100000}}-{{item.maximumSalary/100000}} Lakh</span>
+                    <!-- <span>Experience:{{item.location}}</span> -->
+                    <span style='padding-left:10px; display:inline-block;' *ngIf="!db.mp.hide_referral_bonus">
+                      <i class='fa fa-inr' ></i> {{item.referralBonus}} </span> <span
                       *ngIf='db.mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
                       class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
                       <i class="fa fa-check"></i>
@@ -192,14 +195,14 @@
                     <a mat-mini-fab class="" *ngIf="!db.profile.isvendor=='1'"  help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
                       <i class="fa fa-share-square-o"></i>
                     </a>
-                    <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
+                    <!--<a   *ngIf='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
 
-                    <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager' *ngIf="!db.profile.isvendor=='1'" title="Approve by Manager"
+                    <a mat-mini-fab  *ngIf="!db.profile.isvendor=='1' || db.mp.btn_approve_job_by_manager" title="Approve by Manager"
                       href="javascript:" (click)="is_approved_by_manager(item)">
                       <i class="fa fa-check"></i>
                     </a>
 
-                    <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item);toggleColor();" [ngClass]="{'test': item.tagged==='11'}" >
+                    <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item);" [ngClass]="{'test': item.tagged==='11','redClass' :item.tagged =='11'}"  >
 
                       <i class="fa fa-tags"></i>
                     </a>
@@ -230,14 +233,16 @@
                       target="_blank">
                       <i class="fa fa-linkedin "></i>
                     </a> -->
+
                     <a mat-mini-fab data-toggle="modal" *ngIf="db.mp.btn_take_internal_refeference"
                       data-target="#internalreference" href="javascript:"
                       (click)="GetInHourseReference(item.id, $event)" class="text-danger" help='get reference internal'
                       title='get reference internal'>
                       <i class="fa fa-bullhorn  "></i>
                     </a>
-                    <a mat-mini-fab href="#" class="pull-right text-aqua" *ngIf="db.mp.btn_upload_cv_myjobs">
-                      <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)" help="Upload CVs(Excel)"
+                    <a mat-mini-fab href="" data-toggle="modal" data-target="#uploadexcel" target="_blank" class="pull-right text-aqua" *ngIf="db.mp.btn_upload_cv_myjobs">
+                      <i  help='Add Candidate'
+
                         class="fa fa-upload"></i>
                     </a>
 
@@ -330,7 +335,7 @@
                         </div>
 
                         <div class="box-body">
-                          <input type="text" [(ngModel)]="vendorSearch" class="form-control" placeholder="Search" />
+                          <input type="text" [(ngModel)]="vendorSearch" class="form-control" placeholder="Search" ngDefaultControl />
 
 
 
@@ -342,8 +347,7 @@
                               <!-- drag handle -->
 
                               <!-- checkbox <input type="checkbox" ng-checked="selectedmanagerlist.indexOf(manager.id)>-1" [(ngModel)]="selectedmanager" ng-change="selectedmanagerlistset(manager.id)" value="{{manager.id}}"> -->
-4
-                              <input type="checkbox" [(ngModel)]="vendor.selected">
+                              <input type="checkbox" [(ngModel)]="vendor.selected" ngDefaultControl>
 
 
                               <!-- todo text -->
@@ -392,7 +396,7 @@
                         <!-- /.box-header -->
 
                         <div class="box-body">
-                          <input type="text" [(ngModel)]="managerSearch" class="form-control" placeholder="Search" />
+                          <input type="text" [(ngModel)]="managerSearch" class="form-control" placeholder="Search" ngDefaultControl/>
 
                           <ul class="todo-list">
 
@@ -459,7 +463,7 @@
 
                               <!-- checkbox <input type="checkbox" ng-checked="selectedmanagerlist.indexOf(manager.id)>-1" [(ngModel)]="selectedmanager" ng-change="selectedmanagerlistset(manager.id)" value="{{manager.id}}"> -->
 
-                              <input type="checkbox" [(ngModel)]="manager.selected">
+                              <input type="checkbox" [(ngModel)]="manager.selected" ngDefaultControl>
 
 
                               <!-- todo text -->
@@ -611,11 +615,11 @@
               </div>
               <div class="form-group">
                 <label for="prmSubject">Subject:</label>
-                <input type="text" [(ngModel)]='prmSubject' class="form-control" id="prmSubject">
+                <input type="text" [(ngModel)]='prmSubject' class="form-control" id="prmSubject" ngDefaultControl>
               </div>
               <div class="form-group">
                 <label for="prmMessagge">Message:</label>
-                <textarea [(ngModel)]='prmMessagge' contenteditable class="form-control" id="prmMessagge"></textarea>
+                <textarea [(ngModel)]='prmMessagge' contenteditable class="form-control" id="prmMessagge" ngDefaultControl></textarea>
               </div>
 
               <input type="button" (click)="getinternalreferrence()" value="submit" class="btn  btn-raised btn-success">
@@ -646,7 +650,90 @@
           </div>
           <div class="modal-body">
             <div class="row">
+              <form class="table-responsive" id="cvformdata">
 
+                <table class="table table-bordered">
+                    <tr  *ngFor="let cv of cvslists">
+                        <td *ngIf='cv.statusofsubmit'></td>
+                        <th>CV</th>
+                        <th>CANDIDATE NAME</th>
+                        <th>MOBILE NO</th>
+                        <th>EMAIL</th>
+                        <th>RELEVANT EXPERIANCE</th>
+                        <th>QUALIFICATION</th>
+                        <th>CURRENT SALARY</th>
+
+                        <th>LOCATION</th>
+                        <th>PREFERRED LOCATION</th>
+                        <th>CURRENT DESIGNATION</th>
+                        <th>CURRENT ORGANIZATION</th>
+
+                        <th>EXPECTED CTC</th>
+                        <th>NOTICE PERIOD</th>
+                        <th>OVERALL EXPERIANCE</th>
+                        <th>Job Id</th>
+                        <!-- <th *ngFor="[(key, value) in cv.extradata]" *ngIf="key != 'file'">{{key|capsname}}</th> -->
+
+                    </tr>
+                    <tr class="rowtr" *ngFor="let cv of cvslists">
+                        <td *ngIf='cv.statusofsubmit'>
+                            <i *ngIf='cv.statusofsubmit == "done"' class="fa fa-check text-success"></i>
+                            <i *ngIf='cv.statusofsubmit == "fail"' class="fa fa-close text-danger"></i>
+                        </td>
+                        <td>
+                            <a style='width:50px; height:40px' class="fa fa-upload" (change)="cvformdatapost($event.target.files)" data-toggle="modal" class="button btn  btn-raised btn-info" ngf-select [(ngModel)]="cv.file" ngf-max-size="20MB">
+                                <i class="fa fa-upload"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="candidate_name" value="{{cv.candidate_name}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="mobile_no" value="{{cv.mobile_no}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " ng-disabled="true" style="min-width:90px;" key="email" value="{{cv.email}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="relevant_experiance" value="{{cv.relevant_experiance}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="qualification" value="{{cv.qualification}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="current_salary" value="{{cv.current_salary}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="location" value="{{cv.location}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="preferred_location" value="{{cv.preferred_location}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="current_designation" value="{{cv.current_designation}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="current_organization" value="{{cv.current_organization}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="expected_ctc" value="{{cv.expected_ctc}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="notice_period" value="{{cv.notice_period}}">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="overall_experiance" value="{{cv.overall_experiance}}">
+                        </td>
+                         <td>
+                            <input type="text" class="form-control key " style="min-width:90px;" key="jobid" value="{{cv.jobid}}">
+                        </td>
+                        <!-- <td *ngFor="let (key, value) of cv.extradata">
+                            <input type="text" class="form-control key " ng-disabled="key == 'email'" ng-if="key != 'file'" style="min-width:90px;" key="{{key}}"
+                                   value="{{value}}">
+                        </td> -->
+                    </tr>
+                </table>
+            </form>
               <div class="col-md-3 col-md-offset-9">
                 <div class="form-group ">
                   <input type="submit" class="form-control btn  btn-raised btn-info " (click)="cvformdatapost()"
@@ -680,7 +767,7 @@
                   <div class="form-group">
                     <label class="col-md-3 ">Email:</label>
                     <div class="col-md-9">
-                      <input type="text" class="form-control e m" n="Email" [(ngModel)]="cv_to_panel.email" />
+                      <input type="text" class="form-control e m" n="Email" [(ngModel)]="cv_to_panel.email" ngDefaultControl/>
 
 
                     </div>
@@ -688,7 +775,7 @@
                   <div class="form-group">
                     <label class="col-md-3 ">Subject:</label>
                     <div class="col-md-9">
-                      <input type="text" class="form-control e" n="Subject" [(ngModel)]="cv_to_panel.subject" />
+                      <input type="text" class="form-control e" n="Subject" [(ngModel)]="cv_to_panel.subject" ngDefaultControl/>
 
 
                     </div>
@@ -696,7 +783,7 @@
                   <div class="form-group">
                     <label class="col-md-3 ">Comment:</label>
                     <div class="col-md-9">
-                      <textarea class="form-control e" n="Comment" [(ngModel)]="cv_to_panel.comment">
+                      <textarea class="form-control e" n="Comment" [(ngModel)]="cv_to_panel.comment" ngDefaultControl>
                                                   </textarea>
 
 
@@ -735,7 +822,7 @@
 
               <div class="col-md-6"> Name
 
-                <input type="text" [(ngModel)]="vendornew.name" class="form-control e" n="Name" />
+                <input type="text" [(ngModel)]="vendornew.name" class="form-control e" n="Name" ngDefaultControl/>
 
 
               </div>
@@ -743,7 +830,7 @@
               <div class="col-md-6">Email
 
                 <input type="text" autocomplete="off" [(ngModel)]="vendornew.email" class="form-control e m"
-                  n="Email" />
+                  n="Email" ngDefaultControl/>
               </div>
 
 
@@ -757,10 +844,10 @@
 
 
               <div class="col-md-6"> Mobile Number
-                <input type="text" [(ngModel)]="vendornew.mobileNo" class="form-control n e" n="Mobile Number" />
+                <input type="text" [(ngModel)]="vendornew.mobileNo" class="form-control n e" n="Mobile Number" ngDefaultControl/>
               </div>
               <div class="col-md-6">Address
-                <input type="text" [(ngModel)]="vendornew.address" class="form-control e" n="Address" />
+                <input type="text" [(ngModel)]="vendornew.address" class="form-control e" n="Address" ngDefaultControl/>
               </div>
 
 
@@ -810,28 +897,28 @@
               <div class="form-group">
 
                 <div class="col-lg-12">
-                  <ng-select ngDefaultControl class="m" [(ngModel)]="sendtracker.trackerno" n="Tracker NO" validate>
+                  <ng-select ngDefaultControl class="m" [(ngModel)]="sendtracker.trackerno" n="Tracker NO" validate ngDefaultControl>
                     <ng-option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
                     </ng-option>
                   </ng-select>
 
 
                 </div>
-                <div class="col-lg-2"><button ng-show="sendtracker.trackerno" type="button"
+                <div class="col-lg-2"><button *ngIf="sendtracker.trackerno" type="button"
                     (click)="sendtrackermsg(true)" class="btn  btn-raised btn-primary btn-sm">Download</button></div>
               </div>
               <div class="form-group">
 
                 <div class="col-lg-12">
                   <input type="email" class="form-control m e" [(ngModel)]="sendtracker.to" n="To" validate
-                    id="inputEmail4" placeholder="TO:">
+                    id="inputEmail4" placeholder="TO:" ngDefaultControl>
                 </div>
               </div>
               <div class="form-group">
 
                 <div class="col-lg-12">
                   <input type="email" class="form-control m" [(ngModel)]="sendtracker.cc" n="CC" validate
-                    id="inputEmail5" placeholder="CC:">
+                    id="inputEmail5" placeholder="CC:" ngDefaultControl>
                 </div>
 
               </div>
@@ -839,7 +926,7 @@
 
                 <div class="col-lg-12">
                   <input type="email" class="form-control m" n="BCC" validate [(ngModel)]="sendtracker.bcc"
-                    id="inputEmail5" placeholder="BCC:">
+                    id="inputEmail5" placeholder="BCC:" ngDefaultControl>
                 </div>
 
               </div>
@@ -857,7 +944,7 @@
 
                 <div class="col-lg-12">
                   <input type="text" class="form-control e" n="" [(ngModel)]="sendtracker.subject" id="inputEmail5"
-                    placeholder="Subject:">
+                    placeholder="Subject:" ngDefaultControl>
                 </div>
               </div>
 
@@ -865,7 +952,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
 
                   <textarea class="form-control e" n="message" contenteditable [(ngModel)]="sendtracker.message"
-                    placeholder="message" style="min-width: 100%; height: 87px;">
+                    placeholder="message" style="min-width: 100%; height: 87px;" ngDefaultControl>
                                           </textarea>
                 </div>
               </div>
@@ -899,7 +986,7 @@
               <div class="form-group">
 
                 <div class="col-lg-10">
-                  <select class="form-control m" [(ngModel)]="trackerno" n="Tracker NO" validate>
+                  <select class="form-control m" [(ngModel)]="trackerno" n="Tracker NO" validate ngDefaultControl>
                     <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
                     </option>
                   </select>
@@ -918,7 +1005,430 @@
       </div>
 
     </div>
+    <div id="uploadexcel" class="modal fade" style="z-index:2000" role="dialog">
+      <div class="modal-dialog modal-lg">
 
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <h4 class="modal-title">Upload Resume</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="media">
+              <div class="row">
+                <div class="col-12">
+                    <input type="file"
+                    id="file"
+                    (change)="uploadexcel($event.target.files)">
+
+                </div>
+
+            </div>
+
+
+
+
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+    <div id="uploadresume" class="modal fade" style="z-index:2000" role="dialog">
+      <div class="modal-dialog modal-lg">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <h4 class="modal-title">Upload Resume</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="media">
+              <div class="row">
+                <div class="col-12">
+                    <input type="file"
+                    id="file"
+                    (change)="uploadresume($event.target.files)">
+
+                </div>
+
+            </div>
+
+
+
+
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <!-- <div id="showcvs" class="modal fade " role="dialog">
+      <div class="modal-dialog modal-lg" style="width:100%;">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button aria-hidden="true" data-dismiss="modal" ng-click="cancel()" class="close" type="button">×</button>
+                  <h4 class="modal-title">CVS</h4>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <form class="table-responsive" id="cvformdata">
+
+                          <table class="table table-bordered">
+                              <tr *ngIf="$index == 0" *ngFor="cv in cvslists">
+                                  <td ngif='cv.statusofsubmit'></td>
+                                  <th>CV</th>
+                                  <th>CANDIDATE NAME</th>
+                                  <th>MOBILE NO</th>
+                                  <th>EMAIL</th>
+                                  <th>RELEVANT EXPERIANCE</th>
+                                  <th>QUALIFICATION</th>
+                                  <th>CURRENT SALARY</th>
+
+                                  <th>LOCATION</th>
+                                  <th>PREFERRED LOCATION</th>
+                                  <th>CURRENT DESIGNATION</th>
+                                  <th>CURRENT ORGANIZATION</th>
+
+                                  <th>EXPECTED CTC</th>
+                                  <th>NOTICE PERIOD</th>
+                                  <th>OVERALL EXPERIANCE</th>
+                                  <th>Job Id</th>
+                                  <th *ngFor="(key, value) in cv.extradata" ng-if="key != 'file'">{{key|capsname}}</th>
+
+                              </tr>
+                              <tr class="rowtr" *ngFor="cv in cvslists">
+                                  <td *ngIf='cv.statusofsubmit'>
+                                      <i *ngIf='cv.statusofsubmit == "done"' class="fa fa-check text-success"></i>
+                                      <i *ngIf='cv.statusofsubmit == "fail"' class="fa fa-close text-danger"></i>
+                                  </td>
+                                  <td>
+                                      <div style='width:50px; height:40px' class="button btn  btn-raised btn-info" ngf-select [(ngModel)]="cv.file" ngf-max-size="20MB">
+                                          <i class="fa fa-upload"></i>
+                                      </div>
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="candidate_name" value="{{cv.candidate_name}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="mobile_no" value="{{cv.mobile_no}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " ng-disabled="true" style="min-width:90px;" key="email" value="{{cv.email}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="relevant_experiance" value="{{cv.relevant_experiance}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="qualification" value="{{cv.qualification}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="current_salary" value="{{cv.current_salary}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="location" value="{{cv.location}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="preferred_location" value="{{cv.preferred_location}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="current_designation" value="{{cv.current_designation}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="current_organization" value="{{cv.current_organization}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="expected_ctc" value="{{cv.expected_ctc}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="notice_period" value="{{cv.notice_period}}">
+                                  </td>
+                                  <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="overall_experiance" value="{{cv.overall_experiance}}">
+                                  </td>
+                                   <td>
+                                      <input type="text" class="form-control key " style="min-width:90px;" key="jobid" value="{{cv.jobid}}">
+                                  </td>
+                                  <td *ngFor="(key, value) in cv.extradata">
+                                      <input type="text" class="form-control key " ng-disabled="key == 'email'" ng-if="key != 'file'" style="min-width:90px;" key="{{key}}"
+                                             value="{{value}}">
+                                  </td>
+                              </tr>
+                          </table>
+                      </form>
+                      <div class="col-md-3 col-md-offset-9">
+                          <div class="form-group ">
+                              <input type="submit" class="form-control btn  btn-raised btn-info " ng-click="cvformdatapost()" id="submitcvs" value="Submit Cvs" />
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div> -->
+    <!-- <div class="modal" id="uploadresume" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg"  role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="center">Add Candidate</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+
+        </div>
+        <div class="modal-body">
+          <div class="row">
+
+
+            <div class="col-md-6"> Name
+
+              <input type="text" [(ngModel)]="vendornew.name" class="form-control e" n="Name" ngDefaultControl/>
+
+
+            </div>
+
+            <div class="col-md-6">Email
+
+              <input type="text" autocomplete="off" [(ngModel)]="vendornew.email" class="form-control e m" ngDefaultControl
+                n="Email" />
+            </div>
+
+
+
+
+          </div>
+          <br>
+
+
+          <div class="row">
+
+
+            <div class="col-md-6"> currentOrganization
+              <input type="text" [(ngModel)]="vendornew.mobileNo" class="form-control n e" n="Mobile Number" ngDefaultControl/>
+            </div>
+            <div class="col-md-6">currentDesignation
+              <input type="text" [(ngModel)]="vendornew.address" class="form-control e" n="Address" ngDefaultControl />
+            </div>
+
+
+
+
+          </div>
+          <br>
+          <div class="row">
+
+
+              <div class="col-md-6"> qualification
+
+                <input type="text" [(ngModel)]="vendornew.name" class="form-control e" n="Name" ngDefaultControl/>
+
+
+              </div>
+
+              <div class="col-md-6">location
+
+                <input type="text" autocomplete="off" [(ngModel)]="vendornew.email" class="form-control e m" ngDefaultControl
+                  n="Email" />
+              </div>
+
+
+
+
+            </div>
+            <br>
+            <div class="row">
+
+
+                <div class="col-md-6"> currentSalary
+
+                  <input type="text" [(ngModel)]="vendornew.name" class="form-control e" n="Name" ngDefaultControl />
+
+
+                </div>
+
+                <div class="col-md-6">Email
+
+                  <input type="text" autocomplete="off" [(ngModel)]="vendornew.email" class="form-control e m" ngDefaultControl
+                    n="Email" />
+                </div>
+
+
+
+
+              </div>
+              <br>
+              <div class="row">
+
+
+                  <div class="col-md-6"> ovarallExperiance
+
+                    <input type="text" [(ngModel)]="vendornew.name" class="form-control e" n="Name" ngDefaultControl />
+
+
+                  </div>
+
+                  <div class="col-md-6">dob
+
+                    <input type="text" autocomplete="off" [(ngModel)]="vendornew.email" class="form-control e m" ngDefaultControl
+                      n="Email" />
+                  </div>
+
+
+
+
+                </div>
+                <br>
+                <div class="row">
+
+
+                    <div class="col-md-6"> Address
+
+                      <textarea type="text" [(ngModel)]="vendornew.name" class="form-control e" n="Name" ngDefaultControl ></textarea>
+
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                      <button type="submit" (click)="expression" autocomplete="off" [(ngModel)]="vendornew.email" ngDefaultControl class="form-control e m"
+                        n="Email" >Resume</button>
+                    </div>
+
+
+
+
+                  </div>
+                  <br>
+
+
+          <div class="row">
+            <div class="form-group col-12">
+
+              <button type="submit" class="btn  btn-raised btn-primary" tar="#addUser"
+                (click)="experision">Save</button>
+
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div> -->
+    <!-- <div id="uploadresume" class="modal fade" style="z-index:2000" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <h4 class="modal-title">Candidate details</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+
+
+                  <div class="row ">
+                      <div class="col-md-6">
+                    <mat-form-field class="col-md-6 example-full-width">
+                      <input matInput placeholder="Candidate Name" value=""  name="candidateName">
+                    </mat-form-field>
+                      </div>
+<div class="col-md-6">
+                    <mat-form-field class=" example-full-width">
+                      <input matInput placeholder="skillSet"  name="skillSet" >
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="Candidate Name"  name="gender">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="currentOrganization"  name="currentOrganization" >
+                    </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="currentDesignation"  name="currentDesignation">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="qualification"  name="qualification" >
+                    </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="mobileNo" value="Sushi" name="mobileNo">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="noticePeriod"  name="noticePeriod" >
+                    </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="email" name="email">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <input matInput placeholder="dob"  name="dob" >
+                    </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                      <textarea matInput placeholder="address" name="address"></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width">
+                     <button type="submit" id="#updateresume" class="btn btn-primary">Resume</button>
+                    </mat-form-field>
+                    </div>
+                </div>
+
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+        </div> -->
 
     <div class="modal fade" role="dialog" id="trackerDetailExtra">
 
@@ -936,19 +1446,19 @@
 
               <div class="form-group">
                 <label>Resume Source:</label>
-                <input type="text" [(ngModel)]="trackerdatamyjob.resume_source" class="form-control">
+                <input type="text" [(ngModel)]="trackerdatamyjob.resume_source" class="form-control" ngDefaultControl>
               </div>
               <div class="form-group">
                 <label>Resume Source Name:</label>
-                <input type="text" [(ngModel)]="trackerdatamyjob.resume_source_name" class="form-control">
+                <input type="text" [(ngModel)]="trackerdatamyjob.resume_source_name" class="form-control" ngDefaultControl>
               </div>
               <div class="form-group">
                 <label>Panel Shared Date(first):</label>
-                <input type="text" [(ngModel)]="trackerdatamyjob.panel_shared_date_first" class="form-control">
+                <input type="text" [(ngModel)]="trackerdatamyjob.panel_shared_date_first" class="form-control" ngDefaultControl>
               </div>
               <div class="form-group">
                 <label>Joining Date:</label>
-                <input type="text" [(ngModel)]="trackerdatamyjob.joining_date" class="form-control">
+                <input type="text" [(ngModel)]="trackerdatamyjob.joining_date" class="form-control" ngDefaultControl>
               </div>
               <div class="form-group">
                 <label>Offered Release Date:</label>

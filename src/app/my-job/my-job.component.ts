@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from '../db.service';
 import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-my-job.component';
+import { AddCandidateMyjobComponent } from '../control/add-candidate-myjob/add-candidate-myjob.component';
+
 import { ItemsList } from '@ng-select/ng-select/ng-select/items-list';
 //import { FilterPipe } from '../shared/pipes/FilterPipe.pipe';
 declare var $: any;
@@ -17,6 +19,7 @@ export class MyJobComponent implements OnInit {
   private gridApi;
   p = 0;
   recruiter;
+  load: AddCandidateMyjobComponent;
   allids = [];
   displaydd = 'Job';
   private gridColumnApi;
@@ -38,6 +41,10 @@ export class MyJobComponent implements OnInit {
 
   rowData = [
   ];
+  fileToUpload: File = null;
+  cvslists: any;
+  jobidcvupload: any;
+  responsedata: any;
   jobslistbyclients: any = [];
   profile: any = {};
   callconversation: any = {};
@@ -109,6 +116,7 @@ export class MyJobComponent implements OnInit {
   searchText: any;
   applications: any;
   jobidforReference: any;
+  showtag: {};
   constructor(public db: DBService) {
 
     if (db.profile.id) {
@@ -190,8 +198,8 @@ export class MyJobComponent implements OnInit {
     this.db.show('addnewjob/', item.id, ((response): void => {
       this.itemone.jobDescription = response.jobDescription;
       this.jobidjd = response;
-     // this.hidejd = false;
-     //item.responsibilityshow === item.responsibilityshow;
+      // this.hidejd = false;
+      //item.responsibilityshow === item.responsibilityshow;
     })
     );
 
@@ -396,6 +404,7 @@ export class MyJobComponent implements OnInit {
       'candidate': this.searchcandidate
     }, ((response): void => {
       this.jobslistmain = response;
+      //this.showtag.tagged = response.tagged;
       this.bindJoblist(this.jobslistmain);
     }));
   };
@@ -467,9 +476,7 @@ export class MyJobComponent implements OnInit {
 
     this.assignjobClickToVendor();
   };
-  cvformdatapost(): void {
 
-  }
   vendorsave(): void {
     if (!$('.validate').validate('#addvendor')) {
       //  $.fn.showMessage('Please fill values');
@@ -615,7 +622,7 @@ export class MyJobComponent implements OnInit {
       } else if (type === 'tagged') {
 
         for (const i in this.jobslistmain) {
-          if (this.jobslistmain[i].tagged === '11') {
+          if (this.jobslistmain[i].tagged === 11 || this.jobslistmain[i].tagged === '11') {
             data.push(this.jobslistmain[i]);
           }
         }
@@ -771,30 +778,30 @@ export class MyJobComponent implements OnInit {
 
 
 
-  toggleColor(item) {
-    if (item.tagged == '11') {
-      this.newColor = !this.newColor;
-    } else {
-      this.newColor = this.newColor;
-    }
-  }
+  // toggleColor(item) {
+  //   if (item.tagged == '11') {
+  //     this.newColor = !this.newColor;
+  //   } else {
+  //     this.newColor = this.newColor;
+  //   }
+  // }
 
   tag(item): void {
 
-    if (item.tagged !== '10') {
+    if (item.tagged == '10') {
+
+      this.db.store('jobtag/', { job_id: item.id }, (response): void => {
+        item.tagged = '11';
+        this.db.showMessage('Tagged');
+      });
+    } else {
+
       this.db.destroy('jobtag/', item.id, (response): void => {
         item.tagged = '10';
         this.db.showMessage('Untagged');
 
       });
 
-    } else {
-
-
-      this.db.store('jobtag/', { job_id: item.id }, (response): void => {
-        item.tagged = '11';
-        this.db.showMessage('Tagged');
-      });
     }
 
   };
@@ -922,5 +929,163 @@ export class MyJobComponent implements OnInit {
     this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
     // this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
 
+  }
+  //   upload = function (file) {
+  //     if (file != null) {
+  //         debugger;
+  //         db.upload('cvsexcelupload/', {file: file}, function (response) {
+  //             debugger;
+
+  //             alert('uploaded');
+
+  //         }, function (response) {
+  //             $rootScope.addmessageandremove('Please try again');
+  //         }, function (percentage, response) {
+  //             document.title = percentage;
+  //         });
+  //     }
+  // };
+  uploadexcel(files: FileList, jobid) {
+    debugger;
+    const jodid = jobid;
+    const fileToUpload: any[] = [];
+    fileToUpload.push({ 'filekey': 'file', 'file': files.item(0) });
+    this.db.storeupload('getcvexceldata/', { file: files }, (re) => {
+
+      $('#uploadexcel').modal('hide');
+      $('#showcvs').modal('show');
+      this.cvslists = re;
+
+      // $scope.cvslists = response.data;
+      this.db.showNotification('Excel Uploaded');
+      // $('#uploadresume').modal('hide');
+    }, (re) => {
+      this.db.showNotification('uploaded'); $('#uploadexcel').modal('hide');
+    }, null, fileToUpload);
+  }
+  cvformdatapost(): void {
+    debugger;
+    const formData = [];
+    console.log(this.cvslists);
+    $('#cvformdata .rowtr').each(function () {
+      const Row = {
+        'jobid': this.cvslists.jobid
+      };
+      $(this).find('.key').each(function () {
+        const key = $(this).attr('key');
+        Row[key] = $(this).val();
+        //                if (key == 'email') {
+        //
+        //                    for (var j in $scope.cvslists) {
+        //                        if ($scope.cvslists[j].email == $(this).val()) {
+        //                            Row['resume'] = $scope.cvslists[j].file;
+        //                        }
+        //                    }
+        //
+        //                }
+
+      });
+      formData.push(Row);
+    });
+    this.db.store('uploadcvs/', { cvs: formData }, ((response): void => {
+      this.responsedata = response;
+      // tslint:disable-next-line: forin
+      for (const tt in this.cvslists) {
+        const email = this.cvslists[tt].email;
+        for (const d in this.responsedata.alreadyexists) {
+          if (this.responsedata.alreadyexists[d] === email) {
+
+            this.cvslists[tt].statusofsubmit = 'fail';
+
+            break;
+          }
+        }
+        for (var d in this.responsedata.newcv) {
+          if (this.responsedata.newcv[d] === email) {
+
+            this.cvslists[tt].statusofsubmit = 'done';
+
+            break;
+          }
+        }
+
+      }
+    })
+    );
+    for (var t in this.cvslists) {
+
+      var data = {
+        file: this.cvslists[t].file,
+        email: this.cvslists[t].email,
+        'jobid': this.cvslists[t].jobid
+      };
+      this.db.upload('uploadcvs/', data, function () { }, function (response) { }, function (response) { });
+    }
+    console.log(formData);
+  };
+
+  uploadresume(files: FileList) {
+    debugger;
+
+    const formData = [];
+    console.log(this.cvslists);
+    $("#cvformdata .rowtr").each(function () {
+      const Row = {
+        'jobid': this.jobidcvupload
+      };
+      $(this).find('.key').each(function () {
+        const key = $(this).attr('key');
+        Row[key] = $(this).val();
+        //                if (key == 'email') {
+        //
+        //                    for (var j in $scope.cvslists) {
+        //                        if ($scope.cvslists[j].email == $(this).val()) {
+        //                            Row['resume'] = $scope.cvslists[j].file;
+        //                        }
+        //                    }
+        //
+        //                }
+
+      });
+      formData.push(Row);
+    });
+
+
+
+    const fileToUpload: any[] = [];
+    fileToUpload.push({ 'filekey': 'resume', 'file': files.item(0) });
+    this.db.storeupload('uploadcvs/', { cvs: files }, (re) => {
+
+
+
+      this.responsedata = re;
+      // tslint:disable-next-line: forin
+      for (const tt in this.cvslists) {
+        const email = this.cvslists[tt].email;
+        for (const d in this.responsedata.alreadyexists) {
+          if (this.responsedata.alreadyexists[d] === email) {
+
+            this.cvslists[tt].statusofsubmit = 'fail';
+
+            break;
+          }
+        }
+        for (var d in this.responsedata.newcv) {
+          if (this.responsedata.newcv[d] === email) {
+
+            this.cvslists[tt].statusofsubmit = 'done';
+
+            break;
+          }
+        }
+
+      }
+    });
+     // this.db.showNotification('Resume Uploaded');
+     // $('#uploadresume').modal('hide');
+    //}, (re) => {
+      //this.db.showNotification('uploaded'); $('#uploadresume').modal('hide');
+    //}, null, fileToUpload);
+  //}
   }
 }

@@ -48,6 +48,7 @@
 }
 
 .charthw2{ overflow: hidden; max-height: 400px !important; height: 400px !important; min-width: 500px !important; width: 100% !important;}
+.width50percent{ width:50% !important; max-width:50% !important;}
 .width80percent{ width:80% !important; max-width:80% !important;}
 .width100percent{ width:100% !important; max-width:100% !important;}
 .select2{ width:100% !important; max-width: 100% !important;}

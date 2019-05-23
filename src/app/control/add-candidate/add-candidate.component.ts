@@ -19,7 +19,7 @@ export class AddCandidateComponent implements OnInit {
   }
 
   candidatesave = function () {
-
+debugger;
 
     this.db.store('candidatedetail/', this.store, ((response): void => {
       this.updateid = response.id;

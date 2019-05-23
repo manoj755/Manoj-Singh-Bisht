@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { ActivatedRoute } from '@angular/router';
 import { arrRoles } from './arrRoles';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material';
 declare var $: any;
 // https://ng-select.github.io/ng-select#/tags
 @Component({
@@ -17,6 +17,7 @@ export class NewJobComponent implements OnInit {
   clientsdepartment = '';
   end_date_temp: any = new Date();
   clients: any = [];
+  storekey: any;
   addtojob: any = {};
   myjoblist: [];
   sendemailmodel: any = {};
@@ -83,6 +84,7 @@ export class NewJobComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
+  showeditjob = false;
 
   constructor(public db: DBService, public route: ActivatedRoute) { }
 
@@ -96,6 +98,7 @@ export class NewJobComponent implements OnInit {
     this.loadManagerclientdetail();
     this.applicationdepartment();
     this.settracker();
+    this.updatemaxsalary();
 
     this.db.list('functionalarea/', null, (response): void => {
 
@@ -125,7 +128,7 @@ export class NewJobComponent implements OnInit {
 
     // Add our fruit
     if ((value || '').trim()) {
-      this.myjob.keyskills.push({name: value.trim()});
+      this.myjob.keyskills.push({ name: value.trim() });
     }
 
     // Reset the input value
@@ -245,20 +248,28 @@ export class NewJobComponent implements OnInit {
     // this.job = job;
 
     this.jobadd = false;
+    this.showeditjob = true;
+    this.isjobediting = true;
     this.db.show('addnewjob/', id, (response): void => {
+
+
+      debugger;
+
+      this.myjob = response;
 
       const tags = [
       ];
-      const skillsetarr = response.keyskills.split(',');
+      const skillsetarr = this.myjob.keyskills.split(',');
       for (const k in skillsetarr) {
         if (skillsetarr[k]) {
-          tags.push({ text: skillsetarr[k] });
+          tags.push(skillsetarr[k]);
         }
       }
 
-      this.keyskillsset = tags;
+      this.myjob.keyskills = tags;
 
-      this.myjob = response;
+
+
       try {
         let minSalaryLacs = null;
         let minSalaryThousand = null
@@ -268,23 +279,23 @@ export class NewJobComponent implements OnInit {
         minSalaryLacs = this.myjob.minimumSalary / 100000;
         minSalaryLacs = Math.floor(minSalaryLacs);
         // alert('minSalary in lacs =' + minSalaryLacs + 'lakhs');
-        this.minimumSalarylac = minSalaryLacs.toString();
+        this.myjob.minimumSalarylac = minSalaryLacs.toString();
         // document.write('minimumSalary in lacs');
 
         minSalaryThousand = (this.myjob.minimumSalary) - (minSalaryLacs * 100000);
         minSalaryThousand = minSalaryThousand / 1000;
-        this.minimumSalarythousand = minSalaryThousand.toString();
+        this.myjob.minimumSalarythousand = minSalaryThousand.toString();
 
 
         maxSalaryLacs = this.myjob.maximumSalary / 100000;
         maxSalaryLacs = Math.floor(maxSalaryLacs);
         // alert('minSalary in lacs =' + minSalaryLacs + 'lakhs');
-        this.maximumSalarylac = maxSalaryLacs.toString();
+        this.myjob.maximumSalarylac = maxSalaryLacs.toString();
         // document.write('minimumSalary in lacs');
 
         maxSalaryThousand = (this.myjob.maximumSalary) - (maxSalaryLacs * 100000);
         maxSalaryThousand = maxSalaryThousand / 1000;
-        this.maximumSalarythousand = maxSalaryThousand.toString();
+        this.myjob.maximumSalarythousand = maxSalaryThousand.toString();
 
 
         this.updatemaxsalary();
@@ -344,6 +355,7 @@ export class NewJobComponent implements OnInit {
       }
       //
       this.changerole();
+      //this.getrole();
       //
       $('#submitjob').modal('show');
     });
@@ -374,20 +386,30 @@ export class NewJobComponent implements OnInit {
       return;
     }
     if (true) {
-
+      debugger;
       const locations = this.location;
       let locationstr = '';
       let isfirstlocation = true;
       for (const j in locations) {
         if (locations[j] !== '') {
           if (isfirstlocation) {
-            locationstr += locations[j];
+            locationstr += locations[j].$ngOptionLabel;
             isfirstlocation = false;
           } else {
-            locationstr += ',' + locations[j];
+            locationstr += ',' + locations[j].$ngOptionLabel;
           }
         }
       }
+      debugger;
+      const keyskills = this.myjob.keyskills;
+      let keyskillstr = '';
+      for (const j in keyskills) {
+        if (keyskills[j]) {
+          keyskillstr += ',' + keyskills[j];
+        }
+
+      }
+      this.myjob.keyskills = keyskillstr;
       this.myjob.location = locationstr;
       // this.myjob.functionalArea = this.functionalArea;
       //            let locations = this.location;
@@ -510,7 +532,7 @@ export class NewJobComponent implements OnInit {
     }, 5000);
   }
   loadkeyskills(newValue, istext, keyskill): void {
-debugger;
+    debugger;
     if (this.myjob.keyskills === undefined) {
       this.myjob.keyskills = '';
     }
@@ -560,7 +582,7 @@ debugger;
                     if (currentlastval !== '' && currentlastval !== currentval) {
                       isfound = false;
 
-                    } else if (  currentlastval !== '' && currentlastval === currentval) {
+                    } else if (currentlastval !== '' && currentlastval === currentval) {
                       isfound = true;
                       break;
 
@@ -839,7 +861,24 @@ debugger;
         }
 
       }
-      this.myjob.keyskills = 'acb';
+      debugger;
+      const keyskills = this.myjob.keyskills;
+      //this.storekey = '';
+      let keyskillstr = '';
+      if (this.storekey === '' || this.storekey === undefined) {
+        // this.storekey = this.myjob.keyskills;
+        for (const j in keyskills) {
+          if (keyskills[j]) {
+            keyskillstr += keyskills[j] + ',';
+          }
+
+        }
+        this.myjob.keyskills = keyskillstr;
+        this.storekey = keyskillstr
+      } else {
+        this.myjob.keyskills = this.storekey;
+      }
+
       this.myjob.location = locationstr;
       this.myjob.start_date = this.db.toYYMMDD(this.start_date_temp);
       this.myjob.end_date = this.db.toYYMMDD(this.end_date_temp);
@@ -867,8 +906,8 @@ debugger;
               this.myjob[i] = '';
             }
           }
-          this.location = '';
-          this.functionalArea = '';
+          // this.location = '';
+          //this.functionalArea = '';
 
           const messagejobsuccess = 'We are reviewing this job.  It helps you getting higher number of referrals'
             + '.<br/>   Meanwhile Your team can work on this job. '

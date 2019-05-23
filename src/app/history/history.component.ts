@@ -19,7 +19,7 @@ export class HistoryComponent implements OnInit {
   data: any;
   gridOptions: any;
   candidatedetails: any;
-  searchcandidatetext: [];
+  searchcandidatetext: any;
   private gridColumnApi;
 
   private autoGroupColumnDef;
@@ -78,13 +78,13 @@ export class HistoryComponent implements OnInit {
 
 
   }
-loadalert(): void {
-  const allrow = this.allids;
-  if (allrow.length === 0) {
-    this.db.showMessage('Please select candidates');
-    return;
+  loadalert(): void {
+    const allrow = this.allids;
+    if (allrow.length === 0) {
+      this.db.showMessage('Please select candidates');
+      return;
+    }
   }
-}
   LoadHistory(): void {
     this.rowData = [];
     this.data = {};
@@ -110,12 +110,21 @@ loadalert(): void {
 
   filterhistory(): void {
 
-    if (this.searchcandidatetext.length !== 0) {
+    // this.db.list('history/', { data: this.data, searchcandidatetext: this.searchcandidatetext }, ((response): void => {
+    //   this.rowData = response;
+    //   this.candidatedetails = response;
+    //   this.gridOptions = response;
+
+
+    // }));
+    debugger;
+    if (this.searchcandidatetext.length !== 0 || this.searchcandidatetext.length !== undefined) {
       const main = [];
-      for (const i in this.candidatedetails) {
+// tslint:disable-next-line: forin
+      for(const i in this.candidatedetails) {
         for (const j in this.candidatedetails[i]) {
           if (this.candidatedetails[i][j] != null && (this.candidatedetails[i][j].toString()).
-            indexOf((this.searchcandidatetext)) !== -1) {
+            indexOf((this.searchcandidatetext)) === 0) {
             main.push(this.candidatedetails[i]);
             break;
           }

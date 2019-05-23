@@ -39,6 +39,17 @@
                         </div>
                     </div>
                     <div class="form-group">
+                      <label for="is_client" class="control-label col-md-2">Template for</label>
+                      <div class="col-md-6">
+                          <select class="form-control e" id="is_client" n="is_client" [(ngModel)]="message.is_client">
+                          {{message.is_client}}
+                              <option value="'1'" >Client</option>
+                              <option value="'0'" >Department</option>
+
+                          </select>
+                      </div>
+                  </div>
+                    <div class="form-group">
                         <label for="titile" class="control-label col-md-2">Template Name</label>
                         <div class="col-md-6">
                             <input type="text" class="form-control e" n="Template Name" [(ngModel)]="message.templatename" id="titile" >

@@ -17,9 +17,13 @@
 
 
         <div class="card">
-          <div class="card-header card-header-danger">
+          <div class="card-header card-header-danger"  *ngIf="!showeditjob">
             <h4 class="card-title">New Job</h4>
             <p class="card-category">Add new job details</p>
+          </div>
+          <div class="card-header card-header-danger" *ngIf="showeditjob">
+            <h4 class="card-title">Edit Job</h4>
+            <p class="card-category">Update job details</p>
           </div>
           <div class="card-body">
             <div class="row">
@@ -44,7 +48,7 @@
                     <div class="col-md-8">
                       <select id="client" [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
                         <option value="{{client.id}}" *ngFor="let client of clientdetails">
-                          {{client.billingName}}
+                          {{client.billingName}}<span *ngIf=" client.is_client == '0'; then thenTemplateName else elseTemplateName"></span>
 
 
                         </option>
@@ -59,13 +63,20 @@
                         <option value="{{db.profile.id}}">Self</option>
                         <option value="{{manager.id}}" *ngFor="let manager of managers">
                           {{manager.name}}
+
                         </option>
                       </select>
 
                     </div>
                   </div>
 
+                  <ng-template #thenTemplateName>
+                    (department)
+                </ng-template>
 
+                <ng-template #elseTemplateName>
+                    (client)
+                </ng-template>
 
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Manager>Tracker :</label>
@@ -123,31 +134,31 @@
 
                   <div class="form-group col-md-6">
 
-                    <label class="col-md-4" Title><b>From</b> Lakhs</label>
+                    <label class="col-md-4" minimumSalarylac><b>From</b> Lakhs</label>
                     <div class="col-md-8">
-                      <select class="e" id="minimumSalaryOption" (change)="updatemaxsalary()"
-                        [(ngModel)]="myjob.minimumSalarylac" name="minimumSalary">
-                        <option [value]='opt' *ngFor="let opt of  minimumSalaryOption">{{opt}}</option>
+                      <select class="e" id="minimumSalarylac" (change)="updatemaxsalary()"
+                        [(ngModel)]="myjob.minimumSalarylac" name="minimumSalarylac">
+                        <option [value]='minimumSalarylac' *ngFor="let minimumSalarylac of  minimumSalaryOption">{{minimumSalarylac}}</option>
                       </select>
                     </div>
                   </div>
                   <div class="form-group col-md-6">
 
-                    <label class="col-md-4" Title>Thousands</label>
+                    <label class="col-md-4" minimumSalarythousand>Thousands</label>
                     <div class="col-md-8">
-                      <select class="e" id="minimumSalaryOptionink" name="minimumSalary"
+                      <select class="e" id="minimumSalarythousand" name="minimumSalarythousand"
                         [(ngModel)]="myjob.minimumSalarythousand">
-                        <option [value]='opt' *ngFor="let opt of  minimumSalaryOptionink">{{opt}}</option>
+                        <option [value]='minimumSalarythousand' *ngFor="let minimumSalarythousand of  minimumSalaryOptionink">{{minimumSalarythousand}}</option>
                       </select>
                     </div>
                   </div>
 
                   <div class="form-group col-md-6">
 
-                    <label class="col-md-4" Title><b>To</b> Lakhs</label>
+                    <label class="col-md-4" maximumSalarylac><b>To</b> Lakhs</label>
                     <div class="col-md-8">
-                      <select class="e" id="maxsalary" validate n="Maximum salary" [(ngModel)]="myjob.maximumSalarylac"
-                        name="maximumSalary">
+                      <select class="e"   id="maximumSalarylac" validate n="Maximum salary" [(ngModel)]="myjob.maximumSalarylac"
+                        name="maximumSalarylac">
                         <option [value]='opt' *ngFor="let opt of  maxSalaryOption" help="first select minimum value">
                           {{opt}}
                         </option>
@@ -158,9 +169,9 @@
 
                   <div class="form-group col-md-6">
 
-                    <label class="col-md-4" Title>Thousands</label>
+                    <label class="col-md-4" maximumSalarythousand>Thousands</label>
                     <div class="col-md-8">
-                      <select class="e" name="maximumSalary" [(ngModel)]="myjob.maximumSalarythousand"
+                      <select class="e" name="maximumSalarythousand" [(ngModel)]="myjob.maximumSalarythousand"
                         id="maximumSalarythousand">
                         <option [value]='opt' *ngFor="let opt of  maximumSalaryOptionink">{{opt}}
                         </option>
@@ -179,12 +190,12 @@
                     </div>
                   </div>
 
-                  <div class="form-group col-md-6"  *ngIf="!mp.hide_referral_bonus || db.profile.disable_crowd_sourcing=='1'">
+                  <div class="form-group col-md-6"  *ngIf="!db.mp.hide_referral_bonus && db.profile.disable_crowd_sourcing !=='1'">
                     <label class="col-md-4" Referral>Referral Bonus:</label>
                     <div class="col-md-8">
                       <input type="number"
-                        class="form-control e {{mp.hide_referral_bonus || db.profile.disable_crowd_sourcing=='1'?'':'e'}}"
-                        min="2000" id='referralBonus' maxlength="5" validate n="Referral Bonus"
+                        class="form-control {{!db.mp.hide_referral_bonus || db.profile.disable_crowd_sourcing !=='1'?'':'e'}}"
+                        min="2000" id='referralBonus' maxlength="5"
                         [(ngModel)]="myjob.referralBonus" placeholder="Bonus" name="referralBonus" />
 
 
@@ -289,10 +300,10 @@
 
                         </div>
                         <div class="col-md-5">
-                          <ng-select n="a Month" ngDefaultControl id="month" [(ngModel)]='myjob.contractunit'>
-                            <ng-option>Month</ng-option>
-                            <ng-option>Weeks</ng-option>
-                          </ng-select>
+                          <select n="a Month" ngDefaultControl id="month" [(ngModel)]='myjob.contractunit'>
+                            <option>Month</option>
+                            <option>Weeks</option>
+                          </select>
 
                         </div>
                       </div>
@@ -322,23 +333,23 @@
 
                     </div>
                   </div>
-                  <!-- <div class="form-group col-md-12">
+                  <div class="form-group col-md-12">
                     <label class="col-md-2" Title>Job Key Skills</label>
-                    <div class="col-md-10">
+                    <div class="col-md-10" style="max-width:1000px;">
 
-                      <ng-select ngDefaultControl [(ngModel)]="myjob.keyskills" (click)="setkeyskills();" [items]="suggestedkeyskills" [addTag]="true"
-                        [multiple]="true" [isOpen]="true">
+                      <ng-select ngDefaultControl [(ngModel)]="myjob.keyskills" [items]="suggestedkeyskills" [addTag]="true"
+                        [multiple]="true" [isOpen]="false">
                       </ng-select>
 
-                      <div class="row hidden" style="margin-top: 20px;">
+                      <!-- <div class="row hidden" style="margin-top: 20px;">
                         <div class="col-md-12">
 
 
                         </div>
-                      </div>
+                      </div> -->
 
                     </div>
-                  </div> -->
+                  </div>
                   <!-- <div class="form-group col-md-12">
                             <label class="col-md-2" Title>Job Key Skills</label>
                             <div class="col-md-10">
@@ -362,7 +373,7 @@
 
                             </div>
                         </div> -->
-                        <div class="form-group col-md-12">
+                        <!-- <div class="form-group col-md-12">
                           <label class="col-md-2" Title>Job Key Skills</label>
                           <div class="col-md-10">
                         <mat-form-field class="example-chip-list">
@@ -393,7 +404,7 @@
                           </mat-autocomplete>
                         </mat-form-field>
 </div>
-</div>
+</div> -->
                   <div class="form-group col-md-12">
                     <label class="col-md-2" Title>
                       <a class="locinter {{locationtype}} " href="#" (click)="loadinternationlocation()">International
@@ -445,7 +456,7 @@
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Job_Role>Job Role</label>
                     <div class="col-md-8">
-                      <select id="Role" validate n="a Job Role" name="Job_Role" [(ngModel)]="myjob.jobRole">
+                      <select id="Job_Role" validate n="a Job Role" name="jobRole" [(ngModel)]="myjob.jobRole">
                         <option *ngFor="let jobrole of  jobroles">{{jobrole.val}}</option>
                       </select>
 
@@ -570,11 +581,11 @@
                     <div class="col-lg-offset-2 col-md-10">
                       <button type="submit"  class="btn btn-primary validate" *ngIf="!isjobediting ||jobupdate || !hidesavebutton"
                         tar="#addnewjobform" (click)="addNewJobSave()">Save</button>
-                      <div *ngIf="isjobediting===true">
+                      <div *ngIf="isjobediting == true">
                         <button type="submit" class="btn btn-primary validate" tar="#addnewjobform"
-                          (click)="addNewJobupdate()">Save</button>
-                          <button type="submit"  class="btn btn-primary validate"
-                        tar="#addnewjobform" (click)="addNewJobSave()">Clonejob</button>
+                          (click)="addNewJobupdate()">Update</button>
+                          <!-- <button type="submit"  class="btn btn-primary validate"
+                        tar="#addnewjobform" (click)="addNewJobSave()">Clonejob</button> -->
 
                       </div>
 
