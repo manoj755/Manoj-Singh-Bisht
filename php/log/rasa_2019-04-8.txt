@@ -1,0 +1,33 @@
+2019-04-08 18:39:03.666725   ********************9953081894_____Call ID 6102***********************
+2019-04-08 18:39:04.757686                  ****Start Transcribe
+2019-04-08 18:39:08.854840                  ****End Transcribe
+2019-04-08 18:39:10.793602                  ****Start Transcribe
+2019-04-08 18:39:16.305975                  ****End Transcribe
+2019-04-08 18:39:16.392778                   hello ***transcription result
+2019-04-08 18:39:16.392863   @Started call to api
+2019-04-08 18:39:16.537692   @Finished call to api
+2019-04-08 18:39:16.537882        [{"recipient_id":"6102","text":"Hello are you looking for job change"}]Response from Rasa
+2019-04-08 18:39:19.521076                  ****Start Transcribe
+2019-04-08 18:39:23.876529                  ****End Transcribe
+2019-04-08 18:39:23.960216                   yes ***transcription result
+2019-04-08 18:39:23.960309   @Started call to api
+2019-04-08 18:39:25.84756   @Finished call to api
+2019-04-08 18:39:25.84944        [{"recipient_id":"6102","text":"Now the bot will connect with you"}]Response from Rasa
+2019-04-08 18:39:27.648155                  ****Start Transcribe
+2019-04-08 18:39:31.671927                  ****End Transcribe
+2019-04-08 18:39:31.754108                   just ***transcription result
+2019-04-08 18:39:31.754194   @Started call to api
+2019-04-08 18:39:33.118295   @Finished call to api
+2019-04-08 18:39:33.118514        [{"recipient_id":"6102","text":"Hello Vinod Kumar I have a job for role of Tech Lead (Backend) the company name is Cue Learn Pvt Ltd,the company is in Bangalore"},{"recipient_id":"6102","text":"Is it fine"}]Response from Rasa
+2019-04-08 18:39:44.123717                  ****Start Transcribe
+2019-04-08 18:39:48.343880                  ****End Transcribe
+2019-04-08 18:39:48.424891                   yes ***transcription result
+2019-04-08 18:39:48.424976   @Started call to api
+2019-04-08 18:39:49.561990   @Finished call to api
+2019-04-08 18:39:49.562162        [{"recipient_id":"6102","text":"Before we go ahead i will tell you breif about company CUE Math is a young educational-technology start-up in the domain of mathematics education. CUE MATH is backed up by world class Investors Is it fine"}]Response from Rasa
+2019-04-08 18:40:03.739258                  ****Start Transcribe
+2019-04-08 18:40:07.772110                  ****End Transcribe
+2019-04-08 18:40:09.741333                  ****Start Transcribe
+2019-04-08 18:40:13.639498                  ****End Transcribe
+2019-04-08 18:40:15.656269                  ****Start Transcribe
+2019-04-08 18:40:19.748868                  ****End Transcribe

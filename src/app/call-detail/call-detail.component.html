@@ -27,11 +27,10 @@
                     </ul>
                   </div>
 
-                  <input type="text" class="form-control" ng-auto-complete callback-fn='jobnamesuggest()'
-                    id='jobssearch' [(ngModel)]="searchcandidatetext" (change)="filteragain()"
-                    placeholder="Search Jobs">
-                  <input type="text" style="display: none;" class="form-control" id='candidatessearch'
-                    [(ngModel)]="searchcandidate" (change)="filterbycandidate()" placeholder="Search Candidates">
+                  <input type="text" class="form-control" ng-auto-complete callback-fn='jobnamesuggest()' id='jobssearch'
+                  [(ngModel)]="searchcandidatetext" (change)="filteragain()" placeholder="Search Jobs">
+                <input type="text" style="display: none;" class="form-control" id='candidatessearch'
+                  [(ngModel)]="searchcandidate" (change)="filterbycandidate()" placeholder="Search Candidates">
 
                   <span class="input-group-btn">
                     <button class="btn  btn-raised btn-default" (click)="filterbyJob()" type="button">
@@ -151,23 +150,23 @@
                     </a>
                     <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
 
-                    <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager' title="Approve by Manager"
+                    <!-- <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager' title="Approve by Manager"
                       href="javascript:" (click)="is_approved_by_manager(item)">
                       <i class="fa fa-check"></i>
-                    </a>
+                    </a> -->
 
                     <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item)">
                       <i class="fa fa-tags"></i>
                     </a>
-                    <a mat-mini-fab class="" help="Show JD" href="javascript:" style='color:black; background:#ffffbe;'
+                    <!-- <a mat-mini-fab class="" help="Show JD" href="javascript:" style='color:black; background:#ffffbe;'
                       (click)="item.responsibilityshow=!item.responsibilityshow;">
                       <i class="fa fa-bolt "></i>
-                    </a>
-                    <a mat-mini-fab ng-show='item.visibleonwebsite==1' class=""
+                    </a> -->
+                    <!-- <a mat-mini-fab ng-show='item.visibleonwebsite==1' class=""
                       href="{{$url}}/{{item.slug}}/{{item.id}}/{{profile.id}}" target="_blank"
                       style='color:red; background:white;' help='Visible on Website'>
                       <i class="fa fa-eye "></i>
-                    </a>
+                    </a> -->
 
                     <!-- <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
                                           href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
@@ -186,12 +185,12 @@
                                           target="_blank">
                                           <i class="fa fa-linkedin "></i>
                                         </a> -->
-                    <a mat-mini-fab data-toggle="modal" *ngIf="db.mp.btn_take_internal_refeference"
+                    <!-- <a mat-mini-fab data-toggle="modal" *ngIf="db.mp.btn_take_internal_refeference"
                       data-target="#internalreference" href="javascript:"
                       (click)="GetInHourseReference(item.id, $event)" class="text-danger" help='get reference internal'
                       title='get reference internal'>
                       <i class="fa fa-bullhorn  " style="color:white;"></i>
-                    </a>
+                    </a> -->
                     <!-- <a mat-mini-fab href="#" class="pull-right text-aqua" *ngIf="db.mp.btn_upload_cv_myjobs">
                                           <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)" help="Upload CVs(Excel)"
                                             class="fa fa-upload"></i>
@@ -277,7 +276,10 @@
         </div>
 
         <div class="clearfix"></div>
-
+        <pagination-controls directionLinks="true" autoHide="true" responsive="true" previousLabel="Previous"
+        nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+        screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event">
+      </pagination-controls>
       </div>
 
       <div class="row">
@@ -1060,7 +1062,7 @@
 
       </div>
 
-      <div class="modal fade" role="dialog" id="commentstatus">
+      <div class="modal fade" role="dialog" id="commentstatus3">
 
 
         <div class="modal-dialog">
@@ -1314,5 +1316,8 @@
 <app-add-to-job></app-add-to-job>
 <app-add-note [set_candidate_id]='candidate_id'></app-add-note>
 <app-add-candidate></app-add-candidate>
-<app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status>
+<!-- <app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status> -->
 <app-activity [activities]="activities"></app-activity>
+<!-- <app-call [allids]='allids'></app-call> -->
+
+<app-update-candidate [current_data]='currentData'></app-update-candidate>

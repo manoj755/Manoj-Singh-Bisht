@@ -599,7 +599,9 @@
                   <ng-select [(ngModel)]="setjobandreferencetemp.current_job_id" placeholder="Select Job">
 
                     <ng-option value="{{job.id}}" *ngFor="let  job of jobslistforref">{{job.job_title}}
-                      ({{job.id}})({{job.ClientName}})<span *ngIf="job.is_client=='0'">(Department)</span> <span *ngIf="job.is_client=='1'">(Client)</span>  </ng-option>
+                      ({{job.id}})({{job.ClientName}})  </ng-option>
+
+                      <!-- <span *ngIf="job.is_client=='0'">(Department)</span> <span *ngIf="job.is_client=='1'">(Client)</span> -->
                   </ng-select>
                 <!-- </mat-form-field> -->
               </div>

@@ -575,8 +575,12 @@
 
                 <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-material" [rowData]="rowData"
                   [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
+                  rowSelection='multiple'
+                  rowMultiSelectWithClick='true'
+                  rowDeselection='true'
+
                   [groupSelectsChildren]="true" paginationAutoPageSize='true'
-                  (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+                  (selectionChanged)="onSelectionChanged($event)" [debug]="true"
                   [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
                   [enableRangeSelection]="true" [getRowHeight]='getRowHeight' [pagination]="true"
                   (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)" (rowClicked)="onRowClicked($event)">

@@ -23,6 +23,9 @@
   .mat-raised-button.btn:active{
     background-color: blue !important;
   }
+  .mat-raised-button.btn:focus{
+    background-color: blue !important;
+  }
   //--
   // Colors
   @include bmd-raised-button-color();

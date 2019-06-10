@@ -57,7 +57,7 @@ export class CallComponent implements OnInit {
     }
     const copyjob = {
       'candidates': allrow.toString(), 'job': this.addnewjob.add_new_job_id,
-      'manager': this.addnewjob.manager
+      'manager': this.addnewjob.manager, 'callto': this.addnewjob.callto,
     };
     this.db.store('sendcall/', copyjob, ((response): void => {
 

@@ -102,6 +102,7 @@ export class MyJobComponent implements OnInit {
   hoverIndex: any;
   allstatusload = 0;
   selectednodes = [];
+  ClientName: any;
   status_id = 0;
   vendorSearch: any;
   departments = [];
@@ -1081,11 +1082,11 @@ export class MyJobComponent implements OnInit {
 
       }
     });
-     // this.db.showNotification('Resume Uploaded');
-     // $('#uploadresume').modal('hide');
+    // this.db.showNotification('Resume Uploaded');
+    // $('#uploadresume').modal('hide');
     //}, (re) => {
-      //this.db.showNotification('uploaded'); $('#uploadresume').modal('hide');
+    //this.db.showNotification('uploaded'); $('#uploadresume').modal('hide');
     //}, null, fileToUpload);
-  //}
+    //}
   }
 }

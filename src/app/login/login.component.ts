@@ -176,7 +176,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       //     alert(r.data.msg);
       //   }
       // });
-    } else if (this.resetpassword.confirmpassword != this.resetpassword.newpassword) {
+    } else if (this.resetpassword.confirmpassword !== this.resetpassword.newpassword) {
       alert('password not matched');
     } else if (this.resetpassword.newpassword.length < 6) {
       alert('password length must be at least 6');

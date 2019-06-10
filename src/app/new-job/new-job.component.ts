@@ -862,10 +862,26 @@ export class NewJobComponent implements OnInit {
 
       }
       debugger;
+      // const keyskills = this.myjob.keyskills;
+      // //this.storekey = '';
+      // let keyskillstr = '';
+      // if (this.storekey === '' || this.storekey === undefined) {
+      //   // this.storekey = this.myjob.keyskills;
+      //   for (const j in keyskills) {
+      //     if (keyskills[j]) {
+      //       keyskillstr += keyskills[j] + ',';
+      //     }
+
+      //   }
+      //   this.myjob.keyskills = keyskillstr;
+      //   this.storekey = keyskillstr
+      // } else {
+      //   this.myjob.keyskills = this.storekey;
+      // }
       const keyskills = this.myjob.keyskills;
       //this.storekey = '';
       let keyskillstr = '';
-      if (this.storekey === '' || this.storekey === undefined) {
+      //if (this.storekey === '' || this.storekey === undefined) {
         // this.storekey = this.myjob.keyskills;
         for (const j in keyskills) {
           if (keyskills[j]) {
@@ -874,11 +890,6 @@ export class NewJobComponent implements OnInit {
 
         }
         this.myjob.keyskills = keyskillstr;
-        this.storekey = keyskillstr
-      } else {
-        this.myjob.keyskills = this.storekey;
-      }
-
       this.myjob.location = locationstr;
       this.myjob.start_date = this.db.toYYMMDD(this.start_date_temp);
       this.myjob.end_date = this.db.toYYMMDD(this.end_date_temp);

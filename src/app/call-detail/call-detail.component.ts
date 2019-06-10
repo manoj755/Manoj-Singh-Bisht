@@ -135,6 +135,7 @@ export class CallDetailComponent implements OnInit {
   isLoadingJobs = false;
   $url = 'http://www.passivereferral.com/refer/';
   $urlapply = 'http://www.passivereferral.com/apply/';
+  currentData: {};
   // today = new Date();
   // start_date = '';
   constructor(public db: DBService) {
@@ -516,9 +517,74 @@ export class CallDetailComponent implements OnInit {
           return this.conversation(data);
         case 'openpopup':
           return this.openpopup(data.call_id);
+          case 'activity':
+        //   return this.activityclick(data);
+         //case 'comment':
+         // return this.onCommentClick(data);
+        //case 'notes':
+        //   return this.onNotesClick(data);
+        case 'candidateshow':
+          return this.oncandidateshowClick(data);
+
       }
     }
   }
+
+  // public onCommentClick(data: any) {
+
+  //   this.allstatusload = 0;
+
+  //   this.status_row = data;
+  //   // this.updatestatuscomponent.status_id = 22;
+  //   // if (entity) {
+  //   //   $scope.entityvar = entity;
+  //   // } else {
+  //   //   entity = $scope.entityvar;
+  //   // }
+  //   // if ($scope.allstatus) {
+  //   //   $scope.allstatusload = 1;
+  //   // } else {
+  //   //   $scope.allstatusload = 0;
+  //   // }
+
+  //   //
+  //   // if (entity.recruiter_id == null) {
+  //   //   $scope.showowner = true;
+  //   // } else {
+  //   //   $scope.showowner = false;
+  //   // }
+  //   // $scope.ajid = entity.ajid;
+  //   // $rootScope.ajid = entity.ajid;
+  //   // console.log(entity);
+  //   // $scope.currentstatusid = entity.status_id;
+  //   // $scope.currentstatusname = entity.display_name;
+  //   // db.list('csr/' + entity.status_id, { allstatus: $scope.allstatusload }, function (response) {
+  //   //   $("#business").hide();
+  //   //   $("#offerhide").hide();
+  //   //   $scope.statuses = response.data;
+  //   //   $('#commentstatus').modal('show');
+  //   //   //            $mdDialog.show({
+  //   //   //                contentElement: '#commentstatus',
+  //   //   //                parent: angular.element(document.body),
+  //   //   //                clickOutsideToClose: true,
+  //   //   //                fullscreen: false,
+  //   //   //                disableParentScroll: false
+  //   //   //
+  //   //   //            });
+  //   // });
+
+
+
+  // }
+
+  public oncandidateshowClick(data: any) {
+
+
+    data.tempdate = new Date().getMilliseconds();
+    this.currentData = {};
+    this.currentData = data;
+  }
+
   openpopup(id): void {
     window.open(this.db.http_or_https + '://api.passivereferral.com/recording/?id='
       + id, '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=300,left=500,width=400,height=150');
@@ -833,17 +899,29 @@ export class CallDetailComponent implements OnInit {
     $('#addvendor').modal('show');
   }
 
+  // filterbycandidate(): void {
+  //   let filterjobTimeOut = null;
+  //   if (filterjobTimeOut != null) {
+  //     clearTimeout(filterjobTimeOut);
+  //   }
+  //   filterjobTimeOut = setTimeout(function () {
+  //     this.getlist();
+  //   }, 1000);
+
+  //   this.searchcandidatetext = '';
+  // };
   filterbycandidate(): void {
-    let filterjobTimeOut = null;
-    if (filterjobTimeOut != null) {
-      clearTimeout(filterjobTimeOut);
-    }
-    filterjobTimeOut = setTimeout(function () {
-      this.getlist();
-    }, 1000);
 
     this.searchcandidatetext = '';
+    this.getlist();
+
   };
+  filterbyJob(): void {
+
+    this.loadCandidate();
+    this.ShowCandidates = true;
+  };
+
   filterdrbytab(mainprocess, childprocess, jobitem): void {
     debugger;
     this.isinterview = 9;
@@ -897,11 +975,11 @@ export class CallDetailComponent implements OnInit {
     this.filterbyJob();
   };
 
-  filterbyJob(): void {
+  // filterbyJob(): void {
 
-    this.loadCandidate();
-    this.ShowCandidates = true;
-  };
+  //   this.loadCandidate();
+  //   this.ShowCandidates = true;
+  // };
 
 
   addtojobcandidates(): void {
