@@ -325,6 +325,7 @@ export class MyJobComponent implements OnInit {
     }
 
     this.commentstatus.ajid = this.ajid;
+    this.commentstatus.date = this.db.toYYMMDD(this.commentstatus.date);
     // this.commentstatus.recruiterid=this.recruiterid;
     this.db.store('csr/', this.commentstatus, ((response): void => {
       $('#commentstatus').modal('hide');

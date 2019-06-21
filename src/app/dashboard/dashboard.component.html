@@ -605,6 +605,21 @@
                   </ng-select>
                 <!-- </mat-form-field> -->
               </div>
+              <div class="form-group">
+
+
+                <!-- <mat-form-field> -->
+                  <ng-select [(ngModel)]="setjobandreferencetemp.callto" placeholder="Select Call Type">
+
+                    <ng-option value="allPR1" >Screening Bot
+                        </ng-option>
+                      <ng-option value="allPR3" >
+                        Direct Lineup Bot  </ng-option>
+
+                      <!-- <span *ngIf="job.is_client=='0'">(Department)</span> <span *ngIf="job.is_client=='1'">(Client)</span> -->
+                  </ng-select>
+                <!-- </mat-form-field> -->
+              </div>
               <div class="clearfix"
                 *ngIf="profile.disable_crowd_sourcing !== '1' &&(setjobandreferencetemp.reference_email_template_id=='0' || setjobandreferencetemp.reference_sms_template_id=='0')">
                 <div class="form-group ">
@@ -625,6 +640,7 @@
                       {{smstedb.mp.templatename}}</option>
 
                   </select></div>
+
 
               </div>
             </div>

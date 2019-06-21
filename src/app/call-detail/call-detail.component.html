@@ -646,6 +646,8 @@
 
 
                 <ag-grid-angular style="width: 100%; height: 500px;" rowHeight=500px; class="ag-theme-material"
+                      rowSelection='multiple'
+
                   [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
                   [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='false'
                   (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"

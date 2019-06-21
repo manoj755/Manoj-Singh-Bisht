@@ -31,9 +31,9 @@ export class DashboardComponent implements OnInit {
 
   rowData = [
   ];
-  getsuggestions:any;
-  prsuggestionpercent:any;
- getinterviewschedules:any;
+  getsuggestions: any;
+  prsuggestionpercent: any;
+  getinterviewschedules: any;
   notification_very_danger = 0;
   notification_danger = 0;
   notification_success = 0;
@@ -83,6 +83,9 @@ export class DashboardComponent implements OnInit {
       this.setjobandreferencetemp.is_send_auto_email_reference = 0;
     }
     console.log(this.setjobandreferencetemp);
+    if (this.setjobandreferencetemp.callto == null) {
+      alert('please select call type');
+    }
     this.db.store('setjobandreferencetemplate/', this.setjobandreferencetemp);
 
   };
@@ -335,7 +338,7 @@ export class DashboardComponent implements OnInit {
     this.db.list('emailmessagetemplate/', null, ((response): void => {
       this.emailmessagetemplatesforref = response;
     }));
-   
+
   }
   bindNewReference(): void {
     this.db.list('in_process_referral', null, ((response): void => {
@@ -379,16 +382,16 @@ export class DashboardComponent implements OnInit {
   };
 
 
-   loadsuggestion():void {
-        this.prsuggestionpercent ='30';
-         //$('#prsuggestionpercentselect').val();
-       // db.hl();
-        this.db.list('getsuggestionondashboard/', {"prsuggestionpercent": this.prsuggestionpercent},  ((response):void=> {
-            this.getsuggestions = response;
-            //db.sl();
-        })
-        );
-    };
+  loadsuggestion(): void {
+    this.prsuggestionpercent = '30';
+    //$('#prsuggestionpercentselect').val();
+    // db.hl();
+    this.db.list('getsuggestionondashboard/', { "prsuggestionpercent": this.prsuggestionpercent }, ((response): void => {
+      this.getsuggestions = response;
+      //db.sl();
+    })
+    );
+  };
   getnotification(): void {
     this.db.list('getnotification', null, ((response): void => {
       this.notification = response;
@@ -397,7 +400,7 @@ export class DashboardComponent implements OnInit {
 
     })
     );
-     this.db.list('getinterviewschedule/', null, ((response): void => {
+    this.db.list('getinterviewschedule/', null, ((response): void => {
       this.getinterviewschedules = response;
     }));
   }

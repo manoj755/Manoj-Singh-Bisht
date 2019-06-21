@@ -3,14 +3,14 @@
     <div class="row">
       <div class="alert alert-info col-12" *ngIf="clientdetails.length==0">
         <h2>Please Create {{db.clientsdepartment}}.</h2>
-        <span *ngIf="mp.page_tracker">To create please <a href="#/client">click here</a></span>
-        <span *ngIf="!mp.page_tracker">Please contact your manager</span>
+        <span *ngIf="db.mp.page_tracker">To create please <a href="#/client">click here</a></span>
+        <span *ngIf="!db.mp.page_tracker">Please contact your manager</span>
 
       </div>
       <div class="alert alert-warning  col-12" *ngIf="trackerlist.length==0">
-        <h2>Please Create Tracker.</h2><span *ngIf="mp.page_client">To create please <a href="#/tracker">click
+        <h2>Please Create Tracker.</h2><span *ngIf="db.mp.page_client">To create please <a href="#/tracker">click
             here</a></span>
-        <span *ngIf="!mp.page_client">Please contact your manager</span>.
+        <span *ngIf="!db.mp.page_client">Please contact your manager</span>.
       </div>
       <div class=" col-12 bg-default" [hidden]="!clientdetails.length>0&& !trackerlist.length>0"
         style=" padding-top: 20px" id="addnewjobform">
@@ -100,7 +100,7 @@
                   </div>
 
 
-                  <div class="form-group col-md-6" *ngIf="mp.can_add_skills_for_call">
+                  <div class="form-group col-md-6" *ngIf="db.mp.can_add_skills_for_call">
                     <label class="col-md-4" Title>Primary Skill</label>
                     <div class="col-md-8">
                       <input type="text" class="form-control " n="Primary Skill" id="Primary_Skill"
@@ -110,7 +110,7 @@
                   </div>
 
 
-                  <div class="form-group col-md-6" *ngIf="mp.can_add_skills_for_call">
+                  <div class="form-group col-md-6" *ngIf="db.mp.can_add_skills_for_call">
                     <label class="col-md-4" Title>Secondary Skill</label>
                     <div class="col-md-8">
                       <input type="text" class="form-control " n="Secondary Skill" id="Secondary_Skill"
@@ -119,7 +119,7 @@
                     </div>
                   </div>
 
-                  <div class="form-group col-md-6" *ngIf="mp.can_add_skills_for_call">
+                  <div class="form-group col-md-6" *ngIf="db.mp.can_add_skills_for_call">
                     <label class="col-md-4" Title>Third Skill</label>
                     <div class="col-md-8">
                       <input type="text" class="form-control " n="Third Skill" id="Third_Skill"
@@ -537,14 +537,14 @@
                       <!-- <mat-checkbox ngDefaultControl [(ngModel)]="commentstatus.is_client">is_client</mat-checkbox> -->
                     <!-- </mat-form-field> -->
                     </div>
-                  <div class="form-group col-md-6" *ngIf='mp.btn_take_internal_refeference'>
+                  <div class="form-group col-md-6" *ngIf='db.mp.btn_take_internal_refeference'>
                     <label class="col-md-4">Employee Referral</label>
                     <div class="col-md-8">
 
 
 
                       <div *ngIf='departments.length==0' class="alert alert-info">
-                        No Department Added.<span *ngIf='mp.page_departments'> <a href="#/departments"
+                        No Department Added.<span *ngIf='db.mp.page_departments'> <a href="#/departments"
                             class="btn btn-default">Click
                             here</a> to add Department.</span>
                       </div>

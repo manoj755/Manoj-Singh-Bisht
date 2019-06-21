@@ -669,7 +669,8 @@ export class CallDetailComponent implements OnInit {
 
             })
           } else {
-            this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con].text })
+           // this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con].text })
+           this.conversationsobj.push({ key: con.split('__')[0], text: con.substring(1, con.indexOf(':'))})
           }
         }
       }
