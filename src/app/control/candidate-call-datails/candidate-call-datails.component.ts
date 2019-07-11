@@ -17,7 +17,7 @@ export class CandidateCallDatailsComponent  implements ICellRendererAngularComp 
   myname = 'narender';
   constructor() { }
   agInit(params: any): void {
-    debugger;
+   // debugger;
     this.params = params;
     this.row.entity = this.params.data;
     this.cubed = this.params.data.value * this.params.data.value * this.params.data.value;

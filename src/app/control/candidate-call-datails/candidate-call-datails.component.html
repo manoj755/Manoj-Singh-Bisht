@@ -5,7 +5,7 @@
       <ul class="list-unstyled">
           <li class='i'>{{row.entity.candidateName}}  <b style="cursor: pointer;" class="name"  *ngIf="row.entity.recruitershow">
                   <i style="margin-left: 5px;color:#5b4dcc;"  data-action-type="candidateshow"   title="Open Candidate" class="fa fa-link"></i>
-                  <i data-action-type="notes" style="margin-left: 3px;color:red;" ng-click="setupdateid(row.entity.id)" title="Add Notes" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
+                  <i data-action-type="notes" style="margin-left: 3px;color:red;" (click)="setupdateid(row.entity.id)" title="Add Notes" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
 
 
               </b></li>
@@ -14,15 +14,30 @@
   <div class="col-md-4">
       <ul class="list-unstyled"><li>Location- {{row.entity.location}}</li>
           <li>Contact number: {{row.entity.mobileNo}}</li>
-          <li>Exp: {{row.entity.relevantExperiance}} year,({{row.entity.call_updated_at}})</li>
+          <li>Call ID-({{row.entity.call_id}}),({{row.entity.call_updated_at}})</li>
           <li *ngIf="row.entity.last_action_date" class="text-info text-bold">
              Last Action : <i>{{row.entity.last_action_date}}</i>
           </li></ul>
   </div>
   <div class="col-md-3"><button type="button"  ng-click="grid.appScope.removecandidate(row.entity)"  *ngIf="row.entity.recruiter_id" class="close pull-right" >×</button>
-      <b class="text-success text-center i">{{row.entity.job_name}}</b>
+      <!-- <b class="text-success text-center i">{{row.entity.job_name}}
+
+      </b> -->
+      <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 1"  title="Connected" class="material-icons">phonelink_ring</i>
+
+      <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 2"  title="Not connected" class="material-icons">phonelink_erase</i>
+      <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 2"  title="Connected" class="material-icons">phonelink_ring</i>
+
+      <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 3"  title="Not connected" class="material-icons">phonelink_erase</i>
+      <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 3"  title="Not connected" class="material-icons">phonelink_erase</i>
+      <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 3"  title="Connected" class="material-icons">phonelink_ring</i>
+
+      <i style="margin-left: 30px;color:#71cc4d;" *ngIf="row.entity.typeofcall == 'INCOMING'"  title="Incoming Call" class="material-icons">phone_callback</i>
+      <i style="margin-left: 30px;color:#4d75cc;" *ngIf="row.entity.typeofcall == 'OUTGOING'"  title="Outgoing Call" class="material-icons">phone_forwarded</i>
+
       <span *ngIf=" row.entity.vendorname!==undefined && row.entity.vendorname!==null && row.entity.vendorname.length > 0"  class="text-red">( Vendor -{{row.entity.vendorname}} )</span><div class="clearfix"></div>
-      <b class="text-info text-center" title='Recruiter'>{{row.entity.recruitername}}</b>
+      <b class="text-info text-center" title='Recruiter'>{{row.entity.recruitername}}
+      </b>
       <b *ngIf='row.entity.isReferred' title='Referrer name'>
          ({{row.entity.referrerName}})
       </b>
@@ -44,7 +59,7 @@
       <!-- <a href="" *ngIf="row.entity.recruitershow" class="text-danger" ng-click="grid.appScope.setatjidentity(row.entity)" >Custom Tracker Data</a>status -->
 
       <button href="" class="btn btn-sm btn-danger btn-raised"  data-action-type='conversation'  >Conversation</button>
-      <button  data-action-type='openpopup'  class="btn  btn-raised btn-sm"><a href="http://192.168.1.12/?id={{row.entity.call_id}}"  ng-click="grid.appScope.openpopup(row.entity.call_id)" target="_blank" >Play</a></button>
+      <button  data-action-type='openpopup'  class="btn  btn-raised btn-sm"><a href="http://api.passivereferral.com/recording/?id={{row.entity.call_id}}"  ng-click="grid.appScope.openpopup(row.entity.call_id)" target="_blank" >Play</a></button>
       <a *ngIf="row.entity.invoice_id" href="#"  class="pull-right"><span data-toggle="tooltip" ngf-accept='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"' ngf-pattern='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"'  ngf-select="grid.appScope.uploadinvoicevendor($file,row.entity.invoice_id)" title="Upload">Upload Invoice</span></a>
 
   </div></div>

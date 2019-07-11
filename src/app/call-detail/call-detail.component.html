@@ -84,7 +84,7 @@
 
 
         <ul class="nav nav-tabs showloader pull-left  ">
-          <li class="active"><a href="#" data-toggle="tab" (click)='changefilter("hascall","hascall")'
+          <!-- <li class="active"><a href="#" data-toggle="tab" (click)='changefilter("hascall","hascall")'
               class="btn  btn-raised btn-primary">Call>0</a></li>
           <li><a href="#" data-toggle="tab" (click)='changefilter("Hold","job_status")'
               class="btn  btn-raised btn-primary">Hold</a></li>
@@ -94,7 +94,7 @@
               class="btn  btn-raised btn-primary">Closed</a></li>
           <li><a href="#" data-toggle="tab" style="background:#ddf295; color:#251e22;"
               (click)='changefilter("Interview","interview")' class="btn  btn-raised btn-primary">Interview</a></li>
-
+-->
           <li><a href="#" data-toggle="tab" (click)='changefilter("All","job_status")'
               class="btn  btn-raised btn-primary">All</a></li>
           <li><a href="#" data-toggle="tab" (click)='changefilter("Tagged","tagged")'
@@ -116,7 +116,7 @@
 
             <div class="col-md-12">
               <div class="card" (click)="selectdeselect($event,item)"
-                *ngFor="let item of jobslist | orderBy:'visibleonwebsite' | paginate: { itemsPerPage: 10, currentPage: p };  let i = index">
+                *ngFor="let item of jobslist |myfilter: searchcandidatetext| orderBy:'updated_at' | paginate: { itemsPerPage: 10, currentPage: p };  let i = index">
                 <div class="card-header card-header-{{item.selected?'success':'info'}}">
                   <h4 class="card-title">
                     <!-- {{i}}  -->
@@ -132,7 +132,7 @@
                   <p class="card-category">
                     <span>( Job ID : {{item.category_code}}{{item.id}} )</span>
 
-                    <span itemtype="#" help='Client'>{{item.ClientName}} </span>
+                    <span itemtype="#" help='Client'>{{item.ClientName}}{{item.created_at}} </span>
 
                     <span style='padding-left:10px; display:inline-block;'>
                       <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
@@ -145,9 +145,9 @@
                   <div class="member-social pull-right col-md-6 shareparent" style="text-align: right;">
 
 
-                    <a mat-mini-fab class="" help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
+                    <!-- <a mat-mini-fab class="" help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
                       <i class="fa fa-share-square-o"></i>
-                    </a>
+                    </a> -->
                     <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
 
                     <!-- <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager' title="Approve by Manager"
@@ -155,7 +155,9 @@
                       <i class="fa fa-check"></i>
                     </a> -->
 
-                    <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item)">
+                    <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item);" [ngClass]="{'test': item.tagged==='11','redClass' :item.tagged =='11'}"  >
+
+                    <!-- <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item)"> -->
                       <i class="fa fa-tags"></i>
                     </a>
                     <!-- <a mat-mini-fab class="" help="Show JD" href="javascript:" style='color:black; background:#ffffbe;'
@@ -218,7 +220,7 @@
                                       </div>-->
                   </div>
 
-                  <div class="col-md-12">
+                  <div class="col-md-8">
                     <div class='row buttonwithnumber'>
 
                       <button mat-raised-button color="primary" matBadge="{{item.allcalledcandidate}}"
@@ -577,7 +579,7 @@
 
                 <a ng-if="mp.candidates_under_job_copyjob" class="btn btn-raised btn-sm" href="javascript:"
                   data-toggle="modal" data-target="#addtojob">
-                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Assign Candidate</a>
+                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span>  Add to Job</a>
 
                 <!-- <a ng-if="mp.btn_submit_cv_to_panel" class="btn btn-raised btn-sm" href="javascript:"
                                   (click)="submit_cv_to_panel_status()">
@@ -646,11 +648,13 @@
 
 
                 <ag-grid-angular style="width: 100%; height: 500px;" rowHeight=500px; class="ag-theme-material"
-                      rowSelection='multiple'
+                rowSelection='multiple'
+                rowMultiSelectWithClick='true'
+                rowDeselection='true'
 
                   [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
                   [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='false'
-                  (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+                  (selectionChanged)="onSelectionChanged($event)" [debug]="true"
                   [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [rowHeight]="rowHeight"
                   [enableRangeSelection]="true" [getRowHeight]='getRowHeight' [pagination]="true"
                   (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)" (rowClicked)="onRowClicked($event)">
@@ -1291,20 +1295,24 @@
 
             <b title="{{value.start_speaking}} / {{value.end_speaking}}">{{value.key.split('__')[0]}}</b>
 
-                <!-- <p *ngIf="value.audio" title="{{value.start_transcribe}} / {{value.end_transcribe}}">
-              <a href="#" class="btn btn-link playlink"  link='{{getaudiolink(value.audio)}}'>
+                <!-- <p  title="{{value.start_transcribe}} / {{value.end_transcribe}}">
+              <a class="btn btn-link playlink"  href='{{getaudiolink(value.audio)}}'>
                 {{(value.text==''?'***':value.text)}}</a>
-                <div class="player"></div>
-                </p> -->
-                <p  >{{(value.text==''?'***':value.text)}}</p>
+              </p>
+              <div id="player">
+
+              </div> -->
+              <!-- <div class="player"></div> -->
+
+                <p>{{(value.text==''?'***':value.text)}}</p>
 
         </div>
 
 
-        <div>
+        <!-- <div>
           <button title='{{callconversation.job_title}} ' class="btn  btn-raised btn-info pull-right">Add To
             Job</button>
-        </div>
+        </div> -->
 
         <div class="clear " style="clear:both;"></div>
 
@@ -1315,7 +1323,7 @@
   </div>
 </div>
 
-<app-add-to-job></app-add-to-job>
+<app-add-to-job [allids]='allids'></app-add-to-job>
 <app-add-note [set_candidate_id]='candidate_id'></app-add-note>
 <app-add-candidate></app-add-candidate>
 <!-- <app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status> -->

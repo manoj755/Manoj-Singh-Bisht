@@ -49,6 +49,7 @@ export class AddToJobComponent implements OnInit {
     //   //  $.fn.showMessage('Please fill values');
     //     return;
     //   }
+    debugger
     const allrow = this.allids;
 
     if (allrow.length === 0) {
@@ -67,7 +68,7 @@ export class AddToJobComponent implements OnInit {
       if (response.alreadyexists > 0) {
         addtojobmessage = response.alreadyexists + ' Candidate(s) already in pipeline.';
       } else {
-        addtojobmessage = 'Assign Candidate Successfully';
+        addtojobmessage = 'Candidate Added Successfully';
 
       }
       this.db.showMessage(addtojobmessage);

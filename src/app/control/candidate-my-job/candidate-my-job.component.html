@@ -14,7 +14,7 @@
   <div class="col-md-4">
       <ul class="list-unstyled"><li>Location- {{row.entity.location}}</li>
           <li>Contact number: {{row.entity.mobileNo}}</li>
-          <li>Exp: {{row.entity.relevantExperiance}} year</li>
+          <li>Exp: {{row.entity.relevantExperiance}} year,({{row.entity.atj_updated_at}})</li>
           <li *ngIf="row.entity.last_action_date" class="text-info text-bold">
              Last Action : <i>{{row.entity.last_action_date}}</i>
           </li></ul>

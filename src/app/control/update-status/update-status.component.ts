@@ -152,21 +152,22 @@ export class UpdateStatusComponent implements OnInit {
   };
 
   updatestatuscommentmyjob(showpopup): any {
+    debugger;
     if (typeof showpopup === 'undefined') {
       showpopup = true;
     }
 
     this.commentstatus.ajid = this.current_row.ajid;
-   // this.commentstatus.date = this.db.toYYMMDD(this.commentstatus.date);
+   this.commentstatus.date = this.db.toYYMMDDTT(this.commentstatus.date);
     // $scope.commentstatus.recruiterid=$scope.recruiterid;
-    debugger;
+
     this.db.store('csr/', this.commentstatus, (response): void => {
       $('#commentstatus').modal('hide');
       // $scope.filterdrbytab();
       this.commentstatus = { ajid: 0 };
       $('.comment_status_btn_current').text(this.currentstatusnameoption);
       // $rootScope.notificationload();
-      this.loadCandidate();
+      //this.loadCandidate();
       //this.sendcall(this.entityvar);
       if (showpopup) {
         this.db.showNotification('Status changed successfully.');

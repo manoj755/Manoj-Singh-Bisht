@@ -30,15 +30,28 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="Jobs" class="control-label col-xs-2">Owner</label>
-          <div class="col-xs-10">
-            <ng-select class='e' [(ngModel)]="addnewjob.manager">
-              <ng-option [value]="db.profile.id">Self</ng-option>
-              <ng-option [value]="x.id" *ngFor="let  x of managers">
-                {{x.name}}
-              </ng-option>
-            </ng-select>
-          </div>
+          <mat-form-field>
+            <mat-label for="Jobs" class="control-label col-xs-2">Owner</mat-label>
+            <div class="col-xs-10">
+
+
+                <!-- <mat-label>Favorite food</mat-label> -->
+                <mat-select [(ngModel)]="addnewjob.manager">
+                    <mat-option   [value]="db.profile.id">
+                        Self
+                      </mat-option>
+                  <mat-option [value]="x.id" *ngFor="let  x of managers">
+                      {{x.name}}
+                  </mat-option>
+                </mat-select>
+              <!-- <ng-select  [(ngModel)]="addnewjob.manager">
+                <ng-option [value]="db.profile.id">Self</ng-option>
+                <ng-option [value]="x.id" *ngFor="let  x of managers">
+                  {{x.name}}
+                </ng-option>
+              </ng-select> -->
+            </div>
+          </mat-form-field>
         </div>
         <!-- <div class="form-group">
                        <label for="Status" class="control-label col-xs-2">Status:</label>

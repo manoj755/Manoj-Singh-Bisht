@@ -180,23 +180,34 @@
                               <div class="col-md-12 bg-light-blue " style="margin-top: 10px;">
                                 <h5>Add Slab</h5>
                               </div>
-                              <div class="col-md-12  "
-                                style="padding: 20px; padding-top: 10px; margin-bottom:10px; background:#ebeca0">;
-
+                              <!-- <div class="col-md-12"
+                                style="padding: 20px; padding-top: 10px; margin-bottom:10px; background:#cec8be">; -->
+                                <mat-card class="col-md-12">
                                 <div class="row">
 
                                   <div class=" col-md-3">
 
-                                    <label>Fees From (LPA)</label>
-                                    <input type="number" class="form-control" [(ngModel)]="fromfeesslab" name="feesslab" required />
+
+                                    <mat-form-field class="example-full-width">
+                                      <input matInput placeholder="Fees From (LPA)" type="number" [(ngModel)]="fromfeesslab" name="feesslab">
+                                    </mat-form-field>
+
+                                    <!-- <label style="text:black;">Fees From (LPA)</label>
+                                    <input type="number" class="form-control" [(ngModel)]="fromfeesslab" name="feesslab" required /> -->
                                   </div>
                                   <div class="col-md-3">
-                                    <label>Fees To (LPA)</label>
-                                    <input type="number" class="form-control" [(ngModel)]="tofeesslab" name="feesslab" required />
+                                      <mat-form-field class="example-full-width">
+                                          <input matInput placeholder="Fees To (LPA)" type="number" [(ngModel)]="tofeesslab" name="feesslab">
+                                    </mat-form-field>
+                                    <!-- <label style="text:black;">Fees To (LPA)</label>
+                                    <input type="number" class="form-control" [(ngModel)]="tofeesslab" name="feesslab" required /> -->
                                   </div>
                                   <div class="col-md-3">
-                                    <label>Amount/Percentage</label>
-                                    <input type="text" [(ngModel)]="amt" class="form-control" id="amount" name="feesslab3" />
+                                      <mat-form-field class="example-full-width">
+                                          <input matInput placeholder="Amount/Percentage" type="text" [(ngModel)]="amt" class="form-control" id="amount" name="feesslab3">
+                                    </mat-form-field>
+                                    <!-- <label style="text:black;">Amount/Percentage</label>
+                                    <input type="text" [(ngModel)]="amt" class="form-control" id="amount" name="feesslab3" /> -->
                                   </div>
                                   <div class="col-md-3">
                                     <div class="form-group"><label>Contract Type</label>
@@ -224,8 +235,10 @@
 
 
                                   </div>
+
                                 </div>
-                              </div>
+                              </mat-card>
+                              <!-- </div> -->
                             </div>
 
 
@@ -387,7 +400,7 @@
                   </div>
             </ng-template>
           </mat-tab>
-          <mat-tab label="Department" class="col-md-12">
+          <mat-tab *ngIf="!db.profile.isvendor=='0'"label="Department" class="col-md-12">
             <ng-template matTabContent>
               <div class="card col-md-12">
                   <div class="form-group col-md-6">

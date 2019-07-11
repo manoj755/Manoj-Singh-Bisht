@@ -85,6 +85,8 @@ export class NewJobComponent implements OnInit {
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   showeditjob = false;
+  a = true;
+  keyskillscheck: any;
 
   constructor(public db: DBService, public route: ActivatedRoute) { }
 
@@ -267,7 +269,12 @@ export class NewJobComponent implements OnInit {
       }
 
       this.myjob.keyskills = tags;
-
+      if (this.myjob.is_client == 1) {
+        this.myjob.is_client = 'Client';
+      }
+      else {
+        this.myjob.is_client = 'Deparment';
+      }
 
 
       try {
@@ -346,16 +353,18 @@ export class NewJobComponent implements OnInit {
 
         }
       }
+
       // this.functionalArea=''
       try {
         this.myjob.Industry = this.myjob.industry.toString();
-        this.myjob.jobRole = this.myjob.jobRole.toString();
+
       } catch (e) {
         console.log(e);
       }
+      this.myjob.jobRole = this.myjob.jobRole.toString();
       //
       this.changerole();
-      //this.getrole();
+      // this.getrole();
       //
       $('#submitjob').modal('show');
     });
@@ -390,26 +399,59 @@ export class NewJobComponent implements OnInit {
       const locations = this.location;
       let locationstr = '';
       let isfirstlocation = true;
+      //const j = 0;
       for (const j in locations) {
-        if (locations[j] !== '') {
-          if (isfirstlocation) {
-            locationstr += locations[j].$ngOptionLabel;
-            isfirstlocation = false;
-          } else {
-            locationstr += ',' + locations[j].$ngOptionLabel;
-          }
-        }
-      }
-      debugger;
-      const keyskills = this.myjob.keyskills;
-      let keyskillstr = '';
-      for (const j in keyskills) {
-        if (keyskills[j]) {
-          keyskillstr += ',' + keyskills[j];
+        //  if ( locations[j]) {
+        if (isfirstlocation) {
+          locationstr += locations[j].$ngOptionLabel;
+          isfirstlocation = false;
         }
 
+        else {
+          locationstr += ',' + locations[j].$ngOptionLabel;
+        }
+        // }
       }
-      this.myjob.keyskills = keyskillstr;
+      if (locationstr == 'undefined') {
+        locationstr = this.location[0];
+      }
+
+      if (this.myjob.is_client == 'Client') {
+        this.myjob.is_client = 1;
+      }
+      else if (this.myjob.is_client == 'Department') {
+        this.myjob.is_client = 0;
+      }
+      debugger;
+      if (this.a == true) {
+        this.a = false;
+        let keyskills = this.myjob.keyskills;
+        this.keyskillscheck = this.myjob.keyskills;
+        let keyskillstr = '';
+        // if (keyskillstr == '') {
+        for (const j in keyskills) {
+          if (keyskills[j]) {
+            keyskillstr += ',' + keyskills[j];
+          }
+
+        }
+
+        this.myjob.keyskills = keyskillstr;
+        // }
+      }
+      else if (this.a == false) {
+        const keysk = this.keyskillscheck
+        let keyskillstr2 = '';
+
+        for (const j in keysk) {
+          if (keysk[j]) {
+            keyskillstr2 += ',' + keysk[j];
+          }
+
+        }
+
+        this.myjob.keyskills = keyskillstr2;
+      }
       this.myjob.location = locationstr;
       // this.myjob.functionalArea = this.functionalArea;
       //            let locations = this.location;
@@ -878,18 +920,24 @@ export class NewJobComponent implements OnInit {
       // } else {
       //   this.myjob.keyskills = this.storekey;
       // }
+      if (this.myjob.is_client == 'Client') {
+        this.myjob.is_client = 1;
+      }
+      else if (this.myjob.is_client == 'Department') {
+        this.myjob.is_client = 0;
+      }
       const keyskills = this.myjob.keyskills;
       //this.storekey = '';
       let keyskillstr = '';
       //if (this.storekey === '' || this.storekey === undefined) {
-        // this.storekey = this.myjob.keyskills;
-        for (const j in keyskills) {
-          if (keyskills[j]) {
-            keyskillstr += keyskills[j] + ',';
-          }
-
+      // this.storekey = this.myjob.keyskills;
+      for (const j in keyskills) {
+        if (keyskills[j]) {
+          keyskillstr += keyskills[j] + ',';
         }
-        this.myjob.keyskills = keyskillstr;
+
+      }
+      this.myjob.keyskills = keyskillstr;
       this.myjob.location = locationstr;
       this.myjob.start_date = this.db.toYYMMDD(this.start_date_temp);
       this.myjob.end_date = this.db.toYYMMDD(this.end_date_temp);

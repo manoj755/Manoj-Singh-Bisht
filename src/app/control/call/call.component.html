@@ -36,7 +36,7 @@ class="modal fade">
           <div class="col-xs-10">
             <mat-select [(ngModel)]="addnewjob.add_new_job_id"
               name="add_new_job_id">
-              <mat-option [value]="x.id" *ngFor="let  x of jobslistbyclientsaddtojob">{{x.job_title}}
+              <mat-option [value]="x.id" *ngFor="let  x of jobslistbyclientsaddtojob">{{x.job_title}}({{x.id}})
               </mat-option>
 
             </mat-select>

@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     // } else {
     //   this.fp.isemail = '0';
     // }
-    if (this.fp.emailormobile == this.loginData.username) {
+   // if (this.fp.emailormobile == this.loginData.username) {
       const data = {
         email: this.loginData.username, password: this.loginData.password,
         remember: this.loginData.remember, isemail: 1, emailormobile: this.fp.emailormobile
@@ -108,7 +108,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
 
       );
-    }
+   // }
   }
 
 
@@ -125,7 +125,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   //     });
   // };
   checkotp(): void {
-
+    debugger;
     // this.otp.emailormobile = this.fp.emailormobile;
     const data = { otp: this.otp.otp, emailormobile: this.fp.emailormobile };
 
@@ -145,8 +145,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   };
   changepasswordFN(): void {
-
-    if (this.resetpassword.newpassword.length >= 6 && this.resetpassword.confirmpassword === this.resetpassword.newpassword) {
+debugger;
+    if (this.resetpassword.newpassword.length >= 6 && this.resetpassword.confirmpassword == this.resetpassword.newpassword) {
       // this.resetpassword.emailormobile = this.fp.emailormobile;
       this.resetpassword.otp = this.otp.otp;
 
@@ -159,13 +159,14 @@ export class LoginComponent implements OnInit, OnDestroy {
       //   headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       // }
       const data = {
-        emailormobile: this.resetpassword.emailormobile,
+        emailormobile: this.fp.emailormobile,
         otp: this.resetpassword.otp, newpassword: this.resetpassword.newpassword
       };
 
       this.db.post('resetpasswordmobile/', data, (response): void => {
         //$('#otp').modal('hide');
-        $('#changepassword').modal('show');
+        $('#changepassword').modal('hide');
+        this.db.addmessageandremove('password changed');
 
       });
       // $http(req).then(function (response) {
@@ -176,7 +177,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       //     alert(r.data.msg);
       //   }
       // });
-    } else if (this.resetpassword.confirmpassword !== this.resetpassword.newpassword) {
+    } else if (this.resetpassword.confirmpassword ! = this.resetpassword.newpassword) {
       alert('password not matched');
     } else if (this.resetpassword.newpassword.length < 6) {
       alert('password length must be at least 6');

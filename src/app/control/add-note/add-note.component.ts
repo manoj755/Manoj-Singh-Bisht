@@ -18,6 +18,7 @@ export class AddNoteComponent implements OnInit {
   candidate_id = 0;
   @Input()
   set set_candidate_id(candidate_id: number) {
+    debugger;
     this.candidate_id = candidate_id;
     if (candidate_id > 0) {
       this.GetNotes();
@@ -34,6 +35,7 @@ export class AddNoteComponent implements OnInit {
     //   //  $.fn.showMessage('Please fill values');
     //     return;
     //   }
+    debugger;
 
     this.CandidateNote.candidate_id = this.candidate_id;
     this.db.store('candidatenote/', this.CandidateNote, (response): void => {

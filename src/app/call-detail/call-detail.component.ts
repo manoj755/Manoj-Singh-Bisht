@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from '../db.service';
 import { CandidateCallDatailsComponent } from '../control/candidate-call-datails/candidate-call-datails.component';
+import { AddCandidateMyjobComponent } from '../control/add-candidate-myjob/add-candidate-myjob.component';
 //import { CandidateMyJobComponent } from '../control/candidate-my-job/candidate-my-job.component';
 declare var $: any;
 @Component({
@@ -15,6 +16,7 @@ export class CallDetailComponent implements OnInit {
   private gridApi;
   selectednodes = [];
   allids = [];
+  load: AddCandidateMyjobComponent;
 
   recruiter;
   conversations = {};
@@ -78,7 +80,7 @@ export class CallDetailComponent implements OnInit {
   selectedjob: any = {};
   isfilter = false;
   filter: any = {};
-  jobslistmain: any = {};
+  jobslistmain: any;
   filterdropdown: any = '';
   isinterview: any = {};
   filterpopup: any;
@@ -136,6 +138,8 @@ export class CallDetailComponent implements OnInit {
   $url = 'http://www.passivereferral.com/refer/';
   $urlapply = 'http://www.passivereferral.com/apply/';
   currentData: {};
+  candidate_id = 0;
+  onCommentClick: any;
   // today = new Date();
   // start_date = '';
   constructor(public db: DBService) {
@@ -150,6 +154,7 @@ export class CallDetailComponent implements OnInit {
   bindJob(): void {
     this.isLoadingJobs = true;
     this.db.list('joblistbycall/', {}, ((response): void => {
+      this.jobslistmain = response;
       this.jobslist = response;
       this.isLoadingJobs = false;
 
@@ -343,19 +348,20 @@ export class CallDetailComponent implements OnInit {
 
   };
   tag(item): void {
+debugger;
+    if (item.tagged == '10') {
 
-    //
-    if (item.tagged !== '10') {
-      this.db.destroy('jobtag/', this.item.id, ((response): void => {
-        this.item.tagged = '10';
-      })
-      );
+      this.db.store('jobtag/', { job_id: item.id }, (response): void => {
+        item.tagged = '11';
+        this.db.showMessage('Tagged');
+      });
     } else {
 
-      this.db.store('jobtag/', { job_id: item.id }, ((response): void => {
-        this.item.tagged = '11';
-      })
-      );
+      this.db.destroy('jobtag/', item.id, (response): void => {
+        item.tagged = '10';
+        this.db.showMessage('Untagged');
+
+      });
 
     }
 
@@ -517,12 +523,12 @@ export class CallDetailComponent implements OnInit {
           return this.conversation(data);
         case 'openpopup':
           return this.openpopup(data.call_id);
-          case 'activity':
+        case 'activity':
         //   return this.activityclick(data);
-         //case 'comment':
-         // return this.onCommentClick(data);
-        //case 'notes':
-        //   return this.onNotesClick(data);
+        case 'comment':
+          return this.onCommentClick(data);
+        case 'notes':
+          return this.onNotesClick(data);
         case 'candidateshow':
           return this.oncandidateshowClick(data);
 
@@ -591,7 +597,7 @@ export class CallDetailComponent implements OnInit {
   }
   loadCandidate = function () {
 
-    //
+    debugger;
     let SelectedJob = ''
     if (this.isfirstload !== 1) {
       // SelectedJob = FH.SelectedCheckboxWithComma(this.jobslist);
@@ -602,10 +608,11 @@ export class CallDetailComponent implements OnInit {
     //        var totalrow=this.gridApipopup.selection.getSelectedRows();
     //             SelectedJob= FH.SelectedWithComma(totalrow,'id');
     this.globaljobid = SelectedJob;
+
     const Search = {
       filterdropdown: this.filterdropdown,
       process: this.process,
-      mainprocess: this.mainprocess,
+      mainprocess: this.mainprocessnewvar,
       searchcandidatetext: this.searchcandidatetext,
       selectedjob: SelectedJob,
       candidate: this.searchcandidate,
@@ -651,13 +658,16 @@ export class CallDetailComponent implements OnInit {
     this.conversationsobj = [];
     // this.callconversation=entity;
     this.db.show('calldetail/', entity.call_id, ((response): void => {
-      debugger;
+      //debugger;
       this.conversations = JSON.parse(response.conversation);
       for (const con in this.conversations) {
         if (true) {
           if (this.conversations['audio']) {
             this.conversationsobj.push({
-              key: con.split('__')[0], value: this.conversations[con].text,
+              //key: Object.keys(con).toString(),
+
+              key: con.split('__')[0],
+              value: this.conversations[con].text,
               start_speaking: this.conversations[con].start_speaking,
               end_speaking: this.conversations[con].end_speaking,
               start_transcribe: this.conversations[con].start_transcribe,
@@ -668,9 +678,13 @@ export class CallDetailComponent implements OnInit {
               //            start_speaking: this.conversations[con].start_speaking,
 
             })
-          } else {
-           // this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con].text })
-           this.conversationsobj.push({ key: con.split('__')[0], text: con.substring(1, con.indexOf(':'))})
+          }
+          else if (this.conversations[con].text != null) {
+            this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con].text })
+          }
+          else {
+            // this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con].text })
+            this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con] })
           }
         }
       }
@@ -680,7 +694,9 @@ export class CallDetailComponent implements OnInit {
 
   };
 
-
+  getaudiolink(audio) {
+    return 'https://api.passivereferral.com/recording/' + audio + '.wav';
+  };
   sendtrackermsg(download): void {
 
     if (download) {
@@ -775,6 +791,7 @@ export class CallDetailComponent implements OnInit {
   searchtermchange(): void {
     // const displaydd = 'Jobs';
     // const currentfilter = 'jobs';
+    debugger;
     this.searchcandidatetext = '';
     this.searchcandidate = '';
     if (this.currentfilter === 'jobs') {
@@ -825,6 +842,7 @@ export class CallDetailComponent implements OnInit {
     let data = [];
 
     this.filter = val;
+    debugger;
     if (val === 'All') {
       data = this.jobslistmain;
     } else
@@ -842,9 +860,9 @@ export class CallDetailComponent implements OnInit {
           }
         }
       } else if (type === 'tagged') {
-
+        debugger;
         for (const i in this.jobslistmain) {
-          if (this.jobslistmain[i].tagged === '11') {
+          if (this.jobslistmain[i].tagged === 11 || this.jobslistmain[i].tagged === '11') {
             data.push(this.jobslistmain[i]);
           }
         }
@@ -872,8 +890,10 @@ export class CallDetailComponent implements OnInit {
     //   //  $.fn.showMessage('Please fill values');
     //   return;
     // }
+    debugger;
     this.item.start_date = this.db.toYYMMDD(this.item.start_date_temp);
     this.item.end_date = this.db.toYYMMDD(this.item.end_date_temp);
+    this.item.candidate =  this.searchcandidate;
     this.db.list('joblistbycall/', this.item, ((response): void => {
       this.jobslistmain = response;
       // this.item=response;
@@ -883,9 +903,12 @@ export class CallDetailComponent implements OnInit {
     );
   };
 
-
+  public onNotesClick(data: any) {
+   // debugger;
+    this.candidate_id = data.id;
+  }
   filterdropdownfunction(choice, display): void {
-
+debugger;
     this.filterdropdown = choice;
     this.displaydd = display;
     this.currentfilter = choice;
@@ -912,7 +935,7 @@ export class CallDetailComponent implements OnInit {
   //   this.searchcandidatetext = '';
   // };
   filterbycandidate(): void {
-
+debugger;
     this.searchcandidatetext = '';
     this.getlist();
 
@@ -923,7 +946,7 @@ export class CallDetailComponent implements OnInit {
     this.ShowCandidates = true;
   };
 
-  filterdrbytab(mainprocess, childprocess, jobitem): void {
+  filterdrbytab(mainprocess?, childprocess?, jobitem?): void {
     debugger;
     this.isinterview = 9;
     if (childprocess === 'isinterview') {
@@ -940,7 +963,7 @@ export class CallDetailComponent implements OnInit {
     }
     this.mainprocessnewvar = mainprocess;
     this.childprocessnewvar = childprocess;
-    if (childprocess === 'allcalled') {
+    if (childprocess === 'allcalledcandidate') {
       this.gridheader = 'All';
     } else if (childprocess === 'calledinterested') {
       this.gridheader = 'Interested';
@@ -983,39 +1006,39 @@ export class CallDetailComponent implements OnInit {
   // };
 
 
-  addtojobcandidates(): void {
-    if ($('.validate').validate('#assignCandidate', true)) {
-      this.addtojobmessage = '';
-      // var totalrow=this.gridApipopup.selection.getSelectedRows();
-      // var allrow= '';//FH.SelectedWithComma(totalrow,'id');//
-      const totalrow = this.gridApipopup.selection.getSelectedRows();
-      const allrow = this.db.SelectedWithComma(totalrow, 'id');
-      const copyjob = {
-        'candidates': allrow,
-        'job': this.copycandidate.job_id,
-        'manager': this.copycandidate.manager
-      };
-      this.db.store('copyjob/', copyjob, ((response): void => {
+  // addtojobcandidates(): void {
+  //   if ($('.validate').validate('#assignCandidate', true)) {
+  //     this.addtojobmessage = '';
+  //     // var totalrow=this.gridApipopup.selection.getSelectedRows();
+  //     // var allrow= '';//FH.SelectedWithComma(totalrow,'id');//
+  //     const totalrow = this.gridApipopup.selection.getSelectedRows();
+  //     const allrow = this.db.SelectedWithComma(totalrow, 'id');
+  //     const copyjob = {
+  //       'candidates': allrow,
+  //       'job': this.copycandidate.job_id,
+  //       'manager': this.copycandidate.manager
+  //     };
+  //     this.db.store('copyjob/', copyjob, ((response): void => {
 
 
 
-        this.getlist();
-        // for (let i in this.candidates) {
-        //   if(this.candidates)
-        //   this.myjob[i] = '';
-        // }
-        if (response.alreadyexists > 0) {
-          this.addtojobmessage = response.alreadyexists + ' Candidate(s) already in pipeline.';
-        } else {
-          this.addtojobmessage = 'Assign Candidate Successfully';
+  //       this.getlist();
+  //       // for (let i in this.candidates) {
+  //       //   if(this.candidates)
+  //       //   this.myjob[i] = '';
+  //       // }
+  //       if (response.alreadyexists > 0) {
+  //         this.addtojobmessage = response.alreadyexists + ' Candidate(s) already in pipeline.';
+  //       } else {
+  //         this.addtojobmessage = 'Assign Candidate Successfully';
 
-        }
-        alert(this.addtojobmessage);
+  //       }
+  //       alert(this.addtojobmessage);
 
-      })
-      );
-    }
-  }
+  //     })
+  //     );
+  //   }
+  // }
 
 
 
@@ -1647,8 +1670,8 @@ export class CallDetailComponent implements OnInit {
   //   this.filterdrbytab('My Referrals', 'Under Review');
   //   this.isfirstload = 0;
   //   $('#myreferrals').parent().addClass('active').prev().removeClass('active');
-  //   $('#1b').removeClass('actieve');
-  //   $('#2b').addClass('actieve');
+  //   $('#1b').removeClass('active');
+  //   $('#2b').addClass('active');
   // } else {
   //   this.loadCandidate();
   // }
@@ -1784,6 +1807,7 @@ export class CallDetailComponent implements OnInit {
   }
 
   onSelectionChanged(event) {
+    //debugger;
     this.selectednodes = event.api.getSelectedNodes();
     this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
     // this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);

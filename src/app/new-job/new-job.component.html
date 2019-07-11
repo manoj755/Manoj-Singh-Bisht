@@ -31,10 +31,11 @@
                     <label class="col-md-4">Client/Department</label>
                     <!-- <mat-form-field> -->
                         <div class="col-md-8">
-                    <select matNativeControl  [(ngModel)]="myjob.is_client">
+                    <select matNativeControl id="is_client" name="is_client" [(ngModel)]="myjob.is_client">
                       <!-- <option >any</option> -->
-                      <option value="'1'">client</option>
-                      <option value="'0'">department</option>
+                      <option value='{{myjob.is_client}}'>{{myjob.is_client}}</option>
+                      <option value="Client">Client</option>
+                      <option value="Department">Department</option>
 
                     </select>
                     </div>
@@ -183,8 +184,7 @@
                       <label class="col-md-4 " Industry>Hide Salary from jobseekers</label>
 
                       <div class="col-md-8">
-                        <mat-checkbox ngDefaultControl [(ngModel)]='myjob.HideSalaryfromjobseekers' ng-true-value="'YES'"
-                          ng-false-value="'NO'">
+                        <mat-checkbox ngDefaultControl [(ngModel)]='myjob.HideSalaryfromjobseekers' *ngIf="myjob.HideSalaryfromjobseekers=='true'" >
                         </mat-checkbox>
                       </div>
                     </div>
@@ -413,7 +413,7 @@
                     <div class="col-md-10">
 
 
-                      <ng-select [(ngModel)]="location" [multiple]="true" ngDefaultControl>
+                      <ng-select name="location" [(ngModel)]="location" [multiple]="true" ngDefaultControl>
                         <ng-option *ngFor="let location of locations ">{{location}}</ng-option>
                       </ng-select>
                     </div>
@@ -456,7 +456,8 @@
                   <div class="form-group col-md-6">
                     <label class="col-md-4" Job_Role>Job Role</label>
                     <div class="col-md-8">
-                      <select id="Job_Role" validate n="a Job Role" name="jobRole" [(ngModel)]="myjob.jobRole">
+                      <select id="jobRole" validate n="a Job Role" name="jobRole" [(ngModel)]="myjob.jobRole">
+                        <option>{{myjob.jobRole}}</option>
                         <option *ngFor="let jobrole of  jobroles">{{jobrole.val}}</option>
                       </select>
 

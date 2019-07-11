@@ -320,6 +320,7 @@ export class MyJobComponent implements OnInit {
 
   };
   updatestatuscommentmyjob = function (showpopup) {
+    debugger;
     if (typeof showpopup === 'undefined') {
       showpopup = true;
     }
@@ -419,6 +420,7 @@ export class MyJobComponent implements OnInit {
 
   }
   filteragain(): void {
+    debugger;
     this.jobslistlength = this.numberOfPages(this.jobslist);
 
   }
@@ -491,6 +493,7 @@ export class MyJobComponent implements OnInit {
     });
   }
   filterdrbytab(mainprocess?, childprocess?, jobitem?): void {
+    debugger;
     this.isinterview = 9;
     if (childprocess === 'isinterview') {
       childprocess = 'all';
@@ -531,20 +534,20 @@ export class MyJobComponent implements OnInit {
   };
 
   filterbycandidate(): void {
-
+debugger;
     this.searchcandidatetext = '';
     this.getlist();
 
   };
   filterbyJob(): void {
-
+debugger;
     this.loadCandidate();
     this.ShowCandidates = true;
   };
 
   loadCandidate = function () {
 
-    //
+    debugger;
     let SelectedJob = ''
     if (this.isfirstload !== 1) {
       SelectedJob = this.db.SelectedCheckboxWithComma(this.jobslist);
@@ -600,7 +603,7 @@ export class MyJobComponent implements OnInit {
     item.selected = !item.selected;
   };
   changefilter(val, type): void {
-
+debugger;
     this.isfilter = true;
     let data = [];
 
@@ -705,6 +708,7 @@ export class MyJobComponent implements OnInit {
     }
   };
   searchtermchange(): void {
+    debugger;
     this.searchcandidatetext = '';
     this.searchcandidate = '';
     if (this.currentfilter === 'jobs') {
@@ -721,7 +725,7 @@ export class MyJobComponent implements OnInit {
   };
 
   filterdropdownfunction(choice, display): void {
-
+debugger;
     this.filterdropdown = choice;
     this.displaydd = display;
     this.currentfilter = choice;
@@ -777,7 +781,10 @@ export class MyJobComponent implements OnInit {
 
     this.candidate_id = data.id;
   }
-
+  public setupdateid(id) {
+    debugger;
+    this.candidate_id = id;
+  }
 
 
   // toggleColor(item) {
@@ -927,6 +934,7 @@ export class MyJobComponent implements OnInit {
   }
 
   onSelectionChanged(event) {
+    debugger;
     this.selectednodes = event.api.getSelectedNodes();
     this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
     // this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
