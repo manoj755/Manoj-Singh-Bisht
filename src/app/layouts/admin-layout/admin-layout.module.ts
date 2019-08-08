@@ -39,6 +39,8 @@ import { LogoutComponent } from '../../logout/logout.component';
 import { MyJobComponent } from '../../my-job/my-job.component';
 import { BillingComponent } from '../../billing/billing.component';
 import { HistoryComponent } from '../../history/history.component';
+import { EmailparsingComponent } from '../../emailparsing/emailparsing.component';
+
 import { InternalDatabaseComponent } from '../../internal-database/internal-database.component';
 import { NewJobComponent } from '../../new-job/new-job.component';
 import { DepartmentComponent } from '../../department/department.component';
@@ -80,7 +82,9 @@ import { PipesModule } from 'w-ng5';
 // tslint:disable-next-line: max-line-length
 import { CandidateInJobsNotificationComponent } from '../../control/candidate-in-jobs-notification/candidate-in-jobs-notification.component';
 import { CandidateMyJobComponent } from '../../control/candidate-my-job/candidate-my-job.component';
+import { ClientdepartmentComponent } from '../../clientdepartment/clientdepartment.component';
 import { CandidateCallDatailsComponent } from '../../control/candidate-call-datails/candidate-call-datails.component';
+
 import {
   MatButtonModule,
   MatInputModule,
@@ -185,6 +189,7 @@ declare var $: any;
     UpgradeComponent,
     LoginComponent,
     HistoryComponent,
+    EmailparsingComponent,
     MyJobComponent,
     BillingComponent,
     InternalDatabaseComponent,
@@ -218,6 +223,7 @@ declare var $: any;
     CandidateInJobsNotificationComponent,
     CandidateCallDatailsComponent,
     TermsAndConditionsComponent,
+    ClientdepartmentComponent,
 
     PageNotFoundComponent,
     SettingsComponent,

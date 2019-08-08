@@ -14,7 +14,7 @@
       <div class="logo-img " hidden='ture'>
         <img src="/assets/img/angular2-logo-red.png" />
       </div>
-      <i class="simple-text" style="text-align:center;"><span style="color:green;size:50px;">.</span>{{db.profile.name}}</i>
+      <i class="simple-text" style="text-align:center;"><span style="color:green;">{{db.profile.name}}</span></i>
   <!-- <i class="material-icons" style="color:green;">adjust<span class=" simple-text"></span></i> -->
 
 
@@ -125,7 +125,7 @@
       <div class="collapse" id="jobs">
         <ul class="nav">
 
-          <li class="nav-item" *ngIf="db.mp.page_job ||!db.profile.isvendor=='1'" routerlinkactive="active"><a class="nav-link"
+          <li class="nav-item" *ngIf="db.mp.page_job || db.profile.isvendor !=='1' && db.mp.page_myjob" routerlinkactive="active"><a class="nav-link"
               [routerLink]="['/myjob']"><span class="sidebar-normal">myjob</span></a></li>
           <li class="nav-item" *ngIf="db.mp.add_new_job_store ||!db.profile.isvendor=='1'" routerlinkactive="active"><a class="nav-link"
               [routerLink]="['/newjob']">
@@ -179,7 +179,9 @@
           <li class="nav-item"  *ngIf="db.mp.page_message_template" routerlinkactive="active"><a class="nav-link" [routerLink]="['/messagetemplate']">
               <span class="sidebar-normal">Message Templates</span></a></li>
           <li class="nav-item" *ngIf="db.mp.page_client" routerlinkactive="active"><a class="nav-link" [routerLink]="['/client']">
-              <span class="sidebar-normal">Client/Department</span></a></li>
+              <span class="sidebar-normal">Client</span></a></li>
+              <li class="nav-item" *ngIf="db.mp.page_deparment" routerlinkactive="active"><a class="nav-link" [routerLink]="['/clientdepartment']">
+                <span class="sidebar-normal">Department</span></a></li>
           <li class="nav-item" *ngIf="db.mp.page_tracker" routerlinkactive="active"><a class="nav-link" [routerLink]="['/newtracker']">
               <span class="sidebar-normal">Tracker Fields </span></a></li>
           <li class="nav-item" *ngIf="db.mp.page_tracker_master" routerlinkactive="active"><a class="nav-link" [routerLink]="['/trackers']">

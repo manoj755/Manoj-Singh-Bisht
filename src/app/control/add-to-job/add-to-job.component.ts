@@ -24,6 +24,8 @@ export class AddToJobComponent implements OnInit {
   smsselected: any = {};
   @Input()
   allids = [];
+  @Input()
+  callids = [];
   // filteredOptions = ['first', 'second', 'three'];
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
@@ -70,8 +72,10 @@ export class AddToJobComponent implements OnInit {
       } else {
         addtojobmessage = 'Candidate Added Successfully';
 
+
       }
       this.db.showMessage(addtojobmessage);
+      this.afteraddtojob();
 
     })
     );
@@ -80,6 +84,20 @@ export class AddToJobComponent implements OnInit {
     // })
     // );
 
+  }
+  afteraddtojob(): void {
+    debugger;
+    if (this.callids.length > 0 ) {
+      const allrow = this.allids;
+      const callid = this.callids;
+      const job_id = this.addnewjob.add_new_job_id;
+
+      const data = { 'candidateid': allrow.toString(), 'callid': callid.toString(), 'job_id': job_id };
+      this.db.store('candidateaddtojob/', data, (response): void => {
+        this.db.showMessage('Candidate remove from callhistory');
+      }
+      );
+    }
   }
   getcandidatebyclientaddtojob(): void {
 

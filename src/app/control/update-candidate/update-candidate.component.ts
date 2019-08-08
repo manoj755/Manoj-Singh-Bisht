@@ -73,6 +73,7 @@ export class UpdateCandidateComponent implements OnInit {
   }
 
   setNotes(): void {
+    debugger;
     this.candidate_id = this.updateid;
     $('#notesdetail').modal('show');
   }

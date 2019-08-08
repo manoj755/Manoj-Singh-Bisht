@@ -16,6 +16,7 @@ export class CallDetailComponent implements OnInit {
   private gridApi;
   selectednodes = [];
   allids = [];
+  callids = [];
   load: AddCandidateMyjobComponent;
 
   recruiter;
@@ -348,7 +349,7 @@ export class CallDetailComponent implements OnInit {
 
   };
   tag(item): void {
-debugger;
+    debugger;
     if (item.tagged == '10') {
 
       this.db.store('jobtag/', { job_id: item.id }, (response): void => {
@@ -893,7 +894,7 @@ debugger;
     debugger;
     this.item.start_date = this.db.toYYMMDD(this.item.start_date_temp);
     this.item.end_date = this.db.toYYMMDD(this.item.end_date_temp);
-    this.item.candidate =  this.searchcandidate;
+    this.item.candidate = this.searchcandidate;
     this.db.list('joblistbycall/', this.item, ((response): void => {
       this.jobslistmain = response;
       // this.item=response;
@@ -904,11 +905,11 @@ debugger;
   };
 
   public onNotesClick(data: any) {
-   // debugger;
+    // debugger;
     this.candidate_id = data.id;
   }
   filterdropdownfunction(choice, display): void {
-debugger;
+    debugger;
     this.filterdropdown = choice;
     this.displaydd = display;
     this.currentfilter = choice;
@@ -935,7 +936,7 @@ debugger;
   //   this.searchcandidatetext = '';
   // };
   filterbycandidate(): void {
-debugger;
+    debugger;
     this.searchcandidatetext = '';
     this.getlist();
 
@@ -1807,9 +1808,10 @@ debugger;
   }
 
   onSelectionChanged(event) {
-    //debugger;
+    debugger;
     this.selectednodes = event.api.getSelectedNodes();
     this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
+    this.callids =   this.db.extractCallId(event.api.getSelectedNodes());
     // this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
 
   }

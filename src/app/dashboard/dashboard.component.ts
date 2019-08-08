@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
   notification_danger = 0;
   notification_success = 0;
   status_row = {};
+  selectednodes = [];
   allstatusload = 0;
   notification_default = 0;
   notification_warning = 0;
@@ -57,6 +58,10 @@ export class DashboardComponent implements OnInit {
   smsmessagetemplatesforref: any = [];
   emailmessagetemplatesforref: any = [];
   mp: any = {};
+  gridOptionsSuggestedCandidates: any;
+  gridOptionsSuggestedCandidatesCols = [];
+  gridOptionsSuggestedCandidatesRows = [];
+  allids: any;
   constructor(private router: Router, private db: DBService) { }
   isnull(val, returns) {
     if (val === null || val === undefined) {
@@ -214,8 +219,44 @@ export class DashboardComponent implements OnInit {
     seq = 0;
   };
 
+  load_total_job(jobid): void {
+    debugger;
+    $('#ModelshowjobsClientWise').modal('show');
+    //this.myjob.clientid = data.id;
+    this.db.list('getsuggestedcandidates/', { 'selectedjob': jobid, 'prsuggestionpercent': this.prsuggestionpercent }, (response): void => {
+      this.gridOptionsSuggestedCandidatesCols = [
+        {
+          'headerName': 'Candidate Name', 'field': 'candidateName',
+          sortable: true, filter: true, headerCheckboxSelection: true, checkboxSelection: true
+        },
+        { 'headerName': 'Match', 'field': 'score', 'sortable': true, 'filter': true },
+        { 'headerName': 'Designation', 'field': 'currentDesignation', 'sortable': true, 'filter': true },
+        { 'headerName': 'Email', 'field': 'email', 'sortable': true, 'filter': true },
+        { 'headerName': 'Edu', 'field': 'qualification', 'sortable': true, 'filter': true },
+        { 'headerName': 'Exp', 'field': 'ovarallExperiance', 'sortable': true, 'filter': true },
+        { 'headerName': 'Salary', 'field': 'currentSalary', 'sortable': true, 'filter': true },
+        { 'headerName': 'Location', 'field': 'location', 'sortable': true, 'filter': true },
+        { 'headerName': 'Preferred Location', 'field': 'preferredLocation', 'sortable': true, 'filter': true }],
+        // { 'headerName': 'Job Status', 'field': 'job_status', 'sortable': true, 'filter': true },
+        // { 'headerName': 'Start Date', 'field': 'start_date', 'sortable': true, 'filter': true },
+        // { 'headerName': 'End Date', 'field': 'end_date', 'sortable': true, 'filter': true },
+        // { 'headerName': 'type', 'field': 'jobtype', 'sortable': true, 'filter': true }];
+        // this.db.GenerateColDef(response);
+        this.gridOptionsSuggestedCandidatesRows = response;
 
 
+      //    db.sl();
+    });
+  }
+  opensuggestionondb(jobid): void {
+
+    this.db.list('getsuggestedcandidates/', { 'selectedjob': jobid, 'prsuggestionpercent': this.prsuggestionpercent }, (response): void => {
+
+      $('#candidatesall').modal('show');
+      this.gridOptionsSuggestedCandidates = response;
+
+    });
+  };
   public activity(data: any) {
     this.db.show('addtojob/activity/', data.ajid, (response): void => {
       this.activities = response;
@@ -383,10 +424,13 @@ export class DashboardComponent implements OnInit {
 
 
   loadsuggestion(): void {
-    this.prsuggestionpercent = '30';
+    debugger;
+    if (this.prsuggestionpercent == null || this.prsuggestionpercent == '') {
+      this.prsuggestionpercent = '30';
+    }
     //$('#prsuggestionpercentselect').val();
     // db.hl();
-    this.db.list('getsuggestionondashboard/', { "prsuggestionpercent": this.prsuggestionpercent }, ((response): void => {
+    this.db.list('getsuggestionondashboard/', { 'prsuggestionpercent': this.prsuggestionpercent }, ((response): void => {
       this.getsuggestions = response;
       //db.sl();
     })
@@ -474,6 +518,13 @@ export class DashboardComponent implements OnInit {
 
     this.currentData = data;
     this.currentData.id = this.currentData.candiateid;
+  }
+  onSelectionChanged(event) {
+    debugger;
+    this.selectednodes = event.api.getSelectedNodes();
+    this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
+    // this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
+
   }
 
 }

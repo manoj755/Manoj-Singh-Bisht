@@ -78,6 +78,9 @@ import { MessagelogComponent } from './messagelog/messagelog.component';
 import { SmslogComponent } from './smslog/smslog.component';
 import { CandidateCallDatailsComponent } from './control/candidate-call-datails/candidate-call-datails.component';
 import { AddCandidateMyjobComponent } from './control/add-candidate-myjob/add-candidate-myjob.component';
+import { CadidateJobSuggestionComponent } from './control/cadidate-job-suggestion/cadidate-job-suggestion.component';
+import { ClientdepartmentComponent } from './clientdepartment/clientdepartment.component';
+import { EmailparsingComponent } from './emailparsing/emailparsing.component';
 
 
 
@@ -125,6 +128,9 @@ import { AddCandidateMyjobComponent } from './control/add-candidate-myjob/add-ca
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+
+
+
 
 
 

@@ -840,16 +840,29 @@ export class DBService implements OnInit {
     if (id === null || id === undefined) {
       id = 'id';
     }
-    const ids = [];
+    const ids1 = [];
 
     for (const i in data) {
       if (data[i]) {
-        ids.push(data[i].data[id]);
+        ids1.push(data[i].data[id]);
       }
     }
 
-    return ids;
+    return ids1;
 
+  }
+  extractCallId(data, call_id?): any {
+    debugger;
+    if (call_id === null || call_id === undefined) {
+      call_id = 'call_id';
+    }
+    const ids = [];
+    for (const i in data) {
+      if (data[i]) {
+        ids.push(data[i].data[call_id])
+      }
+    }
+    return ids;
   }
 
   setSelectedNodes(data?, type?): void {

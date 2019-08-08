@@ -12,6 +12,7 @@ import { LoginComponent } from '../../login/login.component';
 import { MyJobComponent } from '../../my-job/my-job.component';
 import { BillingComponent } from '../../billing/billing.component';
 import { HistoryComponent } from '../../history/history.component';
+import { EmailparsingComponent } from '../../emailparsing/emailparsing.component';
 import { InternalDatabaseComponent } from '../../internal-database/internal-database.component';
 import { NewJobComponent } from '../../new-job/new-job.component';
 import { CallDetailComponent } from '../../call-detail/call-detail.component';
@@ -36,12 +37,14 @@ import { SmslogComponent } from 'app/smslog/smslog.component';
 import { LogoutComponent } from 'app/logout/logout.component';
 import { TermsAndConditionsComponent } from '../../terms-and-conditions/terms-and-conditions.component';
 import { AddCandidateMyjobComponent } from '../../control/add-candidate-myjob/add-candidate-myjob.component';
+import { ClientdepartmentComponent } from '../../clientdepartment/clientdepartment.component';
 
 export const AdminLayoutRoutes: Routes = [
 
   { path: 'dashboard', component: DashboardComponent },
   { path: 'internaldatabase', component: InternalDatabaseComponent },
   { path: 'history', component: HistoryComponent },
+  { path: 'emailparsing', component: EmailparsingComponent },
   { path: 'call-detail', component: CallDetailComponent },
   { path: 'myjob', component: MyJobComponent },
   { path: 'newjob', component: NewJobComponent },
@@ -76,6 +79,8 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
   { path: 'add-candidate-myjob', component: AddCandidateMyjobComponent },
+  { path: 'clientdepartment', component: ClientdepartmentComponent },
+
 
 
 

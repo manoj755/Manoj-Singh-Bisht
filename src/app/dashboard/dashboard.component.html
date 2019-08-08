@@ -37,7 +37,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-6" (click)="navigateUrl('myjob')">
+      <div class="col-lg-3 col-md-6 col-sm-6" (click)="navigateUrl('myjob')"  *ngIf="db.mp.page_job">
         <div class="card card-stats">
           <div class="card-header card-header-danger card-header-icon">
             <div class="card-icon">
@@ -346,7 +346,19 @@
       <div class="col-lg-6 col-md-12" *ngIf="db.mp.dashboard_suggestion">
         <div class="card">
           <div class="card-header card-header-success">
-            <h4 class="card-title">Suggestion </h4>
+            <!-- <h4 class="card-title">Suggestion </h4> -->
+            <h4 class="box-title col-md-12">Suggestion <div style="display: inline-block; width: 90px;" class="form-group pull-right">
+              <ng-select  (change)="loadsuggestion()" id="prsuggestionpercentselect" [(ngModel)]="prsuggestionpercent">
+              <ng-option [value]="10" >10%</ng-option>
+              <ng-option [value]="20">20%</ng-option>
+              <ng-option [value]="30">30%</ng-option>
+              <ng-option [value]="40">40%</ng-option>
+              <ng-option [value]="50">50%</ng-option>
+              <ng-option [value]="60">60%</ng-option>
+              <ng-option [value]="70">70%</ng-option>
+              <ng-option [value]="80">80%</ng-option>
+              <ng-option [value]="90">90%</ng-option>
+          </ng-select> </div> </h4>
             <p class="card-category">On Tagged job</p>
           </div>
           <div class="card-body table-responsive" style="height: 500px;">
@@ -358,8 +370,8 @@
                                                 <i class="fa fa-ellipsis-v"></i>
                                                 <i class="fa fa-ellipsis-v"></i>
                                             </span> -->
-                                            <span class="text text-danger Bold pull-left" >{{getsuggestion.job_title}}</span>
-                                            matched with   <span class="badge"> {{getsuggestion.matchedcandidates}} </span> candidates.
+                                            <span class="text text-danger Bold pull-left" (click)="load_total_job(getsuggestion.id)">{{getsuggestion.job_title}}</span>
+                                             matched with   <span class="badge"> {{getsuggestion.matchedcandidates}} </span> candidates.
                                         </mat-card>
 
 
@@ -369,7 +381,7 @@
 
 
 
-                                    <div class="text-danger "  ng-show="getsuggestions.length==0">No Data</div>
+                                    <div class="text-danger "  *ngIf="getsuggestions.length == 0">No Data</div>
           </div>
         </div>
       </div>
@@ -685,7 +697,45 @@
           </div>
       </div>
   </div>
+  <div id="ModelshowjobsClientWise" class="modal fade" role="dialog">
+    <div class="modal-dialog width80percent">
 
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Jobs</h4>
+
+          <span class="col-md-1" style="margin-left:70%;"><a mat-mini-fab href="javascript:" help='call' data-target='#calldiv'
+            data-toggle='modal' *ngIf="db.mp.btn_can_call" class="icocall"><i class="fa fa-phone"></i></a></span>
+<a *ngIf="db.mp.candidates_under_job_copyjob" class="btn btn-raised btn-sm" href="javascript:"
+                  data-toggle="modal" data-target="#addtojob">
+                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span>  Add to Job</a>
+          <button type="button" class="close"
+            data-dismiss="modal">&times;</button>
+
+
+        </div>
+        <div class="modal-body">
+            <!-- <button (click)="exportdat()">Export</button> -->
+          <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="gridOptionsSuggestedCandidatesRows"
+            [columnDefs]="gridOptionsSuggestedCandidatesCols" suppressCsvExport=false
+            rowMultiSelectWithClick='true'
+                rowDeselection='true'
+             rowSelection='multiple' [groupSelectsChildren]="true" [suppressRowClickSelection]="true"
+            [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"
+            [groupSelectsChildren]="true" paginationAutoPageSize='true'
+            (selectionChanged)="onSelectionChanged($event)" [debug]="true"
+            [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+            [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)"
+            (rowClicked)="onRowClicked($event)"></ag-grid-angular>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn  btn-raised btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
     <div class="row d-none">
       <div class="col-md-4">
         <div class="card card-chart">
@@ -744,7 +794,12 @@
 
   </div>
 </div>
+<app-call [allids]='allids'></app-call>
+<app-add-to-job [allids]='allids'></app-add-to-job>
+
 <app-update-candidate [current_data]='currentData'></app-update-candidate>
 <app-activity [activities]="activities"></app-activity>
 
 <app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status>
+<!-- <app-cadidate-job-suggestion [job_id]='job_id' [set_status_row]='status_row'></app-cadidate-job-suggestion> -->
+

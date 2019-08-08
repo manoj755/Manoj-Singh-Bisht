@@ -84,19 +84,35 @@
                       </select>
                     </div>
                   </div> -->
+
+
                   <div class="form-group col-md-6">
-                    <mat-label for="gender" class="control-label col-sm-4">Gender:</mat-label>
-                    <div class="col-sm-8">
-                    <mat-select class="form-control" id="gender" [(ngModel)]="candidateshowdata.gender">
-                      <mat-option  value="1">
-                       Male
-                      </mat-option>
-                      <mat-option  value="2">
-                        Female
-                       </mat-option>
-                    </mat-select>
-                  </div>
+                      <label for="email" class="control-label col-sm-4">Email</label>
+                      <div class="col-sm-7">
+                        <input type="email" class="form-control " [(ngModel)]="candidateshowdata.email" id="email"
+                          placeholder="Enter the Email">
+                      </div>
+                    </div>
+
+
                 </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="Mobile" class="control-label col-sm-4">Mobile</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control " [(ngModel)]="candidateshowdata.mobileNo" id="mobile"
+                            placeholder="Enter the Mobile">
+                        </div>
+                      </div>
+
+
+                  <div class="form-group col-md-6">
+                    <label for="Qualification" class="control-label col-sm-4">Qualification</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.qualification"
+                        id="Qualification" placeholder="Qualification">
+                    </div>
+                  </div>
                 </div>
                 <div class="row">
 
@@ -115,23 +131,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="form-group col-md-6">
-                    <label for="currentdesignation" class="control-label col-sm-4">Relevant Experiance</label>
-                    <div class="col-sm-7">
-                      <input type="text" class="form-control " id="currentdesignation"
-                        [(ngModel)]="candidateshowdata.relevantExperiance" placeholder="Relevant Experiance">
-                    </div>
-                  </div>
 
-                  <div class="form-group col-md-6">
-                    <label for="Qualification" class="control-label col-sm-4">Qualification</label>
-                    <div class="col-sm-7">
-                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.qualification"
-                        id="Qualification" placeholder="Qualification">
-                    </div>
-                  </div>
-                </div>
                 <div class="row">
                   <!-- <div class="form-group col-md-6">
                     <label for="Qualification" class="control-label col-sm-4">Country</label>
@@ -212,13 +212,21 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-md-6">
-                    <label for="Mobile" class="control-label col-sm-4">Mobile</label>
-                    <div class="col-sm-7">
-                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.mobileNo" id="mobile"
-                        placeholder="Enter the Mobile">
+                    <div class="form-group col-md-6">
+                        <mat-label for="gender" class="control-label col-sm-4">Gender:</mat-label>
+                        <div class="col-sm-8">
+                        <mat-select class="form-control" id="gender" [(ngModel)]="candidateshowdata.gender">
+                          <mat-option  value="1">
+                           Male
+                          </mat-option>
+                          <mat-option  value="2">
+                            Female
+                           </mat-option>
+                        </mat-select>
+                      </div>
                     </div>
-                  </div>
+
+
                   <div class="form-group col-md-6">
                     <label for="Mobile" class="control-label col-sm-4">Notice Period</label>
                     <div class="col-sm-7">
@@ -261,6 +269,13 @@
                   </div>
                 </div>
                 <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="currentdesignation" class="control-label col-sm-4">Relevant Experiance</label>
+                        <div class="col-sm-7">
+                          <input type="text" class="form-control " id="currentdesignation"
+                            [(ngModel)]="candidateshowdata.relevantExperiance" placeholder="Relevant Experiance">
+                        </div>
+                      </div>
                   <div class="form-group col-md-6">
                     <label for="Mobile" class="control-label col-sm-4">Address</label>
                     <div class="col-sm-7">
@@ -268,13 +283,7 @@
                         placeholder="Address">
                     </div>
                   </div>
-                  <div class="form-group col-md-6">
-                    <label for="email" class="control-label col-sm-4">Email</label>
-                    <div class="col-sm-7">
-                      <input type="email" class="form-control " [(ngModel)]="candidateshowdata.email" id="email"
-                        placeholder="Enter the Email">
-                    </div>
-                  </div>
+
                 </div>
                 <div class="row">
 

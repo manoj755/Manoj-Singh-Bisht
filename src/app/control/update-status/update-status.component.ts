@@ -158,7 +158,12 @@ export class UpdateStatusComponent implements OnInit {
     }
 
     this.commentstatus.ajid = this.current_row.ajid;
-   this.commentstatus.date = this.db.toYYMMDDTT(this.commentstatus.date);
+    if (this.commentstatus.date != null ) {
+      this.commentstatus.date = this.db.toYYMMDD(this.commentstatus.date);
+    }
+    else {
+      this.commentstatus.date = '2000-01-01';
+    }
     // $scope.commentstatus.recruiterid=$scope.recruiterid;
 
     this.db.store('csr/', this.commentstatus, (response): void => {

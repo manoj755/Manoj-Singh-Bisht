@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { DBService } from 'app/db.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { PARAMETERS } from '@angular/core/src/util/decorators';
+import { DBService } from 'app/db.service';
+
+
 @Component({
-  selector: 'app-client',
-  templateUrl: './client.component.html',
-  styleUrls: ['./client.component.scss']
+  selector: 'app-clientdepartment',
+  templateUrl: './clientdepartment.component.html',
+  styleUrls: ['./clientdepartment.component.scss']
 })
-export class ClientComponent implements OnInit {
+export class ClientdepartmentComponent implements OnInit {
   public Editor = ClassicEditor;
   title = 'app';
   feeslab = [];
@@ -155,7 +156,7 @@ export class ClientComponent implements OnInit {
 
   }
   LoadData(): void {
-    this.db.list('clientdetail/', {}, ((response): void => {
+    this.db.list('clientdetaildepartment/', {}, ((response): void => {
       this.rowData = response;
 
 
@@ -208,7 +209,7 @@ export class ClientComponent implements OnInit {
   public onActionDeleteClick(data: any) {
     debugger;
     if (confirm('Are you sure?')) {
-      this.db.destroy('clientdetail/', data.id, ((response): void => {
+      this.db.destroy('clientdetaildepartment/', data.id, ((response): void => {
         this.db.addmessageandremove('deleted');
         this.LoadData();
       })
@@ -244,7 +245,7 @@ export class ClientComponent implements OnInit {
 
 
     this.isEdit = false;
-    this.db.show('clientdetail/', row.id, ((response): void => {
+    this.db.show('clientdetaildepartment/', row.id, ((response): void => {
 
       this.isEdit = true;
       this.client = response;
@@ -290,7 +291,7 @@ export class ClientComponent implements OnInit {
   };
   clientupdate(): void {
 
-    this.db.update('clientdetail/', this.client.id, this.client, ((response): void => {
+    this.db.update('clientdetaildepartment/', this.client.id, this.client, ((response): void => {
 
       this.LoadData();
       this.db.showMessage('Updated Successfully');
@@ -303,7 +304,7 @@ export class ClientComponent implements OnInit {
     // this.client.is_client = '1';
     // }
     // this.user.profilepic=this.user.profilepic[0];
-    this.db.store('clientdetail/', this.client, ((response): void => {
+    this.db.store('clientdetaildepartment/', this.client, ((response): void => {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
@@ -480,3 +481,4 @@ export class ClientComponent implements OnInit {
 
 
 }
+

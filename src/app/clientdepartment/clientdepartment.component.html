@@ -1,0 +1,99 @@
+
+
+
+
+
+<div class="main-content">
+  <div class="container-fluid">
+    <!-- <div class="row"> -->
+      <div class="col-12">
+        <Button class="btn btn-primary" (click)="showhideclient(0,100) || back()||showhide();"> Add Department</Button>
+
+      </div> <!-- <div *ngIf="ishideshow"> -->
+
+      <!-- </div> -->
+      <mat-tab-group>
+
+          <mat-tab label="Department" class="col-md-12">
+            <ng-template matTabContent>
+              <div class="card col-md-12">
+                  <!-- <div class="form-group col-md-6">
+                      <mat-label>Choose Type</mat-label>
+                      <mat-form-field>
+
+                      <select matNativeControl  [(ngModel)]="client.is_client">
+                        <option >any</option>
+                        <option value="'1'" >client</option>
+                        <option value="'0'">department</option>
+
+                      </select>
+                      <mat-checkbox ngDefaultControl [(ngModel)]="commentstatus.is_client">is_client</mat-checkbox>
+                    </mat-form-field>
+                    </div> -->
+                <div class="row">
+                    <div class="form-group col-md-6">
+                      <label class="col-xs-3 control-label">Name</label>
+                      <div class="col-xs-9">
+                        <input type="text" class="form-control e" id="clientname" [(ngModel)]="client.billingName"
+                          name="fullName" />
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label class="col-xs-3 control-label">Website</label>
+                      <div class="col-xs-9">
+                        <input type="text" class="form-control e web" id="clientWebsite" [(ngModel)]="client.website"
+                        name="Website" />
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label class="col-xs-3 control-label">Address</label>
+                      <div class="col-xs-9">
+                        <textarea class="form-control e" maxlength="150" id="clientAddress" [(ngModel)]="client.address"
+                        name="addr"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                      <label class="col-xs-3 control-label">About</label>
+                      <div class="col-xs-9">
+                        <textarea class="form-control e" maxlength="150" id="clientabout" [(ngModel)]="client.about"
+                          name="About"></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 15px;">
+                      <div class="col-xs-10 col-xs-offset-2">
+                        <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary"
+                          (click)="clientupdate()">Update </button>
+
+                        <button type="submit" *ngIf="!isEdit" class="btn  btn-raised btn-primary validate"
+                          target="#addnewclient" (click)="clientsave()">Add Department</button>
+                        <button type="submit" *ngIf="isEdit" class="btn  btn-raised btn-primary validate"
+                          target="#addnewclient" (click)="isEdit = false; client = {fee_slab:[]}; ">Back</button>
+
+                        <button type="submit" *ngIf="isEdit"
+                          class="btn  btn-raised btn-primary validate {{db.profile.is_ats != '0'?'':'remove'}}" clientform
+                          data-toggle="modal" data-target="#addbilling" (click)="loadstatewisedetail()">Add Billing
+                          Details</button>
+
+                        <!--<md-button class="md-raised"  (click)="clientsave()" >Submit</md-button>-->
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+            </ng-template>
+          </mat-tab>
+        </mat-tab-group>
+
+      <div class="col-12">
+        <ag-grid-angular style=" height: 500px;" (rowClicked)="onRowClicked($event)"
+        rowSelection='multiple'
+          class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
+          [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+          (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
+          (gridReady)="onGridReady($event)">
+        </ag-grid-angular>
+      </div>
+    <!-- </div> -->
+  </div>
+</div>

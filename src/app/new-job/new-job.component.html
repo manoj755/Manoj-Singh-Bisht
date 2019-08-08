@@ -40,6 +40,18 @@
                     </select>
                     </div>
             </div>
+            <div class="form-group col-md-6">
+              <label class="col-md-4">Select job</label>
+              <!-- <mat-form-field> -->
+                  <div class="col-md-8">
+              <select matNativeControl id="is_client" name="id" [(ngModel)]="myjob.id" (change)="showJob(myjob.id,$event)">
+                <!-- <option >any</option> -->
+                <option value='{{myjobdata.id}}'  *ngFor="let myjobdata of myjobdatas" >{{myjobdata.job_title}}</option>
+
+
+              </select>
+              </div>
+      </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="row" role="form" name="userForm" id="mynewjob">
@@ -190,11 +202,11 @@
                     </div>
                   </div>
 
-                  <div class="form-group col-md-6"  *ngIf="!db.mp.hide_referral_bonus && db.profile.disable_crowd_sourcing !=='1'">
+                  <div class="form-group col-md-6"  *ngIf="db.mp.hide_referral_bonus && db.profile.disable_crowd_sourcing !=='1'">
                     <label class="col-md-4" Referral>Referral Bonus:</label>
                     <div class="col-md-8">
                       <input type="number"
-                        class="form-control {{!db.mp.hide_referral_bonus || db.profile.disable_crowd_sourcing !=='1'?'':'e'}}"
+                        class="form-control "
                         min="2000" id='referralBonus' maxlength="5"
                         [(ngModel)]="myjob.referralBonus" placeholder="Bonus" name="referralBonus" />
 

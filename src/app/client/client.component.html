@@ -7,7 +7,7 @@
   <div class="container-fluid">
     <!-- <div class="row"> -->
       <div class="col-12">
-        <Button class="btn btn-primary" (click)="showhideclient(0,100) || back();"> Add Client</Button>
+        <Button class="btn btn-primary" (click)="showhideclient(0,100) || back()||showhide();"> Add Client</Button>
 
       </div> <!-- <div *ngIf="ishideshow"> -->
 
@@ -15,7 +15,7 @@
       <mat-tab-group>
           <mat-tab label="Client">
             <ng-template matTabContent>
-                <div *ngIf="ishideshow || ishideshowclient||showclient" class="col-12">
+                <div *ngIf="ishideshow" class="col-12">
                     <div class="card">
                       <div class="card-header card-header-danger">
                         <h4 class="card-title">Client Details</h4>
@@ -27,19 +27,16 @@
 
                         <div class="tab-content">
                           <div class="" id="info-tab">
-                            <div class="form-group col-md-6">
+                            <!-- <div class="form-group col-md-6">
                               <mat-label>Choose Type</mat-label>
                              <mat-form-field>
 
                               <select matNativeControl  name="is_client" id="is_client" [(ngModel)]="client.is_client" >
-                                <!-- <option >any</option> -->
                                 <option value="'1'" >client</option>
-                                <!-- <option value="'0'"><span  >department</span></option> -->
 
                               </select>
-                              <!-- <mat-checkbox ngDefaultControl [(ngModel)]="commentstatus.is_client">is_client</mat-checkbox> -->
                             </mat-form-field>
-                            </div>
+                            </div> -->
 
                             <div class="row">
                               <div class="form-group col-md-6">
@@ -119,39 +116,39 @@
                                     <h5>Slabs</h5>
                                   </div>
                                 </div>
-                                <mat-card>
-                                  <div class="row font-light  ">
+                                <mat-card style = "margin-bottom:10px; background: rgb(207, 205, 202)">
+                                  <div class="row font-light" >
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" style="color:rgb(20, 18, 18);">
                                       From
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" style="color:rgb(20, 18, 18);">
                                       To
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" style="color:rgb(20, 18, 18);">
                                       Amount
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" style="color:rgb(20, 18, 18);">
                                       Remove
                                     </div>
 
 
                                   </div>
                                 </mat-card>
-                                <mat-card [hidden]="client.fee_slab.length>0">
-                                  No Fee Slab
+                                <mat-card [hidden]="client.fee_slab.length>0" style="background:#e53935;">
+                                  <span style="color:white;">No Fee Slab</span>
                                 </mat-card>
-                                <mat-card *ngFor="let item of client.fee_slab">
+                                <mat-card *ngFor="let item of client.fee_slab" style="background:#185c07;margin-bottom: 5px;">
                                   <div class="row bg-blue">
 
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" style="color:white;">
                                       {{item.fromSlab}}
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" style="color:white;">
                                       {{item.toSlab}}
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3" style="color:white;">
                                       {{item.AmountorPercentage}} <span *ngIf="item.isPercentage == 1">%</span>
                                       <span *ngIf="item.isPercentage == 0">Fixed</span>
                                     </div>
@@ -182,7 +179,7 @@
                               </div>
                               <!-- <div class="col-md-12"
                                 style="padding: 20px; padding-top: 10px; margin-bottom:10px; background:#cec8be">; -->
-                                <mat-card class="col-md-12">
+                                <mat-card class="col-md-12" style="background: rgb(207, 205, 202);">
                                 <div class="row">
 
                                   <div class=" col-md-3">

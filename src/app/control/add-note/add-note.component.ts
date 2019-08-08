@@ -14,14 +14,21 @@ export class AddNoteComponent implements OnInit {
   message: any;
   notes = [];
   pp = '';
+  updated_id: any;
 
   candidate_id = 0;
   @Input()
   set set_candidate_id(candidate_id: number) {
     debugger;
+    //$('#notesdetail').modal('show')
     this.candidate_id = candidate_id;
+    this.updated_id = candidate_id;
     if (candidate_id > 0) {
+      //this.setNotes();
       this.GetNotes();
+
+      // $('#notesdetail').modal('show');
+
     }
   }
   constructor(private db: DBService) { }
@@ -29,7 +36,11 @@ export class AddNoteComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  setNotes(): void {
+    debugger;
+    this.candidate_id = this.candidate_id;
+    $('#notesdetail').modal('show');
+  }
   CandidateNotesave(): void {
     // if (!$('.validate').validate('#notesdetail')) {
     //   //  $.fn.showMessage('Please fill values');
@@ -37,7 +48,7 @@ export class AddNoteComponent implements OnInit {
     //   }
     debugger;
 
-    this.CandidateNote.candidate_id = this.candidate_id;
+    this.CandidateNote.candidate_id = this.updated_id;
     this.db.store('candidatenote/', this.CandidateNote, (response): void => {
 
       this.db.addmessageandremove('Added Successfully');
@@ -50,10 +61,12 @@ export class AddNoteComponent implements OnInit {
 
   };
   GetNotes(): void {
+    debugger;
     this.gridCandidateNotes = [];
+    // $('#notesdetail').modal('show')
     this.db.list('candidatenote/', { candidate_id: this.candidate_id }, (response): void => {
 
-
+      debugger;
 
       try {
         this.pp = this.db.rooturi + 'profile/';

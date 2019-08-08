@@ -87,10 +87,14 @@ export class NewJobComponent implements OnInit {
   showeditjob = false;
   a = true;
   keyskillscheck: any;
+  myjobdatas: any;
+  isexistjob= false;
 
   constructor(public db: DBService, public route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.joblist();
+    //this.showJob('id');
     this.arrRoles = arrRoles;
 
     $('select').addClass('noselect2 form-control');
@@ -138,6 +142,22 @@ export class NewJobComponent implements OnInit {
       input.value = '';
     }
   }
+  joblist(): void {
+    //this.isLoadingJobs = true;
+    this.db.list('joblist/', {}, ((response): void => {
+      this.myjobdatas = response;
+      //this.jobslistmain = response;
+      // this.isLoadingJobs = false;
+
+    })
+    );
+  }
+  // myjobdata(id): void {
+  //   this.db.list('addnewjob/', id, ((response): void => {
+  //     this.myjobdata = response;
+  //   }))
+  // }
+
 
   // remove(fruit: keyskills): void {
   //   const index = this.myjob.keyskills.indexOf(fruit);
@@ -248,14 +268,18 @@ export class NewJobComponent implements OnInit {
   showJob(id): void {
     // $event.stopPropagation();
     // this.job = job;
-
+    debugger;
     this.jobadd = false;
     this.showeditjob = true;
     this.isjobediting = true;
+    if(this.isjobediting){
+      this.isexistjob=true;
+    }
+
     this.db.show('addnewjob/', id, (response): void => {
+debugger;
 
 
-      debugger;
 
       this.myjob = response;
 
