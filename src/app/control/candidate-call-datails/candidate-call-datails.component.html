@@ -3,12 +3,13 @@
 
   <div class="col-md-5">
       <ul class="list-unstyled">
-          <li class='i'>{{row.entity.candidateName}}  <b style="cursor: pointer;" class="name"  *ngIf="row.entity.recruitershow">
-                  <i style="margin-left: 5px;color:#5b4dcc;"  data-action-type="candidateshow"   title="Open Candidate" class="fa fa-link"></i>
-                  <i data-action-type="notes" style="margin-left: 3px;color:red;" (click)="setupdateid(row.entity.id)" title="Add Notes" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
+        <li class='i'> <a href="#" target="_blank"  data-action-type="candidateshow"> {{row.entity.candidateName}}</a>   <b style="cursor: pointer;" class="name"  *ngIf="row.entity.recruitershow">
+            <a target="_blank" href="candidate/ {{row.entity.id}}  , {{row.entity.jobid}} ">
+            <i style="margin-left: 5px;color:#5b4dcc;"     title="Open Candidate" class="fa fa-link"></i></a>
+                <i data-action-type="notes" style="margin-left: 3px;color:red;" (click)="(row.entity.id)" title=" {{row.entity.comments}}" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
 
 
-              </b></li>
+            </b></li>
           <li>{{row.entity.currentDesignation}}({{row.entity.currentOrganization}})</li>
           <li>Email-{{row.entity.email}}</li><li>Qualification:{{row.entity.qualification}}</li></ul></div>
   <div class="col-md-4">
@@ -58,8 +59,10 @@
       <br/>
       <!-- <a href="" *ngIf="row.entity.recruitershow" class="text-danger" ng-click="grid.appScope.setatjidentity(row.entity)" >Custom Tracker Data</a>status -->
 
-      <button href="" class="btn btn-sm btn-danger btn-raised"  data-action-type='conversation'  >Conversation</button>
-      <button  data-action-type='openpopup'  class="btn  btn-raised btn-sm"><a href="http://api.passivereferral.com/recording/?id={{row.entity.call_id}}"  ng-click="grid.appScope.openpopup(row.entity.call_id)" target="_blank" >Play</a></button>
+      <button *ngIf="row.entity.conversation== '[]'" href="" class="btn btn-sm btn-danger btn-raised"  data-action-type='conversation' disabled >Conversation</button>
+      <button *ngIf="row.entity.chat_conv_done== 0"href="" class="btn btn-sm btn-danger btn-raised"  data-action-type='chat' disabled >chat</button>
+      <button *ngIf="row.entity.conversation!= '[]'" href="" class="btn btn-sm btn-danger btn-raised"  data-action-type='conversation'  >Conversation</button>
+      <button *ngIf="row.entity.chat_conv_done== 1"href="" class="btn btn-sm btn-danger btn-raised"  data-action-type='chat'  >chat</button>      <button  data-action-type='openpopup'  class="btn  btn-raised btn-sm"><a href="http://api.passivereferral.com/recording/?id={{row.entity.call_id}}"  ng-click="grid.appScope.openpopup(row.entity.call_id)" target="_blank" >Play</a></button>
       <a *ngIf="row.entity.invoice_id" href="#"  class="pull-right"><span data-toggle="tooltip" ngf-accept='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"' ngf-pattern='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"'  ngf-select="grid.appScope.uploadinvoicevendor($file,row.entity.invoice_id)" title="Upload">Upload Invoice</span></a>
 
   </div></div>

@@ -37,7 +37,7 @@ export class AddNewTrackerComponent implements OnInit {
         `<button type='button' data-action-type='edit' class='btn btn-success btn-sm'>
          Edit
        </button>
-
+     
       <button type='button' data-action-type='delete' class='btn btn-danger btn-sm'>
          Delete
       </button>`},
@@ -177,6 +177,7 @@ export class AddNewTrackerComponent implements OnInit {
 
   }
   showhide(): void {
+    debugger;
     if (this.ishideshow == false) {
       this.ishideshow = true;
     }

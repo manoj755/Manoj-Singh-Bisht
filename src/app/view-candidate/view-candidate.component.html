@@ -1,0 +1,785 @@
+<!-- 
+<div id="candidateshow" class=" "
+  style="display: none; overflow: auto; height: 100%; background: rgba(210, 247, 252, 0.856); position: fixed; top:0; left:0; z-index: 1060; width: 100%;"
+  role="dialog"> -->
+  <div class="main-content" id="candidateshow">
+    <div class="container-fluid" style="width:100%; margin-top: -5%;">
+      <div class="row">
+        <div class="col-md-6 card">
+          <div class="card-header">
+            <strong><h3>Candidate Detail</h3></strong>
+
+          </div>
+          <div class="card-body table-responsive" style="height: 500px;">
+            <mat-tab-group>
+          <mat-tab label="Profile Detail">
+            <!-- <div class="col-md-12 card">
+              <div class="card-body " style="height: 500px;"> -->
+                <div class="container" style="width:100%;padding:40px 20px;background:#ffffff; color: #000000;">
+                  <a class="btn  btn-raised btn-success btn-sm pull-right" (click)="setNotes()" data-toggle="modal"
+                  data-target="#notesdetail">Add Notes</a>
+                  <div ng-show="globaljobid > 0 && (ProfileData.length > 0 || JobData.length > 0)">
+                    <div class="row"><div class="row">
+                       <div class="col-sm-2"></div>
+                        <h4  *ngIf='JobData.length>0'> <strong>Tracker Fields </strong> </h4>
+    
+    
+                      </div>
+    
+                      </div>
+    
+    
+    
+                    </div>
+                    <div class="row">
+    
+    
+                      <div class="form-group col-md-6" *ngFor=" let jdata of JobData">
+                        <label for="name" class="control-label col-md-10 text-blue" >{{jdata.display_name}}</label>
+                        <div class="col-md-10">
+                          <div class="row">
+                            <div class="col-sm-10">
+                          <input type="text" class="form-control e no" [(ngModel)]="jdata.value" id="name"
+                            placeholder="Enter {{jdata.display_name}}" (keyup)="isnameclcik(type = 'jdatas')">
+                          </div>
+                          <div class="col-sm-2">
+                            <span matPrefix *ngIf='isJobData' id="iconbackground" title="Save" ><i class="fa fa-check icones" (click)="saveCustomData()"></i></span>
+                      
+                          </div>
+                      </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+    
+                      <div class="form-group col-md-6" *ngIf='JobData.length>0'> <input type="button" value="Submit" (click)="saveCustomData()"
+                          class="btn  btn-raised btn-info" />
+    
+                      </div>
+                    </div>
+                  </div>
+    <!-- </div>
+          </div> -->
+            <hr />
+
+
+              <div class="form-horizontal" role="form">
+
+
+                <div class="row">
+
+                  <div class="form-group col-md-6">
+                    <label for="name" class="control-label  col-sm-8" style="color: #000000;">Name:</label>
+                    <div class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-10">
+                          <input  type="text" class="form-control e" [(ngModel)]="candidateshowdata.candidateName" id="name"
+                          placeholder="Name" (click)="isnameclcik(type = 'name')"> 
+                        </div>
+                        <div class="col-sm-2">
+                          <span matPrefix *ngIf='isname' id="iconbackground" title="Save" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                    
+                        </div>
+                      </div>
+                      <a ng-show="candidateshowdata.naukri_url" target="_blank"
+                        href="{{candidateshowdata.naukri_url}}">Naukri
+                        Profile</a>
+                    </div>
+                  </div>
+
+             
+                  <!-- <div class="form-group col-md-6">
+                    <label for="gender" class="control-label col-sm-4">Gender</label>
+                    <div class="col-sm-8">
+                      <select class="form-control" id="gender" [(ngModel)]="candidateshowdata.gender">
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+
+                      </select>
+                    </div>
+                  </div> -->
+
+
+                  <div class="form-group col-md-6">
+                      <label for="email" class="control-label col-sm-8" style="color: #000000;">Email:</label>
+                      <div class="col-sm-10">
+                        <div class="row">
+                          <div class="col-sm-10">
+                       <input type="email" class="form-control " [(ngModel)]="candidateshowdata.email" id="email"
+                          placeholder="Enter the Email" (click)="isnameclcik(type = 'email')">
+                        </div>
+                        <div class="col-sm-2">
+                          <span matPrefix *ngIf='isemail' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                      
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+
+
+                </div>
+                <br>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label for="Mobile" class="control-label col-sm-8" style="color: #000000;">Mobile:</label>
+                        <div class="col-md-12">
+                          <div class="row">
+                            <div class="col-md-8">
+                          <input type="text" class="form-control " [(ngModel)]="candidateshowdata.mobileNo" id="mobile"
+                            placeholder="Enter the Mobile" (click)="isnameclcik(type = 'mobile')">
+                          </div>
+                          <div class="col-sm-2">
+                            <span matPrefix *ngIf='ismobile' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                      
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                          <label for="gender" class="control-label col-sm-8" style="color: #000000;">Gender:</label>
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-sm-8">
+                            <mat-select class="form-control" id="gender" [(ngModel)]="candidateshowdata.gender" (click)="isnameclcik(type = 'gender')">
+                            <mat-option  value="1">
+                             Male
+                            </mat-option>
+                            <mat-option  value="2">
+                              Female
+                             </mat-option>
+                          </mat-select>
+                        </div>
+                        <div class="col-sm-2">
+                          <span matPrefix *ngIf='isgender' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                
+                        </div>
+                      </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group col-md-4">
+                          <label for="DOB" class="control-label col-sm-12" style="color: #000000;">Date of Birth:</label>
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-md-8">
+                                 <input type="text" class="form-control " [(ngModel)]="candidateshowdata.dob" id="DOB"
+                              placeholder="DOB" (click)="isnameclcik(type = 'dob')">
+                            </div>
+                            <div class="col-sm-2">
+                              <span matPrefix *ngIf='isdob' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                        
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                </div>
+                <br>
+
+
+                <div class="row">
+                    <div class="form-group col-md-4">
+                      <label for="Salary" class="control-label col-md-12" style="color: #000000;">Current Salary:</label>
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-8">
+                        <input type="text" class="form-control " [(ngModel)]="candidateshowdata.currentSalary" id="Salary"
+                          placeholder="Current Salary" (click)="isnameclcik(type = 'csalary')">
+                        </div>
+                        <div class="col-sm-2">
+                          <span matPrefix *ngIf='iscsalary' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                    
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="Salary" class="control-label col-sm-12" style="color: #000000;">Expected Salary:</label>
+                        <div class="col-md-12">
+                          <div class="row">
+                            <div class="col-md-8">
+                              <input type="text" class="form-control" [(ngModel)]="candidateshowdata.expectedSalary" id="Salary"
+                            placeholder="Expected  salary" (click)="isnameclcik(type = 'esalary')">
+                          </div>
+                          <div class="col-sm-2">
+                            <span matPrefix *ngIf='isesalary' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                      
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                      <div class="form-group col-md-4">
+                          <label for="Mobile" class="control-label col-sm-12" style="color: #000000;">Notice Period:</label>
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-md-8">
+                                <input type="text" class="form-control " [(ngModel)]="candidateshowdata.noticePeriod" id="mobile"
+                              placeholder="Notice Period" (click)="isnameclcik(type = 'noticeperiod')">
+                            </div>
+                            <div class="col-sm-2">
+                              <span matPrefix *ngIf='isnoticeperiod' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                        
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+                  </div>
+                <br>
+
+                <div class="row">
+
+                  <div class="form-group col-md-6">
+                    <label for="currentOrganization" class="control-label col-sm-8" style="color: #000000;">Current Organization:</label>
+                    <div class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-10">
+                      <input type="text" class="form-control " id="currentorg"
+                        [(ngModel)]="candidateshowdata.currentOrganization" placeholder="Current Organization" (click)="isnameclcik(type = 'Organization')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isOrganization' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="currentdesignation" class="control-label col-sm-8" style="color: #000000;">Current designation:</label>
+                    <div class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-10">
+                      <input type="text" class="form-control " id="currentdesignation"
+                        [(ngModel)]="candidateshowdata.currentDesignation" placeholder="Current designation" (click)="isnameclcik(type = 'designation')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isdesignation' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <!-- <div class="form-group col-md-6">
+                    <label for="Qualification" class="control-label col-sm-4">Country</label>
+                    <div class="col-sm-7">
+                      <select class="form-control " [(ngModel)]="candidateshowdata.country" id="Qualification"
+                        placeholder="Country">
+                        <option *ngFor=" let x of countries" value="{{x.id}}">
+                          {{x.name}} ({{x.country_code}})
+                        </option>
+                      </select>
+                    </div>
+                  </div> -->
+                  <div class="form-group col-md-4">
+                    <label for="country" class="control-label col-sm-8" style="color: #000000;">Country:</label>
+                    <div class="col-md-12">
+                    <!-- <mat-select class="form-control" [rowData]="rowData" [(ngModel)]="candidateshowdata.country" id="country" aria-placeholder="Country"  style="position: absolute;">
+
+
+                    <input  name="search" type="text" class="form-control " [(ngModel)]="searchText" (keyup)="loadInternalData()" style="position: absolute; top: 0; left: 0; z-index: 999; padding: 0; margin: 0;">
+                 <br>
+                  <mat-option  *ngFor=" let x of countries" value="{{x.id}}">
+
+                        {{x.name}} ({{x.country_code}})
+                      </mat-option>
+
+                    </mat-select> -->
+                    <div class="row">
+                      <div class="col-sm-8">
+                    <mat-select type="text" class="form-control" (click)="isnameclcik(type = 'country')">
+
+                        <mat-option *ngFor=" let x of countries" value="{{x.id}}">
+                          {{x.name}} ({{x.country_code}})
+                        </mat-option>
+
+                    </mat-select>
+                  </div>
+                  <div class="col-sm-2">
+                    <span matPrefix *ngIf='iscountry' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+              
+                  </div>
+                </div>
+
+                  </div>
+                </div>
+                  <div class="form-group col-md-4">
+                    <label for="state" class="control-label col-sm-8" style="color: #000000;">State:</label>
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-8">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.state" id="Qualification"
+                        placeholder="State" (click)="isnameclcik(type = 'state')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isstate' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-4">
+                      <label for="city" class="control-label col-sm-8" style="color: #000000;">City:</label>
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-8">
+                        <input type="text" class="form-control " [(ngModel)]="candidateshowdata.city" id="city"
+                          placeholder="City" (click)="isnameclcik(type = 'city')">
+                        </div>
+                        <div class="col-sm-2">
+                          <span matPrefix *ngIf='iscity' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                    
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="location" class="control-label col-sm-8" style="color: #000000;">Current Location:</label>
+                    <div class="col-sm-11">
+                      <div class="row">
+                        <div class="col-sm-10">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.location" id="location"
+                        placeholder="CurrentLocation" (click)="isnameclcik(type = 'clocation')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isclocation' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-6">
+                    <label for="preferedlocation" class="control-label col-sm-8" style="color: #000000;">Prefered Location:</label>
+                    <div class="col-sm-11">
+                      <div class="row">
+                        <div class="col-sm-10">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.preferredLocation"
+                        id="preferelocation" placeholder="prefered Location" (click)="isnameclcik(type = 'plocation')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isplocation' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                      <label for="Qualification" class="control-label col-sm-8" style="color: #000000;">Qualification:</label>
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-11">
+                        <input type="text" class="form-control " [(ngModel)]="candidateshowdata.qualification"
+                          id="Qualification" placeholder="Qualification" (click)="isnameclcik(type = 'qualification')">
+                        </div>
+                        <div class="col-sm-1">
+                          <span matPrefix *ngIf='isqualification' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                    
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+
+                <br>
+
+                <div class="row">
+
+                  <div class="form-group col-md-6">
+                    <label for="Mobile" class="control-label col-sm-8" style="color: #000000;">Phone Number:</label>
+                    <div class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-10">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.phoneNo" id="mobile"
+                        placeholder="Phone Number" (click)="isnameclcik(type = 'pnumber')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='ispnumber' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-6">
+                      <label for="Pan No" class="control-label col-sm-8" style="color: #000000;">Pan No:</label>
+                      <div class="col-sm-10">
+                        <div class="row">
+                          <div class="col-sm-10">
+                        <input type="text" class="form-control " [(ngModel)]="candidateshowdata.panNo" id="panNo"
+                          placeholder="Enter the Pan No" (click)="isnameclcik(type = 'panNo')">
+                        </div>
+                        <div class="col-sm-2">
+                          <span matPrefix *ngIf='ispanNo' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                    
+                        </div>
+                      </div>
+                      </div>
+
+                </div>
+                    <!-- <div class="form-group col-md-6">
+                        <mat-label for="gender" class="control-label col-sm-8">Gender:</mat-label>
+                        <div class="col-sm-10">
+                        <mat-select class="form-control" id="gender" [(ngModel)]="candidateshowdata.gender">
+                          <mat-option  value="1">
+                           Male
+                          </mat-option>
+                          <mat-option  value="2">
+                            Female
+                           </mat-option>
+                        </mat-select>
+                      </div>
+                    </div> -->
+                  </div>
+                <br>
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label for="Mobile" class="control-label col-sm-8" style="color: #000000;">Nationality:</label>
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-8">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.nationality" id="nationality"
+                        placeholder="Nationality" (click)="isnameclcik(type = 'nationality')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isnationality' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="Mobile" class="control-label col-sm-8" style="color: #000000;">Visa Type:</label>
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-8">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.visaType" id="visaType"
+                        placeholder="Visa Type" (click)="isnameclcik(type = 'visatype')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isvisatype' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-4">
+                      <label for="Mobile" class="control-label col-sm-8" style="color: #000000;">Remark:</label>
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-8">
+                        <input type="text" class="form-control" [(ngModel)]="candidateshowdata.remark" id="remark"
+                          placeholder="Remark" (click)="isnameclcik(type = 'remark')">
+                        </div>
+                        <div class="col-sm-2">
+                          <span matPrefix *ngIf='isremark' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                    
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+
+                  <div class="form-group col-md-6">
+                    <label for="Mobile" class="control-label col-sm-8" style="color: #000000;">Ovarall Experiance:</label>
+                    <div class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-10">
+                      <input type="text" class="form-control" [(ngModel)]="candidateshowdata.ovarallExperiance"
+                        id="ovarallExperiance" placeholder="Ovarall Experiance" (click)="isnameclcik(type = 'Experiance')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isExperiance' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="currentdesignation" class="control-label col-sm-8" style="color: #000000;">Relevant Experiance:</label>
+                        <div class="col-sm-10">
+                          <div class="row">
+                            <div class="col-sm-10">
+                          <input type="text" class="form-control " id="currentdesignation"
+                            [(ngModel)]="candidateshowdata.relevantExperiance" placeholder="Relevant Experiance" (click)="isnameclcik(type = 'currentdesignation')">
+                          </div>
+                          <div class="col-sm-2">
+                            <span matPrefix *ngIf='iscurrentdesignation' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                      
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <br>
+                    <div class="row">
+                  <div class="form-group col-md-12">
+                    <label for="Mobile" class="control-label col-sm-8" style="color: #000000;">Address:</label>
+                    <div class="col-sm-11">
+                      <div class="row">
+                        <div class="col-sm-10">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.address" id="address"
+                        placeholder="Address" (click)="isnameclcik(type = 'address')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isaddress' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+
+                </div>
+                <br>
+                <div class="row">
+
+
+
+                  <div class="form-group col-md-6">
+                    <label for="industry" class="control-label col-sm-8" style="color: #000000;">Industry Type:</label>
+                    <div class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-10">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.industryType" id="industryType"
+                        placeholder="Industry Type" (click)="isnameclcik(type = 'industryType')">
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isindustryType' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6">
+                      <label for="function" class="control-label col-sm-8" style="color: #000000;">Functional Area:</label>
+                      <div class="col-sm-10">
+                        <div class="row">
+                          <div class="col-sm-10">
+                        <input type="text" class="form-control " [(ngModel)]="candidateshowdata.functionalArea"
+                          id="functionalArea" placeholder="Functional Area" (click)="isnameclcik(type = 'functionalArea')">
+                        </div>
+                        <div class="col-sm-2">
+                          <span matPrefix *ngIf='isfunctionalArea ' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                    
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                </div>
+                <br>
+                <!-- <div class="row"> -->
+
+                  <!-- <div class="form-group col-md-6">
+                    <label for="DOB" class="control-label col-sm-8">Date of Birth:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.dob" id="DOB"
+                        placeholder="DOB">
+                    </div>
+                  </div> -->
+                <!-- </div> -->
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label for="keyskill" class="control-label col-sm-8" style="color: #000000;">Key Skills:</label>
+                    <div class="col-sm-10">
+                      <div class="row">
+                        <div class="col-sm-10">
+                      <textarea class="form-control " [(ngModel)]="candidateshowdata.skillSet" id="keyskill"
+                        placeholder="Key Skills" (click)="isnameclcik(type = 'skills')">
+                        </textarea>
+                      </div>
+                      <div class="col-sm-2">
+                        <span matPrefix *ngIf='isskills' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                  
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-6 hidden">
+                      <label for="function" class="control-label col-sm-8" style="color: #000000;">Source:</label>
+                      <div class="col-sm-10">
+                        <div class="row">
+                          <div class="col-sm-10">
+                        <input type="text" class="form-control" [(ngModel)]="candidateshowdata.source" id="source"
+                          placeholder="Source" (click)="isnameclcik(type = 'source')">
+                        </div>
+                        <div class="col-sm-2">
+                          <span matPrefix *ngIf='issource' id="iconbackground" ><i class="fa fa-check icones" (click)="updatecandidate()"></i></span>
+                    
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <!-- <div class="form-group col-md-6">
+                    <label for="function" class="control-label col-sm-4">Function</label>
+                    <div class="col-sm-7">
+                      <input type="text" class="form-control " [(ngModel)]="candidateshowdata.function" id="Function"
+                        placeholder="function">
+                    </div>
+                  </div> -->
+
+                <!-- <div class="row"> -->
+
+
+
+                  <!-- <div class="form-group col-md-6">
+                    <label for="resume" class="control-label col-md-4">Resume</label>
+                    <div class="col-md-7">
+                      <input type="file" name="resume" fileread="candidateshowdata.resume" [(ngModel)]="candidateshowdata.resume"
+                        id="uploadResumeupdate" />
+
+                    </div>
+                  </div> -->
+                  <!-- <div class="col-md-4" > Resume
+
+                      <input type="file" fileread="candidateshowdata.resume" #fileInput ng2FileSelect [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
+
+
+                  </div> -->
+                  <!-- <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+                      Select image to upload:
+                      <input type="file" name="avatar" id="fileToUpload" formControlName="file1" (change)="fileEvent($event)">
+                      <input type="submit" value="Upload Image" name="submit">
+                  </form>
+                </div> -->
+                <!-- <div class="row">
+                  <div class="form-group col-md-6" *ngFor="let data of  candidateshowdata.customdata">
+                    <label for="DOBd" class="control-label col-sm-4">{{data.key}}</label>
+                    <div class="col-sm-7">
+                      <b class="form-control">{{data.value}}</b>
+
+                    </div>
+                  </div>
+                <div class="row">
+
+
+
+
+
+
+
+                </div> -->
+                <div class="row">
+                  <div class=" col-md-6">
+
+                    <a target="_blank" class="btn  btn-raised  btn-success btn-md"
+                      href="http://api.passivereferral.com/resumes/{{candidateshowdata.resume}}">Download CV</a>
+                  </div>
+                  <div class="  col-md-6">
+                    <button type="submit" class="btn  btn-raised btn-primary"
+                      (click)="updatecandidate()">Update</button>
+                      <button type="submit" data-target="#uploadresume" data-toggle="modal"  class="btn  btn-raised btn-primary"
+                      >Upload CV</button>
+                  </div>
+
+                </div>
+
+                <div class="row" *ngFor=" let trackerjobdataone of trackerjobdata">
+                  <div class="col-md-12">
+                    <h3 class="text-bold text-red">{{trackerjobdataone.jobTitle}}</h3>
+                  </div>
+
+                  <div class="form-group col-md-6" *ngFor="let data of trackerjobdataone.custom_data">
+                    <label for="DOBd" class="control-label col-sm-4">{{data.key}}</label>
+                    <div class="col-sm-7">
+                      <b class="form-control">{{data.value}}</b>
+
+                    </div>
+                  </div>
+
+
+                </div>
+
+              </div>
+
+         </mat-tab>
+         
+        </mat-tab-group>
+</div>
+      </div>
+        <div class="col-md-6 pull-right card">
+          <div class="card-header">
+            <strong><h3>Candidate Resume</h3></strong>
+          </div>
+          <div class="card-body" style="height: 600px;">
+            <mat-tab-group>
+            <mat-tab label="CV">     
+               <div class="well" style="position: relative; background-color: white;">
+              <div [hidden]="candidateshowdata.resume">
+                <h3><strong>No CV Found</strong></h3>
+              </div>
+              <!-- <iframe
+                              [src]=" 'https://docs.google.com/gview?url=http://api.passivereferral.com/resumes/'+candidateshowdata.resume+'&pid=explorer&efh=false&a=v&chrome=false&embedded=true'  | safe"
+
+              [src]='"https://docs.google.com/gview?url=http://api.passivereferral.com/resumes/103_309703_2ed723bf-42a0-4098-aab5-1377d4cdb35a.pdf&pid=explorer&efh=false&a=v&chrome=false&embedded=true"  | safe'
+                [hidden]="!candidateshowdata.resume" id="resumeview" style="border:0;" width="100%" height="800px"></iframe>
+              <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;">&nbsp;</div> -->
+              <iframe
+                [hidden]="!candidateshowdata.resume" id="resumeview" style="border:0;" width="100%" height="580px"></iframe>
+              <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;">&nbsp;</div>
+             
+            </div> </mat-tab>
+          </mat-tab-group>
+          </div>
+       </div>
+
+      </div>
+  
+
+    </div>
+
+
+</div>
+<!-- </div> -->
+<app-add-note [set_candidate_id]='candidate_id'></app-add-note>
+
+
+
+
+
+
+<div id="uploadresume" class="modal fade" style="z-index:2000" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h4 class="modal-title">Upload Resume</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="media">
+          <div class="row">
+            <div class="col-12">
+                <input type="file"
+                id="file"
+                (change)="uploadresume($event.target.files)">
+
+            </div>
+
+        </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+

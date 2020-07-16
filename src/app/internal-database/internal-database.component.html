@@ -5,10 +5,33 @@
       <div class="col-12">
         <!-- Small boxes (Stat box) -->
 
+        <div class="row" *ngIf="hideInternaldata">
 
-        <div class="row">
+          <app-call [allids]='allids'></app-call>
+          <app-add-to-job [allids]='allids'></app-add-to-job>
+          <app-mailer [allids]='allids'></app-mailer>
+          <app-pv-get-reference [allids]='allids'></app-pv-get-reference>
+          <app-add-candidate></app-add-candidate>
+          <div class=" col-md-3 validate">
+            <button class="btn btn-default btn-block" href="" data-toggle="modal" help='Add Candidate'
+              data-target="#addcandidate" *ngIf="db.mp.candidate_detail_store">
+              Add Candidate
+            </button>
 
-          <app-call  [allids]='allids'></app-call>
+          </div>
+          <div class='col-md-3'>
+            <a mat-fab href="javascript:" help='call' data-target='#calldiv' data-toggle='modal'
+              *ngIf="db.mp.btn_can_call">
+              <i class="fa fa-phone fa-2x"></i>
+
+            </a>
+          </div>
+        </div>
+
+        <!--  -->
+        <div class="row" *ngIf="showInternaldatagrid">
+
+          <app-call [allids]='allids'></app-call>
           <app-add-to-job [allids]='allids'></app-add-to-job>
           <app-pv-get-reference [allids]='allids'></app-pv-get-reference>
 
@@ -44,107 +67,499 @@
           </div>
         </div>
 
-        <div id="calldiv" class="modal " role="dialog">
-          <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
+        <!--  -->
+        <div class="row" *ngIf="showInternaldatagridboolean">
 
-                <h4 class="modal-title">Call</h4> <button type="button" class="close"
-                  data-dismiss="modal">&times;</button>
-              </div>
-              <div class="modal-body">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label for="Client" class="control-label col-xs-2">{{db.clientsdepartment}}:</label>
-                        <div class="col-xs-8">
-                          <select class="form-control e" n="Client" ng-change="getcandidatebyclient(true)"
-                            [(ngModel)]="copycandidate.client_detail_id" name="client_detail_id" required>
-                            <option value="{{x.id}}" *ngFor="let x of clients">{{x.billingName}}</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="Jobs" class="control-label col-xs-2">Jobs:</label>
-                        <div class="col-xs-8">
-                          <select class="form-control e" n="Jobs" [(ngModel)]="copycandidate.job_id">
-                            <option value="{{job.id}}" *ngFor="let  jobof jobslistbyclients">
-                              {{job.job_title}} ({{job.id}})
-                            </option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label for="Jobs" class="control-label col-xs-2">Owner</label>
-                        <div class="col-xs-8">
-                          <select class="form-control e" n="Owner" [(ngModel)]="copycandidate.manager">
-                            <option value="{{profile.id}}">Self</option>
-                            <option value="{{x.id}}" *ngFor="let  xof managers">
-                              {{x.name}}
-                            </option>
-                          </select>
-                        </div>
-                      </div>
+          <app-call [allids]='allids'></app-call>
+          <app-add-to-job [allids]='allids'></app-add-to-job>
+          <app-pv-get-reference [allids]='allids'></app-pv-get-reference>
 
-                      <div class="form-group">
-                        <div class="col-md-4 col-md-offset-4">
-                          <button type="submit" class="btn btn-primary btn-block" tar="#addjob"
-                            (click)="sendcalltocandidates()">Placeof Queue</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+          <div class="col-md-3 " *ngIf="db.mp.btn_take_internal_refeference">
+            <button type="button" class="btn btn-block  btn-primary btn-md" data-toggle="modal"
+              data-target="#getreferencemodal" title="Get referrence from selected candidates or send mail ">Get
+              Reference/Send Mail</button>
 
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
+
+          </div>
+          <div class="col-md-3" *ngIf="db.mp.add_to_job_store">
+
+            <button type="button" class="btn btn-block  btn-info btn-md" data-toggle="modal" data-target="#addtojob">Add
+              to Job</button>
+
+
+
+          </div>
+          <app-add-candidate></app-add-candidate>
+          <div class=" col-md-3 validate">
+            <a class="btn btn-default btn-block" href="" data-toggle="modal" help='Add Candidate'
+              data-target="#addcandidate" *ngIf="db.mp.candidate_detail_store">
+              Add Candidate
+            </a>
+
+          </div>
+          <div class='col-md-3'>
+            <a mat-fab href="javascript:" help='call' data-target='#calldiv' data-toggle='modal'
+              *ngIf="db.mp.btn_can_call">
+              <i class="fa fa-phone fa-2x"></i>
+
+            </a>
+          </div>
+          <div class="col-md-2"><a mat-mini-fab href="javascript:" help='mailer' data-target='#mailer'
+              data-toggle='modal' *ngIf="db.mp.btn_can_call" class="mail_outline"><i
+                class="material-icons">email</i></a></div>
+        </div>
+
+
+
+        <hr class="hrstye">
+
+
+        <div class="container-fluid" *ngIf="advancesearch">
+          <div class="row">
+            <div class="col-sm-9">
+            </div>
+            <div class="col-sm">
+
+              <!-- <label class="switch">
+                <input type="checkbox" value="0" [(ngModel)]="search" >
+                <span class="slider round"></span>
+              </label> -->
+              <button class="btn btn-light" (click)="loadSearchBoolean()">Boolean</button>
+              <button class="btn btn-success" style="margin-left: -5px;" (click)="loadSearchAdvance()">Advance</button>
             </div>
 
           </div>
+          <br>
+          <div class="card advancesearch">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Advance Search</h4>
+              <p class="card-category">Filter Advance Search Details</p>
+            </div>
+            <br>
+            <div class="row col-md-11">
+
+              <div class="col-md-4">
+                Any Keyword-
+                <mat-form-field class="example-full-width">
+                  <input matInput type="text" [(ngModel)]="orsearch" (keyup.enter)="loadGrid()" />
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                All Keyword-
+                <mat-form-field class="example-full-width">
+                  <input matInput type="text" [(ngModel)]="andsearch" (keyup.enter)="loadGrid()" />
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-4">
+                Exclude Keyword-
+                <mat-form-field class="example-full-width">
+                  <input matInput type="text" [(ngModel)]="notsearch" (keyup.enter)="loadGrid()" />
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="form-group col-md-6">
+                <div class='col-md-9'>
+                  Salary From
+                  <!-- <mat-form-field> -->
+                  <ng-select [(ngModel)]="salaryfroma" name="salaryfrom">
+                    <!-- <ng-select value="{{0}}" (click)="getlistmain()" >All</ng-select> -->
+                    <!-- <ng-option value="" (click)="getlistmain()" *ngFor="let clientprocess of processes">1</ng-option> -->
+                    <ng-option value="0">-1 lacs</ng-option>
+                    <ng-option value="1.0">1 lacs</ng-option>
+                    <ng-option value="2.0">2 lacs</ng-option>
+                    <ng-option value="5.0">5 lacs</ng-option>
+                    <ng-option value="10.0">10 lacs</ng-option>
+                    <ng-option value="20.0">20 lacs</ng-option>
+                    <ng-option value="25.0">25 lacs</ng-option>
+                    <ng-option value="50.0">25+ Lacs</ng-option>
+                  </ng-select>
+                  <!-- </ngform-field> -->
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+
+
+                <div class='col-md-10'>
+                  Salary To-
+                  <!-- <mat-form-field> -->
+                  <ng-select [(ngModel)]="salarytoa" name="salaryto">
+                    <!-- <ng-select value="{{0}}" (click)="getlistmain()" >All</ng-select> -->
+                    <!-- <ng-option value="" (click)="getlistmain()" *ngFor="let clientprocess of processes">1</ng-option> -->
+                    <ng-option value="1.0">1 lacs</ng-option>
+                    <ng-option value="2.0">2 lacs</ng-option>
+                    <ng-option value="5.0">5 lacs</ng-option>
+                    <ng-option value="10.0">10 lacs</ng-option>
+                    <ng-option value="20.0">20 lacs</ng-option>
+                    <ng-option value="25.0">25 lacs</ng-option>
+                    <ng-option value="35.0">35</ng-option>
+                    <ng-option value="80.9">35+ Lacs</ng-option>
+                  </ng-select>
+                  <!-- </ngform-field> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="form-group col-md-6">
+                <div class='col-md-9'>
+                  Experiance Form-
+                  <!-- <mat-form-field> -->
+                  <ng-select [(ngModel)]="expfroma" name="expfrom">
+                    <!-- <ng-select value="{{0}}" (click)="getlistmain()" >All</ng-select> -->
+                    <!-- <ng-option value="" (click)="getlistmain()" *ngFor="let clientprocess of processes">1</ng-option> -->
+                    <ng-option value="'Fresher'">Fresher</ng-option>
+                    <ng-option value="'6m'"> 6 month</ng-option>
+                    <ng-option value="'1yr 0m'">1 year</ng-option>
+                    <ng-option value="'2yr 0m'">2 year</ng-option>
+                    <ng-option value="'5yr 0m'">5 year</ng-option>
+                    <ng-option value="'10yr 0m'">10 year</ng-option>
+                    <ng-option value="'15yr 0m'">15 year</ng-option>
+                    <ng-option value="'20yr 0m'">20 year</ng-option>
+                    <ng-option value="'25yr 0m'">25 year</ng-option>
+                    <ng-option value="'40yr 12m'">25+ years</ng-option>
+
+                  </ng-select>
+                  <!-- </ngform-field> -->
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+
+
+                <div class='col-md-10'>
+                  Experiance To-
+                  <!-- <mat-form-field> -->
+                  <ng-select [(ngModel)]="exptoa" name="expto">
+                    <ng-option value="'6m'"> 6 month</ng-option>
+                    <ng-option value="'1yr 0m'">1 year</ng-option>
+                    <ng-option value="'2yr 0m'">2 year</ng-option>
+                    <ng-option value="'5yr 0m'">5 year</ng-option>
+                    <ng-option value="'10yr 0m'">10 year</ng-option>
+                    <ng-option value="'15yr 0m'">15 year</ng-option>
+                    <ng-option value="'20yr 0m'">20 year</ng-option>
+                    <ng-option value="'25yr 0m'">25 year</ng-option>
+                    <ng-option value="'35yr'">35 years</ng-option>
+                    <ng-option value="'99yr'">35+ years</ng-option>
+
+                  </ng-select>
+                  <!-- </ngform-field> -->
+                </div>
+              </div>
+            </div>
+            <!-- </div> -->
+            <div class="row">
+              <div class="form-group col-md-6">
+                <div class='col-md-9'>
+                  Location:
+                  <ng-select [(ngModel)]="locationcnd" name="location" [multiple]="true">
+                    <ng-option *ngFor="let locations of location">
+                      {{locations}}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+              <div class="col-3 form-group">
+                <div class="col-md-9 col-md-offset-3">
+
+                  <button type="submit" class="btn  btn-raised btn-block btn-primary"
+                    (click)="loadGrid()">Search</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <br><br>
+
+          <div *ngIf="showInternaldatagrid">
+            <div class="col-sm-12">
+
+              <!-- <div class="col-sm-6"> -->
+              <button (click)="ShowgridExcle()" *ngIf="shownormalgrid">Show Excel Grid</button>
+              <button (click)="ShowgridNormal()" *ngIf="showexcelgrid">Show Normal Grid</button>
+
+              <!-- </div>
+              <div class="col-sm-6"> -->
+              <div class="example-header pull-right">
+                Page Size:
+                <mat-select [(ngModel)]="pageSizee" (change)="onPageSizeChanged()">
+                  <mat-option (click)="onPageSizeChanged(newPageSize)" value="10">10</mat-option>
+                  <mat-option (click)="onPageSizeChanged(newPageSize)" value="50">50</mat-option>
+                  <mat-option (click)="onPageSizeChanged(newPageSize)" value="100">100</mat-option>
+                  <mat-option (click)="onPageSizeChanged(newPageSize)" value="500">500</mat-option>
+                  <mat-option (click)="onPageSizeChanged(newPageSize)" value="1000">1000</mat-option>
+                </mat-select>
+              </div>
+              <!-- </div> -->
+            </div><br>
+
+
+            <div class="excelformate col-lg-12" *ngIf="showexcelgrid">
+              <!-- <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-material" [modules]="modules"
+                [columnDefs]="columnDefsexcel" [defaultColDef]="defaultColDef" [groupSelectsChildren]="true"
+                [debug]="true" [rowSelection]="rowSelection" [rowGroupPanelShow]="rowGroupPanelShow"
+                [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true" [pagination]="true"
+                [paginationPageSize]="paginationPageSize" [suppressRowClickSelection]="true"
+                [suppressAggFuncInHeader]="true" [paginationNumberFormatter]="paginationNumberFormatter"
+                [rowData]="rowData" (gridReady)="onGridReady($event)"></ag-grid-angular> -->
+                <ag-grid-angular style="width: 100%; height: 2000px;" class="ag-theme-balham" [columnDefs]="columnDefsexcel"
+        [defaultColDef]="defaultColDef" [groupSelectsChildren]="true" [debug]="true" [rowSelection]="rowSelection"
+        [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"
+        [pagination]="true" rowHeight='300' [paginationPageSize]="paginationPageSize" [suppressRowClickSelection]="true"
+        [suppressAggFuncInHeader]="true" [paginationNumberFormatter]="paginationNumberFormatter" [rowData]="rowData"
+        (gridReady)="onGridReady($event)" suppressCsvExport=false rowMultiSelectWithClick='true' rowDeselection='true'
+        paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)" [getRowHeight]='getRowHeight'
+        [pagination]="true" (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)"
+        (rowClicked)="onRowClicked($event)"></ag-grid-angular>
+            </div>
+
+            <div class="excelformate col-lg-12" *ngIf="shownormalgrid">
+              <ag-grid-angular style="width: 100%; height: 2000px;" class="ag-theme-balham" [columnDefs]="columnDefs"
+              [defaultColDef]="defaultColDef" [groupSelectsChildren]="true" [debug]="true" [rowSelection]="rowSelection"
+              [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"
+              [pagination]="true" rowHeight='300' [paginationPageSize]="paginationPageSize" [suppressRowClickSelection]="true"
+              [suppressAggFuncInHeader]="true" [paginationNumberFormatter]="paginationNumberFormatter" [rowData]="rowData"
+              (gridReady)="onGridReady($event)" suppressCsvExport=false rowMultiSelectWithClick='true' rowDeselection='true'
+              paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)" [getRowHeight]='getRowHeight'
+              [pagination]="true" (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)"
+              (rowClicked)="onRowClicked($event)"></ag-grid-angular>
+            </div>
+            <!-- <ag-grid-angular style="width: 100%; height: 3100px;" class="ag-theme-balham" [rowData]="rowData"
+              [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
+              rowSelection='multiple' rowMultiSelectWithClick='true' rowDeselection='true' rowHeight='300'
+              [groupSelectsChildren]="true" paginationAutoPageSize='true'
+              (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowGroupPanelShow]="rowGroupPanelShow"
+              [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true" [getRowHeight]='getRowHeight'
+              [pagination]="true" (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)"
+              (rowClicked)="onRowClicked($event)" [defaultColDef]="defaultColDef" [getRowHeight]="getRowHeight"
+
+              >
+            </ag-grid-angular> -->
+            <div class="clearfix clear"></div>
+          </div>
+          <div class="clearfix clear"></div>
+
         </div>
-        <hr class="hrstye">
+        <!-- booleansearch -->
+        <div class="container-fluid" *ngIf="booleansearch">
+          <div class="row">
+            <div class="col-sm-9">
+            </div>
+            <div>
+              <button class="btn btn-success" (click)="loadSearchBoolean()">Boolean</button>
+              <button class="btn btn-light" style="margin-left: -5px;" (click)="loadSearchAdvance()">Advance</button>
 
-        <div class="row">
-          <div class="col-2">
-
-            <mat-form-field>
-              <mat-select placeholder="Page Size" [(ngModel)]="pageSize" (selectionChange)="loadInternalData()">
-                <mat-option *ngFor="let pagesize of pageSizes" [value]="pagesize">
-                  {{pagesize}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            </div>
 
           </div>
-          <div class="col-2">
-            <mat-form-field>
-              <mat-select placeholder="Page No" [(ngModel)]="page" (selectionChange)="loadInternalData(true)">
-                <mat-option *ngFor="let item of totalpage" [value]='item'>{{item}} </mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="card boolean">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Boolean Search</h4>
+              <p class="card-category">Filter Boolean Search</p>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+              <br>
+              <div class="form-group col-md-11">
 
-          </div>
-          <div class="col-8">
-            <mat-form-field class="example-full-width">
-              <input matInput placeholder="Search" type="text" [(ngModel)]="searchText" (keyup)="loadInternalData()" />
-            </mat-form-field>
+                <div class="col-md-12">
+                  Search-
+                  <mat-form-field>
+                    <input matInput type="text" [(ngModel)]="searchText" (keyup.enter)="loadGridboolean()" />
+                  </mat-form-field>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="form-group col-md-6">
+                <div class='col-md-9'>
+                  Salary From
+                  <!-- <mat-form-field> -->
+                  <ng-select [(ngModel)]="salaryfrom" name="salaryfrom">
+                    <!-- <ng-select value="{{0}}" (click)="getlistmain()" >All</ng-select> -->
+                    <!-- <ng-option value="" (click)="getlistmain()" *ngFor="let clientprocess of processes">1</ng-option> -->
+                    <ng-option value="0">-1 lacs</ng-option>
+                    <ng-option value="1.0">1 lacs</ng-option>
+                    <ng-option value="2.0">2 lacs</ng-option>
+                    <ng-option value="5.0">5 lacs</ng-option>
+                    <ng-option value="10.0">10 lacs</ng-option>
+                    <ng-option value="20.0">20 lacs</ng-option>
+                    <ng-option value="25.0">25 lacs</ng-option>
+                    <ng-option value="50.0">25+ Lacs</ng-option>
+                  </ng-select>
+                  <!-- </ngform-field> -->
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+
+
+                <div class='col-md-10'>
+                  Salary To-
+                  <!-- <mat-form-field> -->
+                  <ng-select [(ngModel)]="salaryto" name="salaryto">
+                    <!-- <ng-select value="{{0}}" (click)="getlistmain()" >All</ng-select> -->
+                    <!-- <ng-option value="" (click)="getlistmain()" *ngFor="let clientprocess of processes">1</ng-option> -->
+                    <ng-option value="1.0">1 lacs</ng-option>
+                    <ng-option value="2.0">2 lacs</ng-option>
+                    <ng-option value="5.0">5 lacs</ng-option>
+                    <ng-option value="10.0">10 lacs</ng-option>
+                    <ng-option value="20.0">20 lacs</ng-option>
+                    <ng-option value="25.0">25 lacs</ng-option>
+                    <ng-option value="35.0">35</ng-option>
+                    <ng-option value="80.9">35+ Lacs</ng-option>
+                  </ng-select>
+                  <!-- </ngform-field> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+
+              <div class="form-group col-md-6">
+                <div class='col-md-9'>
+                  Experiance Form-
+                  <!-- <mat-form-field> -->
+                  <ng-select [(ngModel)]="expfrom" name="expfrom">
+                    <!-- <ng-select value="{{0}}" (click)="getlistmain()" >All</ng-select> -->
+                    <!-- <ng-option value="" (click)="getlistmain()" *ngFor="let clientprocess of processes">1</ng-option> -->
+                    <ng-option value="'Fresher'">Fresher</ng-option>
+                    <ng-option value="6m"> 6 month</ng-option>
+                    <ng-option value="1yr 0m">1 year</ng-option>
+                    <ng-option value="2yr 0m">2 year</ng-option>
+                    <ng-option value="5yr 0m">5 year</ng-option>
+                    <ng-option value="10yr 0m">10 year</ng-option>
+                    <ng-option value="15yr 0m">15 year</ng-option>
+                    <ng-option value="20yr 0m">20 year</ng-option>
+                    <ng-option value="25yr 0m">25 year</ng-option>
+                    <ng-option value="40yr 12m">25+ years</ng-option>
+
+                  </ng-select>
+                  <!-- </ngform-field> -->
+                </div>
+              </div>
+
+              <div class="form-group col-md-6">
+
+
+                <div class='col-md-10'>
+                  Experiance To-
+                  <!-- <mat-form-field> -->
+                  <ng-select [(ngModel)]="expto" name="expto">
+                    <!-- <ng-select value="{{0}}" (click)="getlistmain()" >All</ng-select> -->
+                    <!-- <ng-option value="" (click)="getlistmain()" *ngFor="let clientprocess of processes">1</ng-option> -->
+                    <ng-option value="6m"> 6 month</ng-option>
+                    <ng-option value="1yr">1 year</ng-option>
+                    <ng-option value="2yr">2 year</ng-option>
+                    <ng-option value="5yr">5 year</ng-option>
+                    <ng-option value="10yr">10 year</ng-option>
+                    <ng-option value="15yr">15 year</ng-option>
+                    <ng-option value="20yr">20 year</ng-option>
+                    <ng-option value="25yr">25 year</ng-option>
+                    <ng-option value="35yr">35 years</ng-option>
+                    <ng-option value="50yr">35+ years</ng-option>
+
+                  </ng-select>
+                  <!-- </ngform-field> -->
+                </div>
+              </div>
+            </div>
+            <div class="row">
+
+              <div class="form-group col-md-6">
+                <div class='col-md-9'>
+                  Location:
+                  <ng-select [(ngModel)]="locationcnd" name="location" [multiple]="true">
+                    <ng-option *ngFor="let locations of location">
+                      {{locations}}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+
+              <div class="col-3 form-group">
+
+
+                <div class="col-md-9 col-md-offset-3">
+
+                  <button type="submit" class="btn  btn-raised btn-block btn-info" tar="#assignCandidate"
+                    (click)="loadGridboolean()">Search</button>
+                </div>
+              </div>
+
+              <!-- (rowClicked)="onRowClicked($event)" -->
+            </div>
           </div>
 
+          <br><br>
+
+          <!-- <ag-grid-angular style=" height: 1000px;" (rowClicked)="onRowClicked($event)"
+            *ngIf="showInternaldatagridboolean" rowSelection='multiple' class="ag-theme-material" [rowData]="rowData"
+            [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
+            [groupSelectsChildren]="true" paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)"
+            [debug]="true" [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)"
+            suppressCellFlash="true" enableCellChangeFlash="true" rowHeight='250'>
+          </ag-grid-angular> -->
+          <div *ngIf="showInternaldatagridboolean">
+            <div class="col-sm-12">
+
+              <!-- <div class="col-sm-6"> -->
+              <button (click)="ShowgridExcle()" *ngIf="shownormalgrid">Show Excel Grid</button>
+              <button (click)="ShowgridNormal()" *ngIf="showexcelgrid">Show Normal Grid</button>
+
+              <!-- </div>
+            <div class="col-sm-6"> -->
+              <div class="example-header pull-right">
+                Page Size:
+                <mat-select [(ngModel)]="pageSizee" (change)="onPageSizeChanged()">
+                  <mat-option (click)="onPageSizeChanged(newPageSize)" value="10">10</mat-option>
+                  <mat-option (click)="onPageSizeChanged(newPageSize)" value="50">50</mat-option>
+                  <mat-option (click)="onPageSizeChanged(newPageSize)" value="100">100</mat-option>
+                  <mat-option (click)="onPageSizeChanged(newPageSize)" value="500">500</mat-option>
+                  <mat-option (click)="onPageSizeChanged(newPageSize)" value="1000">1000</mat-option>
+                </mat-select>
+              </div>
+              <!-- </div> -->
+            </div><br>
+
+
+            <div class="excelformate col-lg-12" *ngIf="showexcelgrid">
+              <ag-grid-angular style="width: 100%; height: 2000px;" class="ag-theme-balham" [columnDefs]="columnDefsexcel"
+              [defaultColDef]="defaultColDef" [groupSelectsChildren]="true" [debug]="true" [rowSelection]="rowSelection"
+              [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"
+              [pagination]="true" rowHeight='300' [paginationPageSize]="paginationPageSize" [suppressRowClickSelection]="true"
+              [suppressAggFuncInHeader]="true" [paginationNumberFormatter]="paginationNumberFormatter" [rowData]="rowData"
+              (gridReady)="onGridReady($event)" suppressCsvExport=false rowMultiSelectWithClick='true' rowDeselection='true'
+              paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)" [getRowHeight]='getRowHeight'
+              [pagination]="true" (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)"
+              (rowClicked)="onRowClicked($event)"></ag-grid-angular>
+            </div>
+
+            <div class="excelformate col-lg-12" *ngIf="shownormalgrid">
+              <ag-grid-angular style="width: 100%; height: 2000px;" class="ag-theme-balham" [columnDefs]="columnDefs"
+              [defaultColDef]="defaultColDef" [groupSelectsChildren]="true" [debug]="true" [rowSelection]="rowSelection"
+              [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"
+              [pagination]="true" rowHeight='300' [paginationPageSize]="paginationPageSize" [suppressRowClickSelection]="true"
+              [suppressAggFuncInHeader]="true" [paginationNumberFormatter]="paginationNumberFormatter" [rowData]="rowData"
+              (gridReady)="onGridReady($event)" suppressCsvExport=false rowMultiSelectWithClick='true' rowDeselection='true'
+              paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)" [getRowHeight]='getRowHeight'
+              [pagination]="true" (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)"
+              (rowClicked)="onRowClicked($event)"></ag-grid-angular>
+            </div>
+          </div>
         </div>
-
-
-        <ag-grid-angular style=" height: 500px;" (rowClicked)="onRowClicked($event)"
-        rowSelection='multiple'
-          class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
-          [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
-          (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
-          (gridReady)="onGridReady($event)"  suppressCellFlash="true" enableCellChangeFlash="true">
-        </ag-grid-angular>
+        <!-- booleansearch closed  -->
       </div>
     </div>
   </div>

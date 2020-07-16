@@ -13,6 +13,7 @@ export class UpdateStatusComponent implements OnInit {
   commentstatus: any = {};
   showowner = false;
   managers = [];
+  checkdata: any;
   load: CandidateMyJobComponent;
   status_id = 0;
   current_row: any;
@@ -87,11 +88,52 @@ export class UpdateStatusComponent implements OnInit {
       $('#isbot').hide();
       this.statuses = response;
       // debugger;
+      //  this.reloadstatus(entity);
       $('#commentstatus').modal('show');
 
     });
   }
+  // reloadstatus(entity): void {
+  //   if (entity) {
+  //     this.entityvar = entity;
+  //   } else {
+  //     entity = this.entityvar;
+  //   }
+  //   if (this.allstatus) {
+  //     this.allstatusload = 1;
+  //   } else {
+  //     this.allstatusload = 0;
+  //   }
 
+  //   if (this.commentstatus.noemailset) {
+  //     this.commentstatus.noemail = 1;
+  //   } else {
+  //     this.commentstatus.noemail = 0;
+  //   }
+
+
+  //   if (entity.recruiter_id == null) {
+  //     this.showowner = true;
+  //   } else {
+  //     this.showowner = false;
+  //   }
+  //   this.ajid = entity.ajid;
+  //   console.log(entity);
+  //   debugger;
+  //   this.currentstatusid = entity.status_id;
+  //   // this.commentstatus.status = this.currentstatusid;
+  //   this.currentstatusname = entity.display_name;
+
+  //   this.db.list('csr/' + entity.status_id, { allstatus: this.allstatusload, jobid: entity.jobid }, (response): void => {
+  //     $('#business').hide();
+  //     $('#offerhide').hide();
+  //     $('#isbot').hide();
+  //     this.statuses = response;
+  //     // debugger;
+  //     // $('#commentstatus').modal('show');
+
+  //   });
+  // }
   // sendcall(entity): void {
   //   if (entity && entity.botid !== null) {
   //     this.entityvar = entity;
@@ -118,7 +160,54 @@ export class UpdateStatusComponent implements OnInit {
   //   );
   // }
 
+  reloadstatus(statusid, statusname): void {
+    // if (entity) {
+    //   this.entityvar = entity;
+    // } else {
+    //   entity = this.entityvar;
+    // }
+    // if (this.allstatus) {
+    //   this.allstatusload = 1;
+    // } else {
+    //   this.allstatusload = 0;
+    // }
 
+    // if (this.commentstatus.noemailset) {
+    //   this.commentstatus.noemail = 1;
+    // } else {
+    //   this.commentstatus.noemail = 0;
+    // }
+
+
+    // if (entity.recruiter_id == null) {
+    //   this.showowner = true;
+    // } else {
+    //   this.showowner = false;
+    // }
+    // this.ajid = entity.ajid;
+    // console.log(entity);
+    if (this.allstatusload == 1) {
+      this.allstatusload = 0;
+    }
+    debugger;
+    this.currentstatusid = statusid;
+    // this.commentstatus.status = this.currentstatusid;
+    this.currentstatusname = statusname;
+
+    this.db.list('csr/' + this.currentstatusid, { allstatus: this.allstatusload, }, (response): void => {
+      $('#business').hide();
+      $('#offerhide').hide();
+      $('#isbot').hide();
+      debugger;
+
+      //this.allstatusload = 1;
+
+      this.statuses = response;
+      // debugger;
+      // $('#commentstatus').modal('show');
+
+    });
+  }
 
 
   purposechange(): void {
@@ -155,10 +244,12 @@ export class UpdateStatusComponent implements OnInit {
     debugger;
     if (typeof showpopup === 'undefined') {
       showpopup = true;
+    } else {
+      showpopup = true;
     }
 
     this.commentstatus.ajid = this.current_row.ajid;
-    if (this.commentstatus.date != null ) {
+    if (this.commentstatus.date != null && this.commentstatus.date != '2000-01-01') {
       this.commentstatus.date = this.db.toYYMMDD(this.commentstatus.date);
     }
     else {
@@ -169,11 +260,13 @@ export class UpdateStatusComponent implements OnInit {
     this.db.store('csr/', this.commentstatus, (response): void => {
       $('#commentstatus').modal('hide');
       // $scope.filterdrbytab();
+      this.checkdata = response.status_Id;
       this.commentstatus = { ajid: 0 };
       $('.comment_status_btn_current').text(this.currentstatusnameoption);
       // $rootScope.notificationload();
       //this.loadCandidate();
       //this.sendcall(this.entityvar);
+      this.reloadstatus(this.checkdata, this.currentstatusnameoption);
       if (showpopup) {
         this.db.showNotification('Status changed successfully.');
       }

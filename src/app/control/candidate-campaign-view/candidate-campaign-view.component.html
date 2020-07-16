@@ -1,0 +1,85 @@
+<div class='container col-lg-12' >
+  <div class="row col-md-12" style="width: 100%;">
+      <div class="col-sm-4">
+        <ul class="list-unstyled">
+            <li class='i' style="color:#eb1811;cursor: pointer;"  data-action-type="candidateshow">{{row.entity.candidateName}}
+              <!-- <i style="margin-left: 5px;color:#5b4dcc;"  data-action-type="candidateshow"   title="Open Candidate" class="fa fa-link"></i> -->
+              <a href="candidate/{{row.entity.id}}">
+                <b style="cursor: pointer;" class="name">
+                    <i style="margin-left: 5px;color:#5b4dcc;"  title="Open Candidate CV" class="fa fa-link"></i>
+                </b>
+              </a></li>
+            <li>Day:-  {{row.entity.day}}</li>
+            <li>Open Email:-  {{row.entity.is_open_mail}}</li>
+            <li>Campaign Start Date: {{row.entity.last_activity}}</li>
+
+          </ul></div>
+    <div class="col-sm-4">
+        <ul class="list-unstyled">
+          <li>Email-{{row.entity.email}}</li>
+          <!-- <li>Status- {{row.entity.call_status}}</li> -->
+            <li *ngIf="row.entity.open_in_sms=='sms'">Open In : {{row.entity.open_in_sms}}</li>
+            <li *ngIf="row.entity.open_in_mail=='mail'">Open In : {{row.entity.open_in_mail}}</li>
+
+            <li>Mobile : {{row.entity.mobileNo}}</li>
+            <li>Open Link- {{row.entity.bot_link_clicked}}</li>
+            <!-- <li>{{row.entity.job_name}}</li> -->
+           </ul>
+    </div>
+    <div class="col-md-3"><button type="button"  ng-click="grid.appScope.removecandidate(row.entity)"  *ngIf="row.entity.recruiter_id" class="close pull-right" >×</button>
+      <!-- <b class="text-success text-center i">{{row.entity.job_name}}
+
+      </b> -->
+      <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 1"  title="Connected" class="material-icons">phonelink_ring</i>
+
+      <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 2"  title="Not connected" class="material-icons">phonelink_erase</i>
+      <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 2"  title="Connected" class="material-icons">phonelink_ring</i>
+
+      <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 3"  title="Not connected" class="material-icons">phonelink_erase</i>
+      <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 3"  title="Not connected" class="material-icons">phonelink_erase</i>
+      <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 3"  title="Connected" class="material-icons">phonelink_ring</i>
+
+      <i style="margin-left: 30px;color:#71cc4d;" *ngIf="row.entity.typeofcall == 'INCOMING'"  title="Incoming Call" class="material-icons">phone_callback</i>
+      <i style="margin-left: 30px;color:#4d75cc;" *ngIf="row.entity.typeofcall == 'OUTGOING'"  title="Outgoing Call" class="material-icons">phone_forwarded</i>
+
+      <span *ngIf=" row.entity.vendorname!==undefined && row.entity.vendorname!==null && row.entity.vendorname.length > 0"  class="text-red">( Vendor -{{row.entity.vendorname}} )</span><div class="clearfix"></div>
+      <b class="text-info text-center" title='Recruiter'>{{row.entity.recruitername}}
+      </b>
+      <b *ngIf='row.entity.isReferred' title='Referrer name'>
+         ({{row.entity.referrerName}})
+      </b>
+
+      <a href="javascript:"  class="btn btn-raised btn-info btn-sm"   ng-if="row.entity.id"  *ngIf="row.entity.recruitershow" data-target="#commentstatus2" data-toggle="modal" data-action-type='comment'    >
+          {{row.entity.disposition}}<span *ngIf="row.entity.disposition == null"> {{row.entity.call_status}}</span>
+      </a>
+      <!-- <a href="javascript:"  class="btn btn-raised btn-info btn-sm"   ng-if="row.entity.id"  *ngIf="row.entity.recruitershow" target="#commentstatus" data-toggle="modal" data-action-type='comment'    >
+        {{row.entity.disposition}}
+    </a> -->
+
+
+
+      <!-- <span *ngIf="!row.entity.recruitershow"   class="link-black i"><i class="fa fa-files-o fa-lg"></i> {{row.entity.display_name}}</span> -->
+
+
+      <!-- <button class="btn btn-raised btn-danger btn-sm" *ngIf="row.entity.recruitershow" data-target="#activity" data-toggle="modal" data-action-type='activity' (click)="activity(row.entity)" >Activity</button> -->
+      <br/>
+      <!-- <a href="" *ngIf="row.entity.recruitershow" class="text-danger" ng-click="grid.appScope.setatjidentity(row.entity)" >Custom Tracker Data</a>status -->
+      <button *ngIf="row.entity.chat_conv_done== 0"href="" class="btn btn-sm btn-dark btn-raised"  data-action-type='chat' disabled >chat</button>
+      <button *ngIf="row.entity.chat_conv_done== 1"href="" class="btn btn-sm btn-info btn-raised"  data-action-type='chat'  >chat</button>
+      <button *ngIf="row.entity.conversation== '[]'" href="" class="btn btn-sm btn-dark btn-raised"  data-action-type='conversation' disabled >Conversation</button>
+      <button *ngIf="row.entity.conversation!= '[]'" href="" class="btn btn-sm btn-info btn-raised"  data-action-type='conversation'  >Conversation</button>
+
+      <button  data-action-type='openpopup'  class="btn  btn-raised btn-sm"><a href="http://api.passivereferral.com/recording/?id={{row.entity.call_id}}"  ng-click="grid.appScope.openpopup(row.entity.call_id)" target="_blank" >Play</a></button>
+      <a *ngIf="row.entity.invoice_id" href="#"  class="pull-right"><span data-toggle="tooltip" ngf-accept='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"' ngf-pattern='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"'  ngf-select="grid.appScope.uploadinvoicevendor($file,row.entity.invoice_id)" title="Upload">Upload Invoice</span></a>
+
+  </div>
+  </div>
+  <!-- <div class="row col-md-12">
+  <div class="col-sm-12">
+      <ul class="list-unstyled" style="width: 100%;">
+          <li>Skill Set: {{row.entity.skillSet}}</li>
+          </ul>
+  </div>
+  </div> -->
+    <div class="col-sm-12" style="width: 1170px;"> </div>
+  </div>

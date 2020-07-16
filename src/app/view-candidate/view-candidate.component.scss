@@ -1,0 +1,30 @@
+#iconbackground
+{
+	position: absolute;
+	// margin-left: 200px; 
+	border-radius: 50%;
+	height:20px; 
+	cursor: pointer;
+    padding: -10%;
+    // background-color:green;
+}
+.icones:hover{
+background-color: rgb(0, 250, 75);
+}
+.icones{
+	border-radius: 50%;
+	background-color: green;
+}
+
+#iconbackground:hover .icones{
+      	-moz-transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	-ms--transform: rotate(360deg);
+	transform: rotate(360deg);
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+    transition: all 0.2s;
+    color: black;
+  }

@@ -24,17 +24,18 @@ export class MyJobComponent implements OnInit {
   displaydd = 'Job';
   private gridColumnApi;
   managers = [];
+  show_all_jobs: any;
   manager: any;
   private autoGroupColumnDef;
   private defaultColDef;
   private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
   columnDefs = [
     {
       headerName: 'activity', sortable: false, filter: true, headerCheckboxSelection: true, checkboxSelection: true,
-      field: 'id', cellRendererFramework: CandidateMyJobComponent,
-      width: 1000,
+      field: 'id', cellRendererFramework: CandidateMyJobComponent,autoHeight: true, 
+      width: 1000,cellStyle: { "white-space": "normal !important;"}
     },
 
   ];
@@ -62,6 +63,8 @@ export class MyJobComponent implements OnInit {
   jobslistlength: any;
   commentstatus: any = {};
   selectedmanagerlist: any;
+   alljobclient = false;
+
   currentPage = 0;
   pageSize = 10;
   isinterview: any;
@@ -108,6 +111,7 @@ export class MyJobComponent implements OnInit {
   departments = [];
   prmSubject = '';
   prmMessagge = '';
+  //showalljobs = '';
   trackerno: any;
   status_row: any;
   managerSearch: any;
@@ -118,6 +122,13 @@ export class MyJobComponent implements OnInit {
   applications: any;
   jobidforReference: any;
   showtag: {};
+  countviewreletedjobs: any;
+  Client_ids: any;
+  clients: any;
+  showjobs: boolean;
+  job_status: any;
+  job_value: any;
+  AssignDate: any;
   constructor(public db: DBService) {
 
     if (db.profile.id) {
@@ -129,13 +140,17 @@ export class MyJobComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.db.list('clientdetail/', null, ((response): void => {
+      this.clients = response;
+      console.log(this.clients);
+    }));
     this.bindJob();
     this.loadmanager();
     //this.updatestatuscommentmyjob('showpopup');
     this.loadCandidate();
 
-
   }
+
   GetInHourseReference(id, $event) {
     $event.stopPropagation();
     this.jobidforReference = id;
@@ -199,6 +214,8 @@ export class MyJobComponent implements OnInit {
     this.db.show('addnewjob/', item.id, ((response): void => {
       this.itemone.jobDescription = response.jobDescription;
       this.jobidjd = response;
+      $('#viewjobDescription').modal('show');
+
       // this.hidejd = false;
       //item.responsibilityshow === item.responsibilityshow;
     })
@@ -289,9 +306,9 @@ export class MyJobComponent implements OnInit {
 
   submitcv(download): void {
     if (download) {
-      this.downloadcv = true;
-    } else {
       this.downloadcv = false;
+    } else {
+      this.downloadcv = true;
 
     }
     this.db.list('tracker/', null, ((response): void => {
@@ -391,11 +408,45 @@ export class MyJobComponent implements OnInit {
 
   };
   bindJob(): void {
+    debugger;
+    this.alljobclient = true;
+    this.show_all_jobs = false;
     this.isLoadingJobs = true;
-    this.db.list('joblist/', {}, ((response): void => {
+    if(this.Client_ids != null){
+      this.showjobs = true;
+    }else{
+      this.showjobs = false;
+    }
+    this.db.list('joblist/', {client_id :this.Client_ids}, ((response): void => {
+      debugger;
       this.jobslist = response;
       this.jobslistmain = response;
       this.isLoadingJobs = false;
+      this.changefilter(this.job_value, 'job_status');
+
+    })
+    );
+  }
+  bindJobs(): void {
+    debugger;
+    this.alljobclient = true;
+    this.isLoadingJobs = true;
+    this.show_all_jobs = true;
+    // const showjoblist = {
+    //   showalljobs: 1
+    // }
+    //this.showjoblist = 1;
+    if(this.Client_ids != null){
+      this.showjobs = true;
+    }else{
+      this.showjobs = false;
+    }
+    this.db.list('joblist/', { showalljobs: 1,client_id :this.Client_ids }, ((response): void => {
+      debugger;
+      this.jobslist = response;
+      this.jobslistmain = response;
+      this.isLoadingJobs = false;
+      this.changefilter(this.job_value, 'job_status');
 
     })
     );
@@ -425,6 +476,7 @@ export class MyJobComponent implements OnInit {
 
   }
   assignjobClickToVendor(): void {
+    debugger;
     let selected = 0;
     let job_id = 0;
 
@@ -534,13 +586,13 @@ export class MyJobComponent implements OnInit {
   };
 
   filterbycandidate(): void {
-debugger;
+    debugger;
     this.searchcandidatetext = '';
     this.getlist();
 
   };
   filterbyJob(): void {
-debugger;
+    debugger;
     this.loadCandidate();
     this.ShowCandidates = true;
   };
@@ -548,47 +600,115 @@ debugger;
   loadCandidate = function () {
 
     debugger;
-    let SelectedJob = ''
-    if (this.isfirstload !== 1) {
-      SelectedJob = this.db.SelectedCheckboxWithComma(this.jobslist);
+    let start_date = ''
+    if (this.startdatefilter ==  undefined) {
+      start_date = '2000-01-01';
     } else {
+      start_date = this.db.toYYMMDDTT(this.startdatefilter);
+    }
+
+    let end_date = ''
+    if (this.enddatefilter == undefined) {
+      end_date = '';
+    } else {
+      end_date = this.db.toYYMMDDTT(this.enddatefilter)
+      ;
+    }
+    if (this.show_all_jobs === false) {
+      let SelectedJob = ''
+      if (this.isfirstload !== 1) {
+        SelectedJob = this.db.SelectedCheckboxWithComma(this.jobslist);
+      } else {
+        SelectedJob = this.selectedjob;
+      }
       SelectedJob = this.selectedjob;
-    }
-    SelectedJob = this.selectedjob;
-    // const totalrow = this.selectednodes;
-    // SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
-    this.db.globaljobid = SelectedJob;
-    if (this.mainprocess === undefined) {
-      this.mainprocess = '';
-    }
-    if (this.process === undefined) {
-      this.process = '';
-    }
-    const Search = {
-      filterdropdown: this.filterdropdown,
-      process: this.process,
-      mainprocess: this.mainprocess,
-      searchcandidatetext: this.searchcandidatetext,
-      selectedjob: SelectedJob,
-      candidate: this.searchcandidate
+      // const totalrow = this.selectednodes;
+      // SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
+      this.db.globaljobid = SelectedJob;
+      if (this.mainprocess === undefined) {
+        this.mainprocess = '';
+      }
+      if (this.process === undefined) {
+        this.process = '';
+      }
+      const Search = {
+        filterdropdown: this.filterdropdown,
+        process: this.process,
+        mainprocess: this.mainprocess,
+        searchcandidatetext: this.searchcandidatetext,
+        selectedjob: SelectedJob,
+        candidate: this.searchcandidate,
+        showallcandidate: 0,
+        start_date: start_date,
+        end_date: end_date
 
-    };
-    if (this.isinterview !== undefined) {
-      Search['isinterview'] = this.isinterview;
-    }
-
-    this.rowData = [];
-    console.log(Search);
-    this.db.list('candidatesdetailmyjob/', Search, ((response): void => {
-
-
-      this.candidatedetails = response;
-      this.rowData = response;
-      this.gridOptionsloadcandidatesInPopUp.exporterAllDataFn = function () {
-        return this.candidatedetails;
       };
-      this.candidateinpopup = response;
-    }));
+      if (this.isinterview !== undefined) {
+        Search['isinterview'] = this.isinterview;
+      }
+
+      this.rowData = [];
+      console.log(Search);
+      this.db.list('candidatesdetailmyjob/', Search, ((response): void => {
+  //  this.startdatefilter = '';
+  //  this.enddatefilter = '';
+        this.candidatedetails = response;
+        this.rowData = response;
+        this.gridOptionsloadcandidatesInPopUp.exporterAllDataFn = function () {
+          return this.candidatedetails;
+        };
+        this.candidateinpopup = response;
+      }));
+    } else {
+      debugger;
+      let SelectedJob = ''
+      if (this.isfirstload !== 1) {
+        SelectedJob = this.db.SelectedCheckboxWithComma(this.jobslist);
+      } else {
+        SelectedJob = this.selectedjob;
+      }
+      SelectedJob = this.selectedjob;
+      // const totalrow = this.selectednodes;
+      // SelectedJob = this.db.SelectedWithComma(totalrow, 'id');
+      this.db.globaljobid = SelectedJob;
+      if (this.mainprocess === undefined) {
+        this.mainprocess = '';
+      }
+      if (this.process === undefined) {
+        this.process = '';
+      }
+      const Search = {
+        filterdropdown: this.filterdropdown,
+        process: this.process,
+        mainprocess: this.mainprocess,
+        searchcandidatetext: this.searchcandidatetext,
+        selectedjob: SelectedJob,
+        candidate: this.searchcandidate,
+        showallcandidate: 1,
+        start_date: start_date,
+        end_date: end_date
+
+
+
+      };
+      if (this.isinterview !== undefined) {
+        Search['isinterview'] = this.isinterview;
+      }
+
+      this.rowData = [];
+      console.log(Search);
+      this.db.list('candidatesdetailmyjob/', Search, ((response): void => {
+
+
+        this.candidatedetails = response;
+        this.rowData = response;
+        this.gridOptionsloadcandidatesInPopUp.exporterAllDataFn = function () {
+          return this.candidatedetails;
+        };
+        this.candidateinpopup = response;
+      }));
+    }
+
   };
 
   selectdeselect(event, item): void {
@@ -603,10 +723,13 @@ debugger;
     item.selected = !item.selected;
   };
   changefilter(val, type): void {
-debugger;
+    debugger;
     this.isfilter = true;
     let data = [];
-
+    this.job_value = val;
+    if(val == null || val == undefined || val == '' ){
+      val = 'Active';
+    }
     this.filter = val;
     if (val === 'All') {
       data = this.jobslistmain;
@@ -666,7 +789,18 @@ debugger;
     }
   };
 
+  viewreletedjobs(item):void{
+    debugger;
+    const jobkeyskill =item.keyskills;
+    const location =item.location;
+    this.db.list('viewjob',{jobkeyskill:item.keyskills,joblocation:item.location},((response): void =>{
+          this.rowData=response[0];
+          this.countviewreletedjobs=response[1];
+    }));
+  }
+
   assignjobClick(): void {
+    debugger;
     let selected = 0;
     let job_id = 0;
 
@@ -725,7 +859,7 @@ debugger;
   };
 
   filterdropdownfunction(choice, display): void {
-debugger;
+    debugger;
     this.filterdropdown = choice;
     this.displaydd = display;
     this.currentfilter = choice;
@@ -771,10 +905,11 @@ debugger;
   }
   public oncandidateshowClick(data: any) {
 
-
+    debugger;
     data.tempdate = new Date().getMilliseconds();
     this.currentData = {};
     this.currentData = data;
+    this.candidate_id = data.id;
   }
 
   public onNotesClick(data: any) {
@@ -871,11 +1006,24 @@ debugger;
 
   }
 
+  // assignjob(): void {
+  //   debugger;
+  //   const assignjob = {
+  //     'managers': this.db.SelectedCheckbox(this.managers),
+  //     'jobs': this.db.SelectedCheckbox(this.jobslist)
+  //   };
+  //   this.db.store('assignjob/', assignjob, ((response): void => {
+  //     console.log(response);
+  //     this.db.addmessageandremove('job successfully asssign');
+  //   }));
+  // };
   assignjob(): void {
     debugger;
     const assignjob = {
       'managers': this.db.SelectedCheckbox(this.managers),
-      'jobs': this.db.SelectedCheckbox(this.jobslist)
+      'jobs': this.db.SelectedCheckbox(this.jobslist),
+      'assigndate':this.AssignDate
+
     };
     this.db.store('assignjob/', assignjob, ((response): void => {
       console.log(response);
@@ -955,9 +1103,9 @@ debugger;
   //         });
   //     }
   // };
-  uploadexcel(files: FileList, jobid) {
+  uploadexcel(files: FileList) {
     debugger;
-    const jodid = jobid;
+    // const jodid = jobid;
     const fileToUpload: any[] = [];
     fileToUpload.push({ 'filekey': 'file', 'file': files.item(0) });
     this.db.storeupload('getcvexceldata/', { file: files }, (re) => {
@@ -1010,7 +1158,7 @@ debugger;
             break;
           }
         }
-        for (var d in this.responsedata.newcv) {
+        for (const d in this.responsedata.newcv) {
           if (this.responsedata.newcv[d] === email) {
 
             this.cvslists[tt].statusofsubmit = 'done';
@@ -1022,80 +1170,106 @@ debugger;
       }
     })
     );
-    for (var t in this.cvslists) {
-
-      var data = {
-        file: this.cvslists[t].file,
-        email: this.cvslists[t].email,
-        'jobid': this.cvslists[t].jobid
-      };
-      this.db.upload('uploadcvs/', data, function () { }, function (response) { }, function (response) { });
+    for (const t in this.cvslists) {
+      if (this.cvslists) {
+        const data = {
+          file: this.cvslists[t].file,
+          email: this.cvslists[t].email,
+          'jobid': this.cvslists[t].jobid
+        };
+        this.db.upload('uploadcvs/', data, function () { }, function (response) { }, function (response) { });
+      }
     }
     console.log(formData);
   };
 
   uploadresume(files: FileList) {
     debugger;
-
-    const formData = [];
-    console.log(this.cvslists);
-    $("#cvformdata .rowtr").each(function () {
-      const Row = {
-        'jobid': this.jobidcvupload
-      };
-      $(this).find('.key').each(function () {
-        const key = $(this).attr('key');
-        Row[key] = $(this).val();
-        //                if (key == 'email') {
-        //
-        //                    for (var j in $scope.cvslists) {
-        //                        if ($scope.cvslists[j].email == $(this).val()) {
-        //                            Row['resume'] = $scope.cvslists[j].file;
-        //                        }
-        //                    }
-        //
-        //                }
-
-      });
-      formData.push(Row);
-    });
-
-
-
+    //this.candidate_id = candidate_id;
     const fileToUpload: any[] = [];
     fileToUpload.push({ 'filekey': 'resume', 'file': files.item(0) });
-    this.db.storeupload('uploadcvs/', { cvs: files }, (re) => {
-
-
-
-      this.responsedata = re;
-      // tslint:disable-next-line: forin
-      for (const tt in this.cvslists) {
-        const email = this.cvslists[tt].email;
-        for (const d in this.responsedata.alreadyexists) {
-          if (this.responsedata.alreadyexists[d] === email) {
-
-            this.cvslists[tt].statusofsubmit = 'fail';
-
-            break;
-          }
-        }
-        for (var d in this.responsedata.newcv) {
-          if (this.responsedata.newcv[d] === email) {
-
-            this.cvslists[tt].statusofsubmit = 'done';
-
-            break;
-          }
-        }
-
-      }
-    });
-    // this.db.showNotification('Resume Uploaded');
-    // $('#uploadresume').modal('hide');
-    //}, (re) => {
-    //this.db.showNotification('uploaded'); $('#uploadresume').modal('hide');
-    //}, null, fileToUpload);
-    //}
+    this.db.storeupload('candidatedetail/update/' + this.candidate_id, null, (re) => {
+      this.db.showNotification('Resume Uploaded');
+      $('#uploadresume').modal('hide');
+    }, (re) => {
+      this.db.showNotification('uploaded'); $('#uploadresume').modal('hide');
+    }, null, fileToUpload);
   }
+
+  myjobActivity(item): void {
+ 
+    debugger;
+      this.db.list('updateactivity/',{job_id: item.id, job_satatus: this.job_status}, (response): void => {
+       debugger;
+        this.bindJob();
+        debugger;
+         this.changefilter(this.job_value, 'job_status');
+      this.db.addmessageandremove('Updated Successfully');
+    });
+  }
+
+  // uploadresume(files: FileList) {
+  //   debugger;
+
+  //   const formData = [];
+  //   console.log(this.cvslists);
+  //   $("#cvformdata .rowtr").each(function () {
+  //     const Row = {
+  //       'jobid': this.jobidcvupload
+  //     };
+  //     $(this).find('.key').each(function () {
+  //       const key = $(this).attr('key');
+  //       Row[key] = $(this).val();
+  //       //                if (key == 'email') {
+  //       //
+  //       //                    for (var j in $scope.cvslists) {
+  //       //                        if ($scope.cvslists[j].email == $(this).val()) {
+  //       //                            Row['resume'] = $scope.cvslists[j].file;
+  //       //                        }
+  //       //                    }
+  //       //
+  //       //                }
+
+  //     });
+  //     formData.push(Row);
+  //   });
+
+
+
+  //   const fileToUpload: any[] = [];
+  //   fileToUpload.push({ 'filekey': 'resume', 'file': files.item(0) });
+  //   this.db.storeupload('uploadcvs/', { cvs: files }, (re) => {
+
+
+
+  //     this.responsedata = re;
+  //     // tslint:disable-next-line: forin
+  //     for (const tt in this.cvslists) {
+  //       const email = this.cvslists[tt].email;
+  //       for (const d in this.responsedata.alreadyexists) {
+  //         if (this.responsedata.alreadyexists[d] === email) {
+
+  //           this.cvslists[tt].statusofsubmit = 'fail';
+
+  //           break;
+  //         }
+  //       }
+  //       for (var d in this.responsedata.newcv) {
+  //         if (this.responsedata.newcv[d] === email) {
+
+  //           this.cvslists[tt].statusofsubmit = 'done';
+
+  //           break;
+  //         }
+  //       }
+
+  //     }
+  //   });
+  //   // this.db.showNotification('Resume Uploaded');
+  //   // $('#uploadresume').modal('hide');
+  //   //}, (re) => {
+  //   //this.db.showNotification('uploaded'); $('#uploadresume').modal('hide');
+  //   //}, null, fileToUpload);
+  //   //}
+  // }
 }

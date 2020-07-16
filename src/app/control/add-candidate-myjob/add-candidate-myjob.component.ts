@@ -16,6 +16,10 @@ export class AddCandidateMyjobComponent implements ICellRendererAngularComp {
   debugger;
   rowdata = new EventEmitter<any>();
   row = { entity: null }
+  sendtracker: { trackerno: {} };
+  jobslist: [];
+  store: { candidateName: {}, gender: {},mobileNo:{},email:{} };
+  genders: [];
   myname = 'narender';
   constructor() { }
   agInit(params: any): void {
@@ -50,7 +54,7 @@ export class AddCandidateMyjobComponent implements ICellRendererAngularComp {
 
   candidatesave = function () {
 
-debugger;
+    debugger;
     this.db.store('candidatedetail/', this.store, ((response): void => {
       this.updateid = response.id;
 

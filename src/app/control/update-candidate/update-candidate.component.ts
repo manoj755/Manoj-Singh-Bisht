@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Pipe, EventEmitter } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { FileUploader, FileLikeObject } from 'ng2-file-upload';
 import { FormGroup, FormControl } from '@angular/forms';
+import { forEach } from '@angular/router/src/utils/collection';
 const URL = 'https://localhost:4200/';
 
 declare var $: any;
@@ -20,7 +21,14 @@ export class UpdateCandidateComponent implements OnInit {
   JobData: any;
   countries: any;
   hidetracker = false;
-  candidateshowdata = { customdata: [], resume: '', html: '', htmlurl: '' };
+  candidateshowdata = {
+    customdata: [], resume: '', html: '', htmlurl: '', candidateshowdata: '',
+    naukri_url: '', email: '', mobileNo: '', gender: '', dob: '', currentSalary: '',
+    expectedSalary: '', noticePeriod: '', currentOrganization: '', currentDesignation: '',
+    state: '', city: '', location: '', preferredLocation: '', qualification: '', phoneNo: '',
+    panNo: '', nationality: '', visaType: '', remark: '', ovarallExperiance: '', relevantExperiance: '',
+    address: '', industryType: '', functionalArea: '', skillSet: '', source: '', candidateName: ''
+  };
   globaljobid = 0;
 
 
@@ -35,9 +43,9 @@ export class UpdateCandidateComponent implements OnInit {
   onSubmit() {
     let formdata = new FormData();
     console.log(this.uploadForm)
-    formdata.append("avatar", this.filedata);
+    formdata.append('avatar', this.filedata);
     this.db
-      .post("http://api.passivereferral.com/public/", formdata, ((response): void => {
+      .post('http://api.passivereferral.com/public/', formdata, ((response): void => {
 
       })
       );
@@ -112,9 +120,11 @@ export class UpdateCandidateComponent implements OnInit {
       }
       this.trackerjobdata = response;
     });
+    debugger;
     this.db.show('candidatedetail/', id, (response): void => {
-
-      if (response.customdata === null) {
+debugger;
+this.candidateshowdata = response;
+      if (response.customdata == null) {
         response.customdata = [];
       } else {
         response.customdata = JSON.parse(JSON.stringify(response.customdata));
@@ -164,5 +174,39 @@ export class UpdateCandidateComponent implements OnInit {
       this.db.showNotification('uploaded'); $('#uploadresume').modal('hide');
     }, null, fileToUpload);
   }
+
+
+
+  saveCustomData(): void {
+    debugger;
+    const profiledata = {};
+
+    for (const i in this.ProfileData) {
+      if (this.ProfileData) {
+        const key = this.ProfileData[i].db_name;
+        const val = this.ProfileData[i].value;
+        profiledata[key] = val;
+      }
+    }
+    const jobdata = {};
+    for (const i in this.JobData) {
+      if (this.JobData) {
+        const key = this.JobData[i].db_name;
+        const val = this.JobData[i].value;
+        jobdata[key] = val;
+      }
+    }
+    debugger;
+    //console.log(profiledata);
+    // console.log(jobdata);
+    this.db.store('trackerdatapost', {
+      pdata: profiledata,
+      jdata: jobdata,
+      'cid': this.updateid,
+      'jobid': this.db.globaljobid
+    }, function (r) {
+      this.db.addmessageandremove('Added Successfully');
+    });
+  };
 
 }

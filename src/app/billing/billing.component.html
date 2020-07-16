@@ -678,7 +678,7 @@
                   <label>Billable CTC</label>
                   <input type="text" [(ngModel)]="gi.billablectc" ng-change="fetchfeesslab()" class="form-control e"
                     placeholder="Billable CTC" />
-                  <div class="alert alert-danger" *ngIf="gi.billablectc.length > 3 && notinfeeslab"> Billable CTC is not
+                  <div class="alert alert-danger" *ngIf="gi.billablectc > 3 && notinfeeslab"> Billable CTC is not
                     of fee slab !</div>
 
                 </div>
@@ -815,7 +815,7 @@
                   <input type="text" [(ngModel)]="dataedit.billable_ctc" ng-change="fetchfeesslabedit()"
                     class="form-control e" placeholder="Billable CTC" />
                   <div class="alert alert-danger"
-                    *ngIf="(dataedit.billable_ctc&&dataedit.billable_ctc.length > 3) && notinfeeslab"> Billable CTC is
+                    *ngIf="(dataedit.billable_ctc&&dataedit.billable_ctc > 3) && notinfeeslab"> Billable CTC is
                     not of fee slab !</div>
 
 

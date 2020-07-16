@@ -1,14 +1,24 @@
 
-<div class='row' >
+
+<div class="container" style="height: 1000px;">
+
+<div class='row col-md-12' >
 
   <div class="col-md-4">
       <ul class="list-unstyled">
-          <li class='i'>{{row.entity.candidateName}}  <b style="cursor: pointer;" class="name"  *ngIf="row.entity.recruitershow">
+          <!-- <li class='i'>{{row.entity.candidateName}}  <b style="cursor: pointer;" class="name"  *ngIf="row.entity.recruitershow">
                   <i style="margin-left: 5px;color:#5b4dcc;"  data-action-type="candidateshow"   title="Open Candidate" class="fa fa-link"></i>
                   <i data-action-type="notes" style="margin-left: 3px;color:red;" ng-click="setupdateid(row.entity.id)" title="Add Notes" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
 
 
-              </b></li>
+              </b></li> -->
+              <li class='i'> <a href="#" target="_blank"  data-action-type="candidateshow"> {{row.entity.candidateName}}</a>   <b style="cursor: pointer;" class="name"  *ngIf="row.entity.recruitershow">
+                <a target="_blank" href="candidate/{{row.entity.id}}">
+                <i style="margin-left: 5px;color:#5b4dcc;"     title="Open Candidate" class="fa fa-link"></i></a>
+                    <i data-action-type="notes" style="margin-left: 3px;color:red;" (click)="(row.entity.id)" title=" {{row.entity.comments}}" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
+
+
+                </b></li>
           <li>{{row.entity.currentDesignation}}({{row.entity.currentOrganization}})</li>
           <li>Email-{{row.entity.email}}</li><li>Qualification:{{row.entity.qualification}}</li></ul></div>
   <div class="col-md-4">
@@ -38,9 +48,18 @@
 
       <button class="btn btn-raised btn-danger btn-sm" *ngIf="row.entity.recruitershow" data-target="#activity" data-toggle="modal" data-action-type='activity' (click)="activity(row.entity)" >Activity</button>
       <br/>
-      <a href="" *ngIf="row.entity.recruitershow" class="text-danger" ng-click="grid.appScope.setatjidentity(row.entity)" >Custom Tracker Data</a>status
+      <!-- <a href="" *ngIf="row.entity.recruitershow" class="text-danger" ng-click="grid.appScope.setatjidentity(row.entity)" >Custom Tracker Data</a>status -->
 
 
       <a *ngIf="row.entity.invoice_id" href="#"  class="pull-right"><span data-toggle="tooltip" ngf-accept='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"' ngf-pattern='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"'  ngf-select="grid.appScope.uploadinvoicevendor($file,row.entity.invoice_id)" title="Upload">Upload Invoice</span></a>
 
   </div></div>
+  <div class="row col-md-12">
+    <div class="col-sm-12">
+        <ul class="list-unstyled" style="width: 100%;">
+            <li>Skill Set: {{row.entity.skillSet}}</li>
+            </ul>
+    </div>
+    </div>
+      <div class="col-sm-12" style="width: 1000px; height: 20px;"> </div>
+      </div>

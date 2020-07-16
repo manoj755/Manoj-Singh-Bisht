@@ -87,6 +87,10 @@ export class RecruiterreportnewComponent implements OnInit {
     data: null,
 
   };
+  public autoGroupColumnDef;
+  public rowSelection;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
   filtertitle = '';
   gridTotalRejectedCandidate: any;
   gridTotalProcessCandidate: any;
@@ -108,7 +112,7 @@ export class RecruiterreportnewComponent implements OnInit {
   myjob = { rootname: '', client_detail_id: 0, job_id: 0, manager: 0, start_date: '2000-01-01', end_date: '2019-12-12' };
   clientdetails: any;
   gridTotalCandidate = { data: null };
-  constructor(private db: DBService) { }
+  constructor(public db: DBService) { }
 
   ngOnInit() {
     this.bindmanagers();

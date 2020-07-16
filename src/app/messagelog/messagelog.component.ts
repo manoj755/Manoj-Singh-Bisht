@@ -17,11 +17,11 @@ export class MessagelogComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  public autoGroupColumnDef;
+  public defaultColDef;
+  public rowSelection;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
   columnDefs = [
     {
       headerName: 'Action', field: 'id', suppressMenu: true,

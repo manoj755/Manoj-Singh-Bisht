@@ -1,0 +1,45 @@
+
+
+<mat-card class="example-card" style="padding: 2px; margin: 10px 0 40px 0;">
+ <table class="table table-striped" *ngIf="_data.length>0">
+    <thead>
+      <tr>
+        <th scope="col" *ngIf="_canEdit || _canDelete || _isCustomBtn" style="width:200px">
+           Action
+            </th>
+        <th    *ngFor="let entry of transform(_data[0]); let i=index;">           
+            {{entry.key}}
+            
+          </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of _data; let index=i;  trackBy: trackByFn">
+        <td *ngIf="_canEdit || _canDelete || _isCustomBtn">
+          <span>
+          <button (click)="delete(item)" *ngIf="_canDelete"  class="btn  btn-danger btn-sm deletebtn">Delete</button> &nbsp;
+          <button (click)="edit(item)"  *ngIf="_canEdit" class="btn btn-success btn-sm editbtn">Edit</button>
+          <button (click)="custom_event(item)"  *ngIf="_isCustomBtn" class="btn btn-success btn-sm custombtn">{{_customBtnText}}</button>
+        </span>
+        </td>
+        <td    *ngFor="let entry of transform(item)">           
+           {{entry.value}}
+          </td>
+       
+      </tr>
+      
+    </tbody>
+  </table></mat-card>
+  <!-- <ul class="pagination">
+    
+      <li class="page-item" *ngFor="let item of createRange(_data/_itemPerPage); let currentElementIndex=index"><a class="page-link" href="#">
+        
+        {{currentElementIndex}}
+      </a></li>
+      
+    </ul> -->
+
+ <div *ngIf="_data.length==0">
+   <h3 class="text-info">No Data Found</h3>
+
+ </div>

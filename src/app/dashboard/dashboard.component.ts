@@ -13,13 +13,13 @@ declare var $: any;
 export class DashboardComponent implements OnInit {
 
   // new reference fields
+private gridApi;
 
-
-  private autoGroupColumnDef;
+  public autoGroupColumnDef;
   private defaultColDef;
   private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
   columnDefs = [
     {
       headerName: 'activity', sortable: false, filter: true, headerCheckboxSelection: true, checkboxSelection: true,
@@ -31,7 +31,9 @@ export class DashboardComponent implements OnInit {
 
   rowData = [
   ];
+  onRowClicked: any;
   getsuggestions: any;
+  lenght: any;
   prsuggestionpercent: any;
   getinterviewschedules: any;
   notification_very_danger = 0;
@@ -62,7 +64,16 @@ export class DashboardComponent implements OnInit {
   gridOptionsSuggestedCandidatesCols = [];
   gridOptionsSuggestedCandidatesRows = [];
   allids: any;
-  constructor(private router: Router, private db: DBService) { }
+  loaddata: any;
+  Initiationcallreport: any;
+  sourceData: any;
+  sourcereport: any;
+  recruiterreport: any;
+  Openmailmessage: any;
+  callInitiationreports: any;
+  responcereports: any;
+  recruiterreports: any;
+  constructor(private router: Router, public db: DBService) { }
   isnull(val, returns) {
     if (val === null || val === undefined) {
       return returns;
@@ -72,7 +83,7 @@ export class DashboardComponent implements OnInit {
     }
   }
   setjobandreferencetempmpfunction() {
-
+debugger;
     if (this.db.profile != null) {
       this.setjobandreferencetemp.current_job_id =
         this.isnull(this.isnull(this.setjobandreferencetemp.current_job_id, '0'), '0').toString();
@@ -91,10 +102,14 @@ export class DashboardComponent implements OnInit {
     if (this.setjobandreferencetemp.callto == null) {
       alert('please select call type');
     }
+    debugger
     this.db.store('setjobandreferencetemplate/', this.setjobandreferencetemp);
-
+debugger;
   };
   ngOnInit() {
+    this.recruiterreportdealy();
+    this.callInitiationreport();
+    this.resumesourcereport();
     this.start_date_temp.setDate(this.end_date_temp.getDate() - 1);
     this.loadcvparse();
     this.db.setProfile();
@@ -183,6 +198,264 @@ export class DashboardComponent implements OnInit {
 
     // start animation for the Emails Subscription Chart
     this.startAnimationForBarChart(websiteViewsChart);
+    this.responcereport();
+
+  }
+
+
+  recruiterreportdealy(): void {
+    //   debugger;
+    const recruiter = { rootname: '', client_detail_id: 0, job_id: 0, manager: 0};
+
+        this.db.list('DashboardrecruiterreportApi/',recruiter, (response): void => {
+      debugger;
+
+          const xval = ['x'];
+          const Total_Candidate = ['Total'];
+          const selected_Candidate = ['Selected'];
+          const Rejected_Candidate = ['Rejected'];
+          const In_Process_Candidate = ['In Process'];
+          const UnderReview = ['Under Review'];
+
+
+          for (const i in response) {
+            if (response[i]) {
+                xval.push(response[i].recruiter_Name );
+
+              Total_Candidate.push(response[i].Total_Candidate);
+              selected_Candidate.push(response[i].selected_Candidate);
+              Rejected_Candidate.push(response[i].Rejected_Candidate);
+              In_Process_Candidate.push(response[i].In_Process_Candidate);
+              UnderReview.push(response[i].UnderReview);
+            }
+          }
+          const Columns = [];
+          const ColumnsPie = [];
+          Columns.push(xval);
+
+          Columns.push(Total_Candidate);
+          Columns.push(selected_Candidate);
+          Columns.push(Rejected_Candidate);
+          Columns.push(In_Process_Candidate);
+          Columns.push(UnderReview);
+
+          if (this.loaddata) {
+            this.recruiterreport.load({
+              unload: true,
+              columns: Columns
+            });
+          } else {
+            this.recruiterreport = c3.generate({
+              bindto: '#recruiterreport',
+              data: {
+                x: 'x',
+                columns: Columns,
+                type: 'area',
+
+              },
+              bar: {
+                width: {
+                  ratio: 0.8 // this makes bar width 50% of length between ticks
+                }
+              },
+              axis: {
+                x: {
+                  type: 'category',
+                  tick: {
+                    rotate: 80,
+                    multiline: false
+                  },
+                  height: 150
+                }
+              }
+            });
+            this.loaddata = false;
+
+          }
+
+          this.recruiterreports = response;
+          this.db.sl();
+        });
+      }
+ resumesourcereport(): void{
+    //debugger;
+    this.db.list('Dashboardresumesourcereport/',{ }, (response): void => {
+      //debugger;
+
+      const xval = ['x'];
+
+
+      const Naukri = ['Naukri'];
+      const Monster = ['Monster'];
+      const Shine = ['Shine'];
+      const Times_Job = ['Times_Job'];
+      const Internal_Database = ['Internal_Database'];
+      const LinkedIn = ['LinkedIn'];
+      const Upload_Cv = ['Upload_Cv'];
+
+      for (const i in response) {
+        if (response[i]) {
+       //debugger;
+          xval.push(response[i].user_Name);
+          Naukri.push(response[i].Naukri);
+          Monster.push(response[i].Monster);
+          Shine.push(response[i].Shine);
+          Times_Job.push(response[i].Times_Job);
+          Internal_Database.push(response[i].Internal_Database);
+          LinkedIn.push(response[i].LinkedIn);
+          Upload_Cv.push(response[i].Upload_Cv);
+
+        }
+      }
+      const ColumnsPie = [];
+      ColumnsPie.push(Times_Job);
+      ColumnsPie.push(Naukri);
+      ColumnsPie.push(Monster);
+      ColumnsPie.push(Shine);
+      ColumnsPie.push(Internal_Database);
+      ColumnsPie.push(LinkedIn);
+      ColumnsPie.push(Upload_Cv);
+
+      if (this.loaddata) {
+        this.sourcereport.load({
+          unload: true,
+          ColumnsPie: ColumnsPie
+        });
+      } else {
+        this.sourcereport = c3.generate({
+          bindto: '#sourcereport',
+          data: {
+            columns: ColumnsPie,
+            type: 'donut',
+            // type: 'gauge',
+
+          },
+
+        });
+        this.loaddata = false;
+
+      }
+      this.sourceData = response;
+      console.log(response);
+      this.db.sl();
+
+    });
+  }
+
+  responcereport(): void{
+    const sendapi = { manager: 0, start_date: '2000-01-01', end_date: this.db.toYYMMDD(new Date()) };
+    debugger;
+
+    this.db.list('DashboardopenemailsmsreportApi/',{}, (response): void => {
+      debugger;
+
+     const Assessment_Attempted_by_email = ['Assessment_Attempted_by_email'];
+     const Assessment_Attempted_by_sms = ['Assessment_Attempted_by_sms'];
+
+
+
+    for (const i in response) {
+      if (response[i]) {
+        Assessment_Attempted_by_email.push(response[i].Assessment_Attempted_by_email);
+        Assessment_Attempted_by_sms.push(response[i].Assessment_Attempted_by_sms);
+
+      }
+    }
+    const Columns = [];
+    Columns.push(Assessment_Attempted_by_email);
+    Columns.push(Assessment_Attempted_by_sms);
+
+
+
+    if (this.loaddata) {
+      this.Openmailmessage.load({
+        unload: true,
+        columns: Columns
+      });
+
+    } else {
+      this.Openmailmessage = c3.generate({
+        bindto: '#Openmailmessage',
+        data: {
+          columns: Columns,
+          type: 'donut',
+        },
+
+      });
+      this.loaddata = false;
+
+    }
+    this.responcereports = response;
+    this.db.sl();
+  });
+  }
+  callInitiationreport(): void{
+    //   debugger;
+    this.db.list('Dashboardcallenunciatereport/',{ }, (response): void => {
+      //   debugger;
+
+      const xval = ['x'];
+
+
+      const Initiation_call = ['Initiation_call'];
+      for (const i in response) {
+        if (response[i]) {
+       //   debugger;
+          xval.push(response[i].userName);
+          Initiation_call.push(response[i].Initiation_call);
+
+        }
+      }
+      const Columns = [];
+      Columns.push(xval);
+      Columns.push(Initiation_call);
+
+      if (this.loaddata) {
+        this.Initiationcallreport.load({
+          unload: true,
+          columns: Columns
+        });
+      } else {
+        this.Initiationcallreport  = c3.generate({
+          bindto: '#Initiationcallreport',
+
+          data: {
+            x: 'x',
+            columns: Columns,
+            type: 'bar',
+            labels: true,
+           },
+          color: {
+            pattern: ['#9d32a8']
+        },
+          bar: {
+            width: {
+              ratio: 0.8 // this makes bar width 50% of length between ticks
+            }
+          },
+          tooltip: {
+            grouped: true
+        },
+        legend: {
+            show: true
+        },
+          axis: {
+            // rotated: true,
+            x: {
+              type: 'category',
+              tick: {
+                rotate: 100,
+                multiline: false
+              },
+              height: 500
+            }
+          }
+        });
+        this.loaddata = false;
+      }
+      this.callInitiationreports = response;
+      this.db.sl();
+    });
   }
 
   startAnimationForLineChart(chart) {
@@ -234,6 +507,7 @@ export class DashboardComponent implements OnInit {
         { 'headerName': 'Email', 'field': 'email', 'sortable': true, 'filter': true },
         { 'headerName': 'Edu', 'field': 'qualification', 'sortable': true, 'filter': true },
         { 'headerName': 'Exp', 'field': 'ovarallExperiance', 'sortable': true, 'filter': true },
+        { 'headerName': 'Mobile No', 'field': 'mobileNo', 'sortable': true, 'filter': true },
         { 'headerName': 'Salary', 'field': 'currentSalary', 'sortable': true, 'filter': true },
         { 'headerName': 'Location', 'field': 'location', 'sortable': true, 'filter': true },
         { 'headerName': 'Preferred Location', 'field': 'preferredLocation', 'sortable': true, 'filter': true }],
@@ -365,20 +639,21 @@ export class DashboardComponent implements OnInit {
 
   }
   naukriclick(url: any): void {
-
+debugger;
     this.jobportalurl = url;
     this.db.list('addnewjob/', { clientId: this.myjob.client_detail_id }, ((response): void => {
+      debugger;
       this.jobslistforref = response;
 
     })
     );
-    this.db.list('smsmessagetemplate/', null, ((response): void => {
-      this.smsmessagetemplatesforref = response;
-    }));
-    // Email-Message-Template
-    this.db.list('emailmessagetemplate/', null, ((response): void => {
-      this.emailmessagetemplatesforref = response;
-    }));
+    // this.db.list('smsmessagetemplate/', null, ((response): void => {
+    //   this.smsmessagetemplatesforref = response;
+    // }));
+    // // Email-Message-Template
+    // this.db.list('emailmessagetemplate/', null, ((response): void => {
+    //   this.emailmessagetemplatesforref = response;
+    // }));
 
   }
   bindNewReference(): void {
@@ -525,6 +800,15 @@ export class DashboardComponent implements OnInit {
     this.allids = this.db.extractIDsData(event.api.getSelectedNodes());
     // this.db.setSelectedNodes(event.api.getSelectedNodes(), this.db.NodeType.internaldatabase);
 
+  }
+  onGridReady(params) {
+    this.gridApi = params.api;
+    //this.gridColumnApi = params.columnApi;
+
+
+  }
+  exportdat() {
+    this.gridApi.exportDataAsCsv();
   }
 
 }

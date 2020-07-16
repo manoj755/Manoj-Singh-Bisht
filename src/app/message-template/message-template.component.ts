@@ -19,11 +19,11 @@ export class MessageTemplateComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
-  private autoGroupColumnDef;
-  private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  public autoGroupColumnDef;
+  public defaultColDef;
+  public rowSelection;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
   columnDefs = [
     {
       headerName: 'Action', field: 'id', suppressMenu: true,
@@ -76,8 +76,8 @@ export class MessageTemplateComponent implements OnInit {
     this.LoadData();
   }
 
-  LoadData(): void {
-    this.db.list('messagetemplate/', {}, ((response): void => {
+  LoadData() {
+    this.db.list('messagetemplate/', {}, ((response) => {
       this.rowData = response;
 
 
@@ -114,26 +114,26 @@ export class MessageTemplateComponent implements OnInit {
 
   public onActionDeleteClick(data: any) {
     debugger;
-      if (confirm('Are you sure?')) {
-    this.db.destroy('messagetemplate/', data.id, ((response): void => {
-      this.db.addmessageandremove('deleted');
-      this.LoadData();
-    })
-    );
-      }
+    if (confirm('Are you sure?')) {
+      this.db.destroy('messagetemplate/', data.id, ((response) => {
+        this.db.addmessageandremove('deleted');
+        this.LoadData();
+      })
+      );
+    }
     //console.log('View action clicked', data);
   }
 
 
-  back(): void {
+  back() {
     this.isEdit = false;
     this.message = { id: 0 };
   }
 
-  onActionEditClick(row): void {
+  onActionEditClick(row) {
 
     this.isEdit = false;
-    this.db.show('messagetemplate/', row.id, ((response): void => {
+    this.db.show('messagetemplate/', row.id, ((response) => {
 
       this.isEdit = true;
       this.message = response;
@@ -156,12 +156,12 @@ export class MessageTemplateComponent implements OnInit {
 
   };
 
-  messageupdate(): void {
+  messageupdate() {
     // if (!$('.validate').validate('#messagetemp')) {
     //      // $.fn.showMessage('Please fill values');
     //     return;
     //   }
-    this.db.update('messagetemplate/', this.message.id, this.message, ((response): void => {
+    this.db.update('messagetemplate/', this.message.id, this.message, ((response) => {
 
       this.LoadData();
       this.db.showMessage('Updated Successfully');
@@ -169,13 +169,13 @@ export class MessageTemplateComponent implements OnInit {
     }));
   }
 
-  messagesave(): void {
+  messagesave() {
     //   if (!$('.validate').validate('#messagetemp')) {
     //     // $.fn.showMessage('Please fill values');
     //    return;
     //  }
     //this.user.profilepic=this.user.profilepic[0];
-    this.db.store('messagetemplate/', this.message, ((response): void => {
+    this.db.store('messagetemplate/', this.message, ((response) => {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
@@ -185,16 +185,15 @@ export class MessageTemplateComponent implements OnInit {
     }));
 
   }
-  showhide(): void {
-    if (this.ishideshow == false) {
+  showhide() {
+    if (this.ishideshow === false) {
       this.ishideshow = true;
-    }
-    else {
+    } else {
       this.ishideshow = false;
     }
   }
-  showhideedit(): void {
-    if (this.ishideshow == false) {
+  showhideedit() {
+    if (this.ishideshow === false) {
       this.ishideshow = true;
     }
 

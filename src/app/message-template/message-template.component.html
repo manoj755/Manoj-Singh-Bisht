@@ -1,6 +1,6 @@
 <div class="main-content">
     <div class="container-fluid">
-        <Button class="btn btn-primary" (click)="showhide() || back();"> Add new message template</Button>
+        <Button class="btn btn-primary" click="showhide() || back();"> Add new message template</Button>
 
       <div class="row">
         <div *ngIf="ishideshow" class="width100percent">
@@ -92,7 +92,7 @@
         </div>
 </div>
 <ag-grid-angular
-style="height: 500px;"
+style="height: 500px; width: 1500px;"
 class="ag-theme-material"
 [rowData]="rowData"
 [columnDefs]="columnDefs"

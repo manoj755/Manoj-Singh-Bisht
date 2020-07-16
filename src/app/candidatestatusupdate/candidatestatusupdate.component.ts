@@ -16,7 +16,7 @@ export class CandidatestatusupdateComponent implements OnInit {
   smsjobstatuses: any;
   jobstatus: any = {};
   candidatestatuswithmsgs: any;
-  constructor(private db: DBService) {
+  constructor(public db: DBService) {
   }
 
   ngOnInit() {

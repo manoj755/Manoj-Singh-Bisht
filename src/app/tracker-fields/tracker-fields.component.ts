@@ -22,6 +22,8 @@ export class TrackerFieldsComponent implements OnInit {
   //public rowdata = [{ 1: 3 }, { 3: 3 }];
   tracker: any;
   search: {};
+  ishideshow = false;
+  // trackerfieldname =
   hidecheckbox = false;
   private smsselected = {};
   private emailselected = {};
@@ -55,7 +57,11 @@ export class TrackerFieldsComponent implements OnInit {
   rowData = [
 
   ];
+  trackerfieldname: any;
   public onRowClicked(e) {
+    debugger;
+    this.ishideshow = true;
+
     if (e.event.target !== undefined) {
       const data = e.data;
       const actionType = e.event.target.getAttribute('data-action-type');
@@ -64,7 +70,7 @@ export class TrackerFieldsComponent implements OnInit {
         case 'delete':
           return this.onActionDeleteClick(data);
         case 'edit':
-          return this.Edit(data);
+          return this.Edit(data), this.showhideedit();
       }
     }
   }
@@ -139,14 +145,24 @@ export class TrackerFieldsComponent implements OnInit {
     this.trackermessage = {};
     this.trackerselected = [];
   }
+  showhide(): void {
+    if (this.ishideshow == false) {
+      this.ishideshow = true;
+    }
+    else {
+      this.ishideshow = false;
+    }
+  }
+  showhideedit(): void {
+    if (this.ishideshow == false) {
+      this.ishideshow = true;
+    }
 
+  }
   makeeditable(row): void {
 
     this.isEdit = true;
     // previousValue = scope.model;
-
-
-
 
   }
 
@@ -285,6 +301,25 @@ export class TrackerFieldsComponent implements OnInit {
 
   }
 
+  gettrackerfield(): void{
+    this.db.list('searchtrackername/', null, ((response): void => {
+      this.trackerfieldname = response;
+      console.log(response);
+
+    })
+    );
+  }
+
+  // checkexistingjob(): void {
+  //   debugger;
+  //   if (this.checkexistjob == this.myjob.job_title) {
+  //     this.db.addmessageandremove('this job already added change job title');
+  //   } else {
+  //     this.addNewJobSave();
+  //   }
+  // }
+
+
   submittrackersave(): void {
     debugger;
     this.trackerdata = this.tracker;
@@ -318,8 +353,8 @@ export class TrackerFieldsComponent implements OnInit {
       // debugger;
 
       // return;
-      this.db.store('tracker/', this.trackermessage, ((response): void => {
-
+      this.db.store('trackersave/', this.trackermessage, ((response): void => {
+ debugger;
         this.db.addmessageandremove('Added Successfully');
         this.getlist();
         this.ngOnInit();
@@ -334,10 +369,11 @@ export class TrackerFieldsComponent implements OnInit {
 
 
   showuser(id): void {
-
+ debugger;
     //        this.channel.channel;
     this.db.show('tracker/', id, ((response): void => {
       this.trackermessage = response;
+      this.Edit(this.trackermessage);
 
     }));
   }

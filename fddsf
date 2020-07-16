@@ -1,0 +1,297 @@
+[33mcommit c2ece8d516e072e1a7345eba3798b499c66b9299[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Thu Aug 8 17:45:31 2019 +0530
+
+    pr commit
+
+[33mcommit 8ac4c64c430d0281dc04cbff73ca841695ca3d21[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Thu Jul 11 18:51:27 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/control/update-candidate/update-candidate.component.html
+
+[33mcommit fbc4b66d7eac1f1e2fe48d1a2e53210544ee9773[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Fri Jun 21 13:50:33 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/control/update-candidate/update-candidate.component.html
+
+[33mcommit 936170392ed20aed88e0cc5acc0f032d4d1ce333[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Mon Jun 10 10:10:12 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/control/update-candidate/update-candidate.component.html
+
+[33mcommit e1142dc08f4d43d3a76c65e180f8dc604627bb33[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Thu May 23 17:24:37 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/control/update-candidate/update-candidate.component.html
+
+[33mcommit 5ab2f8c6379efe42ec8b1c24611887283b7bd377[m
+Merge: ebc1efc 7a15d97
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Thu May 23 17:23:14 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/control/update-candidate/update-candidate.component.html
+
+[33mcommit ebc1efc45dc11d14b6bfcbc826618c859e72c09f[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Tue Apr 30 11:16:18 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/dashboard/dashboard.component.html
+            src/app/new-job/new-job.component.html
+
+[33mcommit 7a15d9787e0d39f43ba9a7dc7feb37ce21e52df5[m
+Merge: 126b909 8ed8ee4
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Mon Apr 29 23:28:17 2019 +0530
+
+    Merge origin/master
+
+[33mcommit 126b909320f55a4651b9a172976d22b99e6e0158[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Mon Apr 29 23:26:59 2019 +0530
+
+    go
+
+[33mcommit 70564fcad95398617b7c7557061cd0ad03a27a5f[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Thu Apr 25 19:49:09 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/dashboard/dashboard.component.html
+            src/app/new-job/new-job.component.html
+
+[33mcommit 8ed8ee44b40263573b4041a4fa75ee11b8793df3[m
+Merge: 6c6765a f2bc7e1
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Sat Apr 20 16:15:27 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/dashboard/dashboard.component.html
+            src/app/new-job/new-job.component.html
+
+[33mcommit 6c6765ab65c312e5155eed19bd3bda4c74909a6b[m
+Merge: 7db2e5e ed0adbd
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Sat Apr 20 13:37:46 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/dashboard/dashboard.component.html
+
+[33mcommit f2bc7e18ecef666680cffa58d6f1f08b08e9c52d[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Tue Apr 16 22:18:45 2019 +0530
+
+    go
+
+[33mcommit eb2a77a10d139ea18c9c57b85f100d6856f5cbd2[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Tue Apr 16 22:14:18 2019 +0530
+
+    go
+
+[33mcommit 7db2e5ea5578f83c5054fd7f0a4fa7b3dea41a0e[m
+Merge: 7b8f4e6 e288281
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Tue Apr 16 17:23:26 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/dashboard/dashboard.component.html
+
+[33mcommit ed0adbd985ca5401ea3b3d81d74ca1d94a678421[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Tue Apr 16 16:55:25 2019 +0530
+
+    go
+
+[33mcommit cc36aae7d9a947b41a21e234910e1f42f8628a98[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Tue Apr 16 15:50:12 2019 +0530
+
+    go
+
+[33mcommit e20b0f9496114e037a44f58c455a6229e41cbb74[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Tue Apr 16 15:27:57 2019 +0530
+
+    go
+
+[33mcommit e28828185c1a9740273f8dc33ba0a2d092db7ae6[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Mon Apr 15 00:42:50 2019 +0530
+
+    go
+
+[33mcommit 7b8f4e6fcd3d2313e828cc884342290818c55187[m
+Merge: 40309ef 735b2e9
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Sat Apr 13 16:53:45 2019 +0530
+
+    Merge origin/master
+
+[33mcommit 40309efcd57257eb4c1b613bead184ff9ab7602c[m
+Merge: 769a1e5 a2f9b35
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Sat Apr 13 16:50:40 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/layouts/admin-layout/admin-layout.module.ts
+
+[33mcommit 735b2e9b72a61d20ce86864ed5014e070d5fe654[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Sat Apr 13 16:31:52 2019 +0530
+
+    go
+
+[33mcommit 769a1e5bc6922956d78db1f33283623d94104812[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Sat Apr 13 12:47:14 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/client/client.component.html
+            src/app/client/client.component.ts
+            src/app/db.service.ts
+
+[33mcommit a2f9b35a33838f9bd083dde54cc27b475994b40e[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Sat Apr 13 12:27:38 2019 +0530
+
+    go
+
+[33mcommit bcfdafe25caccabb60b163ebfe9be7470189ccaa[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Sat Apr 13 12:17:05 2019 +0530
+
+    go
+
+[33mcommit ef21d58d887c90c6cc36ac39edd56b2b263c5407[m
+Merge: 5a85219 d97caaa
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Sat Apr 13 12:13:19 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/client/client.component.ts
+            src/app/control/update-status/update-status.component.ts
+            src/app/db.service.ts
+            src/app/my-job/my-job.component.html
+
+[33mcommit 5a852193b3189e16f92bf880906668354b252e4d[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Sat Apr 13 12:01:53 2019 +0530
+
+    d
+
+[33mcommit bba5915737d5701e57cda5455bc297d3e6880f44[m
+Author: passive <passive@passive-Aspire-ES1-572>
+Date:   Fri Apr 12 18:18:27 2019 +0530
+
+    g
+
+[33mcommit 69d3c4bef3142d7f1ed68605996126caa71b25a0[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Fri Apr 12 18:00:44 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/client/client.component.html
+            src/app/client/client.component.ts
+            src/app/db.service.ts
+
+[33mcommit d97caaa75e60d38821964d47ece3a4c31a531e7f[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Fri Apr 12 14:48:06 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/client/client.component.html
+            src/app/client/client.component.ts
+            src/app/db.service.ts
+
+[33mcommit d78ce2677fe2e1fc2ac09b77ea9f53c48cbc773a[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Fri Apr 12 12:46:45 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/client/client.component.html
+            src/app/client/client.component.ts
+            src/app/db.service.ts
+
+[33mcommit f2c23c578b58efcab9cc246ab9a867bde63a7766[m
+Merge: a56b71e 51457e8
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Tue Mar 26 16:55:07 2019 +0530
+
+    Merge origin/master
+
+[33mcommit a56b71e36844973baa3282750840e23b3caf0838[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Tue Mar 26 16:50:49 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/client/client.component.html
+            src/app/client/client.component.ts
+            src/app/db.service.ts
+
+[33mcommit 07fa147227f38bcc23d925be916611d26a3d6e42[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Tue Mar 26 16:47:21 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/client/client.component.html
+            src/app/client/client.component.ts
+            src/app/db.service.ts
+
+[33mcommit 37d29731bd2b3d894a5007687690fe80d25e33dc[m
+Author: anuj <anuj@anuj-Inspiron-3521>
+Date:   Tue Mar 26 16:47:08 2019 +0530
+
+    Merge origin/master
+    
+    Conflicts:
+            src/app/client/client.component.html
+            src/app/client/client.component.ts
+            src/app/db.service.ts
+
+[33mcommi

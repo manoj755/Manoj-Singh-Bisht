@@ -51,7 +51,6 @@ import { TrackerFieldsComponent } from './tracker-fields/tracker-fields.componen
 import { UsersComponent } from './users/users.component';
 import { ChannelComponent } from './channel/channel.component';
 import { AddToJobComponent } from './control/add-to-job/add-to-job.component';
-import { MyTeamComponent } from './control/my-team/my-team.component';
 import { AddCandidateComponent } from './control/add-candidate/add-candidate.component';
 import { PvGetReferenceComponent } from './control/pv-get-reference/pv-get-reference.component';
 import { DepartmentComponent } from './department/department.component';
@@ -78,9 +77,9 @@ import { MessagelogComponent } from './messagelog/messagelog.component';
 import { SmslogComponent } from './smslog/smslog.component';
 import { CandidateCallDatailsComponent } from './control/candidate-call-datails/candidate-call-datails.component';
 import { AddCandidateMyjobComponent } from './control/add-candidate-myjob/add-candidate-myjob.component';
-import { CadidateJobSuggestionComponent } from './control/cadidate-job-suggestion/cadidate-job-suggestion.component';
 import { ClientdepartmentComponent } from './clientdepartment/clientdepartment.component';
 import { EmailparsingComponent } from './emailparsing/emailparsing.component';
+import { CallConcentrixComponent } from './control/call-concentrix/call-concentrix.component';
 
 
 
@@ -128,6 +127,8 @@ import { EmailparsingComponent } from './emailparsing/emailparsing.component';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    CallConcentrixComponent,
+
 
 
 

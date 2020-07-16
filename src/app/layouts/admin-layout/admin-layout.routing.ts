@@ -1,98 +1,51 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { UserProfileComponent } from '../../user-profile/user-profile.component';
-import { TableListComponent } from '../../table-list/table-list.component';
-import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
-import { MapsComponent } from '../../maps/maps.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
-import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { LoginComponent } from '../../login/login.component';
-import { MyJobComponent } from '../../my-job/my-job.component';
-import { BillingComponent } from '../../billing/billing.component';
-import { HistoryComponent } from '../../history/history.component';
-import { EmailparsingComponent } from '../../emailparsing/emailparsing.component';
-import { InternalDatabaseComponent } from '../../internal-database/internal-database.component';
-import { NewJobComponent } from '../../new-job/new-job.component';
-import { CallDetailComponent } from '../../call-detail/call-detail.component';
-import { MessageTemplateComponent } from '../../message-template/message-template.component';
-import { ClientComponent } from '../../client/client.component';
-import { AddNewTrackerComponent } from '../../add-new-tracker/add-new-tracker.component';
-import { TrackerFieldsComponent } from '../../tracker-fields/tracker-fields.component';
-import { UsersComponent } from '../../users/users.component';
-import { ChannelComponent } from '../../channel/channel.component';
-import { DepartmentComponent } from '../../department/department.component';
-import { EmployeeemailComponent } from 'app/employeeemail/employeeemail.component';
-import { ClientreportComponent } from 'app/clientreport/clientreport.component';
-import { ClientReportFullComponent } from 'app/client-report-full/client-report-full.component';
-import { JobwiseComponent } from 'app/jobwise/jobwise.component';
-import { RecruiterReportNewhistoryComponent } from 'app/recruiter-report-newhistory/recruiter-report-newhistory.component';
-import { RecruiterreportnewComponent } from 'app/recruiterreportnew/recruiterreportnew.component';
-import { OpeningclientwiseComponent } from 'app/openingclientwise/openingclientwise.component';
-import { SmtpdetailsComponent } from 'app/smtpdetails/smtpdetails.component';
-import { CandidatestatusupdateComponent } from 'app/candidatestatusupdate/candidatestatusupdate.component';
-import { MessagelogComponent } from 'app/messagelog/messagelog.component';
-import { SmslogComponent } from 'app/smslog/smslog.component';
 import { LogoutComponent } from 'app/logout/logout.component';
-import { TermsAndConditionsComponent } from '../../terms-and-conditions/terms-and-conditions.component';
-import { AddCandidateMyjobComponent } from '../../control/add-candidate-myjob/add-candidate-myjob.component';
-import { ClientdepartmentComponent } from '../../clientdepartment/clientdepartment.component';
+import { GridComponent } from 'app/grid/grid.component';
 
 export const AdminLayoutRoutes: Routes = [
 
   { path: 'dashboard', component: DashboardComponent },
-  { path: 'internaldatabase', component: InternalDatabaseComponent },
-  { path: 'history', component: HistoryComponent },
-  { path: 'emailparsing', component: EmailparsingComponent },
-  { path: 'call-detail', component: CallDetailComponent },
-  { path: 'myjob', component: MyJobComponent },
-  { path: 'newjob', component: NewJobComponent },
-  { path: 'editjob/:id', component: NewJobComponent },
-  { path: 'clientreport', component: ClientreportComponent },
-  { path: 'recruiterreportnew', component: RecruiterreportnewComponent },
-  { path: 'recruiter-report-newhistory', component: RecruiterReportNewhistoryComponent },
-  { path: 'jobwise', component: JobwiseComponent },
-  { path: 'client-report-full', component: ClientReportFullComponent },
-  { path: 'openingclientwise', component: OpeningclientwiseComponent },
-  { path: 'smtpdetails', component: SmtpdetailsComponent },
-  { path: 'candidatestatusupdate', component: CandidatestatusupdateComponent },
-  { path: 'messagetemplate', component: MessageTemplateComponent },
-  { path: 'client', component: ClientComponent },
-  { path: 'newtracker', component: AddNewTrackerComponent },
-  { path: 'trackers', component: TrackerFieldsComponent },
-  { path: 'department', component: DepartmentComponent },
-  { path: 'employeeemail', component: EmployeeemailComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'channel', component: ChannelComponent },
-  { path: 'billing', component: BillingComponent },
-  { path: 'user-profile', component: UserProfileComponent },
-  { path: 'table-list', component: TableListComponent },
-  { path: 'typography', component: TypographyComponent },
-  { path: 'icons', component: IconsComponent },
-  { path: 'maps', component: MapsComponent },
-  { path: 'notifications', component: NotificationsComponent },
-  { path: 'upgrade', component: UpgradeComponent },
+  { path: 'grid', component: GridComponent },
+
+  //{ path: 'dashboard', loadChildren: '../../dashboard/dashboard.module#DashboardModule' },
+
+  { path: 'internaldatabase', loadChildren: '../../internal-database/internal-database.module#InternalDatabaseModule' },
+  { path: 'history', loadChildren: '../../history/history.module#HistoryModule' },
+  { path: 'call-detail', loadChildren: '../../call-detail/call-detail.module#CallDetailModule' },
+  { path: 'candidate/:id', loadChildren: '../../view-candidate/view-candidate.module#ViewCandidateModule'},
+  { path: 'myjob', loadChildren: '../../my-job/my-job.module#MyJobModule' },
+  { path: 'newjob', loadChildren: '../../new-job/new-job.module#NewJobModule' },
+  { path: 'editjob/:id', loadChildren: '../../new-job/new-job.module#NewJobModule' },
+  { path: 'clientreport', loadChildren: '../../clientreport/clientreport.module#ClientreportModule' },
+  { path: 'recruiterreportnew', loadChildren: '../../recruiterreportnew/recruiterreportnew.module#RecruiterreportnewModule' },
+  { path: 'recruiter-report-newhistory',
+  loadChildren: '../../recruiter-report-newhistory/recruiter-report-newhistory.module#RecruiterReportNewhistoryModule' },
+  { path: 'jobwise', loadChildren: '../../jobwise/jobwise.module#JobwiseModule' },
+  { path: 'client-report-full', loadChildren: '../../client-report-full/client-report-full.module#ClientReportFullModule' },
+  { path: 'openingclientwise', loadChildren: '../../openingclientwise/openingclientwise.module#OpeningclientwiseModule' },
+  { path: 'smtpdetails', loadChildren: '../../smtpdetails/smtpdetails.module#SmtpdetailsModule' },
+  { path: 'candidatestatusupdate', loadChildren: '../../candidatestatusupdate/candidatestatusupdate.module#CandidatestatusupdateModule' },
+  { path: 'messagetemplate', loadChildren: '../../message-template/message-template.module#MessageTemplateModule' },
+  { path: 'client', loadChildren: '../../client/client.module#ClientModule' },
+  { path: 'newtracker', loadChildren: '../../add-new-tracker/add-new-tracker.module#AddNewTrackerModule' },
+  { path: 'trackers', loadChildren: '../../tracker-fields/tracker-fields.module#TrackerFieldsModule' },
+  { path: 'department', loadChildren: '../../department/department.module#DepartmentModule' },
+  { path: 'employeeemail', loadChildren: '../../employeeemail/employeeemail.module#EmployeeemailModule' },
+  { path: 'users', loadChildren: '../../users/users.module#UsersModule' },
+  { path: 'channel', loadChildren: '../../channel/channel.module#ChannelModule'},
+  { path: 'billing', loadChildren: '../../billing/billing.module#BillingModule' },
+  { path: 'user-profile', loadChildren: '../../user-profile/user-profile.module#UserProfileModule' },
   { path: 'login', component: LoginComponent },
-  { path: 'messagelog', component: MessagelogComponent },
-  { path: 'smslog', component: SmslogComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'terms-and-conditions', component: TermsAndConditionsComponent },
-  { path: 'add-candidate-myjob', component: AddCandidateMyjobComponent },
-  { path: 'clientdepartment', component: ClientdepartmentComponent },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  { path: 'clientdepartment', loadChildren: '../../clientdepartment/clientdepartment.module#ClientdepartmentModule' },
+  { path: 'candidate-in-queue', loadChildren: '../../candidate-in-queue/candidate-in-queue.module#CandidateInQueueModule' },
+  { path: 'candidate-campaign', loadChildren: '../../candidate-campain/candidate-campain.module#CandidateCampainModule' },
+  { path: 'candidate-call-report', loadChildren: '../../candidate-call-report/candidate-call-report.module#CandidateCallReportModule' },
+  { path: 'candidate-campaign-report', loadChildren: '../../candidate-campaign-report/candidate-campaign-report.module#CandidateCampaignReportModule' },
+  { path: 'email-sms-report', loadChildren: '../../open-email-sms-report/open-email-sms-report.module#OpenEmailSmsReportModule' },
+  //{ path: 'candidate/:id', component: ViewCandidateComponent},
 
 ];

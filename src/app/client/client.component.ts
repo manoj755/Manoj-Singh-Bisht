@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { PARAMETERS } from '@angular/core/src/util/decorators';
+declare var $: any;
+
 @Component({
   selector: 'app-client',
   templateUrl: './client.component.html',
@@ -11,11 +12,14 @@ export class ClientComponent implements OnInit {
   public Editor = ClassicEditor;
   title = 'app';
   feeslab = [];
-  client = { id: 0, feeslabtype: '', fee_slab: [] };
+  client = { id: 0, feeslabtype: '', fee_slab: [], process: {}, location: {}, addresses: [] };
   fromfeesslab = 0;
   amt = 0;
   lastAmount: any;
   department: {};
+  process = [];
+  address = {};
+  location = [];
   hideclient: false;
   angular: [];
   newclient: any;
@@ -25,8 +29,12 @@ export class ClientComponent implements OnInit {
   item: any = {};
   tofeesslab = 0;
   stateobj = {};
+  locations: any;
+  loc = false;
   // gridclientStateswiseBillingDetail: any;
   states: any;
+  check = true;
+  count = 0;
   errors = {};
   isscroll = false;
   ishideshow = false;
@@ -49,7 +57,7 @@ export class ClientComponent implements OnInit {
   private pivotPanelShow;
   columnDefs = [
     {
-      headerName: 'Delete', field: 'id', suppressMenu: true,
+      headerName: 'Delete', field: 'id',  suppressMenu: true,
       suppressSorting: true, suppressHorizontalScroll: true,
       template:
         `<button type='button' data-action-type='edit'  class='btn btn-success btn-sm'>
@@ -81,7 +89,7 @@ export class ClientComponent implements OnInit {
   ];
   columnDefs2 = [
     {
-      headerName: 'Delete', field: 'id', suppressMenu: true,
+      headerName: 'Delete', field: 'id', width: 270, suppressMenu: true,
       suppressSorting: true, suppressHorizontalScroll: true,
       template:
         `<button type='button' data-action-type='editstate' class='btn btn-success btn-sm'>
@@ -92,14 +100,10 @@ export class ClientComponent implements OnInit {
          Delete
       </button>`},
     {
-      headerName: 'State Name', field: 'state_name', sortable: true, filter:
+      headerName: 'State Name', field: 'state_name', width: 400, sortable: true, filter:
         true, headerCheckboxSelection: true, checkboxSelection: true
     },
-    { headerName: 'Gst', field: 'gst', sortable: true, filter: true },
-    // { headerName: 'Website', field: 'website', sortable: true, filter: true },
-    // { headerName: 'Address', field: 'address', sortable: true, filter: true },
-    // { headerName: 'Billing Period', field: 'billing_period', sortable: true, filter: true },
-    // { headerName: 'Invoice Currency', field: 'invoice_currency', sortable: true, filter: true },
+    { headerName: 'Gst', width: 270, field: 'gst', sortable: true, filter: true },
   ];
   gridclientStateswiseBillingDetail = [];
   rowData = [
@@ -122,6 +126,7 @@ export class ClientComponent implements OnInit {
   ngOnInit() {
     this.LoadData();
     this.loadstatewisedetail();
+    this.loadlocation();
   }
 
   public showdepartmentfun(event): void {
@@ -138,7 +143,19 @@ export class ClientComponent implements OnInit {
     }
   }
 
+  loadlocation(): void {
+    // this.locationtype = 'location';
+    this.locations = [];
+    this.db.list('location', null, (response): void => {
 
+      const data = response;
+      for (const j in data) {
+        if (data[j]) {
+          this.locations.push(data[j].location);
+        }
+      }
+    });
+  };
   loadstatewisedetail(): void {
     this.db.list('state', null, ((response): void => {
       this.states = response;
@@ -217,13 +234,23 @@ export class ClientComponent implements OnInit {
     console.log('View action clicked', data);
   }
   public onActionDeleteClickStates(data: any) {
+
+    if (confirm('Are you sure?')) {
+      this.db.destroy('clientstateswisebillingdetail/', data.id, ((response): void => {
+        this.db.addmessageandremove('deleted');
+        this.LoadData();
+        this.loadstatewisedetail();
+      })
+      );
+    }
     console.log('View action clicked', data);
+
   }
 
 
   back(): void {
     this.isEdit = false;
-    this.client = { id: 0, feeslabtype: '', fee_slab: [] };
+    this.client = { id: 0, feeslabtype: '', fee_slab: [], process: [], location: [], addresses: [] };
   }
   backstate(): void {
     this.isEditclientStateswiseBillingDetail = false;
@@ -248,6 +275,26 @@ export class ClientComponent implements OnInit {
 
       this.isEdit = true;
       this.client = response;
+      const tags = [
+      ];
+      const processsetarr = this.client.process.toString().split(',');
+      for (const k in processsetarr) {
+        if (processsetarr[k]) {
+          tags.push(processsetarr[k]);
+        }
+      }
+
+      this.client.process = tags;
+      debugger;
+      const loc = [];
+      const locationstr = this.client.location.toString().split(',');
+      for (const k in locationstr) {
+        if (locationstr[k]) {
+          loc.push(locationstr[k]);
+        }
+      }
+
+      this.client.location = loc;
 
       if (this.isscroll === false) {
 
@@ -289,7 +336,78 @@ export class ClientComponent implements OnInit {
 
   };
   clientupdate(): void {
+    debugger;
+    // if (typeof this.client.location !== 'string') {
+    //const locstr
+    this.loc = true;
+    const locations = this.client.location;
 
+    let locationstr = '';
+    for (const j in locations) {
+      if (locations[j].$ngOptionLabel) {
+        locationstr += locations[j].$ngOptionLabel + ',';
+      }
+
+    }
+    if (locationstr == '') {
+      for (const j in locations) {
+        if (locations[j]) {
+          locationstr += locations[j] + ',';
+        }
+      }
+    }
+    // } else if (typeof this.client.location == 'string') {
+    //   let loc = new Array();
+    //   const locations = this.client.location;
+    //   loc = locations.toString().split(',');
+    //   let locationstr = '';
+    //   for (const j in loc) {
+    //     if (loc[j].$ngOptionLabel) {
+    //       locationstr += loc[j].$ngOptionLabel + ',';
+    //     }
+
+    //   }
+    this.client.location = locationstr;
+    //}
+    if (this.check == true) {
+      this.check = false;
+      const processes = this.client.process;
+      let processstr = '';
+      for (const i in processes) {
+        if (processes[i]) {
+          processstr += processes[i] + ',';
+        }
+      }
+      this.client.process = processstr;
+    } else if (this.check === false) {
+      let temp = new Array();
+      const string = this.client.process;
+      temp = string.toString().split(',');
+      const process2 = temp;
+      let processstr2 = '';
+
+      for (const j in process2) {
+        if (process2[j]) {
+          processstr2 += ',' + process2[j];
+        }
+
+      }
+      //this.count++;
+      this.client.process = processstr2;
+    }
+    // else if (this.count == 1) {
+    //   const process3 = this.client.process;
+    //   let processstr3 = '';
+
+    //   for (const j in process3) {
+    //     if (process3[j]) {
+    //       processstr3 += ',' + process3[j];
+    //     }
+
+    //   }
+    //   //this.count++;
+    //   this.client.process = processstr3;
+    // }
     this.db.update('clientdetail/', this.client.id, this.client, ((response): void => {
 
       this.LoadData();
@@ -303,6 +421,25 @@ export class ClientComponent implements OnInit {
     // this.client.is_client = '1';
     // }
     // this.user.profilepic=this.user.profilepic[0];
+    debugger;
+    const locations = this.client.location;
+    let locationstr = '';
+    for (const j in locations) {
+      if (locations[j].$ngOptionLabel) {
+        locationstr += locations[j].$ngOptionLabel + ',';
+      }
+
+    }
+    this.client.location = locationstr;
+    const processes = this.client.process;
+    let processstr = '';
+    for (const i in processes) {
+      if (processes[i]) {
+        processstr += processes[i] + ',';
+      }
+    }
+    this.client.process = processstr;
+    //const tpost = this.client;
     this.db.store('clientdetail/', this.client, ((response): void => {
 
       this.db.showMessage('Added Successfully');
@@ -327,13 +464,14 @@ export class ClientComponent implements OnInit {
 
   // }
   clientStateswiseBillingDetailsave(): void {
-
+  debugger;
     this.clientStateswiseBillingDetail.client_detail_id = this.client.id;
     // this.user.profilepic=this.user.profilepic[0];
     this.db.store('clientstateswisebillingdetail/', this.clientStateswiseBillingDetail, ((response): void => {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
+      this.loadstatewisedetail();
       // this.client = { id: 0, feeslabtype: '', fee_slab: [] };
 
 
@@ -344,7 +482,7 @@ export class ClientComponent implements OnInit {
     this.clientStateswiseBillingDetail.client_detail_id = this.client.id;
     this.db.update('clientstateswisebillingdetail/', this.clientStateswiseBillingDetail.id,
       this.clientStateswiseBillingDetail, ((response): void => {
-
+        this.loadstatewisedetail();
         this.LoadData();
         this.db.showMessage('Updated Successfully');
 
@@ -382,6 +520,18 @@ export class ClientComponent implements OnInit {
     val = Number(val);
     return Number(val) === val;
   };
+  // ClientAddSave(isnotnull): void {
+  //   debugger;
+  //   if (isnotnull === 1) {
+  //     this.client.addresses.push(
+  //       {
+  //         location: this.location,
+  //         address: this.address
+  //       }
+  //     );
+  //     debugger;
+  //   }
+  // }
   addfeeslab(isupdate): void {
 
     const numbers = /^[0-9]+$/;

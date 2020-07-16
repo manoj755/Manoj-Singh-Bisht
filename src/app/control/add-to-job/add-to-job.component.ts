@@ -22,6 +22,8 @@ export class AddToJobComponent implements OnInit {
   selectedCarId: any;
   emailselected: any = {};
   smsselected: any = {};
+  assign = false;
+  unassign = false;
   @Input()
   allids = [];
   @Input()
@@ -29,17 +31,29 @@ export class AddToJobComponent implements OnInit {
   // filteredOptions = ['first', 'second', 'three'];
   myControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
+  jobslistbyclientsaddtojobs: any;
   constructor(public db: DBService) {
 
   }
 
   ngOnInit() {
+    this.assign = true;
+    this.unassign = false;
     this.db.list('clientdetail/', null, ((response): void => {
       this.clients = response;
       console.log(this.clients);
     }));
     this.loadmanagerid();
 
+  }
+
+  assigncandidate(): void{
+    this.assign = true;
+    this.unassign = false;
+  }
+  unassigncandidate(): void{
+    this.assign = false;
+    this.unassign = true ;
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -65,6 +79,7 @@ export class AddToJobComponent implements OnInit {
     this.db.store('copyjob/', copyjob, ((response): void => {
 
       console.log(response);
+      $('#addtojob').modal('hide');
 
       let addtojobmessage = '';
       if (response.alreadyexists > 0) {
@@ -99,10 +114,30 @@ export class AddToJobComponent implements OnInit {
       );
     }
   }
-  getcandidatebyclientaddtojob(): void {
 
-    this.db.list('addnewjob/', { clientId: this.addtojob.client_detail_id }, ((response): void => {
-      this.jobslistbyclientsaddtojob = response;
+  assignjob(): void {
+    debugger;
+    const assignjob = {
+      'managers': [this.addnewjob.manager],
+      'jobs': [this.addnewjob.add_new_job_id],
+      'assigndate':"OneDay"
+
+    };
+    this.db.store('assignjob/', assignjob, ((response): void => {
+      this.addtojobcandidates();
+      console.log(response);
+      this.getcandidatebyclientaddtojob();
+      this.db.addmessageandremove('job successfully asssign for ToDay');
+    }));
+  };
+
+
+  getcandidatebyclientaddtojob(): void {
+  debugger;
+    this.db.list('addnewjob/', { clientId: this.addtojob.client_detail_id, managerId: this.addnewjob.manager }, ((response): void => {
+      debugger;
+      this.jobslistbyclientsaddtojob = response[0];
+      this.jobslistbyclientsaddtojobs = response[1];
     }));
   }
 
@@ -114,5 +149,9 @@ export class AddToJobComponent implements OnInit {
 
     }));
   };
+  // filterListCareUnit(val) {
+  //   console.log(val);
+  //   this.jobslistbyclientsaddtojobs = this.jobslistbyclientsaddtojobs.filter((unit) => unit.label.indexOf(val) > -1);
+  // }
 
 }

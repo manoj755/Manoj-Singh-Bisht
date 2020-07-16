@@ -2,7 +2,7 @@
   <div class="container-fluid">
 
 
-    <nav class="navbar" >
+    <!-- <nav class="navbar" >
       <div class="container-fluid">
         <div class="navbar-header">
           <div class="row">
@@ -43,7 +43,6 @@
             <div class="col-md-12">
               <button type="button" class="btn  btn-raised  btn-primary" (click)='assignjobClick()'
                 style="margin-top: 9px;" *ngIf='db.mp.btn_assign_job_to_recruiter'>Assign Job</button>
-              <!--                        <button type="button" class="btn  btn-raised  btn-primary" data-toggle="modal" data-target="#myModal-5" style="margin-top: 9px;">Un-Assigned Job</button    >-->
 
               <button type="button" class="btn  btn-raised  btn-info" (click)="loadvendor()" style="margin-top: 9px;"
                 *ngIf='db.mp.btn_assign_job_to_vendor'>Assign Job to Vendor</button>
@@ -51,18 +50,71 @@
                 (click)="openaddvendor()" data-target="#addvendor" style="margin-top: 9px;"
                 *ngIf='db.mp.btn_add_vendor'>Add Vendor</button>
 
-              <button type="button" class="btn  btn-raised  btn-default" (click)="db.downloadFile(jobslist,'joblist')"
-                style="margin-top: 9px;" *ngIf='db.mp.btn_add_vendor'>CSV</button>
-
             </div>
           </div>
 
 
         </div>
+        <mat-button-toggle-group appearance="legacy" *ngIf='db.mp.prometheusallpermission' name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle value="bold" (click)="bindJobs();" help="click here for show all jobs">Show All Jobs</mat-button-toggle>
+          <mat-button-toggle value="italic" (click)="bindJob();"  help="click here for show your jobs">Show Default Jobs</mat-button-toggle>
+        </mat-button-toggle-group>
+
       </div>
-    </nav>
+
+    </nav> -->
+
+    <div class="card" style=" margin-top: -50px; height: 80px;">
+      <div class="row" style=" margin-top: 20px">
+      <div class="col-md-2" style="margin-left: 30px; margin-top: 5px;">
+        <input type="text"  class="form-control" id='candidatessearch'
+            [(ngModel)]="searchcandidate" (change)="filterbycandidate()" placeholder="Search Candidates">
+
+          </div>
+          <div class="col-sm-1">
+            <button class="btn  btn-raised btn-sm btn-default" (click)="filterbyJob()" type="button">
+              Search
+            </button>
+          </div>
+
+          <div class="col-md-2" style="margin-top: -10px;">
+            <ng-select [(ngModel)]="Client_ids" *ngIf="alljobclient" (change)='bindJob()'  placeholder="Search Client">
+              <ng-option   *ngFor="let x of clients" [value]="x.id"  help="{{x.billingName}}">{{x.billingName}}</ng-option>
+            </ng-select>
+            <ng-select [(ngModel)]="Client_ids" (change)='bindJobs()'  *ngIf="myjobclient"  placeholder="Search client">
+              <ng-option *ngFor="let x of clients" [value]="x.id"  >{{x.billingName}}</ng-option>
+            </ng-select>
+          </div>
 
 
+           <div class="col-md-2" style="margin-top: -10px;">
+          <ng-select   *ngIf="showjobs"  [(ngModel)]="searchcandidatetext"  placeholder="Search Jobs" (change)="filteragain()">
+            <ng-option *ngFor="let item of jobslist" value="{{item.job_title}}">{{item.job_title}}</ng-option>
+          </ng-select>
+           </div>
+
+           <div class="col-sm-2 pull-right" style="margin-left: 10px;">
+            <button *ngIf="!db.profile.isvendor" class="btn btn-raised pull-right btn-sm" [routerLink]="['/newjob']"><i
+              class="material-icons">add_to_photos</i>Add New Job</button>
+           </div>
+
+          <mat-button-toggle-group class="col-md-2 pull-right" style="height: 30px;" appearance="legacy" *ngIf='db.mp.prometheusallpermission' name="fontStyle"
+          aria-label="Font Style">
+          <mat-button-toggle value="bold" (click)="bindJobs();" help="click here for show all jobs">All Jobs
+          </mat-button-toggle>
+          <mat-button-toggle value="italic" (click)="bindJob();" help="click here for show your jobs">
+            <div>
+              <span>My Jobs</span>
+
+              <mat-select n="Owner" [(ngModel)]="recruiterjobs" class="col-sm-1">
+                <mat-option (click)="bindJob()" value="{{db.profile.id}}">Self</mat-option>
+                <mat-option (click)="bindJob()" value="{{x.id}}" *ngFor="let x of managers">{{x.name}}</mat-option>
+              </mat-select>
+            </div>
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
 
     <!-- Assist content -->
     <div class=" row">
@@ -79,19 +131,60 @@
           <span *ngIf="db.mp.add_new_job_store">Please contact your manager.</span>
         </div>
       </div>
+
+      <div style="margin-top:20px;" class="col-sm-12">
+
+
+        <ul class="nav nav-tabs showloader pull-left  " style="margin-top: -50px;">
+          <li *ngIf="!db.profile.isvendor"><a data-toggle="tab" href="#" (click)='changefilter("Active","job_status")'
+              class="btn  btn-activecolor hightlighted_keyword btn-sm">Active</a></li>
+          <li *ngIf="!db.profile.isvendor"><a href="#" data-toggle="tab" (click)='changefilter("Hold","job_status")'
+              class="btn  btn-activecolor hightlighted_keyword btn-sm">Hold</a></li>
+          <li *ngIf="!db.profile.isvendor"><a href="#" data-toggle="tab" (click)='changefilter(1,"website")'
+              class="btn   btn-activecolor hightlighted_keyword btn-sm">Visible on Website</a></li>
+          <li *ngIf="!db.profile.isvendor"><a href="#" data-toggle="tab" (click)='changefilter("Closed","job_status")'
+              class="btn   btn-activecolor hightlighted_keyword btn-sm">Closed</a></li>
+          <li *ngIf="!db.profile.isvendor"><a href="#" data-toggle="tab" style="background:#ddf295; color:#251e22;"
+              (click)='changefilter("Interview","interview")'
+              class="btn  btn-activecolor hightlighted_keyword btn-sm">Interview</a></li>
+
+          <li><a href="#" data-toggle="tab" (click)='changefilter("All","job_status")'
+              class="btn btn-sm btn-activecolor">All</a></li>
+          <li><a href="#" data-toggle="tab" (click)='changefilter("Tagged","tagged")' class="btn btn-sm btn-activecolor"
+              [ngClass]="'btn-activecolor'">Tagged</a></li>
+              <!-- <li style="margin-top: -4px;">
+                <button type="button" class="btn btn-sm btn-raised  btn-primary" (click)='assignjobClick()'
+                style="margin-top: 9px;" *ngIf='db.mp.btn_assign_job_to_recruiter'>Assign Job</button>
+              </li> -->
+              <li  style="margin-top: -4px;">
+              <button type="button" class="btn btn-sm btn-raised  btn-info" (click)="loadvendor()" style="margin-top: 9px;"
+              *ngIf='db.mp.btn_assign_job_to_vendor'>Assign Job to Vendor</button>
+              </li>
+              <li  style="margin-top: -4px;">
+                <button type="button" class="btn btn-sm btn-raised  btn-danger" data-toggle="modal" (click)="openaddvendor()"
+                data-target="#addvendor" style="margin-top: 9px;" *ngIf='db.mp.btn_add_vendor'>Add Vendor</button>
+              </li>
+        </ul>
+
+        <pagination-controls style="margin-top: -50px;" directionLinks="true" autoHide="true" responsive="true" previousLabel="Previous"
+          nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+          screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event">
+        </pagination-controls>
+      </div>
+
       <div style="margin-top:20px;" class="col-md-12">
 
 
-        <ul class="nav nav-tabs showloader pull-left  ">
-          <li *ngIf="!db.profile.isvendor=='1'"><a  data-toggle="tab" href="#" (click)='changefilter("Active","job_status")'
+        <!-- <ul class="nav nav-tabs showloader pull-left  ">
+          <li *ngIf="!db.profile.isvendor"><a  data-toggle="tab" href="#" (click)='changefilter("Active","job_status")'
               class="btn  btn-activecolor hightlighted_keyword">Active</a></li>
-          <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" (click)='changefilter("Hold","job_status")'
+          <li *ngIf="!db.profile.isvendor"><a href="#" data-toggle="tab" (click)='changefilter("Hold","job_status")'
               class="btn  btn-activecolor hightlighted_keyword">Hold</a></li>
-          <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" (click)='changefilter(1,"website")'
+          <li *ngIf="!db.profile.isvendor"><a href="#" data-toggle="tab" (click)='changefilter(1,"website")'
               class="btn   btn-activecolor hightlighted_keyword">Visible on Website</a></li>
-          <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" (click)='changefilter("Closed","job_status")'
+          <li *ngIf="!db.profile.isvendor"><a href="#" data-toggle="tab" (click)='changefilter("Closed","job_status")'
               class="btn   btn-activecolor hightlighted_keyword">Closed</a></li>
-          <li *ngIf="!db.profile.isvendor=='1'"><a href="#" data-toggle="tab" style="background:#ddf295; color:#251e22;"
+          <li *ngIf="!db.profile.isvendor"><a href="#" data-toggle="tab" style="background:#ddf295; color:#251e22;"
               (click)='changefilter("Interview","interview")' class="btn  btn-activecolor hightlighted_keyword">Interview</a></li>
 
           <li ><a href="#" data-toggle="tab" (click)='changefilter("All","job_status")'
@@ -100,7 +193,6 @@
               class="btn  btn-activecolor" [ngClass]="'btn-activecolor'">Tagged</a></li>
 
         </ul>
-        <button *ngIf="!db.profile.isvendor=='1'" class="btn btn-raised pull-right" [routerLink]="['/newjob']"><i class="material-icons">add_to_photos</i>Add New Job</button>
         <pagination-controls     directionLinks="true"
         autoHide="true"
         responsive="true"
@@ -108,7 +200,7 @@
         nextLabel="Next"
         screenReaderPaginationLabel="Pagination"
         screenReaderPageLabel="page"
-        screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event"></pagination-controls>
+        screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event"></pagination-controls> -->
         <div class="clearfix"></div>
 
         <div class="box box-primary" id="#">
@@ -119,13 +211,179 @@
 
 
           <div class="row">
-
             <div class="col-md-12">
+              <div class="card" style="border: 1px solid grey; height: 130px;" (click)="selectdeselect($event,item)"
+                *ngFor="let item of jobslist | orderBy:'visibleonwebsite' | myfilter: searchcandidatetext  | paginate: { itemsPerPage: 10, currentPage: p };  let i = index">
+                <div class="card-header card-header-{{item.selected?'info':'none'}}" style="margin-top: 0px; height: 125px;" title="{{item.Assign_Recruter}}">
+                  <h4 class="card-title">
+                    <a class="title_in" href="/editjob/{{item.id}}" ___stopclick="showJob(item.id, $event)" title="{{item.Assign_Recruter}}">
+                      <span class="hightlighted_keyword" style="color:darkblue"> {{item.job_title}}</span> &nbsp;
+                    </a>
+                    <span itemprop="title" class="title_in" style="margin-right:2px;">
+                      <span style="color: black;">( Job ID :
+                        {{item.category_code}}{{item.id}})</span> &nbsp;
+                      <span itemtype="#" help='Client' style="color: black;">{{item.ClientName}} </span>
+
+                    </span>
+                  </h4>
+                  <p class="card-category">
+
+
+                    <span style="color: grey;">Location:{{item.location}}</span>
+                    <span
+                      style="margin-left:10px; color: grey;">Experience:{{item.minimumExperience}}-{{item.maximumExperience}}Years,</span>
+                    <span
+                      style="margin-left:10px; color: grey;">Salary:{{item.minimumSalary/100000}}-{{item.maximumSalary/100000}}
+                      Lakh</span>
+                    <!-- <span>Experience:{{item.location}}</span> -->
+                    <span style='padding-left:10px; display:inline-block;' *ngIf="!db.mp.hide_referral_bonus">
+                      <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
+                      *ngIf='db.mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
+                      class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
+                      <i class="fa fa-check"></i>
+                    </span>
+                    <span class="pull-right socialdiv" (mouseenter)="enter(i)" (mouseleave)="leave(i)" itemtype="#"
+                    >
+                    <a mat-mini-fab class="icousers" id="iconbackground" help="Change Job Status">
+                      <span matPrefix style="position: absolute;">
+                        <mat-icon style="margin-left: -2px; margin-top: -2px;" class="icones">notifications_active</mat-icon>
+                      </span>
+                <mat-select [(ngModel)]="job_status" (change)="myjobActivity()">
+                  <mat-option (click)="myjobActivity(item)" value="Hold">Hold</mat-option>
+                  <mat-option (click)="myjobActivity(item)" value="Active">Active</mat-option>
+                  <mat-option (click)="myjobActivity(item)" value="Closed">Closed</mat-option>
+                </mat-select>
+
+              </a>
+              &nbsp;
+
+              <a mat-mini-fab class="icousers" id="iconbackground" *ngIf="!db.profile.isvendor"  help="View Releted Candidates" href="javascript:" (click)="viewreletedjobs(item)" data-toggle="modal"
+              data-target="#viewrelatedjobs">
+                <mat-icon class="icones">message</mat-icon>
+               </a>
+
+                 &nbsp;
+
+                    <a mat-mini-fab class="icousers" id="iconbackground" *ngIf="!db.profile.isvendor" help="Assign to recruiter" href="javascript:"
+                    (click)="assignjobClick()">
+                    <i class="fa fa-share-square-o icones"></i>
+                  </a> &nbsp;
+                  <!--<a   *ngIf='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
+
+                  <!-- <a mat-mini-fab id="iconbackground" *ngIf="!db.profile.isvendor || db.mp.btn_approve_job_by_manager"
+                    title="Approve by Manager" href="javascript:" (click)="is_approved_by_manager(item)">
+                    <i class="fa fa-check icones"></i>
+                  </a>&nbsp; -->
+
+                  <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item);"
+                    [ngClass]="{'test': item.tagged==='11','redClass' :item.tagged =='11'}">
+
+                    <i class="fa fa-tags icones"></i>
+                  </a>&nbsp;
+                  <a mat-mini-fab class="" id="iconbackground" *ngIf="!db.profile.isvendor" href="javascript:" (click)="showjd(item)"
+                    help="Show JD" style='color:black; background:#ffffbe;'>
+                    <i class="fa fa-bolt icones"></i>
+                  </a> &nbsp;
+                  <a mat-mini-fab id="iconbackground" *ngIf='item.visibleonwebsite==1' class=""
+                    href="{{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}" target="_blank"
+                    style='color:red; background:white;' help='Visible on Website'>
+                    <i class="fa fa-eye icones"></i>
+                  </a>
+
+                  <a mat-mini-fab data-toggle="modal" id="iconbackground" *ngIf="db.mp.btn_take_internal_refeference"
+                    data-target="#internalreference" href="javascript:"
+                    (click)="GetInHourseReference(item.id, $event)" class="text-danger" help='get reference internal'
+                    title='get reference internal'>
+                    <i class="fa fa-bullhorn  icones"></i>
+                  </a> &nbsp;
+                  <a mat-mini-fab href="" data-toggle="modal" id="iconbackground" data-target="#uploadexcel" target="_blank"
+                    class="pull-right text-aqua" *ngIf="db.mp.btn_upload_cv_myjobs">
+                    <i help='Add Candidate' class="fa fa-upload icones"></i>
+                  </a> &nbsp;
+
+                      <a mat-mini-fab class="facebook" *ngIf="!db.profile.isvendor" id="iconbackground"
+                        href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}/{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
+                        target="_blank">
+                        <i class="fa fa-facebook icones"></i>
+                      </a> &nbsp;
+
+                      <a class="twitter" mat-mini-fab *ngIf="!db.profile.isvendor" id="iconbackground"
+                        href="https://twitter.com/share?url={{$urlapply}}/{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
+                        target="_blank">
+                        <i class="fa fa-twitter icones "></i>
+                      </a> &nbsp;
+
+                      <a class="linkedin" mat-mini-fab *ngIf="!db.profile.isvendor" id="iconbackground"
+                        href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}/{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
+                        target="_blank">
+                        <i class="fa fa-linkedin icones"></i>
+                      </a> &nbsp;
+                    </span>
+                  </p>
+
+
+
+                  <div class="member-social pull-right col-md-4 shareparent" style="text-align: right;">
+
+                    <br>
+                    <span style="color: green;"><em style="color: black;">Created At:</em>&nbsp;
+                      {{item.CreatedDate}}</span>
+
+
+                  </div>
+
+                  <div class="col-md-8" style="margin-top: 20px;">
+                    <div class='row buttonwithnumber'>
+
+                      <button mat-raised-button color="primary" matBadge="{{item.allcandidate}}"
+                        matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm"
+                        (click)="filterdrbytab('My Candidates', 'all', item)" data-toggle="modal"
+                        data-target="#candidatesall">All
+                      </button>
+
+                      <button type="button" mat-raised-button color="primary" matBadge="{{item.underreview}}"
+                        matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm"
+                        (click)="filterdrbytab('My Candidates', 'Under Review', item)" data-toggle="modal"
+                        data-target="#candidatesall">In Review/Referrals
+
+                      </button>
+                      <button mat-raised-button color="primary" matBadge="{{item.inprocess}}" matBadgePosition="after"
+                        matBadgeColor="accent" type="button" class="btnnew2 btn btn-sm"
+                        (click)="filterdrbytab('My Candidates', 'In Process', item)" data-toggle="modal"
+                        data-target="#candidatesall">In process
+
+                      </button>
+                      <button mat-raised-button color="primary" matBadge="{{item.candidates_interview_count}}"
+                        matBadgePosition="after" matBadgeColor="accent" type="button" class="btnnew5 btn btn-sm"
+                        (click)="filterdrbytab('My Candidates', 'isinterview', item)" data-toggle="modal"
+                        data-target="#candidatesall">Interview
+
+                      </button>
+                      <button mat-raised-button color="primary" matBadge="{{item.selectedcandidate}}"
+                        matBadgePosition="after" matBadgeColor="accent" type="button" class=" btnnew3 btn btn-sm "
+                        (click)="filterdrbytab('My Candidates', 'Selected', item)" data-toggle="modal"
+                        data-target="#candidatesall"> Selected
+
+                      </button>
+                      <button mat-raised-button color="primary" matBadge="{{item.rejected}}" matBadgePosition="after"
+                        matBadgeColor="accent" type="button" class=" btnnew4 btn btn-sm"
+                        (click)="filterdrbytab('My Candidates', 'Rejected', item)" data-toggle="modal"
+                        data-target="#candidatesall">Rejected
+
+                      </button>
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <!-- <div class="col-md-12">
               <div class="card" (click)="selectdeselect($event,item)"
                 *ngFor="let item of jobslist | orderBy:'visibleonwebsite' | myfilter: searchcandidatetext  | paginate: { itemsPerPage: 10, currentPage: p };  let i = index">
                 <div class="card-header card-header-{{item.selected?'success':'info'}}">
                   <h4 class="card-title">
-                    <!-- {{i}}  -->
                     <a class="title_in"  href="/editjob/{{item.id}}"
                       ___stopclick="showJob(item.id, $event)">
 
@@ -142,44 +400,43 @@
                     <span>Location:{{item.location}}</span>
                     <span style="margin-left:10px;">Experience:{{item.minimumExperience}}-{{item.maximumExperience}}Years,</span>
                     <span style="margin-left:10px;">Salary:{{item.minimumSalary/100000}}-{{item.maximumSalary/100000}} Lakh</span>
-                    <!-- <span>Experience:{{item.location}}</span> -->
                     <span style='padding-left:10px; display:inline-block;' *ngIf="!db.mp.hide_referral_bonus">
                       <i class='fa fa-inr' ></i> {{item.referralBonus}} </span> <span
                       *ngIf='db.mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
                       class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
                       <i class="fa fa-check"></i>
                     </span>
-                    <span class="pull-right socialdiv" (mouseenter)="enter(i)" (mouseleave)="leave(i)"  ><a mat-mini-fab class="facebook" *ngIf="!db.profile.isvendor=='1'"
+                    <span class="pull-right socialdiv" (mouseenter)="enter(i)" (mouseleave)="leave(i)"  ><a mat-mini-fab class="facebook" *ngIf="!db.profile.isvendor"
                       href="https://www.facebook.com/sharer/sharer.php?u={{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
                       target="_blank">
                       <i class="fa fa-facebook "></i>
                     </a>
 
-                    <a mat-mini-fab class="twitter" *ngIf="!db.profile.isvendor=='1'"
+                    <a mat-mini-fab class="twitter" *ngIf="!db.profile.isvendor"
                       href="https://twitter.com/share?url={{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
                       target="_blank">
                       <i class="fa fa-twitter  "></i>
                     </a>
 
-                    <a mat-mini-fab class="linkedin" *ngIf="!db.profile.isvendor=='1'"
+                    <a mat-mini-fab class="linkedin" *ngIf="!db.profile.isvendor"
                       href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
                       target="_blank">
                       <i class="fa fa-linkedin "></i>
                     </a></span>
                     <span class="sharediv pull-right"  *ngIf="hoverIndex === i">
-                      Share for Apply : <a mat-mini-fab class="facebook" *ngIf="!db.profile.isvendor=='1'"
+                      Share for Apply : <a mat-mini-fab class="facebook" *ngIf="!db.profile.isvendor"
                         href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}/{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
                         target="_blank">
                         <i class="fa fa-facebook "></i>
                       </a>
 
-                      <a class="twitter" mat-mini-fab *ngIf="!db.profile.isvendor=='1'"
+                      <a class="twitter" mat-mini-fab *ngIf="!db.profile.isvendor"
                         href="https://twitter.com/share?url={{$urlapply}}/{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
                         target="_blank">
                         <i class="fa fa-twitter  "></i>
                       </a>
 
-                      <a class="linkedin" mat-mini-fab *ngIf="!db.profile.isvendor=='1'"
+                      <a class="linkedin" mat-mini-fab *ngIf="!db.profile.isvendor"
                         href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}/{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
                         target="_blank">
                         <i class="fa fa-linkedin "></i>
@@ -191,13 +448,16 @@
                 <div class="card-body table-responsive">
                   <div class="member-social pull-right col-md-4 shareparent" style="text-align: right;">
 
+                    <a mat-mini-fab class="" *ngIf="!db.profile.isvendor"  help="View Releted JObs" href="javascript:" (click)="viewreletedjobs(item)" data-toggle="modal"
+                    data-target="#viewrelatedjobs">
+                      <mat-icon>message</mat-icon>
+                     </a>
 
-                    <a mat-mini-fab class="" *ngIf="!db.profile.isvendor=='1'"  help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
+                    <a mat-mini-fab class="" *ngIf="!db.profile.isvendor"  help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
                       <i class="fa fa-share-square-o"></i>
                     </a>
-                    <!--<a   *ngIf='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
 
-                    <a mat-mini-fab  *ngIf="!db.profile.isvendor=='1' || db.mp.btn_approve_job_by_manager" title="Approve by Manager"
+                    <a mat-mini-fab  *ngIf="!db.profile.isvendor || db.mp.btn_approve_job_by_manager" title="Approve by Manager"
                       href="javascript:" (click)="is_approved_by_manager(item)">
                       <i class="fa fa-check"></i>
                     </a>
@@ -206,7 +466,7 @@
 
                       <i class="fa fa-tags"></i>
                     </a>
-                    <a mat-mini-fab class="" help="Show JD" *ngIf="!db.profile.isvendor=='1'" href="javascript:" style='color:black; background:#ffffbe;'
+                    <a mat-mini-fab class="" help="Show JD" *ngIf="!db.profile.isvendor" href="javascript:" style='color:black; background:#ffffbe;'
                       (click)="showjd(item)">
                       <i class="fa fa-bolt "></i>
                     </a>
@@ -216,23 +476,22 @@
                       <i class="fa fa-eye "></i>
                     </a>
 
-                    <!-- <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
                       href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
                       target="_blank">
                       <i class="fa fa-facebook "></i>
                     </a>
 
-                    <a mat-mini-fab class="twitter" ng-hide="profile.isvendor=='1'"
+                    <a mat-mini-fab class="twitter" ng-hide="profile.isvendor"
                       href="https://twitter.com/share?url={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&text={{item.job_title}}"
                       target="_blank">
                       <i class="fa fa-twitter  "></i>
                     </a>
 
-                    <a mat-mini-fab class="linkedin" ng-hide="profile.isvendor=='1'"
+                    <a mat-mini-fab class="linkedin" ng-hide="profile.isvendor"
                       href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}{{item.slug}}/{{item.id}}/{{db.profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
                       target="_blank">
                       <i class="fa fa-linkedin "></i>
-                    </a> -->
+                    </a>
 
                     <a mat-mini-fab data-toggle="modal" *ngIf="db.mp.btn_take_internal_refeference"
                       data-target="#internalreference" href="javascript:"
@@ -292,13 +551,13 @@
                     </div>
 
                   </div>
-                  <div class="col-md-12" [hidden]="!item.responsibilityshow && item.responsibilityshow !=='1'">
+                  <div class="col-md-12" [hidden]="!item.responsibilityshow && item.responsibilityshow !">
                     <p class="">{{itemone.jobDescription}}</p>
                   </div>
 
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <mat-card [hidden]='jobslist.length>0||isLoadingJobs'>
@@ -366,7 +625,7 @@
                         <!-- /.box-body -->
                         <div class="box-footer clearfix no-border">
                           <button type="button" class="btn  btn-raised btn-default pull-right"
-                            (click)="assignjobtovendor()"   > Assign Job</button>
+                            (click)="assignjobtovendor()"> Assign Job</button>
                           <button type="button" class="btn  btn-raised btn-default pull-right"
                             (click)="unassignjobtovendor()" title="selected vendor will be removed from job">Un-Assign
                             Job</button>
@@ -425,8 +684,18 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer clearfix no-border">
-                          <button type="button" class="btn  btn-raised btn-default pull-right" (click)="assignjob()">
-                            Assign Job</button>
+                          <!-- <button type="button" class="btn  btn-raised btn-default pull-right" (click)="assignjob()">
+                            Assign Job</button> -->
+                            <div class="btn  btn-raised btn-md btn-default pull-right">
+                              <span matPrefix>Assign Job</span>
+                              <div style="margin-top: -20px;">
+                                <mat-select n="Owner" [(ngModel)]="AssignDate" (change)="assignjob()">
+                                  <mat-option (click)="assignjob()" value="OneDay">Assign For OneDay</mat-option>
+                                  <mat-option (click)="assignjob()" value="TowDay">Assign For TowDay</mat-option>
+                                  <mat-option (click)="assignjob()" value="always">Assign For Always</mat-option>
+                                </mat-select>
+                              </div>
+                            </div> &nbsp;
                           <button type="button" class="btn  btn-raised btn-default pull-right" (click)="unassignjob()"
                             title="Selected recruiter will be removed from selected job !!">
                             Unassigned Job</button>
@@ -537,9 +806,40 @@
                 (click)="submit_cv_to_panel_status()">
                 <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Submit to Panel</a>
 
-              <a href="javascript:" (click)="submitcv()" class="btn btn-raised btn-sm">
+              <a href="javascript:" (click)="submitcv(1)" class="btn btn-raised btn-sm">
                 <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Submit Cv</a>
-            </div>
+
+                <div class="col-md-4 pull-right">
+                  <div class="row">
+
+                    <div class="col-sm-4">
+
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="startdatefilter" [matDatepicker]="picker" placeholder="from date"
+                          class="e">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+
+
+                    </div>
+
+                    <div class="col-sm-4">
+
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="enddatefilter" [matDatepicker]="picker2" placeholder="to date"
+                          class="e">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                      <button class="btn btn-primary btn-sm" (click)="filterbyJob()">Search</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             <div>
               <div style="text-align: right;">
                 <button type="button" class="btn  btn-raised btnnew btn-sm"
@@ -583,7 +883,7 @@
                   (selectionChanged)="onSelectionChanged($event)" [debug]="true"
                   [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
                   [enableRangeSelection]="true" [getRowHeight]='getRowHeight' [pagination]="true"
-                  (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)" (rowClicked)="onRowClicked($event)">
+                  (gridReady)="onGridReady($event)"  (rowClicked)="onRowClicked($event)">
                 </ag-grid-angular>
                 <div class="clearfix clear"></div>
               </div>
@@ -961,7 +1261,7 @@
                 </div>
               </div>
 
-              <button type="submit" (click)="sendtrackermsg()" class="btn  btn-raised btn-primary btn-md">send</button>
+              <button type="submit" (click)="sendtrackermsg(1)" class="btn  btn-raised btn-primary btn-md">send</button>
             </div>
           </div>
 
@@ -999,8 +1299,8 @@
                 </div>
 
               </div>
-              <button type="button" (click)="downloadtracker()" class="btn  btn-raised btn-primary btn-md">Download <i
-                  class="fa fa-download"></i></button>
+              <!-- <button type="button" (click)="downloadtracker()" class="btn  btn-raised btn-primary btn-md">Download <i
+                  class="fa fa-download"></i></button> -->
 
             </div>
           </div>
@@ -1498,7 +1798,7 @@
               </div>
 
               <div class="form-group">
-                <input type="submit" value="Save" (click)="setatjidentitysave(trackerdatamyjob)" />
+                <!-- <input type="submit" value="Save" (click)="setatjidentitysave(trackerdatamyjob)" /> -->
               </div>
 
             </div>
@@ -1511,6 +1811,46 @@
       </div>
       <!--End  Start Submit CV-->
     </div>
+
+
+
+    <div id="viewrelatedjobs" class="modal fade" style="z-index:2000" role="dialog">
+      <div class="modal-dialog modal-lg" style="max-width:1100px;">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+             <div class="col sm-7">
+            <h4 class="modal-title">Jobs</h4>
+          </div>
+          <!-- <div class="col sm-5"> -->
+            <div style="color:green;"><h6>Match Candidate: {{countviewreletedjobs}}</h6></div>
+           <!-- </div> -->
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+          <div class="col-lg-12">
+            <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-material" [rowData]="rowData"
+                  [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
+                  rowSelection='multiple'
+                  rowMultiSelectWithClick='true'
+                  rowDeselection='true'
+
+                  [groupSelectsChildren]="true" paginationAutoPageSize='true'
+                  (selectionChanged)="onSelectionChanged($event)" [debug]="true"
+                  [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+                  [enableRangeSelection]="true" [getRowHeight]='getRowHeight' [pagination]="true"
+                  (gridReady)="onGridReady($event)"  (rowClicked)="onRowClicked($event)">
+                </ag-grid-angular>
+          </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
     <pagination-controls     directionLinks="true"
     autoHide="true"
     responsive="true"
@@ -1522,7 +1862,24 @@
   </div>
 
 </div>
+<div id="viewjobDescription" class="modal fade"  role="dialog" *ngFor="let item of jobslist">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content"  >
+      <div class="modal-header"  >
 
+        <h4 class="modal-title"><strong>{{itemone.job_title}}</strong>  Description </h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+    {{itemone.jobDescription}}
+      </div>
+    </div>
+
+  </div>
+
+
+
+</div>
 <app-call [allids]='allids'></app-call>
 <app-add-to-job [allids]='allids'></app-add-to-job>
 <app-add-note [set_candidate_id]='candidate_id'></app-add-note>

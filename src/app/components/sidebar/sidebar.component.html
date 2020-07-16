@@ -1,4 +1,6 @@
-<div class="logo">
+
+<div class="logo" style="height: 50px; ">
+
   <a href="#" class="simple-text">
     <div class="logo-img " hidden='ture'>
       <img src="/assets/img/angular2-logo-red.png" />
@@ -7,21 +9,17 @@
   </a>
 </div>
 
-
-
-<div class="logo">
-    <a href="#" class="simple-text">
-      <div class="logo-img " hidden='ture'>
+<div class="logo" style="height: 55px; ">
+    <div class="logo-img " hidden='ture' >
         <img src="/assets/img/angular2-logo-red.png" />
       </div>
-      <i class="simple-text" style="text-align:center;"><span style="color:green;">{{db.profile.name}}</span></i>
+    <a href="#" class="simple-text" style="color:green; margin-left: 30px; margin-bottom: 20px;">
+
+      {{db.profile.name}}
   <!-- <i class="material-icons" style="color:green;">adjust<span class=" simple-text"></span></i> -->
-
-
-
     </a>
-  </div>
 
+  </div>
 
 <!-- <li class="nav-item">
     <a class="nav-link" href="#pablo">
@@ -45,6 +43,7 @@
         </div>
       </span>
     </form>
+
     <ul class="nav navbar-nav nav-mobile-menu">
       <li class="nav-item">
         <a class="nav-link" href="#pablo">
@@ -79,70 +78,90 @@
           </p>
         </a>
       </li>
-    </ul>
+    </ul>a
   </div>
-  <ul class="nav">
+  <ul class="nav navbar-nav">
 
-    <li  routerLinkActive="active" class=" nav-item">
-      <a class="nav-link" [routerLink]="['/dashboard']">
+    <li  routerLinkActive="active" class="nav-item nav-sm">
+      <a class="nav-link" aria-expanded="false" [routerLink]="['/dashboard']">
         <i class="material-icons">dashboard</i>
-        <p>Dashboard
-        </p>
+   Dashboard
       </a>
     </li>
 
-    <li routerLinkActive="active" *ngIf="db.mp.page_internal_database ||!db.profile.isvendor=='1'" class=" nav-item">
+    <li routerLinkActive="active" *ngIf="db.mp.page_internal_database ||!db.profile.isvendor" class=" nav-item nav-sm">
       <a class="nav-link" [routerLink]="['/internaldatabase']">
         <i class="material-icons">perm_data_setting
         </i>
-        <p>Internal Database
-        </p>
+       Internal Database
+
       </a>
     </li>
 
+    <li routerLinkActive="active" *ngIf="db.mp.page_internal_database ||!db.profile.isvendor" class=" nav-item nav-sm">
+      <a class="nav-link" [routerLink]="['/candidate-in-queue']">
+        <i class="material-icons">swap_calls
+        </i>
+       Candidate In Queue
 
-    <li routerLinkActive="active" *ngIf="db.mp.page_history ||!db.profile.isvendor=='1'" class=" nav-item">
+      </a>
+    </li>
+    <li routerLinkActive="active" *ngIf="db.mp.page_internal_database ||!db.profile.isvendor" class=" nav-item nav-sm">
+      <a class="nav-link" [routerLink]="['/candidate-campaign']">
+        <i class="material-icons">present_to_all
+        </i>
+       Candidate In Campaign
+
+      </a>
+    </li>
+    <li routerLinkActive="active" *ngIf="db.mp.page_history ||!db.profile.isvendor" class=" nav-item nav-sm">
       <a class="nav-link" [routerLink]="['/history']">
         <i class="material-icons">history</i>
-        <p>History
-        </p>
+        History
       </a>
     </li>
 
 
-    <li routerLinkActive="active" *ngIf="db.mp.page_call && !db.profile.isvendor=='1'" class=" nav-item">
+    <li routerLinkActive="active" *ngIf="db.mp.page_call && !db.profile.isvendor" class=" nav-item nav-sm">
       <a class="nav-link" [routerLink]="['/call-detail']">
         <i class="material-icons">contact_phone</i>
-        <p>Call Detail
-        </p>
+       Call Detail
       </a>
     </li>
     <li class="nav-item" routerlinkactive="active">
       <a class="nav-link" data-toggle="collapse" href="#jobs"><i class="material-icons">group_add</i>
-        <p>Jobs<b class="caret"></b></p>
+        Jobs<b class="caret"></b>
       </a>
 
       <div class="collapse" id="jobs">
         <ul class="nav">
 
-          <li class="nav-item" *ngIf="db.mp.page_job || db.profile.isvendor !=='1' && db.mp.page_myjob" routerlinkactive="active"><a class="nav-link"
+          <li class="nav-item" *ngIf="db.mp.page_job || db.profile.isvendor ! && db.mp.page_myjob" routerlinkactive="active"><a class="nav-link"
               [routerLink]="['/myjob']"><span class="sidebar-normal">myjob</span></a></li>
-          <li class="nav-item" *ngIf="db.mp.add_new_job_store ||!db.profile.isvendor=='1'" routerlinkactive="active"><a class="nav-link"
+          <li class="nav-item" *ngIf="db.mp.add_new_job_store ||!db.profile.isvendor" routerlinkactive="active"><a class="nav-link"
               [routerLink]="['/newjob']">
               <span class="sidebar-normal">New Job</span></a></li>
 
         </ul>
       </div>
     </li>
-    <li class="nav-item" routerlinkactive="active" *ngIf="!db.profile.isvendor=='1'">
+    <li class="nav-item" routerlinkactive="active" *ngIf="!db.profile.isvendor">
       <a class="nav-link" data-toggle="collapse" href="#reports"><i class="material-icons">insert_chart</i>
-        <p>Report<b class="caret"></b></p>
+        Report<b class="caret"></b>
       </a>
 
       <div class="collapse" id="reports">
         <ul class="nav">
-
-          <li class="nav-item" *ngIf="db.mp.page_reports ||!db.profile.isvendor=='1'" routerlinkactive="active"><a class="nav-link"
+          <li class="nav-item" routerlinkactive="active"><a
+            class="nav-link" [routerLink]="['/candidate-campaign-report']">
+            <span class="sidebar-normal">Candidate Campaign Report</span></a></li>
+            <li class="nav-item" routerlinkactive="active"><a
+              class="nav-link" [routerLink]="['/candidate-call-report']">
+              <span class="sidebar-normal">Candidate Call Report</span></a></li>
+            <li class="nav-item" routerlinkactive="active"><a
+              class="nav-link" [routerLink]="['/email-sms-report']">
+              <span class="sidebar-normal">Candidate Response Report</span></a></li>
+          <li class="nav-item" *ngIf="db.mp.page_reports ||!db.profile.isvendor" routerlinkactive="active"><a class="nav-link"
               [routerLink]="['/clientreport']"><span class="sidebar-normal">Client Report</span></a></li>
           <li class="nav-item" *ngIf="db.mp.page_job_stop|| db.profile.app_id=='6' " routerlinkactive="active"><a
               class="nav-link" [routerLink]="['/recruiterreportnew']">
@@ -163,9 +182,9 @@
         </ul>
       </div>
     </li>
-    <li class="nav-item" routerlinkactive="active" *ngIf="!db.profile.isvendor=='1'">
+    <li class="nav-item" routerlinkactive="active" *ngIf="!db.profile.isvendor">
       <a class="nav-link" data-toggle="collapse" href="#settings"><i class="material-icons">settings_applications</i>
-        <p>Settings<b class="caret"></b></p>
+        Settings<b class="caret"></b>
       </a>
 
       <div class="collapse" id="settings" >
@@ -191,7 +210,7 @@
     </li>
     <li class="nav-item" hidden='true' routerlinkactive="active">
       <a class="nav-link" data-toggle="collapse" href="#Logs"><i class="material-icons">image</i>
-        <p>Logs<b class="caret"></b></p>
+        Logs<b class="caret"></b>
       </a>
 
       <div class="collapse" id="Logs">
@@ -208,7 +227,7 @@
     </li>
     <li class="nav-item" routerlinkactive="active" *ngIf="db.mp.page_departments || db.mp.page_employee_email">
       <a class="nav-link" data-toggle="collapse" href="#EmployeeReference"><i class="material-icons">mobile_screen_share</i>
-        <p>Employee Reference<b class="caret"></b></p>
+      Employee Reference<b class="caret"></b>
       </a>
 
       <div class="collapse" id="EmployeeReference" *ngIf="db.mp.page_departments || db.mp.page_employee_email">
@@ -224,9 +243,9 @@
       </div>
     </li>
 
-    <li class="nav-item" routerlinkactive="active" *ngIf="!db.profile.isvendor=='1' && db.mp.page_user">
+    <li class="nav-item" routerlinkactive="active" *ngIf="!db.profile.isvendor && db.mp.page_user">
       <a class="nav-link" data-toggle="collapse" href="#Users"><i class="material-icons">supervised_user_circle</i>
-        <p>Users<b class="caret"></b></p>
+        Users<b class="caret"></b>
       </a>
 
       <div class="collapse" id="Users">
@@ -241,9 +260,9 @@
         </ul>
       </div>
     </li>
-    <li class="nav-item" routerlinkactive="active" *ngIf="!db.profile.isvendor=='1' && db.mp.page_billing">
+    <li class="nav-item" routerlinkactive="active" *ngIf="!db.profile.isvendor && db.mp.page_billing">
       <a class="nav-link" data-toggle="collapse" href="#Billing"><i class="material-icons">money</i>
-        <p>Billing<b class="caret"></b></p>
+        Billing<b class="caret"></b>
       </a>
 
       <div class="collapse" id="Billing">
@@ -258,20 +277,21 @@
         </ul>
       </div>
     </li>
-    <li routerLinkActive="active" class=" nav-item" *ngIf="!db.profile.isvendor=='1'">
+    <li routerLinkActive="active" class=" nav-item" *ngIf="!db.profile.isvendor">
       <a class="nav-link" [routerLink]="['/user-profile']">
         <i class="material-icons">person_pin</i>
-        <p>Profile
-        </p>
+        Profile
+
       </a>
     </li>
+    <div class="logo">
     <li routerLinkActive="active" class=" nav-item">
       <a class="nav-link" [routerLink]="['/logout']">
-        <i class="material-icons">360</i>
-        <p>Log Out
-        </p>
+        <i class="material-icons">logout</i>
+        Log Out
       </a>
     </li>
+  </div>
     <!-- <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
       <a class="nav-link" [routerLink]="[menuItem.path]" href="{{menuItem.href}}">
         <i class="material-icons">{{menuItem.icon}}</i>
@@ -311,4 +331,6 @@
     </li>
 
   </ul>
+
 </div>
+

@@ -12,13 +12,13 @@
             <div class="form-group col-md-6">
               <label class="col-md-3 ">Client :</label>
               <div class="col-md-9">
-                <select class="form-control e" multiple="multiple" n="Client" (change)="ddlchangeclient()"
+                <ng-select multiple="multiple" n="Client" (change)="ddlchangeclient()"
                   [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
 
-                  <option value="{{client.id}}" *ngFor="let client of clientdetails">
+                  <ng-option value="{{client.id}}" *ngFor="let client of clientdetails">
                     {{client.billingName}}
-                  </option>
-                </select>
+                  </ng-option>
+                </ng-select>
 
 
               </div>
@@ -27,13 +27,13 @@
             <div class="form-group col-md-6">
               <label class="col-md-3 ">Job List</label>
               <div class="col-md-9">
-                <select class="form-control e" (change)="getlistmain()" n="Job" [(ngModel)]="myjob.job_id"
+                <ng-select (change)="getlistmain()" n="Job" [(ngModel)]="myjob.job_id"
                   multiple="multiple">
 
-                  <option value="{{job.id}}" *ngFor="let job of jobslistbyclients" multiple="multiple">
+                  <ng-option value="{{job.id}}" *ngFor="let job of jobslistbyclients" multiple="multiple">
                     {{job.job_title}}
-                  </option>
-                </select>
+                  </ng-option>
+                </ng-select>
 
               </div>
             </div>
@@ -94,14 +94,14 @@
               <label class="col-md-3">Recruiter</label>
               <div class="col-md-9">
 
-                <select class="form-control e" (change)="getlistmain()" n="Owner" multiple="multiple"
+                <ng-select (change)="getlistmain()" n="Owner" multiple="multiple"
                   [(ngModel)]="myjob.manager">
 
-                  <option value="{{db.profile.id}}">Self</option>
-                  <option value="{{x.id}}" *ngFor="let x of managers" multiple="multiple">
+                  <ng-option value="{{db.profile.id}}">Self</ng-option>
+                  <ng-option value="{{x.id}}" *ngFor="let x of managers" multiple="multiple">
                     {{x.name}}
-                  </option>
-                </select>
+                  </ng-option>
+                </ng-select>
               </div>
             </div>
 
@@ -212,11 +212,11 @@
                   </div>
                   <div class="modal-body">
                     <div id="clientbarunderreviewpie3" class="charthw2"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="900"
+                    <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="100"
                       h="100" tar="#clientbarunderreviewpie3" style="display: block;margin-bottom: 10px;">
 
                     <div id="clientbarunderreview3" class="charthw2"></div>
-                    <input type="submit" class="printview btn  btn-raised  btn-sm  " value="Print preview" w="1100"
+                    <input type="submit" class="printview btn  btn-raised  btn-sm  " value="Print preview" w="100"
                       h="100" tar="#clientbarunderreview3" style="display: block;margin-bottom: 10px;">
                       <button (click)="exportdat()">Export</button>
                     <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="candidate_filtered"

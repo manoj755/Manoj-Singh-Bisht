@@ -1,14 +1,22 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row pointer">
+    <div class="row pointer" style=" margin-top: -20px;">
+      <button class="btn btn-sm pull-right iconbackground" data-target="#internaldata" *ngIf="!db.profile.isvendor" data-toggle="modal" id="iconbackground"><i class="material-icons icones">content_copy</i> &nbsp;Browse
+        <small>Candidate</small></button>&nbsp;&nbsp;
+           <button class="btn btn-sm pull-right iconbackground" *ngIf="!db.profile.isvendor"(click)="navigateUrl('myjob')" id="iconbackground"><i class="material-icons icones">warning</i>&nbsp;
+            <small>My Job</small> </button>&nbsp;&nbsp;
+           <button class="btn btn-sm pull-right iconbackground" *ngIf="!db.profile.isvendor" (click)="navigateUrl('history')" id="iconbackground"><i class="material-icons icones">store</i> &nbsp;History </button>
+           <button class="btn btn-sm pull-right iconbackground" *ngIf="db.mp.page_billing " (click)="navigateUrl('billing')" id="iconbackground">  <i class="fa fa-money icones"></i> &nbsp;Billing
+           </button>
+    </div>
+    <!-- <div class="row pointer">
 
-      <div class="col-lg-3 col-md-6 col-sm-6" data-target="#internaldata" *ngIf="!db.profile.isvendor=='1'" data-toggle="modal">
+      <div class="col-lg-3 col-md-6 col-sm-6" data-target="#internaldata" *ngIf="!db.profile.isvendor" data-toggle="modal">
         <div class="card card-stats">
           <div class="card-header card-header-warning card-header-icon">
             <div class="card-icon">
               <i class="material-icons">content_copy</i>
             </div>
-            <!-- <p class="card-category">Browse</p> -->
             <h3 class="card-title">Browse
               <small>Candidate</small>
             </h3>
@@ -21,13 +29,12 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-md-6 col-sm-6" *ngIf="!db.profile.isvendor=='1'" (click)="navigateUrl('history')">
+      <div class="col-lg-3 col-md-6 col-sm-6" *ngIf="!db.profile.isvendor" (click)="navigateUrl('history')">
         <div class="card card-stats">
           <div class="card-header card-header-success card-header-icon">
             <div class="card-icon">
               <i class="material-icons">store</i>
             </div>
-            <!-- <p class="card-category">History</p> -->
             <h3 class="card-title">History</h3>
           </div>
           <div class="card-footer">
@@ -59,7 +66,6 @@
             <div class="card-icon">
               <i class="fa fa-money"></i>
             </div>
-            <!-- <p class="card-category">Billing</p> -->
             <h3 class="card-title">Billing</h3>
           </div>
           <div class="card-footer">
@@ -70,8 +76,96 @@
           </div>
         </div>
       </div>
+    </div> -->
+    <div class="row">
+      <div class="card col-md-6" style=" margin-top: 0px;">
+        <div class="card-header card-header" style="height: 40px;">
+          <div class="row">
+            <div class="col-sm-8">
+              <h5 class="card-title"><strong>Recruiter Daily Reports </strong></h5>
+            </div>
+            <div class="col-sm-4 pull-left">
+              <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
+             tar="#recruiterreport" style="display: block;margin-bottom: 10px;">
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-11" style="height: 300px;" id="recruiterreport">
+            <!-- -->
+          </div>
+        </div>
+      </div>
+
+      <div class="card col-md-6" style=" margin-top: 0px">
+        <div class="card-header card-header" style="height: 40px;">
+          <div class="row">
+            <div class="col-sm-8">
+              <h5 class="card-title"><strong>Source Reports </strong></h5>
+
+            </div>
+            <div class="col-sm-4 pull-left">
+              <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
+              tar="#sourcereport" style="display: block;margin-bottom: 10px;">
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-11" style="height: 300px;" id="sourcereport">
+          </div>
+
+        </div>
+      </div>
     </div>
 
+    <div class="row">
+
+      <div class="card col-md-6" style=" margin-top: -20px;">
+        <div class="card-header card-header" style="height: 40px;">
+          <div class="row">
+            <div class="col-sm-8">
+              <h4 class="card-title">Best Responce Reports</h4>
+            </div>
+            <div class="col-sm-4 pull-left">
+              <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
+              tar="#Openmailmessage" style="display: block;margin-bottom: 10px;">
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-11" style="height: 300px;" id="Openmailmessage">
+            <!-- -->
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card col-md-6" style=" margin-top: -20px;">
+        <div class="card-header card-header" style="height: 40px;">
+          <div class="row">
+            <div class="col-sm-8">
+              <h5 class="card-title"><strong>Candidate Call Initiation Reports</strong></h5>
+            </div>
+            <div class="col-sm-4 pull-left">
+              <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1000" h="00"
+                tar="#Initiationcallreport" style="display: block;margin-bottom: 10px;">
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-11" id="Initiationcallreport">
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-md-6" style="height: 300px;">Hello
+        <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
+          tar="#clientReportpie" style="display: block;margin-bottom: 10px;">
+      </div> -->
+    </div>
     <div class="row">
       <div class="col-lg-6 col-md-12" *ngIf="db.mp.new_reference">
         <div class="card">
@@ -326,7 +420,7 @@
         <div class="card">
           <div class="card-header card-header-tabs card-header-info">
             <h4 class="card-title">Interview </h4>
-            <p class="card-category">Comming Interview</p>
+            <p class="card-category">Coming Interview</p>
           </div>
           <div class="card-body" style="height: 500px;">
                         <div class="list-group" >
@@ -381,13 +475,13 @@
 
 
 
-                                    <div class="text-danger "  *ngIf="getsuggestions.length == 0">No Data</div>
+                              <!-- <div class="text-danger "  *ngIf="getsuggestions?.length > 0">No Data</div> -->
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row" *ngIf="!db.profile.isvendor=='1'">
+    <div class="row" *ngIf="!db.profile.isvendor">
       <div class="card">
         <div class="card-header card-header-tabs card-header-info">
           <h4 class="card-title">Cv Parsed </h4>
@@ -603,7 +697,9 @@
 
           </div>
           <div class="modal-body">
-            <div class="col-md-12 col-sm-6 col-xs-12" *ngIf="db.mp.option_to_send_email">
+            <!-- <div class="col-md-12 col-sm-6 col-xs-12" *ngIf="db.mp.option_to_send_email"> -->
+              <div class="col-md-12 col-sm-6 col-xs-12">
+
               <div class="form-group">
 
 
@@ -613,7 +709,7 @@
                     <ng-option value="{{job.id}}" *ngFor="let  job of jobslistforref">{{job.job_title}}
                       ({{job.id}})({{job.ClientName}})  </ng-option>
 
-                      <!-- <span *ngIf="job.is_client=='0'">(Department)</span> <span *ngIf="job.is_client=='1'">(Client)</span> -->
+                      <!-- <span *ngIf="job.is_client=='0'">(Department)</span> <span *ngIf="job.is_client">(Client)</span> -->
                   </ng-select>
                 <!-- </mat-form-field> -->
               </div>
@@ -628,11 +724,11 @@
                       <ng-option value="allPR3" >
                         Direct Lineup Bot  </ng-option>
 
-                      <!-- <span *ngIf="job.is_client=='0'">(Department)</span> <span *ngIf="job.is_client=='1'">(Client)</span> -->
+                      <!-- <span *ngIf="job.is_client=='0'">(Department)</span> <span *ngIf="job.is_client">(Client)</span> -->
                   </ng-select>
                 <!-- </mat-form-field> -->
               </div>
-              <div class="clearfix"
+              <!-- <div class="clearfix"
                 *ngIf="profile.disable_crowd_sourcing !== '1' &&(setjobandreferencetemp.reference_email_template_id=='0' || setjobandreferencetemp.reference_sms_template_id=='0')">
                 <div class="form-group ">
                   <select [(ngModel)]="setjobandreferencetemp.reference_email_template_id"
@@ -654,7 +750,7 @@
                   </select></div>
 
 
-              </div>
+              </div> -->
             </div>
           </div>
           <div class="clearfix"></div>
@@ -671,7 +767,7 @@
 
             <a (click)="setjobandreferencetempmpfunction()"
               helps="Please check : Proper job/Templates selected or not for reference"
-              class="btn  btn-raised btn-info  de" href="{{jobportalurl}}" target="_blank">
+              class="btn  btn-raised btn-info  de" href="{{jobportalurl}}"  target="_blank">
               GO</a>
           </div>
         </div>
@@ -716,7 +812,7 @@
 
         </div>
         <div class="modal-body">
-            <!-- <button (click)="exportdat()">Export</button> -->
+             <button (click)="exportdat()">Export</button>
           <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="gridOptionsSuggestedCandidatesRows"
             [columnDefs]="gridOptionsSuggestedCandidatesCols" suppressCsvExport=false
             rowMultiSelectWithClick='true'
@@ -794,12 +890,12 @@
 
   </div>
 </div>
-<app-call [allids]='allids'></app-call>
-<app-add-to-job [allids]='allids'></app-add-to-job>
+<!-- <app-call [allids]='allids'></app-call> -->
+<!-- <app-add-to-job [allids]='allids'></app-add-to-job> -->
 
-<app-update-candidate [current_data]='currentData'></app-update-candidate>
-<app-activity [activities]="activities"></app-activity>
+<!-- <app-update-candidate [current_data]='currentData'></app-update-candidate> -->
+<!-- <app-activity [activities]="activities"></app-activity> -->
 
-<app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status>
+<!-- <app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status> -->
 <!-- <app-cadidate-job-suggestion [job_id]='job_id' [set_status_row]='status_row'></app-cadidate-job-suggestion> -->
 

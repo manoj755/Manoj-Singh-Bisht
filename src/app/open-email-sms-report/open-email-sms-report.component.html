@@ -1,0 +1,136 @@
+<div class="main-content">
+  <div class="container-fluid" >
+
+    <div class="card" style=" margin-top: -20px;">
+      <div class="card-header card-header-danger " style="height: 40px; width: 50%;">
+        <h4 class="card-title" style="margin-top: -5px;">Candidate Response Reports</h4>
+      </div>
+    <div class="row">
+
+      <div class="col-md-2" style="margin-left: 20px;">
+        <mat-form-field>
+        <mat-select   n="Owner" [(ngModel)]="charttype" (change)="getlistdata()" placeholder="Select Response">
+          <mat-option  value="Ratio chart" (click)="getlistdata()">Ratio chart</mat-option>
+          <mat-option  value="Campaign Statistics" (click)="getlistdata()">Campaign Statistics</mat-option>
+          </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="col-md-2" style="margin-left: 20px;">
+        <mat-form-field>
+        <mat-select   n="Owner" [(ngModel)]="userids" (change)="getlistdata()" placeholder="Select Recruiter">
+          <mat-option  value="{{db.profile.id}}" (click)="getlistdata()">Self</mat-option>
+          <mat-option  value="{{x.id}}" (click)="getlistdata()" *ngFor="let x of managers">{{x.name}}</mat-option>
+          </mat-select>
+          </mat-form-field>
+      </div>
+      
+      <div class="col-md-3">
+        <mat-form-field>
+          <input matInput [(ngModel)]="start_date" [matDatepicker]="picker" placeholder="Choose start date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field>
+          <input matInput [(ngModel)]="end_date" [matDatepicker]="picker2" placeholder="Choose End date" >
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-1">
+   <button class="btn btn-sm"  (click)="getlistdata()">Search</button>
+      </div>
+    </div>
+  </div>
+
+<div class="col-md-12" id='showgraph'>
+
+  <div class="box box-primary">
+    <div class="box-body">
+      <div class="form-group pull-right">
+        <div class="checkbox">
+
+        </div>
+      </div>
+
+      <div class="allchart" *ngIf='Ratio'>
+      <input type="submit" class="printview btn  btn-raised  btn-sm pull-right " value="Print preview" w="1300" h="500"
+      tar="#showallresponse" style="display: block;margin-bottom: 10px;">
+      <div class="col-md-11" style="height: 400px;" id="showallresponse"></div><br><hr>
+    </div>     
+
+    <div class="emailsmschart" *ngIf='Statistics'>
+      <button class="printview btn  btn-raised  btn-sm pull-right" id='print' (click)='print()'>Print preview</button>
+
+      <div class="clearfix"></div>
+
+      <ejs-accumulationchart #chart height="550px" [legendSettings]='legend' [tooltip]='tooltipSetting' (pointClick)='pointClick($event)'>
+
+        <e-accumulation-series-collection>
+            <e-accumulation-series width='700px' height="400px" type='Funnel' [dataSource]='myfunnelchart' xName='x' yName='value' innerRedius='40%' 
+            [dataLabel]='chartLabel'>
+            </e-accumulation-series>
+        </e-accumulation-series-collection>
+      </ejs-accumulationchart> 
+    </div>
+
+      <div class="clearfix"></div>
+      <!-- <button (click)="exportdat()" *ngIf="db.mp.export_button">Export</button> -->
+
+      <div class="allgrid" *ngIf='Ratio'>
+        <ag-grid-angular style="height: 150px;" class="ag-theme-material" [rowData]="rowData"
+        [columnDefs]="RatiocolumnDefs" suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef"
+        [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+        (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+        [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"
+        [pagination]="false" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)">
+      </ag-grid-angular>
+      </div>
+
+      <div class="emailgrid" *ngIf='Statistics'>
+        <ag-grid-angular style="height: 150px;" class="ag-theme-material" [rowData]="rowData"
+        [columnDefs]="campaignstatisticscolumnDefs" suppressCsvExport=false [autoGroupColumnDef]="autoGroupColumnDef"
+        [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+        (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+        [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"
+        [pagination]="false" (gridReady)="onGridReady($event)" (rowClicked)="onRowClicked($event)">
+      </ag-grid-angular>
+      </div>
+
+
+
+      
+
+
+      <div id="ModelShowHistoryReportWise" class="modal fade" role="dialog">
+        <div class="modal-dialog width80percent">
+
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">{{filtertitle}}</h4> <button type="button" class="close"
+                data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+              <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="candidate_filtered"
+                [columnDefs]="candidate_filtered_cols" suppressCsvExport=false
+                [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"
+                [groupSelectsChildren]="true" paginationAutoPageSize='true'
+                (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+                [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+                [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)"
+                (rowClicked)="onRowClicked($event)"></ag-grid-angular>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn  btn-raised btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+              </div>
+  </div>
+</div>
+</div>
+</div>

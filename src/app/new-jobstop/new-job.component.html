@@ -1,0 +1,693 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="alert alert-info col-12" *ngIf="clientdetails.length==0">
+        <h2>Please Create {{db.clientsdepartment}}.</h2>
+        <span *ngIf="db.mp.page_tracker">To create please <a href="/client">click here</a></span>
+        <span *ngIf="!db.mp.page_tracker">Please contact your manager</span>
+
+      </div>
+      <div class="alert alert-warning  col-12" *ngIf="trackerlist.length==0">
+        <h2>Please Create Tracker.</h2><span *ngIf="db.mp.page_client">To create please <a href="/trackers">click
+            here</a></span>
+        <span *ngIf="!db.mp.page_client">Please contact your manager</span>.
+      </div>
+      <div class=" col-12 bg-default" [hidden]="!clientdetails.length>0&& !trackerlist.length>0"
+        style=" padding-top: 20px" id="addnewjobform">
+        <div class="row">
+          <div class="col-md-7"></div>
+
+          <div class="form-group col-md-5">
+
+            <label class="col-md-4" style="color: #270652ef;">Select job</label>
+            <!-- <mat-form-field> -->
+            <div class="col-md-10">
+              <ng-select id="is_client" name="id" [(ngModel)]="myjob.id" (change)="showJob(myjob.id,$event)">
+                <!-- <ng-option >any</ng-option> -->
+                <ng-option [value]="myjobdata.id" *ngFor="let myjobdata of myjobdatas">{{myjobdata.job_title}}
+                </ng-option>
+
+
+              </ng-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header card-header-danger" *ngIf="!showeditjob">
+            <h4 class="card-title">New Job</h4>
+            <p class="card-category">Add new job details</p>
+          </div>
+          <div class="card-header card-header-danger" *ngIf="showeditjob">
+            <h4 class="card-title">Edit Job</h4>
+            <p class="card-category">Update job details</p>
+          </div>
+          <div class="card-body">
+            <br>
+            <div class="row">
+
+              <div class="form-group col-md-6">
+                <label class="col-md-8">Client/Department</label>
+                <!-- <mat-form-field> -->
+                <div class="col-md-9">
+                  <ng-select matNativeControl id="is_client" name="is_client" [(ngModel)]="myjob.is_client">
+                    <!-- <ng-option >any</ng-option> -->
+                    <ng-option value='{{myjob.is_client}}'>{{myjob.is_client}}</ng-option>
+                    <ng-option [value]="1">Client</ng-option>
+                    <!-- <ng-option [value]="0">Department</ng-option> -->
+
+                  </ng-select>
+                </div>
+              </div>
+
+
+              <div class="form-group col-md-6">
+                <label class="col-md-8 " select>Select a {{db.clientsdepartment}}:</label>
+
+                <div class="col-md-9">
+                  <ng-select id="client" [(ngModel)]="myjob.client_detail_id" name="client_detail_id">
+                    <ng-option value="{{client.id}}" *ngFor="let client of clientdetails">
+                      {{client.billingName}}
+                      <!-- <span *ngIf=" client.is_client == '0'; then thenTemplateName else elseTemplateName"></span> -->
+                    </ng-option>
+                  </ng-select>
+
+                </div>
+              </div>
+            </div>
+            <br>
+            <!-- <div class="row"> -->
+            <!-- <div class="col-md-12"> -->
+            <div role="form" name="userForm" id="mynewjob">
+              <div class="row">
+                <div class="form-group  col-md-4">
+                  <label class="col-md-4" Manager>Manager:</label>
+                  <div class="col-md-8">
+                    <ng-select n="Select a Manager" id='manager_id' [(ngModel)]="myjob.manager_id" name="manager_id">
+                      <ng-option value="{{db.profile.id}}">Self</ng-option>
+                      <ng-option value="{{manager.id}}" *ngFor="let manager of managers">
+                        {{manager.name}}
+
+                      </ng-option>
+                    </ng-select>
+                    <div class="row">
+                    </div>
+                  </div>
+
+                  <ng-template #thenTemplateName>
+                    (department)
+                  </ng-template>
+
+                  <ng-template #elseTemplateName>
+                    (client)
+                  </ng-template>
+                </div>
+                <div class="form-group col-md-4">
+                  <label class="col-md-4" Manager>Tracker :</label>
+                  <div class="col-md-8">
+
+                    <ng-select n=" a Tracker" id="tracker" [(ngModel)]="myjob.tracker_id">
+                      <ng-option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label class="col-md-4" Title>Job Title</label>
+                  <div class="col-md-8">
+
+
+                    <input type="text" callback-fn='jobtitlesuggestion()' class="form-control e" n="a Job Title"
+                      id="title" [(ngModel)]="myjob.job_title" placeholder="title" name="job_title" />
+
+                  </div>
+                </div>
+
+              </div>
+              <br>
+              <div class="row">
+                <div class="form-group col-md-4" *ngIf="db.mp.can_add_skills_for_call">
+                  <label class="col-md-4" Title>Primary Skill</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control " n="Primary Skill" id="Primary_Skill"
+                      [(ngModel)]="myjob.first_skill" required />
+
+                  </div>
+                </div>
+
+
+                <div class="form-group col-md-4" *ngIf="db.mp.can_add_skills_for_call">
+                  <label class="col-md-4" Title>Secondary Skill</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control " n="Secondary Skill" id="Secondary_Skill"
+                      [(ngModel)]="myjob.second_skill" required />
+
+                  </div>
+                </div>
+
+                <div class="form-group col-md-4" *ngIf="db.mp.can_add_skills_for_call">
+                  <label class="col-md-4" Title>Third Skill</label>
+                  <div class="col-md-8">
+                    <input type="text" class="form-control " n="Third Skill" id="Third_Skill"
+                      [(ngModel)]="myjob.third_skill" required />
+
+                  </div>
+                </div>
+              </div>
+              <br>
+              <h3 class="col-md-12 alert alert-warning">Salary (Per Annum):</h3>
+
+              <div class="row">
+                <div class="form-group col-md-3">
+
+                  <label class="col-md-5" minimumSalarylac><b>From</b> Lakhs</label>
+                  <div class="col-md-8">
+                    <ng-select class="e" id="minimumSalarylac" (change)="updatemaxsalary()"
+                      [(ngModel)]="myjob.minimumSalarylac" name="minimumSalarylac">
+                      <ng-option [value]='minimumSalarylac' *ngFor="let minimumSalarylac of  minimumSalaryOption">
+                        {{minimumSalarylac}}</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+
+                  <label class="col-md-7" minimumSalarythousand>Thousands</label>
+                  <div class="col-md-7">
+                    <ng-select class="e" id="minimumSalarythousand" name="minimumSalarythousand"
+                      [(ngModel)]="myjob.minimumSalarythousand">
+                      <ng-option [value]='minimumSalarythousand'
+                        *ngFor="let minimumSalarythousand of  minimumSalaryOptionink">{{minimumSalarythousand}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+                <!-- </div>
+               <div class="col"> -->
+                <div class="form-group col-md-3">
+
+                  <label class="col-md-6" maximumSalarylac><b>To</b> Lakhs</label>
+                  <div class="col-md-8">
+                    <ng-select class="e" id="maximumSalarylac" validate n="Maximum salary"
+                      [(ngModel)]="myjob.maximumSalarylac" name="maximumSalarylac">
+                      <ng-option [value]='opt' *ngFor="let opt of  maxSalaryOption" help="first select minimum value">
+                        {{opt}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+
+
+                <div class="form-group col-md-3">
+
+                  <label class="col-md-7" maximumSalarythousand>Thousands</label>
+                  <div class="col-md-7">
+                    <ng-select class="e" name="maximumSalarythousand" [(ngModel)]="myjob.maximumSalarythousand"
+                      id="maximumSalarythousand">
+                      <ng-option [value]='opt' *ngFor="let opt of  maximumSalaryOptionink">{{opt}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6 ">
+                  <div class="row">
+                    <label class="col-md-8 " Industry>Hide Salary from jobseekers</label>
+
+                    <div class="col-md-10">
+                      <mat-checkbox ngDefaultControl [(ngModel)]='myjob.HideSalaryfromjobseekers'
+                        *ngIf="myjob.HideSalaryfromjobseekers=='true'">
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6"
+                  *ngIf="db.mp.hide_referral_bonus && db.profile.disable_crowd_sourcing !=='1'">
+                  <label class="col-md-4" Referral>Referral Bonus:</label>
+                  <div class="col-md-10">
+                    <input type="number" class="form-control " min="2000" id='referralBonus' maxlength="5"
+                      [(ngModel)]="myjob.referralBonus" placeholder="Bonus" name="referralBonus" />
+
+
+                  </div>
+
+                </div>
+              </div>
+              <!-- <br> -->
+
+              <!-- <h3 class="col-md-12"></h3> -->
+
+              <h3 class="col-md-12 alert alert-warning">Experience (In Years):</h3>
+              <!-- <br> -->
+              <div class="row">
+
+                <div class="form-group col-md-6">
+                  <label class="col-md-7" Exprience>From Years</label>
+                  <div class="col-md-10">
+
+                    <ng-select class="e" (change)="updatemaxexperience()" id="MinimumExperience" validate
+                      n="Minimum Experience" [(ngModel)]="myjob.minimumExperience" name="minimumExperience">
+                      <ng-option value='{{opt}}' *ngFor="let opt of  minexperience">{{opt}}</ng-option>
+                    </ng-select>
+
+                  </div>
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="col-md-7" Exprience>To Years</label>
+                  <div class="col-md-10">
+
+                    <ng-select class="e" id="MaxExperience" validate n="Maximum Experience"
+                      [(ngModel)]="myjob.maximumExperience" name="maximumExperience">
+                      <ng-option value='{{opt}}' *ngFor="let opt of  maxexperience">{{opt}}</ng-option>
+                    </ng-select>
+
+
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label class="col-md-4" Title>Job Type</label>
+                  <div class="col-md-10">
+                    <ng-select class="e" (change)="jobtype()" n="Job Type" [(ngModel)]='myjob.jobtype'>
+                      <ng-option value="Full Time">Full Time</ng-option>
+                      <ng-option value="Internship">Internship</ng-option>
+                      <ng-option value="Contract">Contract</ng-option>
+                      <ng-option value="Freelence">Freelence</ng-option>
+                    </ng-select>
+
+                  </div>
+                </div>
+
+
+                <div id="internshipdiv" style="display: none;" class="col-md-12">
+                  <div class="form-group col-md-6">
+                    <label class="col-md-4">Internship duration</label>
+                    <div class="row">
+                      <div class="col-md-4" id="internship">
+                        <ng-select class="e" [(ngModel)]='myjob.internshipduration'>
+                          <ng-option value="1">1</ng-option>
+                          <ng-option value="2">2</ng-option>
+                          <ng-option value="3">3</ng-option>
+                          <ng-option value="4">4</ng-option>
+                          <ng-option value="5">5</ng-option>
+                          <ng-option value="6">6</ng-option>
+                        </ng-select>
+
+                      </div>
+                      <div class="col-md-4" id="Responsibility">
+                        <ng-select class="e" [(ngModel)]='myjob.internshipdurationunit'>
+                          <ng-option value="Month">Month</ng-option>
+                          <ng-option value="Weeks">Weeks</ng-option>
+                        </ng-select>
+
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div id="contract" style="display: none;" class="col-md-12">
+                  <div class="form-group col-md-6" id="contract">
+
+                    <label class="col-md-4">Contract Re-newable</label>
+
+                    <div class="col-md-8">
+                      <mat-radio-group>
+                        <mat-radio-button ngDefaultControl [(ngModel)]='myjob.contractrenewable' value="yes">Yes
+                        </mat-radio-button>
+                        <mat-radio-button ngDefaultControl [(ngModel)]='myjob.contractrenewable' value="no">No
+                        </mat-radio-button>
+                      </mat-radio-group>
+
+                    </div>
+
+
+                  </div>
+                  <div class="form-group col-md-6">
+
+                    <label class="col-md-3">Contract Duration</label>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <ng-select n="a Contract Duration" id="Contract" [(ngModel)]='myjob.contract'>
+                          <ng-option>1</ng-option>
+                          <ng-option>2</ng-option>
+                          <ng-option>3</ng-option>
+                          <ng-option>4</ng-option>
+                          <ng-option>5</ng-option>
+                          <ng-option>6</ng-option>
+                        </ng-select>
+
+                      </div>
+                      <div class="col-md-5">
+                        <ng-select n="a Month" ngDefaultControl id="month" [(ngModel)]='myjob.contractunit'>
+                          <ng-option>Month</ng-option>
+                          <ng-option>Weeks</ng-option>
+                        </ng-select>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div style="display: none;" class="form-group col-md-6" id="freelence">
+                  <label class="col-md-4">Change Payable</label>
+                  <div class="col-md-8">
+                    <!-- <mat-radio-group>
+                        <mat-radio-button ngDefaultControl [(ngModel)]='myjob.freelancepayable' value="Hourly">Hourly</mat-radio-button>
+                        <mat-radio-button ngDefaultControl [(ngModel)]='myjob.freelancepayable' value="Project-Based">Project-Based
+                        </mat-radio-button>
+                      </mat-radio-group> -->
+
+
+
+                  </div>
+
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label class="col-md-3" style="min-width: 768px;" JD>Job Description:</label>
+                  <div class="col-md-11">
+                    <textarea class="form-control e" n="Job Description" pp="" id='jobdescription' contenteditable
+                      rows="5" ck="jd" [(ngModel)]="myjob.jobDescription" name="jobDescription"></textarea>
+
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label class="col-md-9" Title>Job Key Skills</label>
+                  <!-- <div class="col-md-10" style="max-width:1000px;"> -->
+
+                  <ng-select ngDefaultControl [(ngModel)]="myjob.keyskills" [items]="suggestedkeyskills" [addTag]="true"
+                    [multiple]="true" [isOpen]="false">
+                  </ng-select>
+
+
+
+                  <div class="row hidden" style="margin-top: 20px;">
+                    <div class="col-md-12">
+
+
+                    </div>
+                  </div>
+                  <!-- <mat-form-field class="keyskill">
+                        <mat-chip-list #chipList aria-label="Keyskill selection">
+
+                          <mat-chip  *ngFor="let keyskills  of  keyskill2" [selectable]="selectable"
+                          [removable]="removable" (removed)="delete(keyskills)"  >
+                                   {{keyskills}}
+
+                            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                          </mat-chip>
+                          <mat-chip  *ngFor="let keyskill  of  keyskills" [selectable]="selectable"
+                          [removable]="removable" (removed)="remove(keyskill)"  >
+                          {{keyskill.name}}
+
+                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                 </mat-chip>
+
+                 <input type="hidden" ngDefaultControl [(ngModel)]="myjob.keyskills">
+
+                          <input
+                                 [matChipInputFor]="chipList"
+                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                 [matChipInputAddOnBlur]="addOnBlur"
+                                 (matChipInputTokenEnd)="add($event)">
+
+                        </mat-chip-list>
+
+                      </mat-form-field> -->
+
+                  <!-- </div> -->
+                </div>
+
+                <!-- <div class="form-group col-md-12">
+                            <label class="col-md-2" Title>Job Key Skills</label>
+                            <div class="col-md-10">
+
+
+                                <tags-input placeholder="Key Skills" on-invalid-tag="error_on_invalid_tag()" min-length="1" replace-spaces-with-dashes="false" ng-model="keyskillsset" on-tag-adding="setkeyskills()"  max-length="45"  on-tag-removed="setkeyskills()" add-on-enter="true" min-tags='10'>
+                                    <auto-complete source="getkeyskillssuggestion()"  max-results-to-show="100" load-on-focus="true" select-first-match="false" load-on-down-arrow='true'  load-on-empty="true"></auto-complete>
+                                </tags-input>
+                                {{errormsgtag}}
+                                <input type="text"  class="form-control hiden" style="display: none;" n="key skill"  id="keySkills" ng-change='getkeyskills()' ng-model="myjob.keyskills"/>
+                                <div class="row hidden" style="margin-top: 20px;">
+                                    <div class="col-md-12" >
+
+                                        <span ng-repeat="skill in suggestedkeyskills" style="margin:5px;  padding:8px 12px; display: inline-block;" class="label label-info ">
+
+                                            <span ng-click="addSkill($index,skill)" help="Add to skills">{{skill}}</span> <span class="fa fa-close" help="remove" ng-click="deleteSkill($index)"></span>
+                                        </span>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> -->
+                <!-- <div class="form-group col-md-12">
+                          <label class="col-md-2" Title>Job Key Skills</label>
+                          <div class="col-md-10">
+                        <mat-form-field class="example-chip-list">
+                          <mat-chip-list #chipList>
+                            <mat-chip
+                            ngDefaultControl [(ngModel)]="myjob.keyskills"
+                              [selectable]="selectable"
+                              [removable]="removable"
+
+                              (removed)="remove(keyskills)">
+                              {{fruit}}
+                              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                            </mat-chip>
+                            <input
+                              placeholder="key skills..."
+                              #fruitInput
+                              [formControl]="fruitCtrl"
+                              [matAutocomplete]="auto"
+                              [matChipInputFor]="chipList"
+                              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                              [matChipInputAddOnBlur]="addOnBlur"
+                              (matChipInputTokenEnd)="addSkill($index,skill)">
+                          </mat-chip-list>
+                          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="getkeyskillssuggestion()" >
+                            <mat-option  [value]="fruit">
+                              {{skill}}<span  (removed)="deleteSkill($index)"></span>
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
+</div>
+</div> -->
+                <div class="form-group col-md-6">
+                  <label class="col-md-8" Title>
+                    <a class="locinter {{locationtype}} " id="inter" href="#"help='click here for International location'
+                      (click)="loadinternationlocation()">International
+                      Location</a> / <a (click)="loadlocation()" help='click here for location' id="local" class="loc {{locationtype}}"
+                      href="#">  Location</a>
+                  </label>
+                  <div class="col-md-10">
+
+
+                    <ng-select name="location" [(ngModel)]="location" [multiple]="true" ngDefaultControl>
+                      <ng-option *ngFor="let location of locations ">{{location}}</ng-option>
+                    </ng-select>
+                  </div>
+
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <label class="col-md-4" Industry>Industry</label>
+                  <div class="col-md-10">
+
+                    <ng-select id="Industry" validate n="a Industry" [(ngModel)]="myjob.industry" name="industry_id">
+                      <ng-option *ngFor="let industry of  industries" value="{{industry.industryName}}">
+                        {{industry.industryName}}</ng-option>
+                    </ng-select>
+
+                  </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label class="col-md-8" Functional>Functional Area</label>
+                  <div class="col-md-10 form-group">
+
+                    <select matSelect class="form-control" n="a Functional Area" id="fun"
+                      [(ngModel)]="myjob.functionalArea" (change)="getrole()" name="function_id">
+                      <option class="form-control" *ngFor="let x of functionalareas" [attr.opt]='x.code'
+                        value="{{x.functionalAreaName}}">{{x.functionalAreaName}}</option>
+                    </select>
+
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label class="col-md-4" Job_Role>Job Role</label>
+                  <div class="col-md-9">
+                    <ng-select id="jobRole" validate n="a Job Role" name="jobRole" [(ngModel)]="myjob.jobRole">
+                      <ng-option value="{{myjob.jobRole}}">{{myjob.jobRole}}</ng-option>
+                      <ng-option *ngFor="let jobrole of  jobroles" value="{{jobrole.val}}">{{jobrole.val}}</ng-option>
+                    </ng-select>
+
+                  </div>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+
+                <div style="clear:both;"></div>
+
+                <div class="form-group col-md-3">
+                  <label class="col-md-8" opaning>Number of opening:</label>
+                  <div class="col-md-9">
+                    <input type="number" class="form-control e" id="numberofopening" validate n="Number of opening"
+                      [(ngModel)]="myjob.numberOfOpening" name="numberOfOpening" placeholder="opening" />
+
+
+
+                  </div>
+
+                </div>
+
+                <div class="form-group col-md-3">
+                  <label class="col-md-8">Job Status</label>
+                  <div class="col-md-9">
+                    <ng-select n="Status" id="jobstatus" rows="3" [(ngModel)]="myjob.job_status" name="Notes">
+                      <ng-option>Hold</ng-option>
+                      <ng-option>Active</ng-option>
+                      <ng-option ng-if="isjobediting" (click)='changefilter("Closed")'>Closed</ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6">
+                  <label class="col-md-4" JD>Notes</label>
+                  <div class="col-md-10">
+                    <textarea class="form-control e" n="Notes" id="notes" [(ngModel)]="myjob.notes"
+                      name="Notes"></textarea>
+
+                  </div>
+                </div>
+
+              </div>
+
+
+
+
+              <div class="form-group col-md-12">
+
+
+                <!-- <div class="row">
+                      <div class="col-md-6">
+                        <label class=" col-md-4">Job Display From</label>
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="start_date_temp" [matDatepicker]="picker"
+                            placeholder="Choose a date" class="e">
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="col-md-8">Job Display To</label>
+
+                        <mat-form-field>
+                          <input matInput [(ngModel)]="end_date_temp" [matDatepicker]="picker2"
+                            placeholder="Choose a date" class="e">
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+
+
+                      </div>
+                    </div> -->
+              </div>
+
+
+
+
+
+              <!-- <div class="form-group col-md-6"> -->
+              <!-- <input ng-control="options" type="radio" name="is_client" [(ngModel)]="client.is_client" [value]="1"><span>Client</span> -->
+              <!-- <input type="checkbox" ngDefaultControl [(ngModel)]="myjob.is_client"  (ngModelChange)="myjob.is_client = $event ? 1:0"> <span>is_client</span>
+                    </div> -->
+
+
+
+              <!-- <mat-checkbox ngDefaultControl [(ngModel)]="commentstatus.is_client">is_client</mat-checkbox> -->
+              <!-- </mat-form-field> -->
+              <!-- </div> -->
+              <div class="row">
+                <div class="form-group col-md-6" *ngIf='db.mp.btn_take_internal_refeference'>
+                  <label class="col-md-4">Employee Referral</label>
+                  <div class="col-md-8">
+
+
+
+                    <div *ngIf='departments.length==0' class="alert alert-info">
+                      No Department Added.<span *ngIf='db.mp.page_departments'> <a href="#/departments"
+                          class="btn btn-default">Click
+                          here</a> to add Department.</span>
+                    </div>
+
+                    <span class="form-check bg-aqua text-blue " *ngFor="let department of departments">
+
+
+                      <input class="form-check-input" id="exampleCheck{{$index}}" type="checkbox"
+                        [(ngModel)]="department.selected">
+
+
+                      <label for="exampleCheck{{$index}}" class="form-check-label"> {{department.department}}</label>
+                    </span>
+
+
+
+
+
+                  </div>
+                </div>
+
+
+              </div>
+
+
+
+              <div class="col-md-12">
+
+                <div class="col-md-8"></div>
+                <div class=" form-group col-md-4">
+                  <div class="col-sm-6">
+                    <button type="submit" class="btn btn-primary validate"
+                      *ngIf="!isjobediting ||jobupdate || !hidesavebutton" tar="#addnewjobform"
+                      (click)="checkexistingjob()">Save</button>
+                  </div>
+                  <div *ngIf="isjobediting == true" class="col-sm-6">
+                    <button type="submit" class="btn btn-primary validate" tar="#addnewjobform"
+                      (click)="addNewJobupdate()">Update</button>
+                    <!-- <button type="submit"  class="btn btn-primary validate"
+                        tar="#addnewjobform" (click)="addNewJobSave()">Clonejob</button> -->
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <script>
+              $('#inter').hover(function () {
+                $('#inter').css('color', 'blue');
+              });
+            </script>
+            <!-- </div> -->
+
+            <!-- </div> -->
+
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>

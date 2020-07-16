@@ -11,11 +11,14 @@ export class BillingComponent implements OnInit {
 
 
   sendmail = { to: '', cc: '', bcc: '', subject: '', message: '', atj_id: 0 };
-  gi = { billablectc: 0, billableamount: 0, billpercentage: 0, atj_id: 0 };
+  gi = { billablectc: 0, billableamount: 0, billpercentage: 0, atj_id: 0, doj: 0, designation: {}, location: {} };
   acceptedinvoices: any;
-  accepted = { invoiceid: 0, invoice_item_id: 0, invoice_id: 0, atj_id: 0 };
-  rejected = { invoice_id: 0, atj_id: 0 };
-  dataedit = { billable_ctc: 0, billabl_eamount: 0, billable_amount: 0, billingpercentage: 0, invoiceid: 0, invoice_item_id: 0 };
+  accepted = { invoiceid: 0, invoice_item_id: 0, invoice_id: 0, atj_id: 0, gst: {}, tds: {}, servicecharge: {} };
+  rejected = { invoice_id: 0, atj_id: 0, reason: {} };
+  dataedit = {
+    billable_ctc: 0, billabl_eamount: 0, billable_amount: 0, billingpercentage: 0, invoiceid: 0, invoice_item_id: 0,
+    doj: {}, candidate_designation: {}, billing_location: {}
+  };
   joinedcandidates = [];
   invoicesinprocessloading: any;
   invoicesinprocess = [];
@@ -77,8 +80,8 @@ export class BillingComponent implements OnInit {
   accepttopayvendor(item): void {
     if (!$('.validate').validate('#loginform')) {
       //  $.fn.showMessage('Please fill values');
-        return;
-      }
+      return;
+    }
     this.db.store('acceptpaytovendor', { invoiceid: item.invoiceid }, ((response): void => {
       alert('done');
       this.inprocessrpaytovendorfn();
@@ -218,8 +221,8 @@ export class BillingComponent implements OnInit {
   editinvoice(): void {
     if (!$('.validate').validate('#editinvoice')) {
       //  $.fn.showMessage('Please fill values');
-        return;
-      }
+      return;
+    }
 
     this.dataedit.invoiceid = this.editinvoiceid;
     this.dataedit.invoice_item_id = this.invoice_item_id;
@@ -357,8 +360,8 @@ export class BillingComponent implements OnInit {
   generateinvoicestore(): void {
     if (!$('.validate').validate('#myModal')) {
       //  $.fn.showMessage('Please fill values');
-        return;
-      }
+      return;
+    }
     console.log(this.gi);
 
     this.gi.atj_id = this.joinedcandidate.atj_id;

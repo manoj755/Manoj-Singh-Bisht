@@ -1,9 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { DBService } from 'app/db.service';
 import { ActivatedRoute } from '@angular/router';
 import { arrRoles } from './arrRoles';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+// import { MatChipInputEvent } from '@angular/material';
+import { Response } from '@angular/http';
+import {MatChipInputEvent} from '@angular/material/chips';
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+// import {COMMA, ENTER} from '@angular/cdk/keycodes';
+// import {Component, ElementRef, ViewChild} from '@angular/core';
+import {FormControl} from '@angular/forms';
+// import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+// import {MatChipInputEvent} from '@angular/material/chips';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+// import { TagInputModule } from 'ngx-chips';
+
 declare var $: any;
 // https://ng-select.github.io/ng-select#/tags
 @Component({
@@ -13,17 +26,19 @@ declare var $: any;
 })
 export class NewJobComponent implements OnInit {
   start_date_temp: any = new Date();
-
+  public Editor = ClassicEditor;
   clientsdepartment = '';
   end_date_temp: any = new Date();
   clients: any = [];
   storekey: any;
+  checkexistjob: any;
   addtojob: any = {};
   myjoblist: [];
   sendemailmodel: any = {};
   copycandidate: any = {};
   sms: any = {};
   addnewjob: any = {};
+  skillskills : any;
   departments = [];
   hidesavebutton = false;
   status = '  ';
@@ -43,7 +58,7 @@ export class NewJobComponent implements OnInit {
   jobadd = false;
   max = 5000;
   mp: any = {};
-  keyskillsset: any;
+  // keyskillsset: any;
   minimumSalarythousand: any = 0;
   maximumSalarylac: any = 0;
   maximumSalarythousand: any = 0;
@@ -84,14 +99,108 @@ export class NewJobComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
+ 
+  skillCtrl = new FormControl();
+  filteredskills: Observable<string[]>;
+  keyskillsset: string[] = [];
+
+  @ViewChild('skillInput') skillInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
   showeditjob = false;
   a = true;
   keyskillscheck: any;
   myjobdatas: any;
-  isexistjob= false;
+  isexistjob = false;
+  viewkeyskill: any;
+  searchquery: string;
+  myjdkeyskill: any;
+  skills: any[];
+  jdkey: any[];
+  jdskills: any;
+  keyskillssets: any;
 
-  constructor(public db: DBService, public route: ActivatedRoute) { }
+  constructor(public db: DBService, public route: ActivatedRoute) { 
+    debugger;
+this.filteredskills = this.skillCtrl.valueChanges.pipe(
+        startWith(null),
+        map((skill: string | null) => skill ? this._filter(skill) : this.keyskillsset.slice()));
+  }
+  
+  
+  add(event: MatChipInputEvent): void {
+   debugger;
+    if(this.skills == undefined){
+      this.skills =[];
+    }
+    const input = event.input;
+    let value = event.value;
+//  if(value == )
+for (const k in this.skills) {
+  if (this.skills[k] == value) {
+    value = undefined;
+    this.db.addmessageandremove('Duplicate entry not allowed');
 
+  }
+}
+    // Add our skill
+    // if ((value || '').trim()) {
+    //   this.skills.push(value.trim());
+    // }
+
+
+    if ((value || '').trim()) {
+      if(!this.skills.includes(value.trim())) {
+        this.skills.push(value.trim());
+      }
+    }
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+
+    this.skillCtrl.setValue(null);
+  }
+
+  remove(skill: any): void {
+    debugger;
+    const index = this.skills.indexOf(skill);
+
+    if (index >= 0) {
+      this.skills.splice(index, 1);
+    }
+  }
+
+  _filter(name: string) {
+    debugger;
+    for (const k in this.skills) {
+      if (this.skills[k] == name) {
+        name = undefined;
+      }
+    }
+    return this.keyskillsset.filter(skill =>
+        skill.toLowerCase().indexOf(name.toLowerCase()) === 0);
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    debugger;
+    let addskills = event.option.viewValue;
+    for (const k in this.skills) {
+      if (this.skills[k] == addskills) {
+        addskills = null;
+        
+      }
+    }
+    if(addskills == null){
+      this.db.addmessageandremove('Duplicate entry not allowed');
+
+    }else{
+    this.skills.push(addskills);
+    this.skillInput.nativeElement.value = '';
+    this.skillCtrl.setValue(null);
+    }
+
+    // this.keyskillsset = [];
+  }
   ngOnInit() {
     this.joblist();
     //this.showJob('id');
@@ -127,25 +236,70 @@ export class NewJobComponent implements OnInit {
 
   }
 
+  Sendjd(){
+    debugger;
+    var jd = this.myjob.jobDescription;
+    // this.keyskillsset = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
 
-  add(event: MatChipInputEvent): void {
-    const input = event.input;
-    const value = event.value;
+    this.db.list('sendjd/', {jobDescription: this.myjob.jobDescription}, ((response): void => {
+      debugger;
+      // this.jdskills = response;
+      // for (const k in this.skills) {
+      //   if (this.skills[k] == this.jdskills) {
+      //     this.jdskills = undefined;
+      //    } 
+      //   }
 
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.myjob.keyskills.push({ name: value.trim() });
-    }
+      for (const k in this.skills) {
+        for (const j in response) {
 
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
+        if (this.skills[k] == response[j]) {
+          response[j] = undefined;
+          const index = response[j].indexOf(undefined);
+
+      if (index >= 0) {
+        response[j].splice(index, 1);
+      }
+         } 
+        }
+      }
+      
+      debugger;
+
+      // for (const i in response) {
+
+      // if(response[i] == undefined){
+      //   this.skills
+      // } 
+      //        }   
+
+             this.skills =this.skills.concat(response);
+
+
+    })
+    );
   }
+
+  // add(event: MatChipInputEvent): void {
+  //   const input = event.input;
+  //   const value = event.value;
+
+  //   // Add our skill
+  //   if ((value || '').trim()) {
+  //     this.myjob.keyskills.push({ name: value.trim() });
+  //   }
+
+  //   // Reset the input value
+  //   if (input) {
+  //     input.value = '';
+  //   }
+  // }
   joblist(): void {
     //this.isLoadingJobs = true;
     this.db.list('joblist/', {}, ((response): void => {
+      debugger;
       this.myjobdatas = response;
+
       //this.jobslistmain = response;
       // this.isLoadingJobs = false;
 
@@ -159,8 +313,8 @@ export class NewJobComponent implements OnInit {
   // }
 
 
-  // remove(fruit: keyskills): void {
-  //   const index = this.myjob.keyskills.indexOf(fruit);
+  // remove(skill: keyskills): void {
+  //   const index = this.myjob.keyskills.indexOf(skill);
 
   //   if (index >= 0) {
   //     this.myjob.keyskills.splice(index, 1);
@@ -272,17 +426,17 @@ export class NewJobComponent implements OnInit {
     this.jobadd = false;
     this.showeditjob = true;
     this.isjobediting = true;
-    if(this.isjobediting){
-      this.isexistjob=true;
+    if (this.isjobediting) {
+      this.isexistjob = true;
     }
 
     this.db.show('addnewjob/', id, (response): void => {
-debugger;
+      debugger;
 
 
 
       this.myjob = response;
-
+      this.checkexistjob = this.myjob.job_title;
       const tags = [
       ];
       const skillsetarr = this.myjob.keyskills.split(',');
@@ -291,13 +445,13 @@ debugger;
           tags.push(skillsetarr[k]);
         }
       }
-
+     this.skills = tags;
       this.myjob.keyskills = tags;
-      if (this.myjob.is_client == 1) {
+      if (this.myjob.is_client === 1) {
         this.myjob.is_client = 'Client';
       }
-      else {
-        this.myjob.is_client = 'Deparment';
+      else if(this.myjob.is_client === 0) {
+        this.myjob.is_client = 'Department';
       }
 
 
@@ -426,24 +580,33 @@ debugger;
       //const j = 0;
       for (const j in locations) {
         //  if ( locations[j]) {
-        if (isfirstlocation) {
-          locationstr += locations[j].$ngOptionLabel;
-          isfirstlocation = false;
-        }
+        if (locations[j].$ngOptionLabel) {
+          if (isfirstlocation) {
+            locationstr += locations[j].$ngOptionLabel;
+            isfirstlocation = false;
+          }
 
+          else {
+            locationstr += ',' + locations[j].$ngOptionLabel;
+          }
+        }
         else {
-          locationstr += ',' + locations[j].$ngOptionLabel;
+          locationstr += locations[j] + ',';
         }
         // }
+      }
+      if (locationstr) {
+        locationstr = locationstr.replace(/,\s*$/, '');
       }
       if (locationstr == 'undefined') {
         locationstr = this.location[0];
       }
+      debugger;
 
-      if (this.myjob.is_client == 'Client') {
+      if (this.myjob.is_client === 'Client') {
         this.myjob.is_client = 1;
       }
-      else if (this.myjob.is_client == 'Department') {
+      else if (this.myjob.is_client === 'Department') {
         this.myjob.is_client = 0;
       }
       debugger;
@@ -459,7 +622,9 @@ debugger;
           }
 
         }
-
+        if (keyskillstr) {
+          keyskillstr = keyskillstr.replace(/,\s*$/, '');
+        }
         this.myjob.keyskills = keyskillstr;
         // }
       }
@@ -473,7 +638,9 @@ debugger;
           }
 
         }
-
+        if (keyskillstr2) {
+          keyskillstr2 = keyskillstr2.replace(/,\s*$/, '');
+        }
         this.myjob.keyskills = keyskillstr2;
       }
       this.myjob.location = locationstr;
@@ -574,7 +741,54 @@ debugger;
     //     // log('Selected: ' + ui.item.value + ' aka ' + ui.item.id);
     //   }
     // });
+    debugger;
+    $("#title").autocomplete({
+        source: this.db.rooturi  + "index.php/api/jobtitlesuggestion?token=" + this.db.token + '&job_title=' + this.myjob.job_title,
+        minLength: 1,
+        select: function (event, ui) {
+            debugger;
+            //log("Selected: " + ui.item.value + " aka " + ui.item.id);
+        }
+    });
 
+  };
+
+
+  Primary_skillsuggestion(): void {
+    debugger;
+    $("#Primary_Skill").autocomplete({
+        source: this.db.rooturi  + "index.php/api/getprimaryskillsuggestion?token=" + this.db.token + '&keyskill=' + this.myjob.first_skill,
+        minLength: 1,
+        select: function (event, ui) {
+            debugger;
+            //log("Selected: " + ui.item.value + " aka " + ui.item.id);
+        }
+    });
+
+  };
+
+  getsecondaryskillsuggestion(): void {
+    debugger;
+    $("#Secondary_Skill").autocomplete({
+        source: this.db.rooturi  + "index.php/api/getsecondaryskillsuggestion?token=" + this.db.token + '&keyskill=' + this.myjob.second_skill,
+        minLength: 1,
+        select: function (event, ui) {
+            debugger;
+            //log("Selected: " + ui.item.value + " aka " + ui.item.id);
+        }
+    });
+
+  };
+  getthirdskillsuggestion(): void {
+    debugger;
+    $("#Third_Skill").autocomplete({
+        source: this.db.rooturi  + "index.php/api/getthirdskillsuggestion?token=" + this.db.token + '&keyskill=' + this.myjob.third_skill,
+        minLength: 1,
+        select: function (event, ui) {
+            debugger;
+            //log("Selected: " + ui.item.value + " aka " + ui.item.id);
+        }
+    });
 
   };
 
@@ -597,7 +811,77 @@ debugger;
       this.errormsgtag = '';
     }, 5000);
   }
-  loadkeyskills(newValue, istext, keyskill): void {
+
+
+
+
+
+  getkeyskillssearch(event: MatAutocompleteSelectedEvent):void{
+    debugger;
+    this.myjob.keyskills = this.skills; //this.myjob.keyskills;
+
+    const search = [this.myjob.keyskills];
+
+      debugger;
+      this.db.list("suggest_key_skills/",{keyskills:search},(response)=> {
+        debugger;
+        // this.keyskillssets=response;
+        // this.keyskillsset = [];
+        // for (const k in this.skills) {
+        //   for (const j in response) {
+
+        //   if (this.skills[k] == response[j]) {
+        //     response[j] = undefined;
+        //     const index = response[j].indexOf(undefined);
+
+        //     if (index >= 0) {
+        //       response[j].splice(index, 1);
+        //     }
+        //    } 
+        //   }
+        // }
+     
+        debugger;
+          this.keyskillsset = response;
+        // this.keyskillsset = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+
+       });  
+    }
+
+ 
+  // }
+
+
+
+  getkeyskills(): void {
+    debugger;
+ const search =JSON.stringify(this.skills); //this.myjob.keyskills;
+ const searchquery = search;
+
+
+//  const searcharr = search.split(',');
+ //        if (searcharr.length == 1) {
+ //            searchquery = search;
+ //        } else {
+ //            searchquery = searcharr[searcharr.length - 1];
+ //        }
+ if (this.t != null) {
+   clearTimeout(this.t);
+ }
+ this.t = setTimeout(function () {
+   this.loadkeyskills(searchquery, true, true);
+ }, 2000);
+};
+
+
+// asdfghjkl():void{
+//   this.myjob.keyskills;
+// }
+
+
+
+
+  loadkeyskills(newValue, istext, keyskill){
     debugger;
     if (this.myjob.keyskills === undefined) {
       this.myjob.keyskills = '';
@@ -686,7 +970,6 @@ debugger;
   //     }
   //   );
 
-
   settracker(): void {
     this.db.list('tracker/', null, (response) => {
 
@@ -704,20 +987,20 @@ debugger;
     });
   }
 
-  setkeyskills() {
-    debugger;
-    setTimeout(function () {
+  // setkeyskills() {
+  //   debugger;
+  //   setTimeout(function () {
 
-      this.myjob.keyskills = [];
-      for (const i in this.keyskillsset) {
-        if (this.keyskillsset[i]) {
-          this.myjob.keyskills.push(this.keyskillsset[i].text);
-        }
-      }
-      this.myjob.keyskills = this.myjob.keyskillsdemo.toString();
-      this.getkeyskills();
-    }, 500);
-  }
+  //     this.myjob.keyskills = [];
+  //     for (const i in this.keyskillsset) {
+  //       if (this.keyskillsset[i]) {
+  //         this.myjob.keyskills.push(this.keyskillsset[i].text);
+  //       }
+  //     }
+  //     this.myjob.keyskills = this.myjob.keyskillsdemo.toString();
+  //     this.getkeyskills();
+  //   }, 500);
+  // }
 
   getkeyskillssuggestion(): any {
 
@@ -729,7 +1012,7 @@ debugger;
     this.locationtype = 'location';
     this.locations = [];
     this.db.list('location', null, (response): void => {
-
+debugger;
       const data = response;
       for (const j in data) {
         if (data[j]) {
@@ -806,27 +1089,7 @@ debugger;
       });
     }
   };
-  getkeyskills(): void {
 
-    const search = this.myjob.keyskills;
-    const searchquery = search;
-    const searcharr = search.split(',');
-    //        if (searcharr.length == 1) {
-    //            searchquery = search;
-    //        } else {
-    //            searchquery = searcharr[searcharr.length - 1];
-    //        }
-    if (this.t != null) {
-      clearTimeout(this.t);
-    }
-    this.t = setTimeout(function () {
-      this.loadkeyskills(searchquery, true, true);
-    }, 2000);
-
-
-
-
-  };
 
 
   clearSearchTerm(): void {
@@ -911,11 +1174,23 @@ debugger;
 
 
   // $.material.init();
+  checkexistingjob(): void {
+    debugger;
+    if (this.checkexistjob == this.myjob.job_title) {
+      this.db.addmessageandremove('this job already added change job title');
+    } else {
+      this.addNewJobSave();
+    }
+  }
   addNewJobSave(): void {
 
     debugger;
+    this.myjob.keyskills = JSON.stringify(this.skills);
     this.myjob.job_status = 'Active';
-
+    if (this.checkexistjob == this.myjob.job_title) {
+      alert('');
+      ('existing job');
+    }
     // console.log(FH.SelectedCheckbox(this.departments));
     //    if ($('.validate').validate('#addnewjobform', true)) {
     if (true) {
@@ -926,6 +1201,14 @@ debugger;
           locationstr += locations[j].$ngOptionLabel + ',';
         }
 
+      }
+      if (locationstr == '') {
+        //locationstr = this.location[0];
+        for (const j in locations) {
+          if (locations[j]) {
+            locationstr += locations[j] + ',';
+          }
+        }
       }
       debugger;
       // const keyskills = this.myjob.keyskills;

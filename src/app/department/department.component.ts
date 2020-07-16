@@ -12,7 +12,7 @@ export class DepartmentComponent implements OnInit {
 
   public Editor = ClassicEditor;
   title = 'app';
-  department = { id: 0 };
+  department = { id: 0, department: {} };
   isEdit = false;
   item: any = {};
   stateobj = {};
@@ -26,9 +26,9 @@ export class DepartmentComponent implements OnInit {
 
   private autoGroupColumnDef;
   private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  public rowSelection;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
   columnDefs = [
     {
       headerName: 'Action', field: 'id', suppressMenu: true,
@@ -124,7 +124,7 @@ export class DepartmentComponent implements OnInit {
 
   back(): void {
     this.isEdit = false;
-    this.department = { id: 0 };
+    this.department = { id: 0, department: {} };
   }
 
   onActionEditClick(row): void {
@@ -171,7 +171,7 @@ export class DepartmentComponent implements OnInit {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
-      this.department = { id: 0 };
+      this.department = { id: 0, department: {} };
 
 
     }));

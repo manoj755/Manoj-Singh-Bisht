@@ -15,6 +15,7 @@ export class EmployeeemailComponent implements OnInit {
   item: any = {};
   appdeparments = [];
   stateobj = {};
+  applicationdepartmentid: {};
   errors = {};
   isEditclientStateswiseBillingDetail = false;
   clientStateswiseBillingDetail = {};
@@ -25,9 +26,9 @@ export class EmployeeemailComponent implements OnInit {
 
   private autoGroupColumnDef;
   private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  public rowSelection;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
   columnDefs = [
     {
       headerName: 'Action', field: 'id', suppressMenu: true,

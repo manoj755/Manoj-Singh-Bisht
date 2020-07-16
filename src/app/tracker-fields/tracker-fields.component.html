@@ -1,186 +1,162 @@
 <div class="main-content">
   <div class="container-fluid">
+
+    <div class="col-lg-11">
+      <Button class="btn btn-light" (click)="showhide() || back();"> Add/Edit Tracker
+        Field</Button>
+    </div>
+
     <div class="row">
 
-<ag-grid-angular style=" height: 500px;" (rowClicked)="onRowClicked($event)"
-rowSelection='multiple'
-  class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
-  [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
-  (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
-  (gridReady)="onGridReady($event)">
-</ag-grid-angular>
+      <div class="col-lg-12 row" *ngIf="ishideshow" style="margin-top: 10px;">
+
+
+        <div class="col-lg-6">
+
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <div class="row">
+                <div class="col-sm-6">
+                  <h4 class="card-title">Add Tracker</h4>
+                  <p class="card-category">Select Tracker Fields:</p>
+                </div>
+                <div class="col-md-6 pull-right">
+                  <input id='searchtracker' type="text" class="form-control" placeholder="Quick Search"
+                    [(ngModel)]='search' (click)="show();" />
+                </div>
+              </div>
+            </div>
+            <!-- <div class="card-header">
+            Search :
+            </div> -->
+            <div class="card-body table-responsive" style="height:523px;">
+              <table class="table table-hover">
+
+                <tbody>
+                  <tr>
+                    <td class="referral">
+                      <div class="clearfix" style="clear:both;"></div>
+                      <div class="row">
+
+                        <div class="col-md-4" style="margin-top:0px;"
+                          *ngFor="let tr of trackermaster|sort:'display_name'|FilterPipe:'display_name':search"
+                          ngDefaultControl>
+                          <label><input class="" type="checkbox" [checked]="tr.selected"
+                              (change)='tr.selected=!tr.selected' [(ngModel)]='tr.dd'>{{tr.display_name}} <b
+                              class=" badge badge-danger" *ngIf="tr.is_job_specific=='1'">JS</b> </label>
+                        </div>
+                      </div>
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-12 card-footer">
+              <button type="submit" class="btn  btn-raised btn-primary validate" tar="#trackermessage"
+                (click)="trackersave();">Select</button>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-6">
+
+          <div class="card">
+            <div class="card-header card-header-warning">
+              <div class="row">
+                <div class="col-sm-6">
+                  <h4 class="card-title">Tracker</h4>
+                </div>
+                <!-- <p class="card-category">Save Tracker</p> -->
+                <div class="col-sm-6 pull-right">
+                  <ng-select [(ngModel)]="id" (change)="showuser(this.id,$event)" style="color: white;">
+                    <ng-option [value]="trackername.id" *ngFor="let trackername of rowData">{{trackername.tracker_name}}
+                    </ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="card-body table-responsive" style="height:523px;">
+              <table class="table table-hover">
+
+                <tbody>
+                  <tr>
+                    <td class="referral">
+                      <div>
+                        <div class="panel panel-success">
+                          <div class="panel-heading">
+                            <div class="form-group" id="trackermessage">
+                              <div class="row">
+                                <div class="col-md-4">
+
+                                  <label>{{trackermessage.display_name}}</label>
+                                  Tracker name: <input matInput type="text" class="form-control e" id="tname"
+                                    n="Tracker Name" validate [(ngModel)]="trackermessage.tracker_name"
+                                    placeholder="Tracker name:">
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Selected Fields of Panel -->
+                          </div>
+                          <div class="panel-body">
+                            <div cdkDropList class="col-sm-12" (cdkDropListDropped)="drop($event)">
+                              <div class="example-box" style="height: 10px;" *ngFor="let obj of trackerselected"
+                                cdkDrag> {{obj.display_name}}
+                                <!-- <span class="pull-right" style="margin-right: -50px;"> -->
+                                <button type="button" (click)="removetracker(obj)" class="btn-raised pull-right"
+                                  style="background-color:red;color:white;">Remove</button>
+                                <!-- </span> -->
+                              </div>
+                            </div>
+                            <div class="alert alert-info" *ngIf='trackerselected.length===0'>Please select tracker
+                              fields and click
+                              select button !</div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-10">
+                <button type="button" *ngIf="!isEdit" class="btn  btn-raised btn-primary validate" tar="#trackermessage"
+                  (click)="submittrackersave()">Submit</button>
+                  <button type="button" class="btn  btn-raised btn-primary validate" tar="#trackermessage"
+                  (click)="submittrackersave()" *ngIf="isEdit">Make a Copy</button>
+                <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
+                  (click)="trackerupdate(obj)">Update</button>
+                <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
+                  (click)="back()">Back</button>
+
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+      </div>
+
+
+      <ag-grid-angular  *ngIf="ishideshow == false;" style="height: 500px; width: 1500px;"
+      class="ag-theme-material" (rowClicked)="onRowClicked($event)"
+        rowSelection='multiple' class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
+        suppressCsvExport=false [suppressRowClickSelection]="true" [groupSelectsChildren]="true"
+        paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)" [debug]="true"
+        [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)">
+      </ag-grid-angular>
       <br>
-      <!-- <div class="continer"> -->
-        <!-- <div class="col-md-12"> -->
-          <!-- <div class="wizard">
-            <div class="wizard-inner">
-              <div class="connecting-line"></div>
-              <ul class="nav nav-tabs" role="tablist">
-
-                <li role="presentation" class="active">
-                  <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" title="Basic Info"
-                    onclick="return false;">
-                    <span class="round-tab">
-                      <i class="glyphicon glyphicon-folder-open"></i>
-                    </span>
-                  </a>
-                </li>
-
-                <li role="presentation" class="disabled">
-                  <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2"
-                    onclick="return false;">
-                    <span class="round-tab">
-                      <i class="glyphicon glyphicon-pencil"></i>
-                    </span>
-                  </a>
-                </li>
-
-
-
-              </ul>
-            </div>
-
-          </div> -->
-
-          <div class="continer">
-          <div class="row" id="trackermessage">
-            <div class="col-md-12">
-
-              <div class="form-horizontal">
-
-                <div class="form-group">
-                  <H2>Add Tracker</H2>
-                  <h4>Select Tracker Fields:</h4>
-
-
-                  Search : <input id='searchtracker' type="text" class="form-control" placeholder="Quick Search"
-                    [(ngModel)]='search' (click)="show();"/>
-                  <!-- <div class="clear" class="form-control" style="clear:both;"></div> -->
-                  <!-- <input type="text" placeholder="search"/> -->
-                  <!-- <input type="checkbox" *ngFor="let x of trackermaster">
-                  <span>
-                    {{x.display_name}}
-                  </span> -->
-                  <div class="clearfix" style="clear:both;"></div>
-                  <div class="card" style="padding:40px;">
-<div class="row">
-                  <div class="col-md-3" style="margin-top:0px;"   *ngFor="let tr of trackermaster|sort:'display_name'|FilterPipe:'display_name':search" ngDefaultControl>
-
-
-                    <label ><input class="" type="checkbox" [checked]="tr.selected"  (change)='tr.selected=!tr.selected' [(ngModel)]='tr.dd'>{{tr.display_name}}  <b class=" badge badge-danger" *ngIf="tr.is_job_specific=='1'">JS</b> </label>
-                <!-- </div> -->
-                  </div>
-                  </div>
-                  </div>
-                  <div class="col-md-12"> <button type="submit" class="btn  btn-raised btn-primary validate"
-                      tar="#trackermessage" (click)="trackersave();">Select</button>
-                  </div>
-
-
-
-
-
-
-                </div>
-
-              </div>
-            </div>
-          <!-- </div> -->
-        <!-- </div> -->
-      </div>
-    </div>
-      <div class="col-md-12">
-
-
-        <div class="panel panel-success">
-          <div class="panel-heading">Selected Fields of Panel</div>
-          <div class="panel-body">
-            <!-- <ul id="my-sort" class="sortable list-group" > -->
-              <!-- note the "track by" section. this is important so that it doesn't rebuild the list -->
-              <!-- <li class="list-group-item" *ngFor="let obj of trackerselected" data-index="" data-id="{{obj.id}}"> -->
-                <!-- {{obj.display_name}} <span class="pull-right"><button type="button" (click)="removetracker(obj)" -->
-                    <!-- class="btn-raised" -->
-                    <!-- style="background-color:red;color:white;margin-right: 10px;">Remove</button> -->
-                    <!-- <button type="button"
-                    (click)="Edit(obj)" class="glyphicon glyphicon-pencil"></button> -->
-                  <!-- </span> -->
-              <!-- </li> -->
-
-            <!-- </ul> -->
-            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-              <div class="example-box" *ngFor="let obj of trackerselected" cdkDrag> {{obj.display_name}}
-                <span class="pull-right"><button type="button" (click)="removetracker(obj)"
-                    class="btn-raised"
-                    style="background-color:red;color:white;margin-right: 10px;">Remove</button>
-                    <!-- <button type="button"
-                    (click)="Edit(obj)" class="glyphicon glyphicon-pencil"></button> -->
-                </span>
-              </div>
-            </div>
-            <div class="alert alert-info" *ngIf='trackerselected.length===0'>Please select tracker fields and click
-              select button !</div>
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-
-      <div class="col-md-12">
-        <div class="box box-primary">
-          <div class="box-body">
-
-
-            <div class="box-title">
-
-              <div class="tab-content">
-
-                <div class="form-group" id="trackermessage">
-                  <label class="col-md-4">Tracker name:</label>
-                  <div class="col-md-8">
-                                                                   <label>{{trackermessage.display_name}}</label>
-                    <input type="text" class="form-control e" id="tname" n="Tracker Name" validate
-                      [(ngModel)]="trackermessage.tracker_name">
-
-
-
-                  </div>
-
-
-                </div><br>
-                <hr>
-
-                <div class="form-group">
-                  <div class="col-md-10">
-                    <button type="button" *ngIf="!isEdit" class="btn  btn-raised btn-primary validate"
-                      tar="#trackermessage" (click)="submittrackersave()" >Submit</button>
-                    <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
-                      (click)="trackerupdate(obj)">Update</button>
-                    <button type="button" class="btn  btn-raised btn-primary" tar="#trackermessage" *ngIf="isEdit"
-                      (click)="back()">Back</button>
-
-                  </div>
-
-
-                </div>
-                <br>
-
-              </div>
-              <br><br>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-
-
     </div>
   </div>
 </div>

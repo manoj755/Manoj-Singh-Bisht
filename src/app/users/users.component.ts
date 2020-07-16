@@ -35,9 +35,9 @@ export class UsersComponent implements OnInit {
   appid: any;
   private autoGroupColumnDef;
   private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  public rowSelection;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
 
   // userForm = new FormGroup({
   //   Name: new FormControl('', Validators.required),
@@ -86,8 +86,8 @@ export class UsersComponent implements OnInit {
     this.changerole(this.appid);
     this.loadmanager();
   }
-  changepasswordfun(): void { }
-  LoadData(): void {
+  changepasswordfun() { }
+  LoadData() {
     this.db.list('user/', {}, ((response): void => {
       this.rowData = response;
     }));
@@ -148,12 +148,12 @@ export class UsersComponent implements OnInit {
     }
     console.log('View action clicked', data);
   }
-  back(): void {
+  back() {
     this.isEdit = false;
     this.user = { id: 0 };
   }
 
-  onActionEditClick(row): void {
+  onActionEditClick(row) {
 
     this.isEdit = false;
     this.db.show('user/', row.id, ((response): void => {
@@ -176,7 +176,7 @@ export class UsersComponent implements OnInit {
     }));
 
   };
-  userupdate(): void {
+  userupdate() {
     this.db.update('user/', this.user.id, this.user, ((response): void => {
 
       this.LoadData();
@@ -184,7 +184,7 @@ export class UsersComponent implements OnInit {
 
     }));
   }
-  usersave(): void {
+  usersave() {
 
     //this.user.profilepic=this.user.profilepic[0];
     this.db.store('user/', this.user, ((response): void => {
@@ -198,7 +198,7 @@ export class UsersComponent implements OnInit {
 
   }
 
-  changerole(appid): void {
+  changerole(appid) {
     debugger;
     // tslint:disable-next-line: radix
     this.appid = parseInt(appid);
@@ -211,7 +211,7 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  loadmanager(): void {
+  loadmanager() {
     const appid = document.getElementById('usersapp');
     this.db.list('data/users', { app_id: appid }, ((response): void => {
       this.users = response;
@@ -220,7 +220,7 @@ export class UsersComponent implements OnInit {
   }
 
 
-  showhide(): void {
+  showhide() {
     if (this.ishideshow === false) {
       this.ishideshow = true;
     }
@@ -229,7 +229,7 @@ else {
     }
   }
 
-  showhideedit(): void {
+  showhideedit() {
     if (this.ishideshow === false) {
       this.ishideshow = true;
     }

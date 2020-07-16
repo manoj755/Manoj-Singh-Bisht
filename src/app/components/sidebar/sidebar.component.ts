@@ -29,6 +29,8 @@ export const ROUTES: RouteInfo[] = [
   { path: '/internaldatabase', title: 'Internal Database', icon: 'person', class: '' },
   { path: '/history', title: 'History', icon: 'person', class: '' },
   { path: '/call-detail', title: 'Call Details', icon: 'person', class: '' },
+  { path: '/candidate-in-queue', title: 'Candidate in Queue', icon: 'person', class: '' },
+  { path: '/candidate-campaign', title: 'Candidate in Campaign', icon: 'person', class: '' },
   { path: '/myjob', title: 'My Job', icon: 'person', class: '' },
   { path: '/newjob', title: 'New Job', icon: 'person', class: '' },
   { path: '/clientreport', title: 'Client Report', icon: 'person', class: '' },
@@ -71,7 +73,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor(private db: DBService) { }
+  constructor(public db: DBService) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);

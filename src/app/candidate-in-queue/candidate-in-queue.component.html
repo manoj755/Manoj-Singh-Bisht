@@ -1,0 +1,305 @@
+<div class="main-content">
+  <div class="container-fluid" style="width:100%; margin-top: -5%;">
+
+
+    <div class="row">
+           <app-call [allids]='allids'></app-call>
+          <app-mailer [allids]='allids'></app-mailer>
+          <app-add-to-job [allids]='allids'></app-add-to-job>
+          <app-pv-get-reference [allids]='allids'></app-pv-get-reference>
+          <!-- <app-add-candidate></app-add-candidate> -->
+
+      <!-- <div class="card col-md-6">
+        <div class="card-body  col-md-12" style="height: 130px;">
+         <div class="row">
+
+          <div class="col-md-2">
+            <a mat-mini-fab class="icousers" href="" data-toggle="modal" help='Add Candidate' id="iconbackground"
+              data-target="#addcandidate" ng-if="mp.candidate_detail_store">
+              <i class="fa fa-users icones"></i>
+            </a>
+          </div>
+
+          <div class="col-md-2">
+            <a mat-mini-fab href="javascript:" help='Add to Job' data-target='#addtojob' data-toggle='modal' id="iconbackground"
+              *ngIf="db.mp.add_to_job_store" (click)="loadalert();" class="icouser"><i class="fa fa-user-plus icones"></i></a>
+            </div>
+          <div class="col-md-2" *ngIf="db.mp.btn_take_internal_refeference"><a mat-mini-fab href=""
+              help='Get Reference' data-toggle="modal" data-target="#getreferencemodal" class="icohandshake" id="iconbackground"><i
+                class="fa fa-handshake-o icones"></i></a></div>
+          <div class="col-md-2"><a mat-mini-fab href="javascript:" help='call' data-target='#calldiv' id="iconbackground"
+              data-toggle='modal' *ngIf="db.mp.btn_can_call" class="icocall"><i class="fa fa-phone icones"></i></a></div>
+
+              <div class="col-md-2"><a mat-mini-fab href="javascript:" help='mailer' data-target='#mailer' id="iconbackground"
+                data-toggle='modal' *ngIf="db.mp.btn_can_call" class="mail_outline"><i class="material-icons icones" style="margin-top: -5px;">email</i></a></div>
+           </div>
+
+<br>
+           <div class="row">
+
+                  <div class="col-9">
+                    <input type="text" class="form-control" [(ngModel)]="searchcandidatetext"  (keyup)="LoadHistory()" placeholder="Search..." id = "history">
+                  </div>
+                  <div class="col-1">
+                    <button type="button" class="btn  btn-raised  btn-light button"(click)="LoadHistory();">Search</button>
+                  </div>
+              </div>
+        </div>
+      </div> -->
+ <!-- <div class="col-md-2"></div> -->
+<!-- second card-body -->
+
+      <div class="card col-md-12">
+
+        <div class="card-body col-md-12" style="height: 130px;">
+         <div class="row">
+          <!-- <div class="col-md-2" ><a mat-mini-fab id="iconbackground"  href="javascript:" help='Select Recruiter'>
+            <span matPrefix style="position: absolute;"><mat-icon style="margin-left: -2px; margin-top: -5px;" class="icones">supervisor_account</mat-icon></span>
+
+          <mat-select   n="Owner" [(ngModel)]="recruiter">
+            <mat-option (click)="LoadHistory()" value="{{db.profile.id}}">Self</mat-option>
+            <mat-option (click)="LoadHistory()" value="{{x.id}}" *ngFor="let x of managers" >{{x.name}}</mat-option>
+        </mat-select>
+
+        </a></div> -->
+
+
+  <!-- <div class="col-md-2" ><a mat-mini-fab id="iconbackground" href="javascript:" help='download excel format' data-target='#downloadexcel'
+    data-toggle='modal' *ngIf="db.mp.btn_can_call">
+
+    <span matPrefix style="position: absolute;"><mat-icon style=" margin-left: -2px; margin-top: -7px;" class="icones">play_for_work</mat-icon></span>
+
+  <mat-select [(ngModel)]="experience" name="download excel format">
+    <mat-option (click)="hidedownloadexcel();"  ><a class="btn btn-light" href="./assets/downloadexcel/historyformat.csv" download="HistoryFormat.csv"> History Format</a></mat-option>
+    <mat-option (click)="hidedownloadexcel();" ><a class="btn btn-light"  href="./assets/downloadexcel/internaldatabaseformat.csv" download="InternalDataBaseFormat.csv"> InternalDataBase Format</a></mat-option>
+
+  </mat-select>
+
+</a></div> -->
+
+    <!-- <div class="col-md-2" >
+      <a mat-mini-fab id="iconbackground" href="javascript:" help='Export excel'
+       *ngIf="db.mp.export_button" >
+      <i class="material-icons" (click)="exportdat()">
+        <mat-icon class="icones">get_app</mat-icon></i>
+
+    </a></div> -->
+    <div class="col-md-2">
+      <a mat-mini-fab class="icousers" href="" data-toggle="modal" help='Add Candidate' id="iconbackground"
+        data-target="#addcandidate" ng-if="mp.candidate_detail_store">
+        <i class="fa fa-users icones"></i>
+      </a>
+    </div>
+
+                <div class="col-md-2" ><a mat-mini-fab id="iconbackground" href="javascript:" help='Upload excel format'>
+                  <span matPrefix style="position: absolute;"><mat-icon style="margin-left: -4px; margin-top: -7px;" class="icones">publish</mat-icon></span>
+
+                  <mat-select [(ngModel)]="contactibility" name="Contactibility">
+                  <mat-option (click)="opennaukrimodel();" >Upload Excel Queue Candidate</mat-option>
+
+
+                  <!-- <mat-option (click)="openhistorymodel();">Excel History</mat-option>
+                  <mat-option (click)="openhistorydbmodel();" >Excel History From DB</mat-option> -->
+                </mat-select>
+
+              </a></div>
+              <div class="col-md-2" ><a mat-mini-fab id="iconbackground" href="javascript:" help='download excel formet' data-target='#downloadexcel'
+                data-toggle='modal' *ngIf="db.mp.btn_can_call">
+
+                <span matPrefix style="position: absolute;"><mat-icon style=" margin-left: -2px; margin-top: -7px;" class="icones">play_for_work</mat-icon></span>
+
+              <mat-select [(ngModel)]="experience" name="download excel format">
+                <mat-option (click)="hidedownloadexcel();"><a class="btn btn-secondary" role="button"
+                    href="./assets/downloadexcel/concentrixdataformat.xls" download="ExcelFormat.xls"> Excel
+                    Format</a></mat-option>
+                <!-- <mat-option (click)="hidedownloadexcel();"><a class="btn btn-secondary" role="button"
+                    href="./assets/downloadexcel/internaldatabaseformat.csv"
+                    download="InternalDataBaseFormat.csv"> InternalDataBase
+                    Format</a></mat-option> -->
+
+              </mat-select>
+
+              </a></div>
+              <div class="col-md-2"><a mat-mini-fab href="javascript:" help='call' data-target='#calldiv' id="iconbackground"
+                data-toggle='modal'  class="icocall"><i class="fa fa-phone icones"></i></a></div>
+                 <mat-button-toggle-group appearance="legacy"  name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle value="bold" (click)="loadInternalData();" help="click here for show uploaded candidate">Uploaded Candidate</mat-button-toggle>
+          <mat-button-toggle value="italic" (click)="alreadyCalledCandidate();"  help="click here for show already called candidate">Already Called</mat-button-toggle>
+        </mat-button-toggle-group>
+              <!-- <div class="col-md-2" ><a mat-mini-fab id="iconbackground" type="button"  help='Refresh Page'>
+                <i class="fa fa-refresh icones" (click)="LoadHistory()" style="color: rgb(255, 255, 255);"></i>
+              </a></div> -->
+        </div>
+
+<br>
+        <div class="row">
+          <div class="col-9">
+            <div class="row">
+
+          <div class="col-sm-6">
+
+            <mat-form-field>
+              <input matInput [(ngModel)]="startdate" [matDatepicker]="picker"
+                placeholder="from date" class="e">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+
+          </div>
+
+          <div class="col-sm-6">
+
+            <mat-form-field>
+              <input matInput [(ngModel)]="enddate" [matDatepicker]="picker2" placeholder="to date"
+                class="e">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn  btn-raised btn-light button" (click)="loadInternalDatawithfilter();"
+            >Filter</button>
+          </div>
+          <!-- &nbsp; &nbsp;
+            <div class="col-2">
+            <button (click)="LoadHistory()" class="btn btn-raised btn-block" title="Update data"><i class="fa fa-refresh"></i></button>
+            </div> -->
+
+        </div>
+        </div>
+      </div>
+</div>
+      <ag-grid-angular style=" height: 650px;" (rowClicked)="onRowClicked($event)"
+      rowSelection='multiple'rowMultiSelectWithClick='true'
+      rowDeselection='true'
+      paginationGetCurrentPage='false'
+        class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
+        [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='true'
+        (selectionChanged)="onSelectionChanged($event)" [debug]="true" [enableRangeSelection]="true" [pagination]="true"
+        (gridReady)="onGridReady($event)"
+        (gotocurrentpage)="gotocurrentpage($event)"
+        [suppressPaginationPanel]="false"
+        [suppressScrollOnNewData]="true"
+      >
+      </ag-grid-angular>
+    <!-- </div> -->
+
+  <!-- </div> -->
+
+
+  <div id="uploadcandidateinqueue" class="modal fade" style="z-index:2000" role="dialog">
+      <div class="modal-dialog modal-lg">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <h4 class="modal-title">Upload Candidate in Queue Excel</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="media">
+              <div class="row">
+                <div class="col-12">
+                    <input type="file"
+                    id="file"
+                    (change)="uploadcandidateinqueue($event.target.files)">
+
+                </div>
+
+            </div>
+
+
+
+
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+    <div id="addcandidate" class="modal fade " role="dialog">
+      <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <h4 class="modal-title">Add Candidate</h4> <button type="button" class="close"
+              data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+
+            <div class="col-md-12 ">
+              <div class="form-horizontal" role="form">
+                <div class="form-group">
+                    <mat-form-field class="example-full-width">
+                        <input matInput  type="text" [(ngModel)]="store.candidateName" class="form-control e" validate id="name"
+                      placeholder="Enter name">
+                  </mat-form-field>
+                </div>
+                <!-- <div class="form-group">
+                  <label for="address" class="control-label col-md-12">Gender</label>
+                  <div >
+
+                    <ng-select [(ngModel)]="store.gender">
+                      <ng-option *ngFor="let  x of genders" value="{{x.id}}">
+                        {{x.gender_name}}
+                      </ng-option>
+                    </ng-select>
+
+                  </div>
+                </div> -->
+
+                <div class="form-group">
+                    <mat-form-field class="example-full-width">
+                        <input matInput  type="text" class="form-control e no" validate n="Mobile" [(ngModel)]="store.mobileNo"
+                      id="mobileNo" placeholder="Mobile Number">
+                    </mat-form-field>
+                </div>
+
+                <div class="form-group">
+                    <mat-form-field class="example-full-width">
+                        <input matInput  type="text" class="form-control e m" validate n="Email" [(ngModel)]="store.email" id="email"
+                      placeholder="Email">
+                  </mat-form-field>
+
+                </div>
+
+
+                <!-- <div class="form-group">
+                  <label for="resume" class="control-label col-sm-4">Resume</label>
+                  <div class="col-sm-7">
+
+                  </div>
+                </div> -->
+
+                <div class="form-group">
+
+                  <div class="col-md-4 col-md-offset-4">
+                    <button class="btn btn-success btn-md btn-block validate"
+                      (click)="candidatesave()">Save</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+  <app-update-candidate [current_data]='currentData'></app-update-candidate>
+  <!-- <app-add-note [set_candidate_id]='candidate_id'></app-add-note> -->

@@ -10,7 +10,7 @@ class="modal fade">
       <div class="form-horizontal">
         <div class="form-group">
 
-          <label for="Client" class="control-label col-xs-2">{{db.clientsdepartment}}:</label>
+          <label for="Client" class="control-label col-xs-2"><span *ngIf="!db.mp.page_deparment">{{db.clientsdepartment}}:</span><span *ngIf="db.mp.page_deparment">Department</span></label>
           <div class="col-xs-10">
             <ng-select [(ngModel)]="addtojob.client_detail_id" (change)="getcandidatebyclientaddtojob()">
               <ng-option *ngFor="let x of clients" [value]="x.id"  >{{x.billingName}}</ng-option>
@@ -20,11 +20,10 @@ class="modal fade">
           </div>
 
         </div>
-        <!-- <div class="form-group">
-          <label for="Client" class="control-label col-xs-2">{{db.user}}:</label>
+        <!-- <div class="form-group" >
           <div class="col-xs-10">
             <ng-select [(ngModel)]="addtojob.client_detail_id" (change)='getcandidatebyclientaddtojob()'>
-              <ng-option *ngFor="let x of clients" [value]="x.id"  >{{x.billingName}}</ng-option>
+              <ng-option *ngFor="let x of departments" [value]="x.id"  >{{x.billingName}}</ng-option>
 
           </ng-select>
 
@@ -73,12 +72,99 @@ class="modal fade">
                 <mat-label>Call Type</mat-label>
                 <div class="col-xs-10">
                 <mat-select [(ngModel)]="addnewjob.callto">
-                    <mat-option value="allPR1">Screening Bot</mat-option>
-                    <mat-option value="allPR3">Direct Lineup Bot</mat-option>
+                   <mat-option *ngIf ="!db.mp.bestseller_allpr4" (click)="hidedirectlineupdata();" value="allPR1">Screening Bot</mat-option>
+                   <mat-option *ngIf ="!db.mp.bestseller_allpr4" (click)="hidedirectlineupdata();" value="allPR4">BestSeller Screening Bot</mat-option>
+                   <mat-option *ngIf = "db.mp.bestseller_allpr4" value="allPR4">Screening Bot</mat-option>
+                   <mat-option  value="allPR2">Tecnical Bot</mat-option>
+
+
+
+                    <mat-option (click)="directlineupdata();" value="allPR">Direct Lineup Bot</mat-option>
 
                 </mat-select>
               </div>
               </mat-form-field>
+              <div id="directlineupdata" style="display:none;">
+                <div class="row">
+                <div class="form-group col-md-6">
+                  <label class="col-md-12">Interview Date</label>
+                  <div class="col-md-12">
+
+                    <div class="input-group date" id="datetimepicker2">
+                      <input type="text" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [(ngModel)]="addnewjob.interview_startdate" class="form-control">
+                      <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                    </div>
+                    <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                  </div>
+
+
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="col-md-12">Optional Date</label>
+                  <div class="col-md-12">
+
+                    <div class="input-group date" id="datetimepicker2">
+                      <input type="text" [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" [(ngModel)]="addnewjob.interview_enddate" class="form-control">
+                      <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                    </div>
+                    <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                  </div>
+
+                </div>
+
+              </div>
+              <div class="row">
+
+                <div class="form-group col-md-6">
+                  <label class="col-md-12">Interview Start Time</label>
+                  <div class="col-md-12">
+
+                    <div class="input-group date" id="datetimepicker3">
+                      <input  [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3" [(ngModel)]="addnewjob.interview_ostartdate" class="form-control">
+                      <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time>
+                    </div>
+                    <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                  </div>
+
+
+                </div>
+                <div class="form-group col-md-6">
+                  <label class="col-md-12">Interview End Time</label>
+                  <div class="col-md-12">
+
+                    <div class="input-group date" id="datetimepicker2">
+                      <input type="text" [owlDateTime]="dt4" [owlDateTimeTrigger]="dt4" [(ngModel)]="addnewjob.interview_oenddate" class="form-control">
+                      <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+                    </div>
+                    <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                  </div>
+
+                </div>
+                <div class="form-group">
+                  <label class="col-md-12">Interview Location</label>
+                  <div class="col-md-12">
+
+                    <mat-form-field>
+                      <!-- <mat-label> Location</mat-label> -->
+                      <input matInput  [(ngModel)]="addnewjob.interview_loc" name="location" >
+                      <!-- <mat-select [(ngModel)]="location" name="location">
+                        <mat-option value="{{add.address}}" *ngFor="let add of addresses">{{add.address_title}}</mat-option>
+
+
+                      </mat-select> -->
+                    </mat-form-field>
+                    <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                  </div>
+
+                </div>
+
+
+              </div>
                        <!-- <label for="callto" class="control-label col-xs-2">callto:</label>
                        <div class="col-xs-10">
                           <select class="form-control m-bot15" [(ngModel)]="addnewjob.callto">

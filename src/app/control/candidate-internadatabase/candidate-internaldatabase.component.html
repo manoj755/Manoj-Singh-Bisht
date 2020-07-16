@@ -1,0 +1,34 @@
+
+<div class='row col-md-12' >
+
+  <div class="col-md-4">
+      <ul class="list-unstyled">
+          <li class='i' style="color:#eb1811;">{{row.entity.candidateName}} 
+            <!-- <i style="margin-left: 5px;color:#5b4dcc;"  data-action-type="candidateshow"   title="Open Candidate" class="fa fa-link"></i> -->
+ 
+              <b style="cursor: pointer;" class="name">
+                  <i style="margin-left: 5px;color:#5b4dcc;"  data-action-type="candidateshow"   title="Open Candidate CV" class="fa fa-link"></i>
+                  <!-- <i data-action-type="notes" style="margin-left: 3px;color:red;" ng-click="setupdateid(row.entity.id)" title="Add Notes" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i> -->
+
+
+              </b></li>
+          <li>Current Designation:-  {{row.entity.currentDesignation}}({{row.entity.currentOrganization}})</li>
+          <li>Email-{{row.entity.email}}</li></ul></div>
+  <div class="col-md-4">
+      <ul class="list-unstyled"><li>Location- {{row.entity.location}}</li>
+          <li>Contact number: {{row.entity.mobileNo}}</li>
+          <li>Exp: {{row.entity.ovarallExperiance}}</li>
+         </ul>
+  </div>
+  <div class="col-md-4">
+    <ul class="list-unstyled">
+        <li>Qualification:{{row.entity.qualification}}</li>
+        <li>Current Salary:{{row.entity.currentSalary}}</li>
+    </ul>
+</div>
+<div class="col-md-12">
+    <ul class="list-unstyled">
+        <li><h6>Skill Set: {{row.entity.skillSet}}</h6></li>
+        </ul>
+</div>
+</div>

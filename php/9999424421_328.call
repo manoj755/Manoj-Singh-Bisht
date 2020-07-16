@@ -1,9 +1,0 @@
-Channel: SIP/GSM/9999424421
-Context: allPR
-RetryTime: 30
-MaxRetries: 1
-Extension:s
-Set: called_number=9999424421
-Set: callid=328
-Priority:1
-Archive:Yes

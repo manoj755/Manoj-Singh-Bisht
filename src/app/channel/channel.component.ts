@@ -10,9 +10,10 @@ export class ChannelComponent implements OnInit {
 
   public Editor = ClassicEditor;
   title = 'app';
-  channel = { id: 0 };
+  channel = { id: 0, display_name: {}, type: {}, user_name: {}, password: {} };
   isEdit = false;
   item: any = {};
+  isEditchannel = false;
   stateobj = {};
   genders = [];
   errors = {};
@@ -30,9 +31,9 @@ export class ChannelComponent implements OnInit {
 
   private autoGroupColumnDef;
   private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  public rowSelection;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
   columnDefs = [
     {
       headerName: 'Action', width: 420, field: 'id', suppressMenu: 'true', suppressSorting: 'true',
@@ -116,7 +117,7 @@ export class ChannelComponent implements OnInit {
   }
   back(): void {
     this.isEdit = false;
-    this.channel = { id: 0 };
+    this.channel = { id: 0, display_name: {}, type: {}, user_name: {}, password: {} };
   }
 
   onActionEditClick(row): void {
@@ -155,7 +156,8 @@ export class ChannelComponent implements OnInit {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
-      this.channel = { id: 0 };
+      this.channel = { id: 0, display_name: {}, type: {}, user_name: {}, password: {} };
+
 
 
     }));

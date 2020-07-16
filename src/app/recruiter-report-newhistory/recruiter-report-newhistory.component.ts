@@ -27,6 +27,7 @@ export class RecruiterReportNewhistoryComponent implements OnInit {
   clientreport;
   clientdetails = [];
   clientreportpie;
+  showchart = {};
   managers = [];
   constructor(public db: DBService) { }
   ngOnInit() {

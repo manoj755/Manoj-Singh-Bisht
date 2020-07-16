@@ -1,0 +1,96 @@
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="calldiv"
+class="modal fade">
+<div class="modal-dialog" id="client">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Call</h4><button aria-hidden="true" data-dismiss="modal" class="close"
+        type="button">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <!-- <div class="form-group">
+
+          <label for="Client" class="control-label col-xs-2"><span *ngIf="!db.mp.page_deparment">{{db.clientsdepartment}}:</span><span *ngIf="db.mp.page_deparment">Department</span></label>
+          <div class="col-xs-10">
+            <ng-select [(ngModel)]="addtojob.client_detail_id" (change)="getcandidatebyclientaddtojob()">
+              <ng-option *ngFor="let x of clients" [value]="x.id"  >{{x.billingName}}</ng-option>
+
+          </ng-select>
+
+          </div>
+
+        </div> -->
+        <!-- <div class="form-group" >
+          <div class="col-xs-10">
+            <ng-select [(ngModel)]="addtojob.client_detail_id" (change)='getcandidatebyclientaddtojob()'>
+              <ng-option *ngFor="let x of departments" [value]="x.id"  >{{x.billingName}}</ng-option>
+
+          </ng-select>
+
+          </div>
+        </div> -->
+        <!-- <div class="form-group">
+          <mat-form-field>
+          <mat-label for="Jobs" class="control-label col-xs-2">Jobs:</mat-label>
+          <div class="col-xs-10">
+            <mat-select [(ngModel)]="addnewjob.add_new_job_id"
+              name="add_new_job_id">
+              <mat-option [value]="x.id" *ngFor="let  x of jobslistbyclientsaddtojob">{{x.job_title}}({{x.id}})
+              </mat-option>
+
+            </mat-select>
+          </div>
+          </mat-form-field>
+        </div> -->
+        <div class="form-group">
+            <mat-form-field>
+          <mat-label for="Jobs" class="control-label col-xs-2">Owner</mat-label>
+          <div class="col-xs-10">
+
+
+              <!-- <mat-label>Favorite food</mat-label> -->
+              <mat-select [(ngModel)]="addnewjob.manager">
+                  <mat-option   [value]="db.profile.id">
+                      Self
+                    </mat-option>
+                <mat-option [value]="x.id" *ngFor="let  x of managers">
+                    {{x.name}}
+                </mat-option>
+              </mat-select>
+            <!-- <ng-select  [(ngModel)]="addnewjob.manager">
+              <ng-option [value]="db.profile.id">Self</ng-option>
+              <ng-option [value]="x.id" *ngFor="let  x of managers">
+                {{x.name}}
+              </ng-option>
+            </ng-select> -->
+          </div>
+        </mat-form-field>
+        </div>
+        <div class="form-group">
+
+            <mat-form-field>
+                <mat-label>Call Type</mat-label>
+                <div class="col-xs-10">
+                <mat-select [(ngModel)]="addnewjob.callto">
+                   <mat-option *ngIf ="!db.mp.bestseller_allpr4" (click)="hidedirectlineupdata();" value="allPR1">Screening Bot</mat-option>
+                   <mat-option *ngIf ="!db.mp.bestseller_allpr4" (click)="hidedirectlineupdata();" value="allPR4">BestSeller Screening Bot</mat-option>
+                   <mat-option *ngIf = "db.mp.bestseller_allpr4" value="allPR4">Screening Bot</mat-option>
+
+                    <mat-option (click)="directlineupdata();" value="allPR">Direct Lineup Bot</mat-option>
+
+                </mat-select>
+              </div>
+              </mat-form-field>
+
+        <div class="form-group">
+          <div class="col-md-12 ">
+            <button type="submit" class="btn btn-primary btn-block" tar="#client"
+              (click)="sendcalltocandidates()">Place in Queue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>

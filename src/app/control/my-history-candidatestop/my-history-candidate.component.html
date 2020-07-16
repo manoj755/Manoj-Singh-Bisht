@@ -1,0 +1,44 @@
+<div class='container col-lg-12' >
+  <div class="row col-md-12" style="width: 100%;">
+      <div class="col-sm-4">
+        <ul class="list-unstyled">
+            <li class='i' style="color:#eb1811;cursor: pointer;"  data-action-type="candidateshow">{{row.entity.candidateName}} 
+              <!-- <i style="margin-left: 5px;color:#5b4dcc;"  data-action-type="candidateshow"   title="Open Candidate" class="fa fa-link"></i> -->
+              <a href="candidate/{{row.entity.id}}">   
+                <b style="cursor: pointer;" class="name">
+                    <i style="margin-left: 5px;color:#5b4dcc;"  title="Open Candidate CV" class="fa fa-link"></i>
+                </b>
+              </a></li>
+            <li>Current Designation:-  {{row.entity.currentDesignation}}</li>
+            <li>Salary:-  {{row.entity.currentSalary}}</li>
+            <li>Parshed Date: {{row.entity.updated_at}}</li>
+  
+          </ul></div>
+    <div class="col-sm-4">
+        <ul class="list-unstyled">
+          <li>Email-{{row.entity.email}}</li>
+          <li>Current Organization- {{row.entity.currentOrganization}}</li>
+            <li>Exp: {{row.entity.ovarallExperiance}}</li>
+            <li>{{row.entity.job_name}}</li>
+           </ul>
+    </div>
+    <div class="col-sm-4">
+        <div class="col-sm-10">
+      <ul class="list-unstyled">
+        <li>Mobile : {{row.entity.mobileNo}}</li>
+        <li>Location- {{row.entity.location}}</li>
+        <li style="color: darkblue;">Recruiter Name: {{row.entity.recruitername}}</li>
+  
+      </ul>
+  </div>
+  </div>
+  </div>
+  <div class="row col-md-12">
+  <div class="col-sm-12">
+      <ul class="list-unstyled" style="width: 100%;">
+          <li>Skill Set: {{row.entity.skillSet}}</li>
+          </ul>
+  </div>
+  </div>
+    <div class="col-sm-12" style="width: 1170px;"> </div>
+  </div>

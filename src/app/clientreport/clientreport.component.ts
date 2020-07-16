@@ -12,6 +12,11 @@ export class ClientreportComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
+  public autoGroupColumnDef;
+  public defaultColDef;
+  public rowSelection;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
 
   gridTotalCandidatejob = {
     data: null,
@@ -121,10 +126,11 @@ export class ClientreportComponent implements OnInit {
   updatedd: any;
   allids: any;
   jobslistbyclients: any;
+  showchart = true;
   myjob = {
     client_detail_id: 0, clientid: 0, isinterview: null, rootname: '',
     start_date_temp: new Date('2000-01-01'), end_date_temp: new Date(),
-    start_date: '', end_date: ''
+    start_date: '', end_date: '', job_id: {}, manager: {}
   };
   clientdetails: any;
   managers: [];

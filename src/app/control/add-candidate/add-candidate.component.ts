@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DBService } from 'app/db.service';
+declare var $: any;
 
 @Component({
   selector: 'app-add-candidate',
@@ -8,7 +9,7 @@ import { DBService } from 'app/db.service';
 })
 export class AddCandidateComponent implements OnInit {
 
-  store = {};
+  store = { candidateName: '', gender: '', mobileNo: '', email: '' };
   updateid: any;
   countries = [];
   genders = [];
@@ -19,12 +20,14 @@ export class AddCandidateComponent implements OnInit {
   }
 
   candidatesave = function () {
-debugger;
+    debugger;
 
     this.db.store('candidatedetail/', this.store, ((response): void => {
+      debugger;
       this.updateid = response.id;
 
-
+      $('#addcandidate').modal('hide');
+      this.loadInternalData()
       this.db.addmessageandremove('Candidate added successfully.');
 
     }));

@@ -1,0 +1,387 @@
+<div class="main-content">
+  <div class="container-fluid" style="width:100%; margin-top: -5%;">
+
+
+    <div class="row">
+      <app-call [allids]='allids'></app-call>
+      <app-mailer [allids]='allids'></app-mailer>
+      <app-add-to-job [allids]='allids'></app-add-to-job>
+      <app-pv-get-reference [allids]='allids'></app-pv-get-reference>
+
+
+      <!-- <div class="col-md-2"></div> -->
+      <!-- second card-body -->
+
+      <div class="card col-md-12">
+
+        <div class="card-body col-md-12" style="height: 130px;">
+          <div class="row">
+
+
+
+
+
+            <div class="col-md-3">
+              <a mat-mini-fab id="iconbackground" href="javascript:" help='compelete campaign candidate'>
+                <i class="material-icons" (click)="compeletedcampaindata()">
+                  <mat-icon class="icones">playlist_add_check</mat-icon>
+                </i>
+
+              </a></div>
+
+
+            <div class="col-md-2"><a mat-mini-fab id="iconbackground" href="javascript:" help='day by day campaign'>
+                <span matPrefix style="position: absolute;">
+                  <mat-icon style="margin-left: -4px; margin-top: -7px;" class="icones">dynamic_feed</mat-icon>
+                </span>
+
+                <mat-select [(ngModel)]="dailycampaincheckday" name="dailycampaincheckday">
+                  <mat-option (click)="dailycampaincheck();" value=' 0 day'>Day 1</mat-option>
+                  <mat-option (click)="dailycampaincheck();" value=' -1 day'>Day 2</mat-option>
+                  <mat-option (click)="dailycampaincheck();" value=' -2 day'>Day 3</mat-option>
+                  <mat-option (click)="dailycampaincheck();" value=' -3 day'>Day 4</mat-option>
+                  <mat-option (click)="dailycampaincheck();" value=' -5 day'>Day 6</mat-option>
+                  <!-- <mat-option (click)="openhistorydbmodel();" >Day 1</mat-option> -->
+                </mat-select>
+
+              </a></div>
+            <!-- <div class="col-md-2" ><a mat-mini-fab id="iconbackground" type="button"  help='Refresh Page'>
+                <i class="fa fa-refresh icones" (click)="LoadHistory()" style="color: rgb(255, 255, 255);"></i>
+              </a></div> -->
+          </div>
+
+          <br>
+          <div class="row">
+            <div class="col-9">
+              <div class="row">
+
+                <div class="col-sm-6">
+
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="startdate" [matDatepicker]="picker" placeholder="from date" class="e">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+
+
+                </div>
+
+                <div class="col-sm-6">
+
+                  <mat-form-field>
+                    <input matInput [(ngModel)]="enddate" [matDatepicker]="picker2" placeholder="to date" class="e">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="col-2">
+              <button type="button" class="btn  btn-raised btn-light button" (click)="filterwithdate();">Filter</button>
+            </div>
+            <!-- &nbsp; &nbsp;
+            <div class="col-2">
+            <button (click)="LoadHistory()" class="btn btn-raised btn-block" title="Update data"><i class="fa fa-refresh"></i></button>
+            </div> -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <ag-grid-angular style="width: 100%; height: 8500px;" class="ag-theme-balham" [rowData]="rowData"
+      [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true" rowSelection='multiple'
+      rowMultiSelectWithClick='true' rowDeselection='true' [groupSelectsChildren]="true" paginationAutoPageSize='true'
+      rowHeight='220' (selectionChanged)="onSelectionChanged($event)" [debug]="true"
+      [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [enableRangeSelection]="true"
+      [getRowHeight]='getRowHeight' [pagination]="true" (gridReady)="onGridReady($event)"
+      (rowdata)="bindrowdata($event)" (rowClicked)="onRowClicked($event)">
+    </ag-grid-angular>
+    <!-- </div> -->
+
+    <!-- </div> -->
+    <div id="notesdetail1" class="modal fade" style="z-index:2000" role="dialog">
+      <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+
+          <div class="modal-body">
+            <div class='col-md-12'>
+              <div class='row'>
+                <div class='col-md-12'>
+                  <mat-form-field>
+                    <mat-label>Contactibility</mat-label>
+                    <mat-select [(ngModel)]="contactibility" name="Contactibility">
+                      <mat-option (click)="CandidateNotesave();" value='No Response'>No Response</mat-option>
+                      <mat-option (click)="CandidateNotesave();" value='Wrong Number'>Wrong Number</mat-option>
+                      <mat-option (click)="CandidateNotesave();" value='Call Back'>Call Back</mat-option>
+                      <mat-option (click)="CandidateNotesave();" value='Answered'>Answered</mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+
+              </div>
+
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="notesdetail2" class="modal fade" style="z-index:2000" role="dialog">
+      <div class="modal-dialog modal-sm">
+
+        <div class="modal-content">
+
+          <div class="modal-body">
+            <div class='col-md-12'>
+              <div class='row'>
+
+                <div class='col-md-12'>
+
+                  <mat-form-field>
+                    <mat-label> Update Status</mat-label>
+                    <mat-select [(ngModel)]="not_scheduled" name="Not Scheduled">
+                      <mat-option value='Poor communication'>Poor communication</mat-option>
+                      <mat-option value='Looking for Core Profile'>Looking for Core Profile</mat-option>
+                      <mat-option value='Not willing to work with BPO/ KPO'>Not willing to work with BPO/ KPO
+                      </mat-option>
+                      <mat-option value='Over Age'>Over Age</mat-option>
+                      <mat-option value='Non Hiring Zone/ Location Issue'>Non Hiring Zone/ Location Issue</mat-option>
+                      <mat-option value='Hiring Salary Expectation'>Hiring Salary Expectation</mat-option>
+                      <mat-option value='Higher Notice Period'>Higher Notice Period</mat-option>
+                      <mat-option value='Not Looking for change'>Not Looking for change</mat-option>
+                      <mat-option value='others'>others</mat-option>
+                      <mat-option value='Not Eligible- Qualification'>Not Eligible- Qualification </mat-option>
+                      <mat-option (click)="cvshared();" value='CV Shared'>CV Shared </mat-option>
+                      <mat-option (click)="purposechange();" value='Scheduled - Interview Aligned'>Scheduled - Interview
+                        Aligned</mat-option>
+                      <mat-option value='JD Shared'>JD Shared</mat-option>
+                      <mat-option value='Stability Reject'>Stability Reject</mat-option>
+                      <mat-option value='Not suitable for the role'>Not suitable for the role</mat-option>
+                      <mat-option value='Not OK with Shift Offered'>Not OK with Shift Offered</mat-option>
+
+
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div id="cvsharedid" style="display:none;">
+                  <div class="form-group">
+                    <label class="col-md-6">Cv Shared Date</label>
+                    <div class="col-md-6">
+
+                      <div class="input-group date" id="datetimepicker3">
+                        <input type="text" [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3" [(ngModel)]="cvshareddate"
+                          class="form-control">
+                        <owl-date-time #dt3></owl-date-time>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+                <div id="business" style="display:none;">
+                  <div class="form-group">
+                    <label class="col-md-12">Date</label>
+                    <div class="col-md-12">
+
+                      <div class="input-group date" id="datetimepicker1">
+                        <input type="text" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [(ngModel)]="date"
+                          class="form-control">
+                        <owl-date-time #dt1></owl-date-time>
+                      </div>
+
+                    </div>
+
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-12">Address</label>
+                    <div class="col-md-12">
+
+                      <mat-form-field>
+                        <mat-label>Address</mat-label>
+                        <mat-select [(ngModel)]="address" name="address">
+                          <mat-option value="{{add.address}}" *ngFor="let add of addresses">{{add.address_title}}
+                          </mat-option>
+
+
+                        </mat-select>
+                      </mat-form-field>
+                      <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                    </div>
+
+                  </div>
+                  <mat-form-field>
+                    <mat-label>Quality</mat-label>
+                    <mat-select [(ngModel)]="quality" name="Quality">
+                      <mat-option value='S1'>S1</mat-option>
+                      <mat-option value='S2'>S2</mat-option>
+                      <mat-option value='S3'>S3</mat-option>
+                      <mat-option value='S4'>S4</mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+
+
+
+
+
+
+
+                </div>
+
+              </div>
+              <div class="form-group">
+                <div class=" col-md-10" style="margin-left:20%">
+                  <button type="submit" class="btn  btn-raised btn-primary" ng-hide="isEditCandidateNote"
+                    (click)="CandidateHistoryStatus();">Save</button>
+
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="uploadnaukriexcel" class="modal fade" style="z-index:2000" role="dialog">
+      <div class="modal-dialog modal-lg">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+          <div class="modal-header">
+
+            <h4 class="modal-title">Upload Internal Database Excel</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="media">
+              <div class="row">
+                <div class="col-12">
+                  <input type="file" id="file" (change)="uploadnaukriexcel($event.target.files)">
+
+                </div>
+
+              </div>
+
+
+
+
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+    <div id="conversation" class="modal fade" style="z-index: 1051;" role="dialog">
+      <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+
+
+            <h4 class="modal-title">Conversation
+              <!-- (<i>{{callconversation.recruiter}}</i>) <span class="pull-right">{{callconversation.call_status}}</span> -->
+              </h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+
+            <div id="player">
+
+            </div>
+            <div class="col-md-12" *ngFor="let value of conversationsobj">
+
+                <b title="{{value.start_speaking}} / {{value.end_speaking}}">{{value.key.split('__')[0]}}</b>
+
+                    <!-- <p  title="{{value.start_transcribe}} / {{value.end_transcribe}}">
+                  <a class="btn btn-link playlink"  href='{{getaudiolink(value.audio)}}'>
+                    {{(value.text==''?'***':value.text)}}</a>
+                  </p>
+                  <div id="player">
+
+                  </div> -->
+                  <!-- <div class="player"></div> -->
+
+                    <p>{{(value.text==''?'***':value.text)}}</p>
+
+            </div>
+
+
+            <!-- <div>
+              <button title='{{callconversation.job_title}} ' class="btn  btn-raised btn-info pull-right">Add To
+                Job</button>
+            </div> -->
+
+            <div class="clear " style="clear:both;"></div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div id="chat" class="modal fade" style="z-index: 1051;" role="dialog">
+      <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+
+
+            <h4 class="modal-title">Chat conversation
+              <!-- (<i>{{callconversation.recruiter}}</i>) <span class="pull-right">{{callconversation.call_status}}</span> -->
+              </h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+
+            <div id="player">
+
+            </div>
+            <div class="col-md-12" *ngFor="let value of breakchat">
+
+                <!-- <b title="{{value.start_speaking}} / {{value.end_speaking}}">{{value.key.split('__')[0]}}</b> -->
+
+                    <!-- <p  title="{{value.start_transcribe}} / {{value.end_transcribe}}">
+                  <a class="btn btn-link playlink"  href='{{getaudiolink(value.audio)}}'>
+                    {{(value.text==''?'***':value.text)}}</a>
+                  </p>
+                  <div id="player">
+
+                  </div> -->
+                  <!-- <div class="player"></div> -->
+
+                    <!-- <p>{{(value.text==''?'***':value.text)}}</p> -->
+                    <p>{{value}}</p>
+
+            </div>
+
+
+            <!-- <div>
+              <button title='{{callconversation.job_title}} ' class="btn  btn-raised btn-info pull-right">Add To
+                Job</button>
+            </div> -->
+
+            <div class="clear " style="clear:both;"></div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <app-update-candidate [current_data]='currentData'></app-update-candidate>
+    <!-- <app-add-note [set_candidate_id]='candidate_id'></app-add-note> -->

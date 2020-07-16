@@ -45,7 +45,9 @@
 .btn-activecolor:focus{
   background: rgb(166, 167, 166)!important;
 }
-
+mat-button-toggle-group {
+  margin-left: 12px;
+}
 // .green {
 //   background-color: #9c27b0;
 // }
@@ -57,3 +59,26 @@
 //   background-color: green;
 //   color: #fff;
 // }
+#iconbackground
+{
+    background-color:grey;
+}
+#iconbackground:hover{
+background-color: #FF9933;
+}
+
+#iconbackground:hover .icones{
+      	-moz-transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	-ms--transform: rotate(360deg);
+	transform: rotate(360deg);
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	-o-transition: all 0.2s;
+	-ms-transition: all 0.2s;
+	transition: all 0.2s;
+  }
+.button:hover{
+    background-color: cornflowerblue;
+}
+

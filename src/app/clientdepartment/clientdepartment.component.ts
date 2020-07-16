@@ -125,7 +125,7 @@ export class ClientdepartmentComponent implements OnInit {
     this.loadstatewisedetail();
   }
 
-  public showdepartmentfun(event): void {
+  public showdepartmentfun(event) {
     debugger;
     const newval = event.target.value;
     if (newval === 0) {
@@ -156,7 +156,9 @@ export class ClientdepartmentComponent implements OnInit {
 
   }
   LoadData(): void {
+    debugger;
     this.db.list('clientdetaildepartment/', {}, ((response): void => {
+      debugger;
       this.rowData = response;
 
 
@@ -222,15 +224,15 @@ export class ClientdepartmentComponent implements OnInit {
   }
 
 
-  back(): void {
+  back() {
     this.isEdit = false;
     this.client = { id: 0, feeslabtype: '', fee_slab: [] };
   }
-  backstate(): void {
+  backstate() {
     this.isEditclientStateswiseBillingDetail = false;
     this.clientStateswiseBillingDetail = { id: 0, client_detail_id: 0 };
   }
-  remove(idx, isupdate): void {
+  remove(idx, isupdate) {
 
     if (isupdate === 0) {
 
@@ -352,7 +354,7 @@ export class ClientdepartmentComponent implements OnInit {
       }));
   }
 
-  showhideclient(x, y): void {
+  showhideclient(x, y) {
 
     if (this.ishideshowclient === false && this.isscroll === false) {
       // this.isEdit = false;
@@ -365,7 +367,7 @@ export class ClientdepartmentComponent implements OnInit {
     }
 
   }
-  showhide(): void {
+  showhide() {
     if (this.ishideshow === false) {
 
       this.ishideshow = true;
@@ -383,7 +385,7 @@ export class ClientdepartmentComponent implements OnInit {
     val = Number(val);
     return Number(val) === val;
   };
-  addfeeslab(isupdate): void {
+  addfeeslab(isupdate)  {
 
     const numbers = /^[0-9]+$/;
     let lastAmount = 0;

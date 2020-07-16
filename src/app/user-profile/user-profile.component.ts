@@ -11,6 +11,8 @@ export class UserProfileComponent implements OnInit {
 
   ProfileTabs: any;
   updateprofie: any;
+  showChangePassword= false;
+  showProfile=false;
   profile: any = { id: 1 };
   changepassword: any = {};
   constructor(public db: DBService) { }
@@ -19,8 +21,17 @@ export class UserProfileComponent implements OnInit {
 
     this.db.setProfile();
     this.LoadProfileData();
+    this.editprofile();
 
+  }
+  public editprofile(): void{
+    this.showChangePassword= false;
+    this.showProfile=true;
+  }
 
+  public passwordchange(): void{
+    this.showChangePassword= true;
+    this.showProfile=false;
   }
   changepasswordfun(): void {
     this.db.store('changepassword/', this.changepassword, ((response): void => {

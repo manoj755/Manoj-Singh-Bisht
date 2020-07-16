@@ -16,11 +16,11 @@ export class ClientReportFullComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
-  private autoGroupColumnDef;
+  public autoGroupColumnDef;
   private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  public rowSelection;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
   columnDefs = [
     { 'headerName': 'Billing Name', 'field': 'billingName', 'sortable': true, 'filter': true },
     { 'headerName': 'Website', 'field': 'website', 'sortable': true, 'filter': true },

@@ -20,11 +20,11 @@ export class SmtpdetailsComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
-  private autoGroupColumnDef;
+  public autoGroupColumnDef;
   private defaultColDef;
-  private rowSelection;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
+  public rowSelection;
+  public rowGroupPanelShow;
+  public pivotPanelShow;
   columnDefs = [
     {
       headerName: 'Action', field: 'id', suppressMenu: true,
@@ -67,17 +67,18 @@ export class SmtpdetailsComponent implements OnInit {
     this.LoadData();
   }
 
-  LoadData(): void {
-    this.db.list('smtpdetail/', {}, ((response): void => {
+  LoadData() {
+    this.db.list('smtpdetail/', {}, ((response) => {
       this.rowData = response;
 
 
     }));
   }
   onGridReady(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
+    if (params) {
+      this.gridApi = params.api;
+      this.gridColumnApi = params.columnApi;
+    }
 
   }
   exportdat() {
@@ -90,69 +91,73 @@ export class SmtpdetailsComponent implements OnInit {
   }
 
   public onRowClicked(e) {
-    if (e.event.target !== undefined) {
-      let data = e.data;
-      let actionType = e.event.target.getAttribute('data-action-type');
+    if (e) {
+      if (e.event.target !== undefined) {
+        let data = e.data;
+        let actionType = e.event.target.getAttribute('data-action-type');
 
-      switch (actionType) {
-        case 'delete':
-          return this.onActionDeleteClick(data);
-        case 'edit':
-          return this.onActionEditClick(data), this.visibleonedit();
+        switch (actionType) {
+          case 'delete':
+            return this.onActionDeleteClick(data);
+          case 'edit':
+            return this.onActionEditClick(data), this.visibleonedit();
+        }
       }
     }
   }
 
   public onActionDeleteClick(data: any) {
     debugger;
-    if (confirm('Are you sure?')) {
-      this.db.destroy('smtpdetail/', data.id, ((response): void => {
-        this.db.addmessageandremove('deleted');
-        //this.LoadData();
-      })
-      );
-  }
-    console.log('View action clicked', data);
+    if (data) {
+      if (confirm('Are you sure?')) {
+        this.db.destroy('smtpdetail/', data.id, ((response) => {
+          this.db.addmessageandremove('deleted');
+          //this.LoadData();
+        })
+        );
+      }
+      console.log('View action clicked', data);
+    }
   }
 
-
-  back(): void {
+  back() {
     this.isEdit = false;
     this.smtp = { id: 0 };
   }
 
-  onActionEditClick(row): void {
+  onActionEditClick(row) {
+
+    if (row) {
+      this.isEdit = false;
+      this.db.show('smtpdetail/', row.id, ((response) => {
+
+        this.isEdit = true;
+        this.smtp = response;
+        if (this.firstLoad === false) {
+          window.scrollTo(0, 100);
+          //this.firstLoad = true;
+        }
+        //            for (var i in response.data) {
+        //                for (var j in response.data[i]) {
+        //                    this.gridOptions.columnDefs.push({field:j});
+        //                }
+        //                break;
+        //            }
 
 
-    this.isEdit = false;
-    this.db.show('smtpdetail/', row.id, ((response): void => {
+        //            this.gridTotalJobs.data = response.data;
 
-      this.isEdit = true;
-      this.smtp = response;
-      if (this.firstLoad === false) {
-        window.scrollTo(0, 100);
-        //this.firstLoad = true;
-      }
-      //            for (var i in response.data) {
-      //                for (var j in response.data[i]) {
-      //                    this.gridOptions.columnDefs.push({field:j});
-      //                }
-      //                break;
-      //            }
-
-
-      //            this.gridTotalJobs.data = response.data;
-
-    }));
+      }));
+    }
 
   };
 
-  smtpupdate(): void {
+  smtpupdate() {
     // if (!$('body').validate('#smtpid')) {
     //   //  $.fn.showMessage('Please fill values');
     //   return;
     // }
-    this.db.update('smtpdetail/', this.smtp.id, this.smtp, ((response): void => {
+    this.db.update('smtpdetail/', this.smtp.id, this.smtp, ((response) => {
 
       this.LoadData();
       this.db.showMessage('Updated Successfully');
@@ -160,13 +165,13 @@ export class SmtpdetailsComponent implements OnInit {
     }));
   }
 
-  smtpsave(): void {
+  smtpsave() {
     // if (!$('.validate').validate('#smtpid')) {
     //   //  $.fn.showMessage('Please fill values');
     //   return;
     // }
     //this.user.profilepic=this.user.profilepic[0];
-    this.db.store('smtpdetail/', this.smtp, ((response): void => {
+    this.db.store('smtpdetail/', this.smtp, ((response) => {
 
       this.db.showMessage('Added Successfully');
       this.LoadData();
@@ -177,17 +182,21 @@ export class SmtpdetailsComponent implements OnInit {
 
   }
   // this.isvisible=false;
-  visible(): void {
-    if (this.isvisible == false) {
+  visible() {
+    debugger;
+    if (this.isvisible === false) {
       this.isvisible = true;
-    }
-    else {
+    } else {
       this.isvisible = false;
     }
   }
-  visibleonedit(): void {
-    if (this.isvisible == false) {
+  visibleonedit() {
+    debugger;
+    if (this.isvisible === false) {
       this.isvisible = true;
+    } else {
+      this.isvisible = true;
+
     }
 
   }

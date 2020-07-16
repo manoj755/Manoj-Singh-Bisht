@@ -1,0 +1,46 @@
+
+<div class='row' >
+
+  <div class="col-md-4">
+      <ul class="list-unstyled">
+          <li class='i'>{{row.entity.candidateName}}  <b style="cursor: pointer;" class="name"  *ngIf="row.entity.recruitershow">
+                  <i style="margin-left: 5px;color:#5b4dcc;"  data-action-type="candidateshow"   title="Open Candidate" class="fa fa-link"></i>
+                  <i data-action-type="notes" style="margin-left: 3px;color:red;" ng-click="setupdateid(row.entity.id)" title="Add Notes" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
+
+
+              </b></li>
+          <li>{{row.entity.currentDesignation}}({{row.entity.currentOrganization}})</li>
+          <li>Email-{{row.entity.email}}</li><li>Qualification:{{row.entity.qualification}}</li></ul></div>
+  <div class="col-md-4">
+      <ul class="list-unstyled"><li>Location- {{row.entity.location}}</li>
+          <li>Contact number: {{row.entity.mobileNo}}</li>
+          <li>Exp: {{row.entity.relevantExperiance}} year,({{row.entity.atj_updated_at}})</li>
+          <li *ngIf="row.entity.last_action_date" class="text-info text-bold">
+             Last Action : <i>{{row.entity.last_action_date}}</i>
+          </li></ul>
+  </div>
+  <div class="col-md-4"><button type="button"  ng-click="grid.appScope.removecandidate(row.entity)"  *ngIf="row.entity.recruiter_id" class="close pull-right" >×</button>
+      <b class="text-success text-center i">{{row.entity.job_name}}</b>
+      <span *ngIf=" row.entity.vendorname!==undefined && row.entity.vendorname!==null && row.entity.vendorname.length > 0"  class="text-red">( Vendor -{{row.entity.vendorname}} )</span><div class="clearfix"></div>
+      <b class="text-info text-center" title='Recruiter'>{{row.entity.recruitername}}</b>
+      <b *ngIf='row.entity.isReferred' title='Referrer name'>
+         ({{row.entity.referrerName}})
+      </b>
+      <div class="clearfix"></div>
+
+      <a href="javascript:"  class="btn btn-raised btn-info btn-sm comment_status_btn"   ng-if="row.entity.id"  *ngIf="row.entity.recruitershow" data-target="#commentstatus" data-toggle="modal" data-action-type='comment'   >
+          {{row.entity.display_name}}
+      </a>
+
+
+      <span *ngIf="!row.entity.recruitershow"   class="link-black i"><i class="fa fa-files-o fa-lg"></i> {{row.entity.display_name}}</span>
+
+
+      <button class="btn btn-raised btn-danger btn-sm" *ngIf="row.entity.recruitershow" data-target="#activity" data-toggle="modal" data-action-type='activity' (click)="activity(row.entity)" >Activity</button>
+      <br/>
+      <!-- <a href="" *ngIf="row.entity.recruitershow" class="text-danger" ng-click="grid.appScope.setatjidentity(row.entity)" >Custom Tracker Data</a>status -->
+
+
+      <a *ngIf="row.entity.invoice_id" href="#"  class="pull-right"><span data-toggle="tooltip" ngf-accept='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"' ngf-pattern='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"'  ngf-select="grid.appScope.uploadinvoicevendor($file,row.entity.invoice_id)" title="Upload">Upload Invoice</span></a>
+
+  </div></div>

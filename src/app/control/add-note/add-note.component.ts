@@ -10,10 +10,11 @@ declare var $: any;
 export class AddNoteComponent implements OnInit {
 
   gridCandidateNotes = [];
-  CandidateNote = { candidate_id: 0 };
+  CandidateNote = { candidate_id: 0, notes: {} };
   message: any;
   notes = [];
   pp = '';
+  isEditCandidateNote = false;
   updated_id: any;
 
   candidate_id = 0;
@@ -54,7 +55,7 @@ export class AddNoteComponent implements OnInit {
       this.db.addmessageandremove('Added Successfully');
 
       this.message = {};
-      this.CandidateNote = { candidate_id: 0 };
+      this.CandidateNote = { candidate_id: 0, notes: {} };
       this.GetNotes();
 
     });
