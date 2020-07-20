@@ -142,6 +142,7 @@ export class CallDetailComponent implements OnInit {
   currentData: {};
   candidate_id = 0;
   onCommentClick: any;
+  checkconversations: any;
   // today = new Date();
   // start_date = '';
   constructor(public db: DBService) {
@@ -653,46 +654,53 @@ export class CallDetailComponent implements OnInit {
   };
 
   conversation(entity): void {
+    debugger;
+
     this.callconversation = entity;
-    //          /  this.conversations = JSON.parse(entity.conversation);
-    // $('#conversation').modal('show');
     $('#player').html('<iframe src="' + this.db.http_or_https + '://api.passivereferral.com/recording/?id=' + entity.call_id +
       '" width="100%" height="100" style="border:none; width:300px;height:100px"></iframe>');
 
     this.conversationsobj = [];
     // this.callconversation=entity;
     this.db.show('calldetail/', entity.call_id, ((response): void => {
-      //debugger;
-      this.conversations = JSON.parse(response.conversation);
-      for (const con in this.conversations) {
-        if (true) {
-          if (this.conversations['audio']) {
-            this.conversationsobj.push({
-              //key: Object.keys(con).toString(),
+      debugger;
+      this.checkconversations = response.conversation;
+      debugger;
+      if (this.checkconversations == "array" || this.checkconversations == null) {
+        this.db.showMessage('Conversations Not Available');
+      } else{
+        this.conversations = JSON.parse(response.conversation);
+        debugger;
+        for (const con in this.conversations) {
+          if (true) {
+            if (this.conversations['audio']) {
+              this.conversationsobj.push({
+                //key: Object.keys(con).toString(),
 
-              key: con.split('__')[0],
-              value: this.conversations[con].text,
-              start_speaking: this.conversations[con].start_speaking,
-              end_speaking: this.conversations[con].end_speaking,
-              start_transcribe: this.conversations[con].start_transcribe,
-              end_transcribe: this.conversations[con].end_transcribe,
-              audio: this.conversations[con].audio,
-              text: this.conversations[con].text,
-              // start_speaking: this.conversations[con].start_speaking,
-              //            start_speaking: this.conversations[con].start_speaking,
+                key: con.split('__')[0],
+                value: this.conversations[con].text,
+                start_speaking: this.conversations[con].start_speaking,
+                end_speaking: this.conversations[con].end_speaking,
+                start_transcribe: this.conversations[con].start_transcribe,
+                end_transcribe: this.conversations[con].end_transcribe,
+                audio: this.conversations[con].audio,
+                text: this.conversations[con].text,
+                // start_speaking: this.conversations[con].start_speaking,
+                //            start_speaking: this.conversations[con].start_speaking,
 
-            })
-          }
-          else if (this.conversations[con].text != null) {
-            this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con].text })
-          }
-          else {
-            // this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con].text })
-            this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con] })
+              })
+            }
+            else if (this.conversations[con].text != null) {
+              this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con].text })
+            }
+            else {
+              // this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con].text })
+              this.conversationsobj.push({ key: con.split('__')[0], text: this.conversations[con] })
+            }
           }
         }
-      }
       $('#conversation').modal('show');
+      }
     })
     );
 

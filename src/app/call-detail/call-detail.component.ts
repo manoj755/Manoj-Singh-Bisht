@@ -637,7 +637,7 @@ export class CallDetailComponent implements OnInit {
 
     this.rowData = [this.rowHeight = 200];
     console.log(Search);
-    this.db.list('callcandidatesdetailmyjob/', Search, ((response): void => {
+    this.db.list('callcandidatesdetailmyjobnew/', Search, ((response): void => {
       //
       // this.gridOptionsloadcandidatesInPopUp.columnDefs = this.columnDefs;
       this.candidatedetails = response;

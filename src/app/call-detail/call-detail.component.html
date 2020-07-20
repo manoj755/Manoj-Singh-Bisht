@@ -9,7 +9,7 @@
               <div class="col-md-6">
                 <div class="input-group" style="margin-top: 9px;">
                   <div class="input-group-btn  btn-raised search-panel">
-                    <button type="button" class="btn  btn-raised btn-default dropdown-toggle" data-toggle="dropdown">
+                    <button type="button" class="btn btn-sm btn-raised btn-default dropdown-toggle" data-toggle="dropdown">
                       <span id="search_concept">Search by {{displaydd}}</span>
                       <span class="caret"></span>
                     </button>
@@ -34,7 +34,7 @@
                     [(ngModel)]="searchcandidate" (change)="filterbycandidate()" placeholder="Search Candidates">
 
                   <span class="input-group-btn">
-                    <button class="btn  btn-raised btn-default" (click)="filterbyJob()" type="button">
+                    <button class="btn  btn-raised btn-default btn-sm" (click)="filterbyJob()" type="button">
                       Go
                     </button>
                   </span>
@@ -68,7 +68,7 @@
 
 
 
-              <button type="button" class="btn  btn-raised  btn-success " (click)="getlist();"
+              <button type="button" class="btn btn-sm btn-raised  btn-success " (click)="getlist();"
                 style="margin-top: 9px;">Submit</button>
             </div>
 
@@ -243,41 +243,44 @@
                   <div class="col-md-10" style="margin-top: 20px;">
                     <div class='row buttonwithnumber'>
 
-                      <button mat-raised-button color="primary" matBadge="{{item.allcalledcandidate}}"
+                      <a href="call-view/{{item.id}}&allcalled&{{searchcandidate}}" target="_blank">
+                        <button mat-raised-button color="primary" matBadge="{{item.allcalledcandidate}}"
                         matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm"
-                        (click)="filterdrbytab('My Candidates', 'allcalled', item)" data-toggle="modal"
-                        data-target="#candidatesall">All
-                      </button>
-
+                        (click)="filterdrbytab('My Candidates', 'allcalled', item)">All
+                      </button></a>
+                      
+                      <a href="call-view/{{item.id}}&calledinterested&{{searchcandidate}}" target="_blank">
                       <button mat-raised-button color="primary" matBadge="{{item.calledinterested}}"
                         matBadgePosition="after" matBadgeColor="accent" class=" btn btn-sm"
-                        (click)="filterdrbytab('My Candidates', 'calledinterested', item)" data-toggle="modal"
-                        data-target="#candidatesall">Interested
-                      </button>
+                        (click)="filterdrbytab('My Candidates', 'calledinterested', item)">Interested
+                      </button></a>
 
+                      <!-- <button mat-raised-button color="primary" matBadge="{{item.calledinterested}}"
+                      matBadgePosition="after" matBadgeColor="accent" class=" btn btn-sm"
+                      (click)="filterdrbytab('My Candidates', 'calledinterested', item)" data-toggle="modal"
+                      data-target="#candidatesall">Interested not suitable
+                    </button> -->
+                    <a href="call-view/{{item.id}}&callednotinterested&{{searchcandidate}}" target="_blank">
                       <button mat-raised-button color="primary" matBadge="{{item.callednotinterested}}"
                         matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm "
-                        (click)="filterdrbytab('My Candidates', 'callednotinterested', item)" data-toggle="modal"
-                        data-target="#candidatesall">Not interested
-                      </button>
+                        (click)="filterdrbytab('My Candidates', 'callednotinterested', item)">Not interested
+                      </button></a>
 
+                      <a href="call-view/{{item.id}}&callbackrequest&{{searchcandidate}}" target="_blank">
                       <button mat-raised-button color="primary" matBadge="{{item.callbackrequest}}"
                         matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm "
-                        (click)="filterdrbytab('My Candidates', 'callbackrequest', item)" data-toggle="modal"
-                        data-target="#candidatesall">Call Back Request
-                      </button>
-
+                        (click)="filterdrbytab('My Candidates', 'callbackrequest', item)">Call Back Request
+                      </button></a>
+                      <a href="call-view/{{item.id}}&incompletecall&{{searchcandidate}}" target="_blank">
                       <button mat-raised-button color="primary" matBadge="{{item.tocall}}/{{item.incompletecall}}"
                         matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm "
-                        (click)="filterdrbytab('My Candidates', 'incompletecall', item)" data-toggle="modal"
-                        data-target="#candidatesall">To call/No status
-                      </button>
-
+                        (click)="filterdrbytab('My Candidates', 'incompletecall', item)">To call/No status
+                      </button></a>
+                      <a href="call-view/{{item.id}}&couldnotconnect&{{searchcandidate}}" target="_blank">
                       <button mat-raised-button color="primary" matBadge="{{item.couldnotconnect}}"
                         matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm "
-                        (click)="filterdrbytab('My Candidates', 'couldnotconnect', item)" data-toggle="modal"
-                        data-target="#candidatesall">Could Not Connect
-                      </button>
+                        (click)="filterdrbytab('My Candidates', 'couldnotconnect', item)">Could Not Connect
+                      </button></a>
                     </div>
 
 
@@ -316,129 +319,7 @@
       <!-- End Job Update-->
 
       <!-- All Candidate -->
-      <div class="modal fade " id="candidatesall" role="dialog">
-        <div class="modal-dialog modal-lg width80percent">
-
-
-
-          <div class="modal-content">
-            <div class="modal-header">
-
-
-              <h4 class="modal-title">{{gridheader}} <i class='h5'>( {{jobitemselected.ClientName}} >
-                  {{jobitemselected.location}} > {{jobitemselected.job_title}})</i></h4>
-
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-
-              <!--<div class='col-md-2'>-->
-
-              <!--</div>-->
-
-
-
-
-
-
-
-
-            </div>
-            <div class="modal-body">
-              <div class="col-md-12 callbutton">
-                <a href="javascript:" title='call' data-target='#calldiv' data-toggle='modal' ng-if="mp.btn_can_call"
-                  mat-fab><i class="fa fa-phone"></i></a>
-
-
-
-                <a ng-if="mp.candidates_under_job_copyjob" class="btn btn-raised btn-sm" href="javascript:"
-                  data-toggle="modal" data-target="#addtojob">
-                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Add to Job</a>
-
-                <!-- <a ng-if="mp.btn_submit_cv_to_panel" class="btn btn-raised btn-sm" href="javascript:"
-                                  (click)="submit_cv_to_panel_status()">
-                                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Submit to Panel</a>
-
-                                <a href="javascript:" (click)="submitcv()" class="btn btn-raised btn-sm">
-                                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Submit Cv</a> -->
-              </div>
-              <div>
-
-
-                <div style="text-align: right;">
-                  <!-- <button type="button" class="btn  btn-raised btnnew btn-sm"
-                    (click)="filterdrbytab('My Candidates', 'allcalled')" data-toggle="modal">All
-                    <span class="badge ng-binding">{{allcalledcandidate}}</span>
-                  </button>
-                  <button type="button" class="btn  btn-raised btnnew1 btn-sm"
-                    (click)="filterdrbytab('My Candidates', 'calledinterested')" data-toggle="modal">Interested
-                    <span class="badge ng-binding">{{calledinterested}}</span>
-                  </button>
-                  <button type="button" class="btn  btn-raised btnnew2 btn-sm"
-                    (click)="filterdrbytab('My Candidates', 'callednotinterested ')" data-toggle="modal">Not interested
-                    <span class="badge ng-binding">{{callednotinterested}}</span>
-                  </button>
-                  <button type="button" class="btn  btn-raised btnnew5 btn-sm"
-                    (click)="filterdrbytab('My Candidates', 'isinterview')" data-toggle="modal">Call back request
-                    <span class="badge ng-binding">{{callbackrequest}}</span>
-                  </button>
-                  <button type="button" class="btn  btn-raised btnnew3 btn-sm"
-                    (click)="filterdrbytab('My Candidates',  'incompletecall','tocall')" data-toggle="modal"> To call/No
-                    Status
-                    <span class="badge ng-binding">{{tocall}}/{{incompletecall}}}</span>
-                  </button>
-                  <button type="button" class="btn  btn-raised btnnew4 btn-sm"
-                    (click)="filterdrbytab('My Candidates', 'couldnotconnect')" data-toggle="modal">Could not connect
-                    <span class="badge ng-binding">{{couldnotconnect}}</span>
-                  </button> -->
-                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
-                    (click)="filterdrbytab('My Candidates', 'allcalled')" data-toggle="modal">All
-                  </button>
-
-                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
-                    (click)="filterdrbytab('My Candidates', 'calledinterested')" data-toggle="modal">Interested
-                  </button>
-
-                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
-                    (click)="filterdrbytab('My Candidates', 'callednotinterested')" data-toggle="modal">Not interested
-                  </button>
-
-                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
-                    (click)="filterdrbytab('My Candidates', 'isinterview')" data-toggle="modal">Call Back Request
-                  </button>
-
-                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
-                    (click)="filterdrbytab('My Candidates','incompletecall')" data-toggle="modal">To call/No status
-                  </button>
-
-                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
-                    (click)="filterdrbytab('My Candidates', 'couldnotconnect')" data-toggle="modal">Could Not Connect
-                  </button>
-                </div>
-
-
-              </div>
-              <div class="col-md-12">
-
-
-                <ag-grid-angular style="width: 100%; height: 500px;" rowHeight=500px; class="ag-theme-material"
-                  rowSelection='multiple' rowMultiSelectWithClick='true' rowDeselection='true' [rowData]="rowData"
-                  [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
-                  [groupSelectsChildren]="true" paginationAutoPageSize='false'
-                  (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowGroupPanelShow]="rowGroupPanelShow"
-                  [pivotPanelShow]="pivotPanelShow" [rowHeight]="rowHeight" [enableRangeSelection]="true"
-                  [getRowHeight]='getRowHeight' [pagination]="true" (gridReady)="onGridReady($event)"
-                  (rowdata)="bindrowdata($event)" (rowClicked)="onRowClicked($event)">
-                </ag-grid-angular>
-                <div class="clearfix clear"></div>
-              </div>
-              <div class="clearfix clear"></div>
-
-            </div>
-
-          </div>
-
-        </div>
-      </div>
+     
       <!-- All End Candidate-->
       <!-- All Candidate -->
       <div class="modal fade" id="internalreference" role="dialog">

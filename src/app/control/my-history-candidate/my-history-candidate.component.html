@@ -2,8 +2,8 @@
   <div class="row col-md-12" style="width: 100%;">
       <div class="col-sm-4">
         <ul class="list-unstyled">
-          <li class='i'> <a href="#" target="_blank"  data-action-type="candidateshow"> {{row.entity.candidateName}}</a>   <b style="cursor: pointer;" class="name"  *ngIf="row.entity.recruitershow">
-            <a target="_blank" href="candidate/ {{row.entity.id}}  , {{row.entity.jobid}} ">   
+          <li class='i'> <a href="#" target="_blank"  data-action-type="candidateshow"> {{row.entity.candidateName}}</a>   <b style="cursor: pointer;" class="name"  >
+            <a target="_blank" href="candidate/{{row.entity.id}}">
             <i style="margin-left: 5px;color:#5b4dcc;"     title="Open Candidate" class="fa fa-link"></i></a>
                 <i data-action-type="notes" style="margin-left: 3px;color:red;" (click)="(row.entity.id)" title=" {{row.entity.comments}}" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
 
@@ -12,7 +12,7 @@
             <li>Current Designation:-  {{row.entity.currentDesignation}}</li>
             <li>Salary:-  {{row.entity.currentSalary}}</li>
             <li>Parshed Date: {{row.entity.updated_at}}</li>
-  
+
           </ul></div>
     <div class="col-sm-4">
         <ul class="list-unstyled">
@@ -28,7 +28,7 @@
         <li>Mobile : {{row.entity.mobileNo}}</li>
         <li>Location- {{row.entity.location}}</li>
         <li style="color: darkblue;">Recruiter Name: {{row.entity.recruitername}}</li>
-  
+
       </ul>
   </div>
   </div>

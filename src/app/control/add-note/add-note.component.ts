@@ -10,11 +10,11 @@ declare var $: any;
 export class AddNoteComponent implements OnInit {
 
   gridCandidateNotes = [];
-  CandidateNote = { candidate_id: 0, notes: {} };
+  CandidateNote = { candidate_id: 0, notes: '' };
   message: any;
   notes = [];
   pp = '';
-  isEditCandidateNote = false;
+  isEditCandidateNote = true;
   updated_id: any;
 
   candidate_id = 0;
@@ -55,7 +55,7 @@ export class AddNoteComponent implements OnInit {
       this.db.addmessageandremove('Added Successfully');
 
       this.message = {};
-      this.CandidateNote = { candidate_id: 0, notes: {} };
+      this.CandidateNote = { candidate_id: 0, notes: '' };
       this.GetNotes();
 
     });
@@ -68,7 +68,7 @@ export class AddNoteComponent implements OnInit {
     this.db.list('candidatenote/', { candidate_id: this.candidate_id }, (response): void => {
 
       debugger;
-
+      //this.isEditCandidateNote = false;
       try {
         this.pp = this.db.rooturi + 'profile/';
         this.gridCandidateNotes = response;

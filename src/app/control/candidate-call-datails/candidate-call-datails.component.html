@@ -1,68 +1,174 @@
+<div class='row col-md-12'>
 
-<div class='row' >
-
-  <div class="col-md-5">
-      <ul class="list-unstyled">
-        <li class='i'> <a href="#" target="_blank"  data-action-type="candidateshow"> {{row.entity.candidateName}}</a>   <b style="cursor: pointer;" class="name"  *ngIf="row.entity.recruitershow">
-            <a target="_blank" href="candidate/ {{row.entity.id}}  , {{row.entity.jobid}} ">
-            <i style="margin-left: 5px;color:#5b4dcc;"     title="Open Candidate" class="fa fa-link"></i></a>
-                <i data-action-type="notes" style="margin-left: 3px;color:red;" (click)="(row.entity.id)" title=" {{row.entity.comments}}" data-toggle="modal" data-target="#notesdetail" class="fa fa-comments-o"></i>
-
-
-            </b></li>
-          <li>{{row.entity.currentDesignation}}({{row.entity.currentOrganization}})</li>
-          <li>Email-{{row.entity.email}}</li><li>Qualification:{{row.entity.qualification}}</li></ul></div>
   <div class="col-md-4">
-      <ul class="list-unstyled"><li>Location- {{row.entity.location}}</li>
-          <li>Contact number: {{row.entity.mobileNo}}</li>
-          <li>Call ID-({{row.entity.call_id}}),({{row.entity.call_updated_at}})</li>
-          <li *ngIf="row.entity.last_action_date" class="text-info text-bold">
-             Last Action : <i>{{row.entity.last_action_date}}</i>
-          </li></ul>
+    <ul class="list-unstyled">
+      <li class='i'> <a href="#" target="_blank" data-action-type="candidateshow"> {{row.entity.candidateName}}</a> <b
+          style="cursor: pointer;" class="name" *ngIf="row.entity.recruitershow">
+          <a target="_blank" href="candidate/ {{row.entity.id}}  , {{row.entity.jobid}} ">
+            <i style="margin-left: 5px;color:#5b4dcc;" title="Open Candidate" class="fa fa-link"></i></a>
+          <i data-action-type="notes" style="margin-left: 3px;color:red;" (click)="(row.entity.id)"
+            title=" {{row.entity.comments}}" data-toggle="modal" data-target="#notesdetail"
+            class="fa fa-comments-o"></i>
+
+
+        </b></li>
+      <li> <em style="color:grey; font-size: 12px;">Current Designation: </em> {{row.entity.currentDesignation}}
+      </li>
+      <li> <em style="color:grey; font-size: 12px;">Current Organization: </em> {{row.entity.currentOrganization}}</li>
+      <li><em style="color:grey; font-size: 12px;"> Email:</em> {{row.entity.email}}</li>
+      <li><em style="color:grey; font-size: 12px;"> noticePeriod:</em> {{row.entity.noticePeriod}}</li>
+
+    </ul>
   </div>
-  <div class="col-md-3"><button type="button"  ng-click="grid.appScope.removecandidate(row.entity)"  *ngIf="row.entity.recruiter_id" class="close pull-right" >×</button>
-      <!-- <b class="text-success text-center i">{{row.entity.job_name}}
+  <div class="col-md-4">
+    <ul class="list-unstyled">
+      <li><em style="color:grey; font-size: 12px;"> Location- </em> {{row.entity.location}}</li>
+      <li> <em style="color:grey; font-size: 12px;"> Contact number: </em> {{row.entity.mobileNo}}</li>
+      <li> <em style="color:grey; font-size: 12px;"> Call ID
+        </em>-({{row.entity.call_id}}),({{row.entity.call_updated_at}})</li>
+      <li *ngIf="row.entity.last_action_date" class="text-info text-bold">
+        <em style="color:grey; font-size: 12px;"> Last Action : </em> <i>{{row.entity.last_action_date}}</i>
+      </li>
+      <li><em style="color:grey; font-size: 12px;" >OvarallExperiance:</em>{{row.entity.ovarallExperiance}}</li>
+      <li><em style="color:grey; font-size: 12px;" >Salary:</em>{{row.entity.currentSalary}}</li>
+
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <!-- <button type="button" ng-click="grid.appScope.removecandidate(row.entity)"
+      *ngIf="row.entity.recruiter_id" class="close pull-right">×</button> -->
+    <!-- <b class="text-success text-center i">{{row.entity.job_name}}
 
       </b> -->
-      <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 1"  title="Connected" class="material-icons">phonelink_ring</i>
+    <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 1" title="Connected"
+      class="material-icons">phonelink_ring</i>
 
-      <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 2"  title="Not connected" class="material-icons">phonelink_erase</i>
-      <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 2"  title="Connected" class="material-icons">phonelink_ring</i>
+    <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 2" title="Not connected"
+      class="material-icons">phonelink_erase</i>
+    <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 2" title="Connected"
+      class="material-icons">phonelink_ring</i>
 
-      <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 3"  title="Not connected" class="material-icons">phonelink_erase</i>
-      <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 3"  title="Not connected" class="material-icons">phonelink_erase</i>
-      <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 3"  title="Connected" class="material-icons">phonelink_ring</i>
+    <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 3" title="Not connected"
+      class="material-icons">phonelink_erase</i>
+    <i style="margin-left: 10px;color:#e43d20;" *ngIf="row.entity.count_call == 3" title="Not connected"
+      class="material-icons">phonelink_erase</i>
+    <i style="margin-left: 10px;color:#71cc4d;" *ngIf="row.entity.count_call == 3" title="Connected"
+      class="material-icons">phonelink_ring</i>
 
-      <i style="margin-left: 30px;color:#71cc4d;" *ngIf="row.entity.typeofcall == 'INCOMING'"  title="Incoming Call" class="material-icons">phone_callback</i>
-      <i style="margin-left: 30px;color:#4d75cc;" *ngIf="row.entity.typeofcall == 'OUTGOING'"  title="Outgoing Call" class="material-icons">phone_forwarded</i>
+    <i style="margin-left: 30px;color:#71cc4d;" *ngIf="row.entity.typeofcall == 'INCOMING'" title="Incoming Call"
+      class="material-icons">phone_callback</i>
+    <i style="margin-left: 30px;color:#4d75cc;" *ngIf="row.entity.typeofcall == 'OUTGOING'" title="Outgoing Call"
+      class="material-icons">phone_forwarded</i>
 
-      <span *ngIf=" row.entity.vendorname!==undefined && row.entity.vendorname!==null && row.entity.vendorname.length > 0"  class="text-red">( Vendor -{{row.entity.vendorname}} )</span><div class="clearfix"></div>
-      <b class="text-info text-center" title='Recruiter'>{{row.entity.recruitername}}
-      </b>
-      <b *ngIf='row.entity.isReferred' title='Referrer name'>
-         ({{row.entity.referrerName}})
-      </b>
+    <span *ngIf=" row.entity.vendorname!==undefined && row.entity.vendorname!==null && row.entity.vendorname.length > 0"
+      class="text-red">( Vendor -{{row.entity.vendorname}} )</span>
+    <div class="clearfix"></div>
+    <b class="text-info text-center" title='Recruiter'>{{row.entity.recruitername}}
+    </b>
+    <b *ngIf='row.entity.isReferred' title='Referrer name'>
+      ({{row.entity.referrerName}})
+    </b>
 
-      <a href="javascript:"  class="btn btn-raised btn-info btn-sm"   ng-if="row.entity.id"  *ngIf="row.entity.recruitershow" data-target="#commentstatus2" data-toggle="modal" data-action-type='comment'    >
-          {{row.entity.disposition}}<span *ngIf="row.entity.disposition == null"> {{row.entity.call_status}}</span>
-      </a>
-      <!-- <a href="javascript:"  class="btn btn-raised btn-info btn-sm"   ng-if="row.entity.id"  *ngIf="row.entity.recruitershow" target="#commentstatus" data-toggle="modal" data-action-type='comment'    >
+    <a href="javascript:" class="btn btn-raised btn-info btn-sm" ng-if="row.entity.id" *ngIf="row.entity.recruitershow"
+      data-target="#commentstatus2" data-toggle="modal" data-action-type='comment'>
+      {{row.entity.disposition}}<span *ngIf="row.entity.disposition == null"> {{row.entity.call_status}}</span>
+    </a>
+    <!-- <a href="javascript:"  class="btn btn-raised btn-info btn-sm"   ng-if="row.entity.id"  *ngIf="row.entity.recruitershow" target="#commentstatus" data-toggle="modal" data-action-type='comment'    >
         {{row.entity.disposition}}
     </a> -->
 
 
 
-      <!-- <span *ngIf="!row.entity.recruitershow"   class="link-black i"><i class="fa fa-files-o fa-lg"></i> {{row.entity.display_name}}</span> -->
+    <!-- <span *ngIf="!row.entity.recruitershow"   class="link-black i"><i class="fa fa-files-o fa-lg"></i> {{row.entity.display_name}}</span> -->
 
 
-      <!-- <button class="btn btn-raised btn-danger btn-sm" *ngIf="row.entity.recruitershow" data-target="#activity" data-toggle="modal" data-action-type='activity' (click)="activity(row.entity)" >Activity</button> -->
-      <br/>
-      <!-- <a href="" *ngIf="row.entity.recruitershow" class="text-danger" ng-click="grid.appScope.setatjidentity(row.entity)" >Custom Tracker Data</a>status -->
+    <!-- <button class="btn btn-raised btn-danger btn-sm" *ngIf="row.entity.recruitershow" data-target="#activity" data-toggle="modal" data-action-type='activity' (click)="activity(row.entity)" >Activity</button> -->
+    <br />
+    <!-- <a href="" *ngIf="row.entity.recruitershow" class="text-danger" ng-click="grid.appScope.setatjidentity(row.entity)" >Custom Tracker Data</a>status -->
 
-      <button *ngIf="row.entity.conversation== '[]'" href="" class="btn btn-sm btn-danger btn-raised"  data-action-type='conversation' disabled >Conversation</button>
-      <button *ngIf="row.entity.chat_conv_done== 0"href="" class="btn btn-sm btn-danger btn-raised"  data-action-type='chat' disabled >chat</button>
-      <button *ngIf="row.entity.conversation!= '[]'" href="" class="btn btn-sm btn-danger btn-raised"  data-action-type='conversation'  >Conversation</button>
-      <button *ngIf="row.entity.chat_conv_done== 1"href="" class="btn btn-sm btn-danger btn-raised"  data-action-type='chat'  >chat</button>      <button  data-action-type='openpopup'  class="btn  btn-raised btn-sm"><a href="http://api.passivereferral.com/recording/?id={{row.entity.call_id}}"  ng-click="grid.appScope.openpopup(row.entity.call_id)" target="_blank" >Play</a></button>
-      <a *ngIf="row.entity.invoice_id" href="#"  class="pull-right"><span data-toggle="tooltip" ngf-accept='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"' ngf-pattern='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"'  ngf-select="grid.appScope.uploadinvoicevendor($file,row.entity.invoice_id)" title="Upload">Upload Invoice</span></a>
+    <button href="" class="btn btn-sm btn-danger btn-raised" data-action-type='conversation'>Conversation</button>
+    <button data-action-type='openpopup' class="btn  btn-raised btn-sm"><a
+        href="http://api.passivereferral.com/recording/?id={{row.entity.call_id}}"
+        ng-click="grid.appScope.openpopup(row.entity.call_id)" target="_blank">Play</a></button>
+    <a *ngIf="row.entity.invoice_id" href="#" class="pull-right"><span data-toggle="tooltip"
+        ngf-accept='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"'
+        ngf-pattern='"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"'
+        ngf-select="grid.appScope.uploadinvoicevendor($file,row.entity.invoice_id)" title="Upload">Upload
+        Invoice</span></a>
 
-  </div></div>
+  </div>
+
+  <div class="row col-md-12">
+    <div class="col-sm-12">
+        <ul class="list-unstyled" style="width: 100%;">
+          <li><em style="color:grey; font-size: 12px;">Qualification: </em> {{row.entity.qualification}}</li>
+            <li><em style="color:grey; font-size: 12px;">Skill Set: </em> {{row.entity.skillSet}}</li>
+            </ul>
+    </div>
+    </div>
+
+
+
+    <div class="row col-md-12 rating">
+      <div class="col-sm-3 first">
+        <ul class="list-unstyled" style="width: 100%;">
+       <li  *ngIf="row.entity.skill1 <= 1.9"> <div style="color: #e43d20;"><span class="material-icons" style="font-size: 15px;">
+        star_rate
+        </span>    {{row.entity.skill1}} </div> {{row.entity.first_skill}} </li>
+        <li  *ngIf="row.entity.skill1 >= 2 && row.entity.skill1 <= 3"> <div style="color: #ffa500;"><span class="material-icons" style="font-size: 15px;">
+          star_rate
+          </span>    {{row.entity.skill1}} </div> {{row.entity.first_skill}}</li>
+  
+          <li  *ngIf="row.entity.skill1 >= 3.1"> <div style="color: #1df52f;"><span class="material-icons" style="font-size: 15px;">
+            star_rate
+            </span>    {{row.entity.skill1}} </div> {{row.entity.first_skill}}</li>
+        </ul>
+      </div>
+
+      <div class="col-sm-3">
+        <ul class="list-unstyled" style="width: 100%;">
+       <li  *ngIf="row.entity.skill2 <= 1.9"> <div style="color: #e43d20;"><span class="material-icons" style="font-size: 15px;">
+        star_rate
+        </span>    {{row.entity.skill2}} </div> {{row.entity.second_skill}} </li>
+        <li  *ngIf="row.entity.skill2 >= 2 && row.entity.skill2 <= 3"> <div style="color: #ffa500;"><span class="material-icons" style="font-size: 15px;">
+          star_rate
+          </span>    {{row.entity.skill2}} </div> {{row.entity.second_skill}}</li>
+  
+          <li  *ngIf="row.entity.skill2 >= 3.1"><div style="color: #1df52f;"><span class="material-icons" style="font-size: 15px;">
+            star_rate
+            </span>    {{row.entity.skill2}} </div> {{row.entity.second_skill}}</li>
+        </ul>
+      </div>
+
+      <div class="col-sm-3">
+        <ul class="list-unstyled" style="width: 100%;">
+       <li  *ngIf="row.entity.skill3 <= 1.9"><div style="color: #e43d20;"><span class="material-icons" style="font-size: 15px;">
+        star_rate
+        </span>    {{row.entity.skill3}} </div> {{row.entity.third_skill}}</li>
+        <li  *ngIf="row.entity.skill3 >= 2 && row.entity.skill3 <= 3"> <div style="color: #ffa500;"><span class="material-icons" style="font-size: 15px;">
+          star_rate
+          </span>    {{row.entity.skill3}} </div>{{row.entity.third_skill}}</li>
+  
+          <li  *ngIf="row.entity.skill3 >= 3.1"> <div style="color: #1df52f;"><span class="material-icons" style="font-size: 15px;">
+            </span>    {{row.entity.skill3}} </div> {{row.entity.third_skill}} </li>
+        </ul>
+      </div>
+
+      <div class="col-sm-3 avg">
+        <ul class="list-unstyled" style="width: 100%;">
+       <li  *ngIf="row.entity.avg_rating <= 1.9"> <button class="btn btn-raised btn-sm btn-danger" title='Average'><span class="material-icons">
+        star_rate
+        </span>    {{row.entity.avg_rating}} </button></li>
+        <li  *ngIf="row.entity.avg_rating >= 2 && row.entity.avg_rating <= 3"> <button class="btn btn-raised btn-sm btn-warning" title='Average'><span class="material-icons">
+          star_rate
+          </span>    {{row.entity.avg_rating}} </button></li>
+  
+          <li  *ngIf="row.entity.avg_rating >= 3.1"> <button class="btn btn-raised btn-sm btn-success" title='Average'><span class="material-icons">
+            star_rate
+            </span>    {{row.entity.avg_rating}} </button></li>
+        </ul>
+      </div>
+      </div>
+  <div class="col-sm-12" style="width: 940px;"> </div>
+
+</div>

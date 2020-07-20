@@ -27,10 +27,11 @@
                     </ul>
                   </div>
 
-                  <input type="text" class="form-control" ng-auto-complete callback-fn='jobnamesuggest()' id='jobssearch'
-                  [(ngModel)]="searchcandidatetext" (change)="filteragain()" placeholder="Search Jobs">
-                <input type="text" style="display: none;" class="form-control" id='candidatessearch'
-                  [(ngModel)]="searchcandidate" (change)="filterbycandidate()" placeholder="Search Candidates">
+                  <input type="text" class="form-control" ng-auto-complete callback-fn='jobnamesuggest()'
+                    id='jobssearch' [(ngModel)]="searchcandidatetext" (change)="filteragain()"
+                    placeholder="Search Jobs">
+                  <input type="text" style="display: none;" class="form-control" id='candidatessearch'
+                    [(ngModel)]="searchcandidate" (change)="filterbycandidate()" placeholder="Search Candidates">
 
                   <span class="input-group-btn">
                     <button class="btn  btn-raised btn-default" (click)="filterbyJob()" type="button">
@@ -115,9 +116,23 @@
           <div class="row">
 
             <div class="col-md-12">
-              <div class="card" (click)="selectdeselect($event,item)"
+              <div class="card" style="border: 1px solid grey; height: 130px;" (click)="selectdeselect($event,item)"
                 *ngFor="let item of jobslist |myfilter: searchcandidatetext| orderBy:'updated_at' | paginate: { itemsPerPage: 10, currentPage: p };  let i = index">
-                <div class="card-header card-header-{{item.selected?'success':'info'}}">
+                <div class="card-header card-header-{{item.selected?'info':'none'}}"
+                  style="margin-top: 0px; height: 125px;" title="{{item.Assign_Recruter}}">
+                  <h4 class="card-title">
+                    <a class="title_in" href="/editjob/{{item.id}}" ___stopclick="showJob(item.id, $event)"
+                      title="{{item.Assign_Recruter}}">
+                      <span class="hightlighted_keyword" style="color:darkblue"> {{item.job_title}}</span> &nbsp;
+                    </a>
+                    <span itemprop="title" class="title_in" style="margin-right:2px;">
+                      <span style="color: black;">( Job ID :
+                        {{item.category_code}}{{item.id}})</span> &nbsp;
+                      <span itemtype="#" help='Client' style="color: black;">{{item.ClientName}} </span>
+
+                    </span>
+                  </h4>
+
                   <h4 class="card-title">
                     <!-- {{i}}  -->
                     <a class="title_in" target="_blank" href="/#/myjob/{{item.id}}"
@@ -128,144 +143,148 @@
                         <span class="hightlighted_keyword"> {{item.job_title}} </span>
 
                       </span>
-                    </a> </h4>
-                  <p class="card-category">
+                    </a>
                     <span>( Job ID : {{item.category_code}}{{item.id}} )</span>
 
                     <span itemtype="#" help='Client'>{{item.ClientName}}{{item.created_at}} </span>
-
                     <span style='padding-left:10px; display:inline-block;'>
                       <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
                       ng-hide='mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
                       class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
                       <i class="fa fa-check"></i>
-                    </span></p>
-                </div>
-                <div class="card-body table-responsive">
-                  <div class="member-social pull-right col-md-6 shareparent" style="text-align: right;">
+                    </span>
+                  </h4>
+
+                  <p class="card-category">
+
+                    <span class="pull-right socialdiv" (mouseenter)="enter(i)" (mouseleave)="leave(i)" itemtype="#">
 
 
-                    <!-- <a mat-mini-fab class="" help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
+                      &nbsp;
+
+                      <!-- <a mat-mini-fab class="" help="Assign to recruiter" href="javascript:" (click)="assignjobClick()">
                       <i class="fa fa-share-square-o"></i>
                     </a> -->
-                    <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
+                      <!--<a   ng-show='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
 
-                    <!-- <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager' title="Approve by Manager"
+                      <!-- <a mat-mini-fab ng-show='mp.btn_approve_job_by_manager' title="Approve by Manager"
                       href="javascript:" (click)="is_approved_by_manager(item)">
                       <i class="fa fa-check"></i>
                     </a> -->
+                      &nbsp;
 
-                    <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item);" [ngClass]="{'test': item.tagged==='11','redClass' :item.tagged =='11'}"  >
+                      <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item);"
+                        [ngClass]="{'test': item.tagged==='11','redClass' :item.tagged =='11'}">
 
-                    <!-- <a mat-mini-fab title="Tag" href="javascript:" (click)="tag(item)"> -->
-                      <i class="fa fa-tags"></i>
-                    </a>
-                    <!-- <a mat-mini-fab class="" help="Show JD" href="javascript:" style='color:black; background:#ffffbe;'
+                        <i class="fa fa-tags icones"></i>
+                      </a>&nbsp;
+                      <!-- <a mat-mini-fab class="" help="Show JD" href="javascript:" style='color:black; background:#ffffbe;'
                       (click)="item.responsibilityshow=!item.responsibilityshow;">
                       <i class="fa fa-bolt "></i>
                     </a> -->
-                    <!-- <a mat-mini-fab ng-show='item.visibleonwebsite==1' class=""
+                      <!-- <a mat-mini-fab ng-show='item.visibleonwebsite==1' class=""
                       href="{{$url}}/{{item.slug}}/{{item.id}}/{{profile.id}}" target="_blank"
                       style='color:red; background:white;' help='Visible on Website'>
                       <i class="fa fa-eye "></i>
                     </a> -->
 
-                    <!-- <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
+                      <!-- <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
                                           href="https://www.facebook.com/sharer/sharer.php?u={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
                                           target="_blank">
                                           <i class="fa fa-facebook "></i>
                                         </a> -->
 
-                    <!-- <a mat-mini-fab class="twitter" ng-hide="profile.isvendor=='1'"
+                      <!-- <a mat-mini-fab class="twitter" ng-hide="profile.isvendor=='1'"
                                           href="https://twitter.com/share?url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&text={{item.job_title}}"
                                           target="_blank">
                                           <i class="fa fa-twitter  "></i>
                                         </a> -->
 
-                    <!-- <a mat-mini-fab class="linkedin" ng-hide="profile.isvendor=='1'"
+                      <!-- <a mat-mini-fab class="linkedin" ng-hide="profile.isvendor=='1'"
                                           href="https://www.linkedin.com/shareArticle?mini=true&url={{$url}}{{item.slug}}/{{item.id}}/{{profile.id}}&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
                                           target="_blank">
                                           <i class="fa fa-linkedin "></i>
                                         </a> -->
-                    <!-- <a mat-mini-fab data-toggle="modal" *ngIf="db.mp.btn_take_internal_refeference"
+                      <!-- <a mat-mini-fab data-toggle="modal" *ngIf="db.mp.btn_take_internal_refeference"
                       data-target="#internalreference" href="javascript:"
                       (click)="GetInHourseReference(item.id, $event)" class="text-danger" help='get reference internal'
                       title='get reference internal'>
                       <i class="fa fa-bullhorn  " style="color:white;"></i>
                     </a> -->
-                    <!-- <a mat-mini-fab href="#" class="pull-right text-aqua" *ngIf="db.mp.btn_upload_cv_myjobs">
+                      <!-- <a mat-mini-fab href="#" class="pull-right text-aqua" *ngIf="db.mp.btn_upload_cv_myjobs">
                                           <i data-toggle="tooltip" ngf-select="uploadinvoicevendor($file,11)" help="Upload CVs(Excel)"
                                             class="fa fa-upload"></i>
                                         </a> -->
 
-                    <!-- <div class="sharediv">
+                      <!-- <div class="sharediv">
                                           Share for Apply : <a mat-mini-fab class="facebook" ng-hide="profile.isvendor=='1'"
                                             href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
                                             target="_blank">
                                             <i class="fa fa-facebook "></i>
                                           </a> -->
 
-                    <!-- <a class="twitter" mat-mini-fab ng-hide="profile.isvendor=='1'"
+                      <!-- <a class="twitter" mat-mini-fab ng-hide="profile.isvendor=='1'"
                                             href="https://twitter.com/share?url={{$urlapply}}{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
                                             target="_blank">
                                             <i class="fa fa-twitter  "></i>
                                           </a> -->
 
-                    <!-- <a class="linkedin" mat-mini-fab ng-hide="profile.isvendor=='1'"
+                      <!-- <a class="linkedin" mat-mini-fab ng-hide="profile.isvendor=='1'"
                                             href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
                                             target="_blank">
                                             <i class="fa fa-linkedin "></i>
                                           </a>
 
                                       </div>-->
-                  </div>
+                      &nbsp;
+                    </span>
+                  </p>
 
-                  <div class="col-md-8">
+                  <div class="col-md-10" style="margin-top: 20px;">
                     <div class='row buttonwithnumber'>
 
                       <button mat-raised-button color="primary" matBadge="{{item.allcalledcandidate}}"
-                        matBadgePosition="after" matBadgeColor="accent" class=" "
+                        matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm"
                         (click)="filterdrbytab('My Candidates', 'allcalled', item)" data-toggle="modal"
                         data-target="#candidatesall">All
                       </button>
 
                       <button mat-raised-button color="primary" matBadge="{{item.calledinterested}}"
-                        matBadgePosition="after" matBadgeColor="accent" class=" "
+                        matBadgePosition="after" matBadgeColor="accent" class=" btn btn-sm"
                         (click)="filterdrbytab('My Candidates', 'calledinterested', item)" data-toggle="modal"
                         data-target="#candidatesall">Interested
                       </button>
 
                       <button mat-raised-button color="primary" matBadge="{{item.callednotinterested}}"
-                        matBadgePosition="after" matBadgeColor="accent" class=" "
+                        matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm "
                         (click)="filterdrbytab('My Candidates', 'callednotinterested', item)" data-toggle="modal"
                         data-target="#candidatesall">Not interested
                       </button>
 
                       <button mat-raised-button color="primary" matBadge="{{item.callbackrequest}}"
-                        matBadgePosition="after" matBadgeColor="accent" class=" "
+                        matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm "
                         (click)="filterdrbytab('My Candidates', 'callbackrequest', item)" data-toggle="modal"
                         data-target="#candidatesall">Call Back Request
                       </button>
 
                       <button mat-raised-button color="primary" matBadge="{{item.tocall}}/{{item.incompletecall}}"
-                        matBadgePosition="after" matBadgeColor="accent" class=" "
+                        matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm "
                         (click)="filterdrbytab('My Candidates', 'incompletecall', item)" data-toggle="modal"
                         data-target="#candidatesall">To call/No status
                       </button>
 
                       <button mat-raised-button color="primary" matBadge="{{item.couldnotconnect}}"
-                        matBadgePosition="after" matBadgeColor="accent" class=" "
+                        matBadgePosition="after" matBadgeColor="accent" class="btn btn-sm "
                         (click)="filterdrbytab('My Candidates', 'couldnotconnect', item)" data-toggle="modal"
                         data-target="#candidatesall">Could Not Connect
                       </button>
                     </div>
 
-                  </div>
-                  <div class="col-md-12" [hidden]="!item.responsibilityshow">
-                    <p class="htmlele">{{item.jobDescription}}</p>
+
                   </div>
 
                 </div>
+
               </div>
             </div>
           </div>
@@ -279,9 +298,9 @@
 
         <div class="clearfix"></div>
         <pagination-controls directionLinks="true" autoHide="true" responsive="true" previousLabel="Previous"
-        nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-        screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event">
-      </pagination-controls>
+          nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+          screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event">
+        </pagination-controls>
       </div>
 
 
@@ -333,7 +352,7 @@
 
                 <a ng-if="mp.candidates_under_job_copyjob" class="btn btn-raised btn-sm" href="javascript:"
                   data-toggle="modal" data-target="#addtojob">
-                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span>  Add to Job</a>
+                  <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Add to Job</a>
 
                 <!-- <a ng-if="mp.btn_submit_cv_to_panel" class="btn btn-raised btn-sm" href="javascript:"
                                   (click)="submit_cv_to_panel_status()">
@@ -371,41 +390,29 @@
                     (click)="filterdrbytab('My Candidates', 'couldnotconnect')" data-toggle="modal">Could not connect
                     <span class="badge ng-binding">{{couldnotconnect}}</span>
                   </button> -->
-                  <button mat-raised-button color="default"
-                  matBadgePosition="after" matBadgeColor="accent" class=" "
-                  (click)="filterdrbytab('My Candidates', 'allcalled')" data-toggle="modal"
-                  >All
-                </button>
+                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
+                    (click)="filterdrbytab('My Candidates', 'allcalled')" data-toggle="modal">All
+                  </button>
 
-                <button mat-raised-button color="default"
-                  matBadgePosition="after" matBadgeColor="accent" class=" "
-                  (click)="filterdrbytab('My Candidates', 'calledinterested')" data-toggle="modal"
-                  >Interested
-                </button>
+                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
+                    (click)="filterdrbytab('My Candidates', 'calledinterested')" data-toggle="modal">Interested
+                  </button>
 
-                <button mat-raised-button color="default"
-                  matBadgePosition="after" matBadgeColor="accent" class=" "
-                  (click)="filterdrbytab('My Candidates', 'callednotinterested')" data-toggle="modal"
-                  >Not interested
-                </button>
+                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
+                    (click)="filterdrbytab('My Candidates', 'callednotinterested')" data-toggle="modal">Not interested
+                  </button>
 
-                <button mat-raised-button color="default"
-                  matBadgePosition="after" matBadgeColor="accent" class=" "
-                  (click)="filterdrbytab('My Candidates', 'isinterview')" data-toggle="modal"
-                  >Call Back Request
-                </button>
+                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
+                    (click)="filterdrbytab('My Candidates', 'isinterview')" data-toggle="modal">Call Back Request
+                  </button>
 
-                <button mat-raised-button color="default"
-                  matBadgePosition="after" matBadgeColor="accent" class=" "
-                  (click)="filterdrbytab('My Candidates','incompletecall')" data-toggle="modal"
-                  >To call/No status
-                </button>
+                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
+                    (click)="filterdrbytab('My Candidates','incompletecall')" data-toggle="modal">To call/No status
+                  </button>
 
-                <button mat-raised-button color="default"
-                  matBadgePosition="after" matBadgeColor="accent" class=" "
-                  (click)="filterdrbytab('My Candidates', 'couldnotconnect')" data-toggle="modal"
-                  >Could Not Connect
-                </button>
+                  <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent" class=" "
+                    (click)="filterdrbytab('My Candidates', 'couldnotconnect')" data-toggle="modal">Could Not Connect
+                  </button>
                 </div>
 
 
@@ -414,16 +421,13 @@
 
 
                 <ag-grid-angular style="width: 100%; height: 500px;" rowHeight=500px; class="ag-theme-material"
-                rowSelection='multiple'
-                rowMultiSelectWithClick='true'
-                rowDeselection='true'
-
-                  [rowData]="rowData" [columnDefs]="columnDefs" suppressCsvExport=false
-                  [suppressRowClickSelection]="true" [groupSelectsChildren]="true" paginationAutoPageSize='false'
-                  (selectionChanged)="onSelectionChanged($event)" [debug]="true"
-                  [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow" [rowHeight]="rowHeight"
-                  [enableRangeSelection]="true" [getRowHeight]='getRowHeight' [pagination]="true"
-                  (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)" (rowClicked)="onRowClicked($event)">
+                  rowSelection='multiple' rowMultiSelectWithClick='true' rowDeselection='true' [rowData]="rowData"
+                  [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
+                  [groupSelectsChildren]="true" paginationAutoPageSize='false'
+                  (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowGroupPanelShow]="rowGroupPanelShow"
+                  [pivotPanelShow]="pivotPanelShow" [rowHeight]="rowHeight" [enableRangeSelection]="true"
+                  [getRowHeight]='getRowHeight' [pagination]="true" (gridReady)="onGridReady($event)"
+                  (rowdata)="bindrowdata($event)" (rowClicked)="onRowClicked($event)">
                 </ag-grid-angular>
                 <div class="clearfix clear"></div>
               </div>
@@ -1049,28 +1053,28 @@
 
 
         <h4 class="modal-title">Conversation with {{callconversation.candidateName}} for {{callconversation.job_title}}
-          (<i>{{callconversation.recruiter}}</i>) <span class="pull-right">{{callconversation.call_status}}</span></h4>
+          (<i>{{callconversation.recruiter}}</i>) <span class="pull-right"><strong>{{callconversation.call_status}}</strong></span></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
 
-        <div id="player">
+        <div id="player">        </div>
 
-        </div>
+        <!-- <div id="nullconversation"></div> -->
         <div class="col-md-12" *ngFor="let value of conversationsobj">
 
-            <b title="{{value.start_speaking}} / {{value.end_speaking}}">{{value.key.split('__')[0]}}</b>
+          <b title="{{value.start_speaking}} / {{value.end_speaking}}">{{value.key.split('__')[0]}}</b>
 
-                <!-- <p  title="{{value.start_transcribe}} / {{value.end_transcribe}}">
+          <!-- <p  title="{{value.start_transcribe}} / {{value.end_transcribe}}">
               <a class="btn btn-link playlink"  href='{{getaudiolink(value.audio)}}'>
                 {{(value.text==''?'***':value.text)}}</a>
               </p>
               <div id="player">
 
               </div> -->
-              <!-- <div class="player"></div> -->
+          <!-- <div class="player"></div> -->
 
-                <p>{{(value.text==''?'***':value.text)}}</p>
+          <p>{{(value.text==''?'***':value.text)}}</p>
 
         </div>
 
@@ -1089,7 +1093,33 @@
   </div>
 </div>
 
-<app-add-to-job [allids]='allids' [callids]='callids'  ></app-add-to-job>
+<div id="conversationnull" class="modal fade" style="z-index: 1051;" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+
+        <h4 class="modal-title">Conversation with {{callconversation.candidateName}} for {{callconversation.job_title}}
+          (<i>{{callconversation.recruiter}}</i>) <span class="pull-right">{{callconversation.call_status}}</span></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div id="player">
+
+        </div>
+
+        <div class="clear " style="clear:both;"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<app-add-to-job [allids]='allids' [callids]='callids'></app-add-to-job>
 <app-add-note [set_candidate_id]='candidate_id'></app-add-note>
 <app-add-candidate></app-add-candidate>
 <!-- <app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status> -->

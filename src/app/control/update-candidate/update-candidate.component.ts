@@ -86,6 +86,7 @@ export class UpdateCandidateComponent implements OnInit {
     $('#notesdetail').modal('show');
   }
   candidateshow(id) {
+    debugger;
     $('#candidateshow').modal('show');
     this.updateid = id;
     this.trackerjobdata = {};
@@ -96,6 +97,7 @@ export class UpdateCandidateComponent implements OnInit {
       this.db.list('master/country', {
         'gi': 'rolecreating'
       }, (response): void => {
+        debugger;
         this.countries = response;
       });
     }
@@ -105,7 +107,7 @@ export class UpdateCandidateComponent implements OnInit {
         'candidate_id': id,
         'jobid': this.globaljobid
       }, (response): void => {
-
+debugger
         this.ProfileData = response.ProfileData;
         this.JobData = response.JobData;
       });

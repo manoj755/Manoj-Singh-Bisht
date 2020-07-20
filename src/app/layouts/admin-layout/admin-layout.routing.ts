@@ -11,6 +11,7 @@ export const AdminLayoutRoutes: Routes = [
   { path: 'grid', component: GridComponent },
 
   //{ path: 'dashboard', loadChildren: '../../dashboard/dashboard.module#DashboardModule' },
+  { path: 'call-view/:jobid', loadChildren: '../../candidate-call-view/candidate-call-view.module#CandidateCallViewModule' },
 
   { path: 'internaldatabase', loadChildren: '../../internal-database/internal-database.module#InternalDatabaseModule' },
   { path: 'history', loadChildren: '../../history/history.module#HistoryModule' },

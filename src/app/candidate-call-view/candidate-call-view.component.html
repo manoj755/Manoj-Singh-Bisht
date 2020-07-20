@@ -1,0 +1,469 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="col-md-12 callbutton">
+      <a href="javascript:" title='call' data-target='#calldiv' data-toggle='modal' ng-if="mp.btn_can_call" mat-fab><i
+          class="fa fa-phone"></i></a>
+
+
+
+      <a ng-if="mp.candidates_under_job_copyjob" class="btn btn-raised btn-sm" href="javascript:" data-toggle="modal"
+        data-target="#addtojob">
+        <span class="glyphicon glyphicon-log-in" style="color:#0c0c0c;"></span> Add to Job</a>
+    </div>
+    <div>
+
+
+      <div style="text-align: right;">
+
+        <button mat-raised-button color="primary" matBadgePosition="after" matBadgeColor="accent"
+          class="btn  btn-activecolor hightlighted_keyword btn-sm" (click)="filterdrbytab('My Candidates', 'allcalled')"
+          data-toggle="modal">All
+        </button>
+
+        <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent"
+          class="btn  btn-activecolor hightlighted_keyword btn-sm "
+          (click)="filterdrbytab('My Candidates', 'calledinterested')" data-toggle="modal">Interested
+        </button>
+        <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent"
+          class="btn  btn-activecolor hightlighted_keyword btn-sm "
+          (click)="filterdrbytab('My Candidates', 'calledinterested')" data-toggle="modal">Interested
+        </button>
+
+        <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent"
+          class="btn  btn-activecolor hightlighted_keyword btn-sm "
+          (click)="filterdrbytab('My Candidates', 'callednotinterested')" data-toggle="modal">Not interested
+        </button>
+
+        <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent"
+          class="btn  btn-activecolor hightlighted_keyword btn-sm "
+          (click)="filterdrbytab('My Candidates', 'isinterview')" data-toggle="modal">Call Back Request
+        </button>
+
+        <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent"
+          class="btn  btn-activecolor hightlighted_keyword btn-sm "
+          (click)="filterdrbytab('My Candidates','incompletecall')" data-toggle="modal">To call/No status
+        </button>
+
+        <button mat-raised-button color="default" matBadgePosition="after" matBadgeColor="accent"
+          class="btn  btn-activecolor hightlighted_keyword btn-sm "
+          (click)="filterdrbytab('My Candidates', 'couldnotconnect')" data-toggle="modal">Could Not Connect
+        </button>
+      </div>
+
+
+    </div>
+    <div>
+
+      <div class="row" *ngFor="let data of jobsdata">
+
+        <div class="col-md-3" style="border: 1px solid black; background-color: white;">
+          <div class="row">
+            <div class="col-md-12 row" style="height: 50px; margin-top: 15px;">
+              <span class="material-icons">
+                filter_list
+              </span>
+              <p style="margin-left: 20px; margin-top: -3px;">
+                <strong>
+                  <h2>Apply Filter</h2>
+                </strong>
+              </p>
+            </div>
+
+            <div class="col-md-12 row">
+              <div class="col-md-8"><strong> Search Candidate</strong>
+              </div>
+            </div>
+
+
+            <div class="col-md-11">
+              <input type="text" class="form-control" id='candidatessearch' [(ngModel)]="searchcandidate"
+                (keyup)="loadCandidate()" placeholder="Search Candidates"> </div>
+
+            <div class="col-md-12 row">
+              <div class="col-md-4"> <strong>Freshness
+                </strong> </div>
+            </div>
+
+
+            <div class="col-md-12 row">
+              <div class="col-md-6">
+
+
+                <mat-form-field>
+                  <input matInput [(ngModel)]="item.start_date_temp" [matDatepicker]="picker" help="Choose Start date"
+                    class="e">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+
+              </div>
+
+              <div class="col-md-6">
+
+                <mat-form-field>
+                  <input matInput [(ngModel)]="item.end_date_temp" [matDatepicker]="picker2" help="Choose End date"
+                    class="e">
+                  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+              </div>
+
+
+            </div>
+
+
+            <hr />
+            <div class="col-md-12 row">
+              <div class="col-md-4"><strong> locations</strong>
+              </div>
+              <div class="col-md-8">
+                <mat-select help="locations" (click)='locationshow()'> </mat-select>
+              </div>
+            </div>
+
+
+            <div class="col-md-11">
+              <mat-form-field>
+                <mat-select multiple="multiple" n="Owner" [(ngModel)]="location" (change)="loadCandidate()"
+                  placeholder="Select">
+                  <mat-option (click)="loadCandidate()" value="{{location}}" *ngFor="let location of locations">
+                    {{location}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <hr>
+
+
+            <div class="col-md-12 row">
+              <div class="col-md-4"><strong> Expreance</strong>
+              </div>
+              <div class="col-md-8">
+                <mat-select help="Expreance"> </mat-select>
+              </div>
+            </div>
+
+
+            <div class="col-md-12 row">
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select [(ngModel)]="exp10" name="expfrom" help="Experiance From">
+                    <mat-option (click)="loadCandidate()" value="0">Fresher</mat-option>
+                    <mat-option (click)="loadCandidate()" value="1">1 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="2">2 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="5">5 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="10">10 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="15">15 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="20">20 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="25">25 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="30">25+ years</mat-option>
+
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+
+              <div class="col-md-6">
+                <mat-form-field>
+                  <mat-select [(ngModel)]="expto" name="expto" help="Experiance to">
+                    <mat-option (click)="loadCandidate()" value="1">1 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="2">2 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="5">5 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="10">10 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="15">15 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="20">20 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="25">25 year</mat-option>
+                    <mat-option (click)="loadCandidate()" value="35">35 years</mat-option>
+                    <mat-option (click)="loadCandidate()" value="50">Any</mat-option>
+
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+
+              <!-- <mat-slider thumbLabel [displayWith]="formatLabel" (click)='loadCandidate()' [(ngModel)]="expto"
+                tickInterval="3" min="1" max="30"></mat-slider> -->
+
+            </div>
+
+
+
+            <hr>
+
+            <hr />
+            <div class="col-md-12 row">
+              <div class="col-md-4"><strong> Salary </strong>
+              </div>
+              <div class="col-md-8">
+                <mat-select help="Salary" (click)='locationshow()'> </mat-select>
+              </div>
+            </div>
+
+
+            <div class="col-md-12 row" *ngIf='showlocation'>
+              <div class="col-sm-6">
+                <mat-form-field>
+                  <mat-select name="salaryfrom" [(ngModel)]="salaryfrom" (change)="loadCandidate()" ngDefaultControl
+                    help='Salary From'>
+                    <mat-option (click)="loadCandidate()" value="0">-1 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="1">1 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="2">2 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="5">5 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="10">10 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="20">20 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="25">25 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="50">25+ Lacs</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+              </div>
+              <div class="col-sm-6">
+                <mat-form-field>
+                  <mat-select name="salaryto" [(ngModel)]="salaryto" (change)="loadCandidate()" ngDefaultControl
+                    help='Salary To'>
+                    <mat-option (click)="loadCandidate()" value="1">1 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="2">2 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="5">5 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="10">10 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="20">20 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="25">25 lacs</mat-option>
+                    <mat-option (click)="loadCandidate()" value="35">35</mat-option>
+                    <mat-option (click)="loadCandidate()" value="90">35+ Lacs</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+
+
+            </div>
+
+
+
+
+            <hr>
+
+
+            <div class="col-md-12 row">
+              <div class="col-md-4"><strong> Notice  Period</strong>
+              </div>
+            </div>
+
+
+            <div class="col-md-12 row">
+              <div class="col-md-12">
+              <mat-form-field>
+                <mat-select [(ngModel)]="noticp" name="noticp" help="Notice Period">
+                  <mat-option (click)="loadCandidate()" value="0">Any</mat-option>
+                  <mat-option (click)="loadCandidate()" value="15 Days or less">15 Days or less </mat-option>
+                  <mat-option (click)="loadCandidate()" value="1 Months">1 Months</mat-option>
+                  <mat-option (click)="loadCandidate()" value="2 Months">2 Months</mat-option>
+                  <mat-option (click)="loadCandidate()" value="3 Months">3 Months</mat-option>
+                  <!-- <mat-option (click)="loadCandidate()" value="More than 3 Months">More than 3 Months</mat-option>
+                  <mat-option (click)="loadCandidate()" value="Not Mentioned">Not Mentioned</mat-option>
+                  <mat-option (click)="loadCandidate()" value="Currenlty serving notice period">Currenlty serving notice
+                    period</mat-option> -->
+
+                </mat-select>
+              </mat-form-field>
+            </div>
+              <!-- <mat-slider thumbLabel [displayWith]="formatLabel" (click)='loadCandidate()' [(ngModel)]="noticp"
+                tickInterval="12" min="1" max="91"></mat-slider> -->
+
+            </div>
+
+
+            <div class="col-md-12 row">
+              <div class="col-md-6"> <strong>filter ratings
+                </strong> </div>
+              <div class="col-md-6">
+                <mat-select name="salaryto" [(ngModel)]="rating" (change)="rateingshow()" ngDefaultControl
+                  help='Rating'>
+                  <mat-option (click)="rateingshow()" value="0">Average</mat-option>
+                  <mat-option (click)="rateingshow()" value="1">{{data.first_skill}}
+                  </mat-option>
+                  <mat-option (click)="rateingshow()" value="2">{{data.second_skill}}
+                  </mat-option>
+                  <mat-option (click)="rateingshow()" value="3">{{data.third_skill}}
+                  </mat-option>
+                </mat-select>
+              </div>
+            </div>
+
+            <div class="col-md-12" *ngIf='Averages'>
+              <div class="col-md-4">
+                <p>Average</p>
+              </div>
+            </div>
+            <div class="col-sm-12 row" *ngIf='Averages'>
+              <div class="col-md-8 rating">
+                <input type="radio" value="5" name='Average' id="Average1" [(ngModel)]="avgreting"
+                  (click)="loadCandidate()"><label for="Average1"></label>
+                <input type="radio" value="4" name='Average' id="Average2" [(ngModel)]="avgreting"
+                  (click)="loadCandidate()"><label for="Average2"></label>
+                <input type="radio" value="3" name='Average' id="Average3" [(ngModel)]="avgreting"
+                  (click)="loadCandidate()"><label for="Average3"></label>
+                <input type="radio" value="2" name='Average' id="Average4" [(ngModel)]="avgreting"
+                  (click)="loadCandidate()"><label for="Average4"></label>
+                <input type="radio" value="1" name='Average' id="Average5" [(ngModel)]="avgreting"
+                  (click)="loadCandidate()"><label for="Average5"></label>
+              </div>
+            </div>
+            <hr />
+            <hr />
+
+
+            <div class="col-md-12" *ngIf='pskills'>
+              <div class="col-md-4">
+                <p>{{data.first_skill}}</p>
+              </div>
+            </div>
+            <div class="col-sm-12 row" *ngIf='pskills'>
+              <div class="col-md-8 rating">
+                <input type="radio" value="5" name='pskill' id="pskill1" [(ngModel)]="pskill"
+                  (click)="loadCandidate()"><label for="pskill1"></label>
+                <input type="radio" value="4" name='pskill' id="pskill2" [(ngModel)]="pskill"
+                  (click)="loadCandidate()"><label for="pskill2"></label>
+                <input type="radio" value="3" name='pskill' id="pskill3" [(ngModel)]="pskill"
+                  (click)="loadCandidate()"><label for="pskill3"></label>
+                <input type="radio" value="2" name='pskill' id="pskill4" [(ngModel)]="pskill"
+                  (click)="loadCandidate()"><label for="pskill4"></label>
+                <input type="radio" value="1" name='pskill' id="pskill5" [(ngModel)]="pskill"
+                  (click)="loadCandidate()"><label for="pskill5"></label>
+              </div>
+            </div>
+            <hr />
+            <hr />
+
+            <div class="col-md-12" *ngIf='sskills'>
+              <div class="col-md-4">
+                <p>{{data.second_skill}}</p>
+              </div>
+            </div>
+            <div class="col-sm-12 row" *ngIf='sskills'>
+              <div class="col-md-8 rating">
+                <input type="radio" value="5" name='sskill' id="sskill1" [(ngModel)]="sskill"
+                  (click)="loadCandidate()"><label for="sskill1"></label>
+                <input type="radio" value="4" name='sskill' id="sskill2" [(ngModel)]="sskill"
+                  (click)="loadCandidate()"><label for="sskill2"></label>
+                <input type="radio" value="3" name='sskill' id="sskill3" [(ngModel)]="sskill"
+                  (click)="loadCandidate()"><label for="sskill3"></label>
+                <input type="radio" value="2" name='sskill' id="sskill4" [(ngModel)]="sskill"
+                  (click)="loadCandidate()"><label for="sskill4"></label>
+                <input type="radio" value="1" name='sskill' id="sskill5" [(ngModel)]="sskill"
+                  (click)="loadCandidate()"><label for="sskill5"></label>
+              </div>
+            </div>
+
+            <hr />
+            <hr />
+
+
+            <div class="col-md-12" *ngIf='tskills'>
+              <div class="col-md-4">
+                <p>{{data.third_skill}}</p>
+              </div>
+            </div>
+            <div class="col-sm-12 row" *ngIf='tskills'>
+              <div class="col-md-8 rating">
+                <input type="radio" value="5" name='tskill' id="tskill1" [(ngModel)]="tskill"
+                  (click)="loadCandidate()"><label for="tskill1"></label>
+                <input type="radio" value="4" name='tskill' id="tskill2" [(ngModel)]="tskill"
+                  (click)="loadCandidate()"><label for="tskill2"></label>
+                <input type="radio" value="3" name='tskill' id="tskill3" [(ngModel)]="tskill"
+                  (click)="loadCandidate()"><label for="tskill3"></label>
+                <input type="radio" value="2" name='tskill' id="tskill4" [(ngModel)]="tskill"
+                  (click)="loadCandidate()"><label for="tskill4"></label>
+                <input type="radio" value="1" name='tskill' id="tskill5" [(ngModel)]="tskill"
+                  (click)="loadCandidate()"><label for="tskill5"></label>
+              </div>
+            </div>
+
+            <hr />
+            <hr />
+            <hr />
+            <hr />
+
+
+            <div class="col-md-12 pull-right">
+              <button class="btn btn-info btn-sm" (click)="loadCandidate()"> Filter </button>
+
+            </div>
+
+
+          </div>
+        </div>
+        <div class="col-md-9">
+          <ag-grid-angular style="width: 100%; height: 1000px;" rowHeight=500px; class="ag-theme-balham"
+            rowSelection='multiple' rowMultiSelectWithClick='true' rowDeselection='true' [rowData]="rowData"
+            [columnDefs]="columnDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
+            [groupSelectsChildren]="true" paginationAutoPageSize='false' (selectionChanged)="onSelectionChanged($event)"
+            [debug]="true" [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+            [rowHeight]="rowHeight" [enableRangeSelection]="true" [getRowHeight]='getRowHeight' [pagination]="true"
+            (gridReady)="onGridReady($event)" (rowdata)="bindrowdata($event)" (rowClicked)="onRowClicked($event)">
+          </ag-grid-angular>
+          <div class="clearfix clear"></div>
+        </div>
+
+        <div class="clearfix clear"></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<div id="conversation" class="modal fade" style="z-index: 1051;" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+
+        <h4 class="modal-title">Conversation with {{callconversation.candidateName}} for {{callconversation.job_title}}
+          (<i>{{callconversation.recruiter}}</i>) <span
+            class="pull-right"><strong>{{callconversation.call_status}}</strong></span></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div id="player"> </div>
+
+        <!-- <div id="nullconversation"></div> -->
+        <div class="col-md-12" *ngFor="let value of conversationsobj">
+
+          <b title="{{value.start_speaking}} / {{value.end_speaking}}">{{value.key.split('__')[0]}}</b>
+
+          <!-- <p  title="{{value.start_transcribe}} / {{value.end_transcribe}}">
+              <a class="btn btn-link playlink"  href='{{getaudiolink(value.audio)}}'>
+                {{(value.text==''?'***':value.text)}}</a>
+              </p>
+              <div id="player">
+
+              </div> -->
+          <!-- <div class="player"></div> -->
+
+          <p>{{(value.text==''?'***':value.text)}}</p>
+
+        </div>
+
+
+        <!-- <div>
+          <button title='{{callconversation.job_title}} ' class="btn  btn-raised btn-info pull-right">Add To
+            Job</button>
+        </div> -->
+
+        <div class="clear " style="clear:both;"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<app-add-to-job [allids]='allids' [callids]='callids'></app-add-to-job>
+<app-add-note [set_candidate_id]='candidate_id'></app-add-note>
+<app-add-candidate></app-add-candidate>
+<app-call [allids]='allids'></app-call>
+
+<app-update-candidate [current_data]='currentData'></app-update-candidate>

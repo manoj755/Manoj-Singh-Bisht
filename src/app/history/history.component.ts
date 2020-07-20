@@ -26,6 +26,7 @@ export class HistoryComponent implements OnInit {
   allids = [];
   managers: any;
   data: any = {};
+  candidateshowdata: any;
   enablesearch = false;
   enddate: any;
   startdate: any;
@@ -68,6 +69,7 @@ export class HistoryComponent implements OnInit {
   showexcelgrid = false;
   shownormalgrid = false;
   paginationPageSize: number;
+
   paginationNumberFormatter: (params: any) => string;
   private gridColumnApi;
 
@@ -99,26 +101,10 @@ export class HistoryComponent implements OnInit {
       sortable: true, filter: true,
       filterParams: { newRowsAction: 'keep' },
       cellRenderer: function (param) {
-        //debugger;
-        if (param.data.isInterview === 1) {
-
-          return `<button type='button' help='` + param.value + `' data-action-type='candidateshow' style="background:#3eaddc;"
-           data-toggle="modal" class='btn  btn-sm-danger'>
+        return `<button type='button' data-action-type='candidateshow' data-toggle="modal" class='btn  btn-sm'>
           ` + param.value + `
     </button>
   `;
-        } else if (param.data.not_scheduled === 'CV Shared') {
-          return `<button type='button' help='` + param.value + `' data-action-type='candidateshow' data-toggle="modal"
-          style="background:#ef8aa5;" class='btn  btn-sm'>
-          ` + param.value + `
-    </button>
-  `;
-        } else {
-          return `<button type='button' help='` + param.value + `' data-action-type='candidateshow' data-toggle="modal" class='btn  btn-sm'>
-          ` + param.value + `
-    </button>
-  `;
-        }
       }
     },
     {
@@ -295,6 +281,7 @@ export class HistoryComponent implements OnInit {
   filedata: string | Blob;
   parsedata: any;
   pageSizee: any;
+  countries: any;
 
   constructor(public db: DBService) {
     this.defaultColDef = {
@@ -304,12 +291,14 @@ export class HistoryComponent implements OnInit {
       enableValue: true,
       sortable: true,
       resizable: true,
-      filter: true
+      filter: true,
+      flex: 1,
+      minWidth: 100,
     };
     this.rowSelection = 'multiple';
     this.rowGroupPanelShow = 'always';
     this.pivotPanelShow = 'always';
-    this.paginationPageSize = 50;
+    this.paginationPageSize = 20;
     this.paginationNumberFormatter = function (params) {
       return '[' + params.value.toLocaleString() + ']';
     };
@@ -327,7 +316,7 @@ export class HistoryComponent implements OnInit {
 
   }
 
-  onPageSizeChanged(newPageSize) {
+  onPageSizeChanged() {
     debugger;
     var value = this.pageSizee;// document.getElementById('page-size').value;
     this.gridApi.paginationSetPageSize(Number(value));
@@ -616,7 +605,7 @@ onBtPrevious() {
         }
       }
       this.db.list('history/', this.data, ((response): void => {
-        ;
+        debugger;
         this.rowData = response;
         this.candidatedetails = response;
 
@@ -645,9 +634,9 @@ onBtPrevious() {
       console.log(response);
 
     });
-    this.db.list('loadlocation/', null, ((response): void => {
-      this.addresses = response;
-    }));
+    // this.db.list('loadlocation/', null, ((response): void => {
+    //   this.addresses = response;
+    // }));
   }
 
   filterhistory(): void {
@@ -963,17 +952,26 @@ onBtPrevious() {
     fileToUpload.push({ 'filekey': 'file', 'file': files.item(0) });
     this.db.storeupload('resumeuploade/', { file: files }, (response) => {
       debugger;
+      this.candidateshowdata = response[1];
       this.candidatename = response[1].Name;
       this.candidateemail = response[1].Email;
       this.candidatePhone = response[1].Phone;
       this.candidateskills = response[1].Skills;
       this.candidatefilenname = response[1].Filename;
-      this.candidateid = response[0].id;
+      this.candidateid = response[0];
       this.resumeDetails = true;
 
       // this.fileUploader.nativeElement.value = null;
       debugger;
-      $('#resume upload').modal('show');
+      if (this.candidateshowdata.Filename.indexOf('docx') === - 1) {
+        $('#resumeview').attr('src',
+          'https://docs.google.com/gview?url=http://api.passivereferral.com/new_parser_resume/' +
+          this.candidateshowdata.Filename + '&pid=explorer&efh=false&a=v&chrome=false&embedded=true');
+      } else {
+        $('#resumeview').attr('src',
+          'https://view.officeapps.live.com/op/embed.aspx?src=http://api.passivereferral.com/new_parser_resume/' + this.candidateshowdata.Filename);
+      }
+
       //
       // $scope.cvslists = response.data;
       this.db.showNotification('Resume Uploaded');
@@ -986,11 +984,46 @@ onBtPrevious() {
   getcandidatechange(): void {
     debugger;
 
-    this.data = {
-      'gender': this.candidategender,
-      'candidateid': this.candidateid, 'candidateName': this.candidatename, 'email': this.candidateemail, 'mobileNo': this.candidatePhone
+    debugger;
+    if (this.countries === undefined) {
+      this.db.list('master/country', {
+        'gi': 'rolecreating'
+      }, (response): void => {
+        this.countries = response;
+      });
     }
-    this.db.list('addnewcandidateresume/', this.data, (response) => {
+    this.candidateshowdata = {
+      'gender': this.candidateshowdata.gender,
+      'parseid': this.candidateid,
+      'candidateName': this.candidateshowdata.Name,
+      'email': this.candidateshowdata.Email,
+       'mobileNo': this.candidateshowdata.Phone,
+      'filename':this.candidatefilenname,
+      'dob': this.candidateshowdata.dob,
+      'currentSalary': this.candidateshowdata.currentSalary,
+      'currentOrganization': this.candidateshowdata.currentOrganization,
+      'noticePeriod': this.candidateshowdata.noticePeriod,
+      'expectedSalary': this.candidateshowdata.expectedSalary,
+      'currentDesignation': this.candidateshowdata.currentDesignation,
+      'state': this.candidateshowdata.state,
+      'city': this.candidateshowdata.city,
+      'location': this.candidateshowdata.location,
+      'preferredLocation': this.candidateshowdata.preferredLocation,
+      'qualification': this.candidateshowdata.Education,
+      'phoneNo': this.candidateshowdata.phoneNo,
+      'panNo': this.candidateshowdata.panNo ,
+      'nationality': this.candidateshowdata.nationality ,
+      'visaType': this.candidateshowdata.visaType ,
+      'remark': this.candidateshowdata.remark ,
+      'ovarallExperiance': this.candidateshowdata.ovarallExperiance ,
+      'relevantExperiance': this.candidateshowdata.relevantExperiance,
+      'address': this.candidateshowdata.address ,
+      'industryType': this.candidateshowdata.industryType ,
+      'functionalArea': this.candidateshowdata.functionalArea ,
+      'skillSet': this.candidateshowdata.Skills ,
+      'source': this.candidateshowdata.source ,
+      }
+    this.db.list('addnewcandidateresume/', this.candidateshowdata, (response) => {
       this.db.addmessageandremove('Candidate added successfully.');
       this.LoadHistory();
       this.resumeDetails = false;
