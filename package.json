@@ -56,7 +56,7 @@
     "grunt-cli": "^1.3.2",
     "hammerjs": "2.0.8",
     "jquery": "^3.4.1",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "^1.13.0",
     "md-dialog": "0.0.1-alpha.1",
     "moment": "2.22.1",
     "ng-pick-datetime": "^5.2.6",
